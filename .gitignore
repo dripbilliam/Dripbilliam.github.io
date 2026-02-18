@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Source files and build scripts (not needed for GitHub Pages)
+docs/
+GITHUB_PAGES.md
+
+# Temporary files
+*.tmp
+*.temp

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arelith Spell Search & Filter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #90cdf4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #cbd5e0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(144, 205, 244, 0.2);
+            border: 2px solid #90cdf4;
+            color: #90cdf4;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: rgba(144, 205, 244, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            color: #90cdf4;
+            font-size: 0.95em;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #4a5568;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #90cdf4;
+            box-shadow: 0 0 0 2px rgba(144, 205, 244, 0.2);
+        }
+
+        select option {
+            background: #2d3748;
+            color: #e0e0e0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #4299e1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .results-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-count {
+            font-size: 1.2em;
+            color: #90cdf4;
+            font-weight: bold;
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .spell-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 15px;
+        }
+
+        .spell-card {
+            background: rgba(45, 55, 72, 0.6);
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .spell-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            border-color: #90cdf4;
+        }
+
+        .spell-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #90cdf4;
+            margin-bottom: 8px;
+        }
+
+        .spell-school {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(144, 205, 244, 0.2);
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            color: #90cdf4;
+        }
+
+        .spell-level {
+            font-size: 0.9em;
+            color: #cbd5e0;
+            margin-bottom: 5px;
+        }
+
+        .spell-details {
+            font-size: 0.85em;
+            color: #a0aec0;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #4a5568;
+        }
+
+        .spell-detail-line {
+            margin-bottom: 4px;
+        }
+
+        .spell-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            background: rgba(237, 137, 54, 0.2);
+            border: 1px solid #ed8936;
+            border-radius: 3px;
+            font-size: 0.75em;
+            color: #f6ad55;
+        }
+
+        .damage-tag {
+            padding: 2px 8px;
+            background: rgba(245, 101, 101, 0.2);
+            border: 1px solid #f56565;
+            border-radius: 3px;
+            font-size: 0.75em;
+            color: #fc8181;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: #2d3748;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #a0aec0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #90cdf4;
+        }
+
+        .modal-spell-name {
+            font-size: 2em;
+            color: #90cdf4;
+            margin-bottom: 10px;
+        }
+
+        .modal-wiki-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #4299e1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .modal-wiki-link:hover {
+            background: #3182ce;
+        }
+
+        .modal-description {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(144, 205, 244, 0.1);
+            border-left: 4px solid #90cdf4;
+            border-radius: 5px;
+        }
+
+        .modal-description-label {
+            font-weight: bold;
+            color: #90cdf4;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .modal-description-text {
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 1em;
+        }
+
+        .combat-info-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(237, 137, 54, 0.15);
+            border-left: 4px solid #ed8936;
+            border-radius: 5px;
+        }
+
+        .combat-info-title {
+            font-weight: bold;
+            color: #f6ad55;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .combat-stat {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            margin-bottom: 6px;
+            color: #e0e0e0;
+            font-size: 0.95em;
+        }
+
+        .combat-stat-label {
+            font-weight: bold;
+            color: #f6ad55;
+        }
+
+        .combat-stat-value {
+            color: #fed7aa;
+        }
+
+        .modal-detail {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+
+        .modal-label {
+            font-weight: bold;
+            color: #90cdf4;
+            margin-bottom: 5px;
+        }
+
+        .modal-value {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .class-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .class-item {
+            background: rgba(144, 205, 244, 0.1);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2em;
+            color: #90cdf4;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #fc8181;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .spell-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arelith Spell Search & Filter</h1>
+            <p class="subtitle">Advanced spell database with filtering by school, damage type, duration, and more</p>
+        </header>
+
+        <div class="navigation">
+            <a href="../index.html" class="nav-btn">Home</a>
+            <a href="../sequenceBuilder_standalone.html" class="nav-btn">Spell Queue Builder</a>
+        </div>
+
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="search">Search by Name:</label>
+                    <input type="text" id="search" placeholder="Enter spell name...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="school">School:</label>
+                    <select id="school">
+                        <option value="">All Schools</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="class">Class:</label>
+                    <select id="class">
+                        <option value="">All Classes</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="level">Spell Level:</label>
+                    <select id="level">
+                        <option value="">All Levels</option>
+                        <option value="0">0 (Cantrip)</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="damageType">Damage Type:</label>
+                    <select id="damageType">
+                        <option value="">All Damage Types</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="duration">Duration:</label>
+                    <select id="duration">
+                        <option value="">All Durations</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="range">Range:</label>
+                    <select id="range">
+                        <option value="">All Ranges</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="save">Save Type:</label>
+                    <select id="save">
+                        <option value="">All Saves</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="tag">Tag/Descriptor:</label>
+                    <select id="tag">
+                        <option value="">All Tags</option>
+                    </select>
+                </div>
+
+                <div class="filter-group checkbox-group">
+                    <input type="checkbox" id="spellResistance">
+                    <label for="spellResistance">Only Spell Resistance: Yes</label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+                <button class="btn btn-secondary" onclick="resetFilters()">Reset All</button>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="results-header">
+                <div class="results-count" id="resultsCount">Loading spells...</div>
+                <div class="sort-controls">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort" onchange="applyFilters()">
+                        <option value="name">Name (A-Z)</option>
+                        <option value="level">Level (Low to High)</option>
+                        <option value="school">School</option>
+                    </select>
+                </div>
+            </div>
+            <div class="spell-grid" id="spellGrid">
+                <div class="loading">Loading spell data...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for spell details -->
+    <div id="spellModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration for data loading
+        const CONFIG = {
+            // Remote data file path (GitHub Pages)
+            // This is tried first, then falls back to local path
+            defaultSpellDataPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/SpellSearch/enhancedSpellData.json',
+            
+            // Local repo fallback path
+            localSpellDataPath: 'enhancedSpellData.json',
+            
+            // Debug logging
+            enableDebugLogs: true
+        };
+
+        let allSpells = [];
+        let filteredSpells = [];
+
+        // Load spell data
+        async function loadData() {
+            // Load spell data from external JSON file
+            let spellData = null;
+            const pathsToTry = [
+                CONFIG.localSpellDataPath,
+                CONFIG.defaultSpellDataPath
+            ].filter(Boolean);
+            
+            for (const path of pathsToTry) {
+                try {
+                    if (CONFIG.enableDebugLogs) console.log(`Attempting to load spell data from: ${path}`);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        spellData = await response.json();
+                        if (CONFIG.enableDebugLogs) console.log(`Successfully loaded spell data from: ${path}`);
+                        console.log('Loaded', spellData.length, 'spells');
+                        break;
+                    }
+                } catch (e) {
+                    console.warn(`Failed to load spell data from ${path}:`, e.message);
+                }
+            }
+            
+            // Check if we have data
+            if (!spellData || spellData.length === 0) {
+                document.getElementById('spellGrid').innerHTML = 
+                    '<div class="error">Error loading spell data. Please check that enhancedSpellData.json exists in the SpellSearch folder.</div>';
+                console.error('No spell data could be loaded from any source');
+                return;
+            }
+            
+            allSpells = spellData;
+            
+            // Populate filter options
+            populateFilters();
+            
+            // Initial display
+            filteredSpells = [...allSpells];
+            displaySpells();
+        }
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            // Schools
+            const schools = [...new Set(allSpells.map(s => s.school).filter(s => s))].sort();
+            populateSelect('school', schools);
+
+            // Classes
+            const classes = [...new Set(allSpells.flatMap(s => s.classes.map(c => c.class)))].sort();
+            populateSelect('class', classes);
+
+            // Damage Types
+            const damageTypes = [...new Set(allSpells.flatMap(s => s.damageTypes))].sort();
+            populateSelect('damageType', damageTypes);
+
+            // Duration Types
+            const durations = [...new Set(allSpells.map(s => s.durationType))].sort();
+            populateSelect('duration', durations);
+
+            // Range Categories
+            const ranges = [...new Set(allSpells.map(s => s.rangeCategory))].sort();
+            populateSelect('range', ranges);
+
+            // Save Types
+            const saves = [...new Set(allSpells.map(s => s.saveType))].sort();
+            populateSelect('save', saves);
+
+            // Tags
+            const tags = [...new Set(allSpells.flatMap(s => s.tags))].sort();
+            populateSelect('tag', tags);
+        }
+
+        function populateSelect(id, options) {
+            const select = document.getElementById(id);
+            const firstOption = select.options[0].text;
+            select.innerHTML = `<option value="">${firstOption}</option>`;
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt;
+                option.textContent = opt;
+                select.appendChild(option);
+            });
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const school = document.getElementById('school').value;
+            const classFilter = document.getElementById('class').value;
+            const level = document.getElementById('level').value;
+            const damageType = document.getElementById('damageType').value;
+            const duration = document.getElementById('duration').value;
+            const range = document.getElementById('range').value;
+            const save = document.getElementById('save').value;
+            const tag = document.getElementById('tag').value;
+            const srOnly = document.getElementById('spellResistance').checked;
+
+            filteredSpells = allSpells.filter(spell => {
+                // Search filter
+                if (search && !spell.name.toLowerCase().includes(search)) return false;
+
+                // School filter
+                if (school && spell.school !== school) return false;
+
+                // Class filter
+                if (classFilter && !spell.classes.some(c => c.class === classFilter)) return false;
+
+                // Level filter
+                if (level !== '' && spell.innateLevel !== level) return false;
+
+                // Damage type filter
+                if (damageType && !spell.damageTypes.includes(damageType)) return false;
+
+                // Duration filter
+                if (duration && spell.durationType !== duration) return false;
+
+                // Range filter
+                if (range && spell.rangeCategory !== range) return false;
+
+                // Save filter
+                if (save && spell.saveType !== save) return false;
+
+                // Tag filter
+                if (tag && !spell.tags.includes(tag)) return false;
+
+                // Spell Resistance filter
+                if (srOnly && !spell.hasSpellResistance) return false;
+
+                return true;
+            });
+
+            // Sort results
+            const sortBy = document.getElementById('sort').value;
+            sortSpells(sortBy);
+
+            displaySpells();
+        }
+
+        // Sort spells
+        function sortSpells(sortBy) {
+            switch (sortBy) {
+                case 'name':
+                    filteredSpells.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'level':
+                    filteredSpells.sort((a, b) => 
+                        parseInt(a.innateLevel) - parseInt(b.innateLevel) || 
+                        a.name.localeCompare(b.name)
+                    );
+                    break;
+                case 'school':
+                    filteredSpells.sort((a, b) => 
+                        a.school.localeCompare(b.school) || 
+                        a.name.localeCompare(b.name)
+                    );
+                    break;
+            }
+        }
+
+        // Display spells
+        function displaySpells() {
+            const grid = document.getElementById('spellGrid');
+            const count = document.getElementById('resultsCount');
+
+            count.textContent = `Showing ${filteredSpells.length} of ${allSpells.length} spells`;
+
+            if (filteredSpells.length === 0) {
+                grid.innerHTML = '<div class="loading">No spells found matching your filters.</div>';
+                return;
+            }
+
+            grid.innerHTML = filteredSpells.map(spell => createSpellCard(spell)).join('');
+        }
+
+        // Create spell card HTML
+        function createSpellCard(spell) {
+            const damageTypesHTML = spell.damageTypes.length > 0 
+                ? `<div class="spell-tags">${spell.damageTypes.map(dt => `<span class="damage-tag">${dt}</span>`).join('')}</div>`
+                : '';
+
+            const tagsHTML = spell.tags.length > 0 
+                ? `<div class="spell-tags">${spell.tags.slice(0, 5).map(t => `<span class="tag">${t}</span>`).join('')}</div>`
+                : '';
+
+            const classesText = spell.classes.slice(0, 3).map(c => 
+                c.domain ? `${c.class} (${c.domain.split(',')[0]}) ${c.level}` : `${c.class} ${c.level}`
+            ).join(', ');
+            const moreClasses = spell.classes.length > 3 ? ` +${spell.classes.length - 3} more` : '';
+
+            return `
+                <div class="spell-card" onclick="showSpellDetails('${spell.id}')">
+                    <div class="spell-name">${spell.name}</div>
+                    <span class="spell-school">${spell.school}</span>
+                    <div class="spell-level">Level ${spell.innateLevel}</div>
+                    <div class="spell-details">
+                        <div class="spell-detail-line"><strong>Classes:</strong> ${classesText}${moreClasses}</div>
+                        <div class="spell-detail-line"><strong>Range:</strong> ${spell.rangeCategory}</div>
+                        <div class="spell-detail-line"><strong>Duration:</strong> ${spell.durationType}</div>
+                        <div class="spell-detail-line"><strong>Save:</strong> ${spell.saveType}</div>
+                    </div>
+                    ${damageTypesHTML}
+                    ${tagsHTML}
+                </div>
+            `;
+        }
+
+        // Decode effect codes into human-readable descriptions
+        function decodeEffects(effectsCode) {
+            if (!effectsCode || !effectsCode.trim()) return '';
+            
+            const effects = {
+                '½': 'Save for half damage',
+                'd': 'Dazed on failed save',
+                'df': 'Deafened on failed save',
+                's': 'Stunned on failed save',
+                'R': 'Rooted on failed save',
+                'm': 'Movement impaired',
+                'dot': 'Damage over time',
+                'death': 'Death effect',
+                'blind': 'Blindness effect',
+                'shivering': 'Shivering (cold effect)'
+            };
+            
+            const code = effectsCode.trim().toLowerCase();
+            
+            // Check for exact matches first
+            if (effects[code]) return effects[code];
+            
+            // Check for composite effects like "move & blind"
+            if (code.includes('&') || code.includes('and')) {
+                return effectsCode; // Return as-is for composite descriptions
+            }
+            
+            // Try to find partial matches
+            for (const [key, value] of Object.entries(effects)) {
+                if (code.includes(key.toLowerCase())) {
+                    return value;
+                }
+            }
+            
+            // If no match found, return the original code with a label
+            return `Effect: ${effectsCode}`;
+        }
+
+        // Show spell details in modal
+        function showSpellDetails(id) {
+            console.log('showSpellDetails called with id:', id);
+            console.log('allSpells length:', allSpells.length);
+            const spell = allSpells.find(s => s.id === id);
+            console.log('Found spell:', spell ? spell.name : 'NOT FOUND');
+            if (!spell) return;
+
+            // Create wiki link - replace spaces with underscores (MediaWiki standard)
+            const wikiName = spell.originalName.replace(/ /g, '_');
+            const wikiUrl = `https://wiki.nwnarelith.com/${wikiName}`;
+
+            const classesHTML = spell.classes.map(c => `
+                <div class="class-item">
+                    ${c.class}${c.domain ? ` (${c.domain})` : ''}: Level ${c.level}
+                </div>
+            `).join('');
+
+            const damageTypesText = spell.damageTypes.length > 0 
+                ? spell.damageTypes.join(', ') 
+                : 'None';
+
+            const tagsText = spell.tags.length > 0 
+                ? spell.tags.join(', ') 
+                : 'None';
+
+            // Build combat info section if data exists
+            let combatInfoHTML = '';
+            console.log(`Spell: ${spell.name}, Has combatInfo:`, !!spell.combatInfo);
+            console.log('combatInfo value:', spell.combatInfo);
+            if (spell.combatInfo) {
+                const c = spell.combatInfo;
+                const combatStats = [];
+                console.log('Combat data:', c);
+                
+                if (c.damageFormula) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Damage:</div><div class="combat-stat-value">${c.damageFormula}</div></div>`);
+                if (c.maxDamage) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Max Damage:</div><div class="combat-stat-value">${c.maxDamage}</div></div>`);
+                if (c.avgDamage) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Avg Damage:</div><div class="combat-stat-value">${c.avgDamage}</div></div>`);
+                if (c.combatRange) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Combat Range:</div><div class="combat-stat-value">${c.combatRange}m</div></div>`);
+                if (c.combatEffects) {
+                    const effectDescription = decodeEffects(c.combatEffects);
+                    combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Effects:</div><div class="combat-stat-value">${effectDescription}</div></div>`);
+                }
+                if (c.combatAoE && c.combatAoE.trim()) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">AoE Type:</div><div class="combat-stat-value">${c.combatAoE.includes('e') ? 'Enemies Only' : c.combatAoE.includes('a') ? 'All' : c.combatAoE.trim()}</div></div>`);
+                if (c.isPersistentAoE) {
+                    combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Persistent AoE:</div><div class="combat-stat-value">Yes</div></div>`);
+                    if (c.checkTiming) {
+                        const timing = c.checkTiming === 'e' ? 'On Entry' : c.checkTiming === 'r' ? 'Per Round' : c.checkTiming === 'b' ? 'Entry & Per Round' : c.checkTiming;
+                        combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Check Timing:</div><div class="combat-stat-value">${timing}</div></div>`);
+                    }
+                    if (c.speedReduction && c.speedReduction.trim()) combatStats.push(`<div class="combat-stat"><div class="combat-stat-label">Speed Reduction:</div><div class="combat-stat-value">${c.speedReduction.trim()}</div></div>`);
+                }
+                
+                console.log('Combat stats count:', combatStats.length);
+                if (combatStats.length > 0) {
+                    combatInfoHTML = `
+                        <div class="combat-info-section">
+                            <div class="combat-info-title">Combat Information</div>
+                            ${combatStats.join('')}
+                        </div>
+                    `;
+                    console.log('Combat HTML generated, length:', combatInfoHTML.length);
+                }
+            }
+            console.log('Final combatInfoHTML length:', combatInfoHTML.length);
+
+            document.getElementById('modalBody').innerHTML = `
+                <h2 class="modal-spell-name">${spell.name}</h2>
+                <a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="modal-wiki-link">View on Arelith Wiki</a>
+                
+                ${spell.description ? `
+                    <div class="modal-description">
+                        <div class="modal-description-label">Description</div>
+                        <div class="modal-description-text">${spell.description}</div>
+                    </div>
+                ` : ''}
+
+                ${combatInfoHTML}
+
+                <div class="modal-detail">
+                    <div class="modal-label">School</div>
+                    <div class="modal-value">${spell.school} (Innate Level ${spell.innateLevel})</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Classes & Levels</div>
+                    <div class="class-list">${classesHTML}</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Range</div>
+                    <div class="modal-value">${spell.range} (${spell.rangeCategory})</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Area of Effect</div>
+                    <div class="modal-value">${spell.areaOfEffect || 'N/A'} (${spell.aoeCategory})</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Duration</div>
+                    <div class="modal-value">${spell.duration} (${spell.durationType})</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Components</div>
+                    <div class="modal-value">${spell.components || 'N/A'}</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Saving Throw</div>
+                    <div class="modal-value">${spell.saves || 'None'} (${spell.saveType})</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Spell Resistance</div>
+                    <div class="modal-value">${spell.spellResistance}</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Damage Types</div>
+                    <div class="modal-value">${damageTypesText}</div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="modal-label">Descriptors / Tags</div>
+                    <div class="modal-value">${tagsText}</div>
+                </div>
+            `;
+
+            document.getElementById('spellModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('spellModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('spellModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('school').value = '';
+            document.getElementById('class').value = '';
+            document.getElementById('level').value = '';
+            document.getElementById('damageType').value = '';
+            document.getElementById('duration').value = '';
+            document.getElementById('range').value = '';
+            document.getElementById('save').value = '';
+            document.getElementById('tag').value = '';
+            document.getElementById('spellResistance').checked = false;
+            document.getElementById('sort').value = 'name';
+            applyFilters();
+        }
+
+        // Initialize on page load
+        window.onload = loadData;
+    </script>
+</body>
+</html>

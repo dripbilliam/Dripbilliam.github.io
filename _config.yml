@@ -1,0 +1,41 @@
+# Jekyll configuration for GitHub Pages
+title: Arelith Spell Queue Builder
+description: Build spell sequences for Arelith NWN server
+baseurl: "" # Leave empty if using username.github.io or repo root
+url: "" # Your GitHub Pages URL
+
+# Use minimal theme that won't interfere with custom styling
+theme: null
+layout: null
+
+# Exclude files from Jekyll processing
+exclude:
+  - node_modules/
+  - parsing/
+  - Parsed/
+  - docs/
+  - "*.js"
+  - "*.json"
+  - "*.xml"
+  - "*.bat"
+  - README.md
+
+# Include specific files
+include:
+  - index.html
+  - sequenceBuilder_standalone.html
+  - SpellSearch/spellSearch_standalone.html
+  - SpellSearch/enhancedSpellData.json
+  - Parsed/combinedSpellFeatData.json
+
+# Disable Jekyll's default processing
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# Prevent Jekyll from modifying HTML files
+defaults:
+  - scope:
+      path: "*.html"
+    values:
+      layout: none

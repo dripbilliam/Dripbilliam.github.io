@@ -1,0 +1,2417 @@
+[
+  {
+    "name": "Acrobatic Mastery",
+    "id": "1610",
+    "group": null
+  },
+  {
+    "name": "Aegis",
+    "id": "1629",
+    "group": null
+  },
+  {
+    "name": "Alternate Shape Racial",
+    "id": "1508",
+    "group": "Alternate Shape"
+  },
+  {
+    "name": "Alternate Shape Totem Shape",
+    "id": "1507",
+    "group": "Alternate Shape"
+  },
+  {
+    "name": "Alternate Shape Were",
+    "id": "1509",
+    "group": "Alternate Shape"
+  },
+  {
+    "name": "Antimagic Field",
+    "id": "1587",
+    "group": null
+  },
+  {
+    "name": "ARArrowOfDeath",
+    "id": "604",
+    "group": "AR"
+  },
+  {
+    "name": "Arcane Bleed",
+    "id": "1621",
+    "group": null
+  },
+  {
+    "name": "ARHailOfArrows",
+    "id": "603",
+    "group": "AR"
+  },
+  {
+    "name": "ARImbueArrow",
+    "id": "600",
+    "group": "AR"
+  },
+  {
+    "name": "ARSeekerArrow",
+    "id": "601",
+    "group": "AR"
+  },
+  {
+    "name": "ARSeekerArrow2",
+    "id": "602",
+    "group": "AR"
+  },
+  {
+    "name": "ARSentryArrow",
+    "id": "980",
+    "group": "AR"
+  },
+  {
+    "name": "AS Assassinate",
+    "id": "1503",
+    "group": null
+  },
+  {
+    "name": "ASDarkness",
+    "id": "606",
+    "group": "AS"
+  },
+  {
+    "name": "ASEtheralVis",
+    "id": "1560",
+    "group": "AS"
+  },
+  {
+    "name": "ASGhostlyVisage",
+    "id": "605",
+    "group": "AS"
+  },
+  {
+    "name": "ASImprovedInvisibility",
+    "id": "608",
+    "group": "AS"
+  },
+  {
+    "name": "ASInvisibility",
+    "id": "607",
+    "group": "AS"
+  },
+  {
+    "name": "AURA BLINDING",
+    "id": "195",
+    "group": null
+  },
+  {
+    "name": "Aura Cold",
+    "id": "196",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Electricity",
+    "id": "197",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Fear",
+    "id": "198",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Fear Dragon",
+    "id": "412",
+    "group": null
+  },
+  {
+    "name": "Aura Fire",
+    "id": "199",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura HorrificAppearance",
+    "id": "804",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Menace",
+    "id": "200",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura of Hellfire",
+    "id": "761",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Protection",
+    "id": "201",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Stun",
+    "id": "202",
+    "group": "Aura"
+  },
+  {
+    "name": "Aura Unearthly Visage",
+    "id": "203",
+    "group": null
+  },
+  {
+    "name": "Aura Unnatural",
+    "id": "204",
+    "group": "Aura"
+  },
+  {
+    "name": "AuraOfGlory",
+    "id": "429",
+    "group": null
+  },
+  {
+    "name": "AuraOfGlory X2",
+    "id": "562",
+    "group": null
+  },
+  {
+    "name": "Azer Fire Blast",
+    "id": "801",
+    "group": null
+  },
+  {
+    "name": "BalagarnsIronHorn",
+    "id": "436",
+    "group": null
+  },
+  {
+    "name": "BalefulPolymorph BAT",
+    "id": "1370",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph CHICKEN",
+    "id": "1364",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph COW",
+    "id": "1366",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph MOUSE",
+    "id": "1368",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph PENGUIN",
+    "id": "1365",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph SNAKE",
+    "id": "1369",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "BalefulPolymorph TOAD",
+    "id": "1367",
+    "group": "BalefulPolymorph"
+  },
+  {
+    "name": "Banner",
+    "id": "1628",
+    "group": null
+  },
+  {
+    "name": "BARBARIAN RAGE",
+    "id": "307",
+    "group": null
+  },
+  {
+    "name": "Bard Nahal Reckless Dweomer",
+    "id": "1529",
+    "group": null
+  },
+  {
+    "name": "Bards Song",
+    "id": "411",
+    "group": null
+  },
+  {
+    "name": "Battle Boulder Toss",
+    "id": "773",
+    "group": null
+  },
+  {
+    "name": "Battle Mastery Spell",
+    "id": "380",
+    "group": null
+  },
+  {
+    "name": "BG AURA DESPAIR",
+    "id": "1728",
+    "group": null
+  },
+  {
+    "name": "BG CORRUPT WEAPON",
+    "id": "1727",
+    "group": null
+  },
+  {
+    "name": "BGCreateDead",
+    "id": "609",
+    "group": "BG"
+  },
+  {
+    "name": "BGFiendish",
+    "id": "610",
+    "group": "BG"
+  },
+  {
+    "name": "BGInflictCritical",
+    "id": "612",
+    "group": "BG"
+  },
+  {
+    "name": "BGInflictSerious",
+    "id": "611",
+    "group": "BG"
+  },
+  {
+    "name": "BK BullsStrength",
+    "id": "614",
+    "group": null
+  },
+  {
+    "name": "BK Contagion",
+    "id": "613",
+    "group": null
+  },
+  {
+    "name": "Blindness and Deafness",
+    "id": "8",
+    "group": null
+  },
+  {
+    "name": "Butterfly Spray",
+    "id": "505",
+    "group": null
+  },
+  {
+    "name": "Calm Emotions",
+    "id": "12",
+    "group": null
+  },
+  {
+    "name": "Cambion",
+    "id": "1531",
+    "group": null
+  },
+  {
+    "name": "Cats Grace (Spellbook)",
+    "id": "13",
+    "group": null
+  },
+  {
+    "name": "Charger",
+    "id": "509",
+    "group": null
+  },
+  {
+    "name": "Chosen Weapon",
+    "id": "1637",
+    "group": null
+  },
+  {
+    "name": "Clairaudience and Clairvoyance",
+    "id": "20",
+    "group": null
+  },
+  {
+    "name": "Cloak of Chaos",
+    "id": "22",
+    "group": null
+  },
+  {
+    "name": "Command Come",
+    "id": "1736",
+    "group": "Command"
+  },
+  {
+    "name": "Command Dance",
+    "id": "1740",
+    "group": "Command"
+  },
+  {
+    "name": "Command Fall",
+    "id": "1734",
+    "group": "Command"
+  },
+  {
+    "name": "Command Flee",
+    "id": "1737",
+    "group": "Command"
+  },
+  {
+    "name": "Command Kneel",
+    "id": "1738",
+    "group": "Command"
+  },
+  {
+    "name": "Command reserved",
+    "id": "1741",
+    "group": "Command"
+  },
+  {
+    "name": "Command Sit",
+    "id": "1739",
+    "group": "Command"
+  },
+  {
+    "name": "Command Stay",
+    "id": "1735",
+    "group": "Command"
+  },
+  {
+    "name": "Cone Acid",
+    "id": "229",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Cold",
+    "id": "230",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Disease",
+    "id": "231",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Fire",
+    "id": "232",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Lightning",
+    "id": "233",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Poison",
+    "id": "234",
+    "group": "Cone"
+  },
+  {
+    "name": "Cone Sonic",
+    "id": "235",
+    "group": "Cone"
+  },
+  {
+    "name": "Craft Armor",
+    "id": "657",
+    "group": "Craft"
+  },
+  {
+    "name": "Craft Armor Component",
+    "id": "743",
+    "group": null
+  },
+  {
+    "name": "CRAFT HARPER ITEM",
+    "id": "479",
+    "group": null
+  },
+  {
+    "name": "Craft Weapon",
+    "id": "656",
+    "group": "Craft"
+  },
+  {
+    "name": "Craft Weapon Component",
+    "id": "742",
+    "group": null
+  },
+  {
+    "name": "CripplingThrow",
+    "id": "1620",
+    "group": null
+  },
+  {
+    "name": "Cure Critical Wounds Others",
+    "id": "567",
+    "group": "Cure Critical"
+  },
+  {
+    "name": "Curse Song",
+    "id": "644",
+    "group": "Curse"
+  },
+  {
+    "name": "Curse Weapon",
+    "id": "1616",
+    "group": "Curse"
+  },
+  {
+    "name": "DC Divine Wrath",
+    "id": "622",
+    "group": null
+  },
+  {
+    "name": "Debilitating Strike",
+    "id": "1627",
+    "group": null
+  },
+  {
+    "name": "Decharger",
+    "id": "510",
+    "group": null
+  },
+  {
+    "name": "DeckAvatar",
+    "id": "503",
+    "group": null
+  },
+  {
+    "name": "Deflecting Force",
+    "id": "774",
+    "group": null
+  },
+  {
+    "name": "DETECT EVIL",
+    "id": "1532",
+    "group": null
+  },
+  {
+    "name": "Detect Evil",
+    "id": "312",
+    "group": "Detect"
+  },
+  {
+    "name": "Deterrence",
+    "id": "1630",
+    "group": null
+  },
+  {
+    "name": "DI SpellClutch",
+    "id": "1505",
+    "group": null
+  },
+  {
+    "name": "DirtyFighting 2",
+    "id": "1761",
+    "group": "DirtyFighting"
+  },
+  {
+    "name": "DirtyFighting Headbutt",
+    "id": "1767",
+    "group": "DirtyFighting"
+  },
+  {
+    "name": "DirtyFighting LowBlow",
+    "id": "1765",
+    "group": "DirtyFighting"
+  },
+  {
+    "name": "DirtyFighting NoseBreak",
+    "id": "1766",
+    "group": "DirtyFighting"
+  },
+  {
+    "name": "DirtyFighting Pommel",
+    "id": "1764",
+    "group": "DirtyFighting"
+  },
+  {
+    "name": "Divine Protection",
+    "id": "382",
+    "group": "Divine"
+  },
+  {
+    "name": "Divine Smite",
+    "id": "1639",
+    "group": "Divine"
+  },
+  {
+    "name": "Divine Strength",
+    "id": "381",
+    "group": "Divine"
+  },
+  {
+    "name": "Divine Trickery",
+    "id": "384",
+    "group": "Divine"
+  },
+  {
+    "name": "Domain Power Air",
+    "id": "1771",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Animal",
+    "id": "1772",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Chaos",
+    "id": "1801",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Cold",
+    "id": "1782",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Darkness",
+    "id": "1773",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Death",
+    "id": "1774",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Destruction",
+    "id": "1775",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Earth",
+    "id": "1776",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Evil",
+    "id": "1777",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Fire",
+    "id": "1778",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Forge",
+    "id": "1796",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Good",
+    "id": "1779",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Healing",
+    "id": "1780",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Illusion",
+    "id": "1799",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Knowledge",
+    "id": "1781",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Law",
+    "id": "1802",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Luck",
+    "id": "1803",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Magic",
+    "id": "1784",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Mind",
+    "id": "1800",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Moon",
+    "id": "1795",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Ooze",
+    "id": "1793",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Plant",
+    "id": "1785",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Protection",
+    "id": "1786",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Storm",
+    "id": "1783",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Strength",
+    "id": "1787",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Suffering",
+    "id": "1797",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Sun",
+    "id": "1788",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Travel",
+    "id": "1789",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Trickery",
+    "id": "1790",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Undeath",
+    "id": "1794",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Vermin",
+    "id": "1798",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power War",
+    "id": "1791",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Domain Power Water",
+    "id": "1792",
+    "group": "Domain Power"
+  },
+  {
+    "name": "Dragon Shape",
+    "id": "725",
+    "group": "Dragon"
+  },
+  {
+    "name": "Dragon Wing Buffet",
+    "id": "246",
+    "group": null
+  },
+  {
+    "name": "Druid Balance",
+    "id": "1528",
+    "group": null
+  },
+  {
+    "name": "DWDEF Defensive Stance",
+    "id": "641",
+    "group": null
+  },
+  {
+    "name": "DWDEF Defensive Stance Exit",
+    "id": "1501",
+    "group": null
+  },
+  {
+    "name": "Eagle Splendor",
+    "id": "482",
+    "group": null
+  },
+  {
+    "name": "Eagle Splendor (Spellbook)",
+    "id": "354",
+    "group": null
+  },
+  {
+    "name": "Elemental Shape",
+    "id": "319",
+    "group": "Elemental"
+  },
+  {
+    "name": "Elemental Shape AIR",
+    "id": "400",
+    "group": "Elemental Shape"
+  },
+  {
+    "name": "Elemental Shape EARTH",
+    "id": "399",
+    "group": "Elemental Shape"
+  },
+  {
+    "name": "Elemental Shape FIRE",
+    "id": "397",
+    "group": "Elemental Shape"
+  },
+  {
+    "name": "Elemental Shape WATER",
+    "id": "398",
+    "group": "Elemental Shape"
+  },
+  {
+    "name": "Elemental Strike",
+    "id": "1703",
+    "group": "Elemental"
+  },
+  {
+    "name": "Elemental Strike Acid",
+    "id": "1706",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "Elemental Strike Cold",
+    "id": "1704",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "Elemental Strike Electrical",
+    "id": "1707",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "Elemental Strike Fire",
+    "id": "1705",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "Elemental Strike Negative",
+    "id": "1708",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "Elemental Strike Reserved",
+    "id": "1709",
+    "group": "Elemental Strike"
+  },
+  {
+    "name": "ElementalSummoningItem",
+    "id": "502",
+    "group": null
+  },
+  {
+    "name": "Empty Body",
+    "id": "311",
+    "group": null
+  },
+  {
+    "name": "Epic Blinding speed",
+    "id": "647",
+    "group": null
+  },
+  {
+    "name": "Epic Second Wind",
+    "id": "1624",
+    "group": null
+  },
+  {
+    "name": "Epic Warding",
+    "id": "695",
+    "group": null
+  },
+  {
+    "name": "Etherealness",
+    "id": "724",
+    "group": null
+  },
+  {
+    "name": "Eviscerate",
+    "id": "1622",
+    "group": null
+  },
+  {
+    "name": "Eye Bite",
+    "id": "1578",
+    "group": null
+  },
+  {
+    "name": "Fence",
+    "id": "1612",
+    "group": null
+  },
+  {
+    "name": "Flameberry",
+    "id": "618",
+    "group": null
+  },
+  {
+    "name": "Flying Debris",
+    "id": "620",
+    "group": null
+  },
+  {
+    "name": "Foresight reserved",
+    "id": "1596",
+    "group": null
+  },
+  {
+    "name": "Glacial Wrath",
+    "id": "1576",
+    "group": null
+  },
+  {
+    "name": "GlyphOfWardingDefault",
+    "id": "764",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW CON Acid Arrow",
+    "id": "350",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW CON Flame Arrow",
+    "id": "1604",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW CON Minor Globe",
+    "id": "353",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW CON Stoneskin",
+    "id": "342",
+    "group": "GR SHADOW CON"
+  },
+  {
+    "name": "GR SHADOW CON Summon Shadow",
+    "id": "324",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW CON Web",
+    "id": "352",
+    "group": "GR SHADOW CON"
+  },
+  {
+    "name": "GR SHADOW EVO Ball Lightning",
+    "id": "1607",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW EVO Bigbys interposing",
+    "id": "1606",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW EVO Ice Storm",
+    "id": "1608",
+    "group": null
+  },
+  {
+    "name": "GR SHADOW EVO ShadowStorm",
+    "id": "1605",
+    "group": null
+  },
+  {
+    "name": "GR Shadow Evocation",
+    "id": "1598",
+    "group": null
+  },
+  {
+    "name": "Greater Cats Grace",
+    "id": "361",
+    "group": null
+  },
+  {
+    "name": "Greater Eagle Splendor",
+    "id": "357",
+    "group": null
+  },
+  {
+    "name": "Greater Endurance",
+    "id": "362",
+    "group": "Greater"
+  },
+  {
+    "name": "Greater Foxs Cunning",
+    "id": "359",
+    "group": null
+  },
+  {
+    "name": "Greater Owls Wisdom",
+    "id": "358",
+    "group": null
+  },
+  {
+    "name": "Greater Wild Shape 1",
+    "id": "646",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape 2",
+    "id": "675",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape 3",
+    "id": "676",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape 4",
+    "id": "677",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Basilisk",
+    "id": "670",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Beholder",
+    "id": "671",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Blue dragon",
+    "id": "708",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape DireTiger",
+    "id": "694",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Drider",
+    "id": "673",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Gargoyle",
+    "id": "678",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Green dragon",
+    "id": "709",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Harpy",
+    "id": "672",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Manticore",
+    "id": "674",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Medusa",
+    "id": "679",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Mindflayer",
+    "id": "691",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Minotaur",
+    "id": "680",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Red dragon",
+    "id": "707",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Spikes",
+    "id": "692",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Wyrmling Black",
+    "id": "660",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Wyrmling Blue",
+    "id": "659",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Wyrmling Green",
+    "id": "662",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Wyrmling Red",
+    "id": "658",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Greater Wild Shape Wyrmling White",
+    "id": "661",
+    "group": "Greater Wild"
+  },
+  {
+    "name": "Guard",
+    "id": "1559",
+    "group": null
+  },
+  {
+    "name": "GWildShape DriderDarkness",
+    "id": "688",
+    "group": "GWildShape"
+  },
+  {
+    "name": "GWildShape Mindblast",
+    "id": "693",
+    "group": "GWildShape"
+  },
+  {
+    "name": "GWildShape Stonegaze",
+    "id": "687",
+    "group": "GWildShape"
+  },
+  {
+    "name": "Haste Slow X2",
+    "id": "563",
+    "group": null
+  },
+  {
+    "name": "Healer Respite",
+    "id": "1533",
+    "group": null
+  },
+  {
+    "name": "Hell Hound Firebreath",
+    "id": "264",
+    "group": null
+  },
+  {
+    "name": "Hemmorhage",
+    "id": "1922",
+    "group": null
+  },
+  {
+    "name": "Hex",
+    "id": "1615",
+    "group": null
+  },
+  {
+    "name": "Hex Worms",
+    "id": "1617",
+    "group": null
+  },
+  {
+    "name": "Holy Aura",
+    "id": "84",
+    "group": "Holy"
+  },
+  {
+    "name": "Horrid Wilting",
+    "id": "367",
+    "group": null
+  },
+  {
+    "name": "Iceberry",
+    "id": "617",
+    "group": null
+  },
+  {
+    "name": "Illithid Mindblast",
+    "id": "789",
+    "group": null
+  },
+  {
+    "name": "Imbue Armor",
+    "id": "1719",
+    "group": "Imbue"
+  },
+  {
+    "name": "Imbue Armor Acid",
+    "id": "1722",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Armor Cold",
+    "id": "1720",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Armor Electrical",
+    "id": "1723",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Armor Fire",
+    "id": "1721",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Armor Negative",
+    "id": "1724",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Armor Reserved",
+    "id": "1725",
+    "group": "Imbue Armor"
+  },
+  {
+    "name": "Imbue Weapon",
+    "id": "1711",
+    "group": "Imbue"
+  },
+  {
+    "name": "Imbue Weapon Acid",
+    "id": "1714",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Cold",
+    "id": "1712",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Electrical",
+    "id": "1715",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Fire",
+    "id": "1713",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Magic",
+    "id": "1717",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Negative",
+    "id": "1716",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Imbue Weapon Reserved",
+    "id": "1718",
+    "group": "Imbue Weapon"
+  },
+  {
+    "name": "Improved Acrobatic Mastery",
+    "id": "1611",
+    "group": null
+  },
+  {
+    "name": "Improved Whirlwind",
+    "id": "645",
+    "group": "Improved"
+  },
+  {
+    "name": "Intimidate",
+    "id": "1634",
+    "group": null
+  },
+  {
+    "name": "Irresistible Dance",
+    "id": "1580",
+    "group": null
+  },
+  {
+    "name": "KiBarrier",
+    "id": "1638",
+    "group": null
+  },
+  {
+    "name": "Lay On Hands",
+    "id": "313",
+    "group": null
+  },
+  {
+    "name": "Lesser Body Adjustment",
+    "id": "277",
+    "group": null
+  },
+  {
+    "name": "LichLyrics",
+    "id": "616",
+    "group": null
+  },
+  {
+    "name": "Magic Circle against Chaos",
+    "id": "103",
+    "group": "Magic Circle"
+  },
+  {
+    "name": "Magic Circle against Evil",
+    "id": "104",
+    "group": "Magic Circle"
+  },
+  {
+    "name": "Magic Circle against Good",
+    "id": "105",
+    "group": "Magic Circle"
+  },
+  {
+    "name": "Magic Circle against Law",
+    "id": "106",
+    "group": "Magic Circle"
+  },
+  {
+    "name": "Manticore Spikes",
+    "id": "498",
+    "group": null
+  },
+  {
+    "name": "Mass Blindness and Deafness",
+    "id": "110",
+    "group": null
+  },
+  {
+    "name": "Mass Domination",
+    "id": "112",
+    "group": "Mass"
+  },
+  {
+    "name": "Mephit Salt Breath",
+    "id": "278",
+    "group": null
+  },
+  {
+    "name": "Mephit Steam Breath",
+    "id": "279",
+    "group": null
+  },
+  {
+    "name": "Mighty Rage",
+    "id": "642",
+    "group": null
+  },
+  {
+    "name": "Mindflayer Mindblast 10",
+    "id": "713",
+    "group": null
+  },
+  {
+    "name": "Mindflayer Paragon Mindblast",
+    "id": "714",
+    "group": null
+  },
+  {
+    "name": "Mummy Bolster Undead",
+    "id": "280",
+    "group": null
+  },
+  {
+    "name": "Nahal Reckless Dweomer",
+    "id": "1561",
+    "group": null
+  },
+  {
+    "name": "Negative Plane Avatar",
+    "id": "383",
+    "group": null
+  },
+  {
+    "name": "Nightmare Smoke",
+    "id": "819",
+    "group": null
+  },
+  {
+    "name": "Outsider Shape",
+    "id": "732",
+    "group": null
+  },
+  {
+    "name": "Outsider Shape Azer",
+    "id": "733",
+    "group": "Outsider Shape"
+  },
+  {
+    "name": "Outsider Shape DeathSlaad",
+    "id": "735",
+    "group": "Outsider Shape"
+  },
+  {
+    "name": "Outsider Shape Rakshasa",
+    "id": "734",
+    "group": "Outsider Shape"
+  },
+  {
+    "name": "Paladin Summon Mount",
+    "id": "818",
+    "group": null
+  },
+  {
+    "name": "PDK Fear",
+    "id": "808",
+    "group": "PDK"
+  },
+  {
+    "name": "PDK FinalStand",
+    "id": "810",
+    "group": null
+  },
+  {
+    "name": "PDK InspireCourage",
+    "id": "811",
+    "group": null
+  },
+  {
+    "name": "PDK OathOfWrath",
+    "id": "809",
+    "group": null
+  },
+  {
+    "name": "PDK RallyingCry",
+    "id": "806",
+    "group": null
+  },
+  {
+    "name": "PDK Shield",
+    "id": "807",
+    "group": "PDK"
+  },
+  {
+    "name": "PlanarTurning",
+    "id": "643",
+    "group": "Planar"
+  },
+  {
+    "name": "PM Animate Dead",
+    "id": "623",
+    "group": null
+  },
+  {
+    "name": "PM Deathless Master Touch",
+    "id": "628",
+    "group": null
+  },
+  {
+    "name": "PM Summon Greater Undead",
+    "id": "627",
+    "group": null
+  },
+  {
+    "name": "PM Summon Undead",
+    "id": "624",
+    "group": null
+  },
+  {
+    "name": "PM Undead Graft1",
+    "id": "625",
+    "group": null
+  },
+  {
+    "name": "PM Undead Graft2",
+    "id": "626",
+    "group": null
+  },
+  {
+    "name": "Poison Weapon",
+    "id": "655",
+    "group": null
+  },
+  {
+    "name": "Polymorph GIANT SPIDER",
+    "id": "387",
+    "group": "Polymorph"
+  },
+  {
+    "name": "Polymorph PIXIE",
+    "id": "390",
+    "group": "Polymorph"
+  },
+  {
+    "name": "Polymorph TROLL",
+    "id": "388",
+    "group": "Polymorph"
+  },
+  {
+    "name": "Polymorph UMBER HULK",
+    "id": "389",
+    "group": "Polymorph"
+  },
+  {
+    "name": "Polymorph ZOMBIE",
+    "id": "391",
+    "group": "Polymorph"
+  },
+  {
+    "name": "PowerStone",
+    "id": "507",
+    "group": null
+  },
+  {
+    "name": "PrayerBox",
+    "id": "619",
+    "group": null
+  },
+  {
+    "name": "Project Image Clone",
+    "id": "1549",
+    "group": null
+  },
+  {
+    "name": "Protection from Chaos",
+    "id": "136",
+    "group": "Protection"
+  },
+  {
+    "name": "Protection from Evil",
+    "id": "138",
+    "group": "Protection"
+  },
+  {
+    "name": "Protection from Good",
+    "id": "139",
+    "group": "Protection"
+  },
+  {
+    "name": "Protection from Law",
+    "id": "140",
+    "group": "Protection"
+  },
+  {
+    "name": "Psionic Inertial Barrier",
+    "id": "741",
+    "group": null
+  },
+  {
+    "name": "Quivering Palm",
+    "id": "310",
+    "group": null
+  },
+  {
+    "name": "RA CreateArrow",
+    "id": "1504",
+    "group": null
+  },
+  {
+    "name": "Rage 3",
+    "id": "299",
+    "group": "Rage"
+  },
+  {
+    "name": "Rage 4",
+    "id": "300",
+    "group": "Rage"
+  },
+  {
+    "name": "Rage 5",
+    "id": "301",
+    "group": "Rage"
+  },
+  {
+    "name": "RedDragonDiscipleBreath",
+    "id": "690",
+    "group": null
+  },
+  {
+    "name": "Remove Blindness and Deafness",
+    "id": "145",
+    "group": null
+  },
+  {
+    "name": "Restoration Others",
+    "id": "568",
+    "group": null
+  },
+  {
+    "name": "RodOfWonder",
+    "id": "499",
+    "group": null
+  },
+  {
+    "name": "Ruin",
+    "id": "640",
+    "group": null
+  },
+  {
+    "name": "Safeguard",
+    "id": "1631",
+    "group": null
+  },
+  {
+    "name": "SeaHag EvilEye",
+    "id": "803",
+    "group": null
+  },
+  {
+    "name": "Second Wind",
+    "id": "1623",
+    "group": null
+  },
+  {
+    "name": "SHADES Cone of Cold",
+    "id": "340",
+    "group": null
+  },
+  {
+    "name": "SHADES Fireball",
+    "id": "341",
+    "group": null
+  },
+  {
+    "name": "Shadow Attack",
+    "id": "769",
+    "group": "Shadow"
+  },
+  {
+    "name": "SHADOW CON Darkness",
+    "id": "345",
+    "group": "SHADOW CON"
+  },
+  {
+    "name": "SHADOW CON Ghostly Visage",
+    "id": "351",
+    "group": null
+  },
+  {
+    "name": "SHADOW CON GREASE",
+    "id": "1599",
+    "group": "SHADOW CON"
+  },
+  {
+    "name": "SHADOW CON Inivsibility",
+    "id": "346",
+    "group": "SHADOW CON"
+  },
+  {
+    "name": "SHADOW CON Mage Armor",
+    "id": "347",
+    "group": null
+  },
+  {
+    "name": "SHADOW CON Magic Missile",
+    "id": "348",
+    "group": null
+  },
+  {
+    "name": "SHADOW CON Mest Acid Breath",
+    "id": "1600",
+    "group": null
+  },
+  {
+    "name": "SHADOW CON Summon Shadow",
+    "id": "344",
+    "group": null
+  },
+  {
+    "name": "SHADOW DAZE",
+    "id": "475",
+    "group": "SHADOW"
+  },
+  {
+    "name": "Shadow Displacement",
+    "id": "1618",
+    "group": "Shadow"
+  },
+  {
+    "name": "SHADOW EVADE",
+    "id": "477",
+    "group": "SHADOW"
+  },
+  {
+    "name": "SHADOW EVO Elemental Shield",
+    "id": "1602",
+    "group": null
+  },
+  {
+    "name": "SHADOW EVO Gust of Wind",
+    "id": "1603",
+    "group": null
+  },
+  {
+    "name": "SHADOW EVO Shadowbolt",
+    "id": "1601",
+    "group": null
+  },
+  {
+    "name": "SHADOW EVO Wall of Fire",
+    "id": "343",
+    "group": null
+  },
+  {
+    "name": "ShadowBlend",
+    "id": "757",
+    "group": "Shadow"
+  },
+  {
+    "name": "Shapechange BALOR",
+    "id": "394",
+    "group": "Shapechange"
+  },
+  {
+    "name": "Shapechange DEATH SLAAD",
+    "id": "395",
+    "group": "Shapechange"
+  },
+  {
+    "name": "Shapechange FIRE GIANT",
+    "id": "393",
+    "group": "Shapechange"
+  },
+  {
+    "name": "Shapechange IRON GOLEM",
+    "id": "396",
+    "group": "Shapechange"
+  },
+  {
+    "name": "Shapechange RED DRAGON",
+    "id": "392",
+    "group": "Shapechange"
+  },
+  {
+    "name": "Shield of Law",
+    "id": "162",
+    "group": "Shield"
+  },
+  {
+    "name": "Smite Evil",
+    "id": "315",
+    "group": null
+  },
+  {
+    "name": "SPELL BLOOD HOMUNCULUS",
+    "id": "1876",
+    "group": null
+  },
+  {
+    "name": "SPELL CHROMATIC ORB GREATER",
+    "id": "1871",
+    "group": null
+  },
+  {
+    "name": "SPELL CURSED LIGHTNING SPHERE",
+    "id": "1906",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION ELD VEIL",
+    "id": "1696",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION FORESTALL",
+    "id": "1695",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION GATE",
+    "id": "1693",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION RESERVED 1",
+    "id": "1697",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION RESERVED 2",
+    "id": "1698",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION RESERVED 3",
+    "id": "1699",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION RESERVED 4",
+    "id": "1700",
+    "group": null
+  },
+  {
+    "name": "SPELL DARK INVOCATION SAGE TONGUE",
+    "id": "1694",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE AWAKENING",
+    "id": "1755",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE DAMNATION",
+    "id": "1754",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE HARVEST",
+    "id": "1752",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE REPRISAL",
+    "id": "1753",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE TERROR",
+    "id": "1756",
+    "group": null
+  },
+  {
+    "name": "SPELL DIRGE WOE",
+    "id": "1751",
+    "group": null
+  },
+  {
+    "name": "SPELL ECHO",
+    "id": "1757",
+    "group": "SPELL"
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON",
+    "id": "1690",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 1",
+    "id": "1684",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 2",
+    "id": "1685",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 3",
+    "id": "1686",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 4",
+    "id": "1687",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 5",
+    "id": "1688",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON 6",
+    "id": "1689",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON EPIC",
+    "id": "1692",
+    "group": null
+  },
+  {
+    "name": "SPELL ELDRITCH SUMMON GREATER",
+    "id": "1691",
+    "group": null
+  },
+  {
+    "name": "SPELL ELEMENTAL SAVANT",
+    "id": "1832",
+    "group": null
+  },
+  {
+    "name": "SPELL EPIC ELEMENTAL METEOR",
+    "id": "1920",
+    "group": null
+  },
+  {
+    "name": "SPELL EPIC VAMPIRIC FEAST",
+    "id": "1925",
+    "group": null
+  },
+  {
+    "name": "SPELL HOSTILIZER",
+    "id": "1909",
+    "group": "SPELL"
+  },
+  {
+    "name": "SPELL LIFE TRANSFERENCE GREATER",
+    "id": "1857",
+    "group": null
+  },
+  {
+    "name": "SPELL MACABRE EULOGY",
+    "id": "1758",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS HARM",
+    "id": "1866",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO BEAR",
+    "id": "902",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO BULL",
+    "id": "900",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO CAT",
+    "id": "901",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO EAGLE",
+    "id": "905",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO FOX",
+    "id": "903",
+    "group": null
+  },
+  {
+    "name": "SPELL MASS ZOO OWL",
+    "id": "904",
+    "group": null
+  },
+  {
+    "name": "SPELL MISERICORDE",
+    "id": "1759",
+    "group": "SPELL"
+  },
+  {
+    "name": "SPELL PACIFYING BONDS",
+    "id": "1877",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT ABYSSAL 1",
+    "id": "1656",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT ABYSSAL 2",
+    "id": "1657",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT ABYSSAL 3",
+    "id": "1658",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT FEY 1",
+    "id": "1659",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT FEY 2",
+    "id": "1660",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT FEY 3",
+    "id": "1661",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT HAG 1",
+    "id": "1662",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT HAG 2",
+    "id": "1663",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT HAG 3",
+    "id": "1664",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT INFERNAL 1",
+    "id": "1665",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT INFERNAL 2",
+    "id": "1666",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT INFERNAL 3",
+    "id": "1667",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT KRAKEN 1",
+    "id": "1668",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT KRAKEN 2",
+    "id": "1669",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT KRAKEN 3",
+    "id": "1670",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT STAR 1",
+    "id": "1671",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT STAR 2",
+    "id": "1672",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT STAR 3",
+    "id": "1673",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT UNDYING 1",
+    "id": "1674",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT UNDYING 2",
+    "id": "1675",
+    "group": null
+  },
+  {
+    "name": "SPELL PACT UNDYING 3",
+    "id": "1676",
+    "group": null
+  },
+  {
+    "name": "SPELL PHANTOM WOUND MASS",
+    "id": "1881",
+    "group": null
+  },
+  {
+    "name": "SPELL RED HARVEST",
+    "id": "1831",
+    "group": null
+  },
+  {
+    "name": "Red Bolt",
+    "id": "1927",
+    "group": null
+  },
+  {
+    "name": "Spellstaff",
+    "id": "508",
+    "group": null
+  },
+  {
+    "name": "Sphere of Chaos",
+    "id": "170",
+    "group": "Sphere"
+  },
+  {
+    "name": "Sphere Spell",
+    "id": "782",
+    "group": "Sphere"
+  },
+  {
+    "name": "Spiral Fireball",
+    "id": "772",
+    "group": null
+  },
+  {
+    "name": "Spirited Charge",
+    "id": "1613",
+    "group": null
+  },
+  {
+    "name": "Sprint",
+    "id": "1626",
+    "group": null
+  },
+  {
+    "name": "Summon Animal Companion",
+    "id": "317",
+    "group": null
+  },
+  {
+    "name": "Summon Baatezu",
+    "id": "701",
+    "group": "Summon"
+  },
+  {
+    "name": "Summon Celestial",
+    "id": "379",
+    "group": "Summon"
+  },
+  {
+    "name": "Summon Mephit",
+    "id": "378",
+    "group": "Summon"
+  },
+  {
+    "name": "SUMMON SHADOW",
+    "id": "476",
+    "group": null
+  },
+  {
+    "name": "Summon Shadow X2",
+    "id": "564",
+    "group": null
+  },
+  {
+    "name": "Summon Slaad",
+    "id": "303",
+    "group": "Summon"
+  },
+  {
+    "name": "Summon Special Warhorse",
+    "id": "1625",
+    "group": null
+  },
+  {
+    "name": "Summon Tanarri",
+    "id": "304",
+    "group": "Summon"
+  },
+  {
+    "name": "Summon Warhorse",
+    "id": "1614",
+    "group": "Summon"
+  },
+  {
+    "name": "SummonTool",
+    "id": "1502",
+    "group": "Summon"
+  },
+  {
+    "name": "Tide of Battle",
+    "id": "565",
+    "group": null
+  },
+  {
+    "name": "Touch Petrify",
+    "id": "496",
+    "group": null
+  },
+  {
+    "name": "Tranmutation Lens",
+    "id": "1550",
+    "group": null
+  },
+  {
+    "name": "Transmutation Create",
+    "id": "1551",
+    "group": null
+  },
+  {
+    "name": "Trap Arrow",
+    "id": "487",
+    "group": "Trap"
+  },
+  {
+    "name": "Trap Bolt",
+    "id": "488",
+    "group": "Trap"
+  },
+  {
+    "name": "Trap Bolt Huge",
+    "id": "1619",
+    "group": null
+  },
+  {
+    "name": "Trap Dart",
+    "id": "493",
+    "group": "Trap"
+  },
+  {
+    "name": "Trap Shuriken",
+    "id": "494",
+    "group": "Trap"
+  },
+  {
+    "name": "Troglodyte Stench",
+    "id": "805",
+    "group": null
+  },
+  {
+    "name": "Trumpet Blast",
+    "id": "305",
+    "group": null
+  },
+  {
+    "name": "Twinfists",
+    "id": "615",
+    "group": null
+  },
+  {
+    "name": "TYMORAS SMILE",
+    "id": "478",
+    "group": null
+  },
+  {
+    "name": "Tyrant Fog Mist",
+    "id": "306",
+    "group": null
+  },
+  {
+    "name": "Undead shape",
+    "id": "685",
+    "group": null
+  },
+  {
+    "name": "Undead Shape risen lord",
+    "id": "704",
+    "group": "Undead Shape"
+  },
+  {
+    "name": "Undead Shape Spectre",
+    "id": "706",
+    "group": "Undead Shape"
+  },
+  {
+    "name": "Undead Shape Vampire",
+    "id": "705",
+    "group": "Undead Shape"
+  },
+  {
+    "name": "UndeadSelfHarm",
+    "id": "759",
+    "group": null
+  },
+  {
+    "name": "Unholy Aura",
+    "id": "187",
+    "group": null
+  },
+  {
+    "name": "Vampire Bat",
+    "id": "1523",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Bite",
+    "id": "1525",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire DominationGaze",
+    "id": "800",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Feed",
+    "id": "1526",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Invisibility",
+    "id": "799",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Menu",
+    "id": "1522",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Offer",
+    "id": "1527",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vampire Wolf",
+    "id": "1524",
+    "group": "Vampire"
+  },
+  {
+    "name": "Vine Mine Camouflage",
+    "id": "532",
+    "group": "Vine Mine"
+  },
+  {
+    "name": "Vine Mine Entangle",
+    "id": "530",
+    "group": "Vine Mine"
+  },
+  {
+    "name": "Vine Mine Hamper Movement",
+    "id": "531",
+    "group": "Vine Mine"
+  },
+  {
+    "name": "Ward",
+    "id": "1547",
+    "group": null
+  },
+  {
+    "name": "Ward Menu",
+    "id": "1546",
+    "group": "Ward"
+  },
+  {
+    "name": "Ward teleport",
+    "id": "1548",
+    "group": "Ward"
+  },
+  {
+    "name": "WARLOCK ELDRITCH BLAST",
+    "id": "1640",
+    "group": "WARLOCK ELDRITCH"
+  },
+  {
+    "name": "WARLOCK ELDRITCH CHAIN",
+    "id": "1646",
+    "group": "WARLOCK ELDRITCH"
+  },
+  {
+    "name": "WARLOCK ELDRITCH DOOM 1",
+    "id": "1643",
+    "group": "WARLOCK ELDRITCH DOOM"
+  },
+  {
+    "name": "WARLOCK ELDRITCH DOOM 2",
+    "id": "1644",
+    "group": "WARLOCK ELDRITCH DOOM"
+  },
+  {
+    "name": "WARLOCK ELDRITCH SPEAR",
+    "id": "1645",
+    "group": "WARLOCK ELDRITCH"
+  },
+  {
+    "name": "WARLOCK ELEMENT ACID",
+    "id": "1649",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT COLD",
+    "id": "1647",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT ELECTRICAL",
+    "id": "1651",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT ENTROPY",
+    "id": "1701",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT FIRE",
+    "id": "1648",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT MAGIC",
+    "id": "1654",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT NEGATIVE",
+    "id": "1652",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT POSITIVE",
+    "id": "1653",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT PSYCHIC",
+    "id": "1702",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK ELEMENT SONIC",
+    "id": "1650",
+    "group": "WARLOCK ELEMENT"
+  },
+  {
+    "name": "WARLOCK EYEGLOW",
+    "id": "1655",
+    "group": null
+  },
+  {
+    "name": "Warlock Fey",
+    "id": "1536",
+    "group": "Warlock"
+  },
+  {
+    "name": "Warlock Fiend",
+    "id": "1537",
+    "group": "Warlock"
+  },
+  {
+    "name": "WARLOCK HIDEOUS BLOW 1",
+    "id": "1641",
+    "group": "WARLOCK HIDEOUS BLOW"
+  },
+  {
+    "name": "WARLOCK HIDEOUS BLOW 2",
+    "id": "1642",
+    "group": "WARLOCK HIDEOUS BLOW"
+  },
+  {
+    "name": "Whirlwind",
+    "id": "561",
+    "group": null
+  },
+  {
+    "name": "Wholeness of Body",
+    "id": "309",
+    "group": null
+  },
+  {
+    "name": "Wild Shape",
+    "id": "320",
+    "group": null
+  },
+  {
+    "name": "Wild Shape BADGER",
+    "id": "405",
+    "group": "Wild Shape"
+  },
+  {
+    "name": "Wild Shape BOAR",
+    "id": "404",
+    "group": "Wild Shape"
+  },
+  {
+    "name": "Wild Shape BROWN BEAR",
+    "id": "401",
+    "group": "Wild Shape"
+  },
+  {
+    "name": "Wild Shape PANTHER",
+    "id": "402",
+    "group": "Wild Shape"
+  },
+  {
+    "name": "Wild Shape WOLF",
+    "id": "403",
+    "group": "Wild Shape"
+  },
+  {
+    "name": "Wrathful Castigation",
+    "id": "1574",
+    "group": null
+  }
+]

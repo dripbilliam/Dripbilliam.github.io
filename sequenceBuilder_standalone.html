@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arelith Spell Queue Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Force full width - override GitHub Pages container */
+        html {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+        }
+
+        body {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 20px !important;
+            font-family: 'Roboto Slab', serif;
+            background: #1A202C;
+            color: rgba(255, 255, 255, 0.92);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 10px #000;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.7;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .spell-browser {
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .sequence-builder {
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 0.375rem;
+            background: rgba(0, 0, 0, 0.36);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1rem;
+            font-family: 'Roboto Slab', serif;
+            transition: all 0.2s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: rgba(66, 153, 225, 0.6);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.625rem 1.25rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            border-radius: 0.375rem;
+            color: rgba(255, 255, 255, 0.92);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .tab.active {
+            background: #3182ce;
+            box-shadow: 0 0 10px rgba(49, 130, 206, 0.3);
+        }
+
+        .filter-section {
+            margin-bottom: 15px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 0.375rem;
+            color: rgba(255, 255, 255, 0.92);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-btn.active {
+            background: #3182ce;
+            border-color: #2b6cb0;
+        }
+
+        .spell-list {
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.16);
+        }
+
+        .spell-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .spell-item:hover {
+            background: rgba(0, 0, 0, 0.16);
+            transform: translateX(5px);
+        }
+
+        .spell-item.spell {
+            border-left-color: #3182ce;
+        }
+
+        .spell-item.feat {
+            border-left-color: #805AD5;
+        }
+
+        .spell-item.unknown {
+            border-left-color: #718096;
+        }
+
+        .spell-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spell-id {
+            background: rgba(0, 0, 0, 0.48);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        .spell-details {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        .spell-classes {
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: #90cdf4;
+        }
+
+        .sequence-list {
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px dashed rgba(255, 255, 255, 0.16);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.16);
+        }
+
+        .sequence-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sequence-item.over-cap {
+            background: rgba(229, 62, 62, 0.2);
+            border: 2px solid rgba(229, 62, 62, 0.6);
+        }
+
+        .sequence-spell-name {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .spell-level-warning {
+            background: rgba(229, 62, 62, 0.8);
+            color: #fff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.688rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .metamagic-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .metamagic-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 0.375rem;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.92);
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .metamagic-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .metamagic-btn.active {
+            background: rgba(237, 137, 54, 0.6);
+            border-color: rgba(237, 137, 54, 0.8);
+        }
+
+        .remove-btn {
+            background: rgba(229, 62, 62, 0.6);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: rgba(229, 62, 62, 0.8);
+        }
+
+        .command-output {
+            background: rgba(0, 0, 0, 0.48);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .command-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            word-break: break-all;
+            color: #9ae6b4;
+            font-weight: 600;
+        }
+
+        .spell-levels-summary {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            font-size: 0.813rem;
+            color: #90cdf4;
+        }
+
+        .level-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .level-badge {
+            background: rgba(49, 130, 206, 0.3);
+            border: 1px solid rgba(49, 130, 206, 0.6);
+            padding: 0.25rem 0.625rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'Roboto Slab', serif;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #90cdf4;
+            color: #1A202C;
+        }
+
+        .btn-primary:hover {
+            background: #bee3f8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(144, 205, 244, 0.4);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #4A5568;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(113, 128, 150, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.5;
+        }
+
+        .info-box {
+            background: rgba(49, 130, 206, 0.2);
+            border-left: 4px solid #3182ce;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.813rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.16);
+            border-radius: 0.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #3182ce;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+            font-weight: 300;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.16);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.24);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .main-layout {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sequence-builder {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px !important;
+            }
+
+            .container {
+                padding: 1rem;
+                border-radius: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.75em;
+            }
+
+            .subtitle {
+                font-size: 0.95em;
+            }
+
+            .tabs {
+                gap: 3px;
+            }
+
+            .tab {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.813rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.813rem;
+            }
+
+            .spell-list {
+                max-height: 400px;
+            }
+
+            .sequence-list {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .subtitle {
+                font-size: 0.875em;
+            }
+
+            .main-layout {
+                gap: 15px;
+            }
+
+            .spell-browser,
+            .sequence-builder {
+                padding: 1rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: center;
+            }
+
+            .filter-buttons {
+                gap: 5px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spell Queue Builder</h1>
+        <div class="subtitle">Build your spell sequences</div>
+
+        <div class="main-layout">
+            <!-- Spell Browser -->
+            <div class="spell-browser">
+                <input type="text" class="search-bar" id="searchBar" placeholder="Search spells and feats...">
+
+                <div class="tabs" id="mainTabs">
+                    <button class="tab active" data-tab="all">All</button>
+                    <button class="tab" data-tab="classes">By Class</button>
+                    <button class="tab" data-tab="schools">By School</button>
+                    <button class="tab" data-tab="groups">By Group</button>
+                    <button class="tab" data-tab="unassigned">Unassigned</button>
+                </div>
+
+                <div id="filterSection" class="filter-section" style="display: none;">
+                    <div class="filter-buttons" id="filterButtons"></div>
+                </div>
+
+                <div class="spell-list" id="spellList">
+                    <div class="loading">Loading spells...</div>
+                </div>
+
+                <div class="stats" id="stats"></div>
+            </div>
+
+            <!-- Sequence Builder -->
+            <div class="sequence-builder">
+                <h2 style="margin-bottom: 15px;">Sequence Builder</h2>
+
+                <div class="info-box">
+                    <strong>Metamagic:</strong> x=Extend, e=Empower, m=Maximize, s=Silent, l=Still, q=Quicken
+                </div>
+
+                <div class="sequence-list" id="sequenceList">
+                    <div class="empty-state">
+                        Click spells to add them to your sequence
+                    </div>
+                </div>
+
+                <div class="command-output">
+                    <div class="command-text" id="commandOutput">-sq </div>
+                    <div class="spell-levels-summary" id="spellLevelsSummary" style="display: none;">
+                        <strong>Spell Slots Required:</strong>
+                        <div class="level-breakdown" id="levelBreakdown"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="copyBtn">Copy Command</button>
+                    <button class="btn btn-secondary" id="clearBtn">Clear</button>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px;">
+                    <strong>Tips:</strong><br>
+                    • Click metamagic letters to toggle modifiers<br>
+                    • Type <code>-sq debug</code> ingame to check if there are errors
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // CONFIGURATION - Edit these paths and settings here
+        // ========================================
+        
+        // Data file paths
+        const CONFIG = {
+            // Remote data file paths 
+            // These are tried first, then falls back to local paths
+            defaultCombinedDataPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/Parsed/combinedSpellFeatData.json',
+            defaultNotFoundDataPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/Parsed/notFound.json',
+            defaultBlacklistPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/Parsed/blacklist.json',
+            
+            // Local repo fallback paths
+            localCombinedDataPath: 'Parsed/combinedSpellFeatData.json',
+            localNotFoundDataPath: 'Parsed/notFound.json',
+            localBlacklistPath: 'Parsed/blacklist.json',
+            
+            // UI Settings
+            minGroupSize: 3,  // Minimum items required for a group to appear in "By Group" tab
+            
+            // Debug logging
+            enableDebugLogs: true
+        };
+        
+        // ========================================
+        // Application State
+        // ========================================
+        
+        let allData = [];
+        let notFoundData = [];
+        let sequence = [];
+        let currentTab = 'all';
+        let currentFilter = null;
+        let blacklist = [];
+
+        // Utility: Convert text to proper case (Title Case)
+        function toProperCase(str) {
+            if (!str) return str;
+            
+            // List of words that should stay lowercase (unless at start)
+            const keepLowercase = ['a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'vs', 'x2'];
+            
+            return str.split(/\s+/).map((word, index) => {
+                // Keep common abbreviations or IDs in uppercase
+                if (/^[A-Z]{2,}$/.test(word) && word.length <= 4 && !word.match(/^[A-Z][A-Z]+[a-z]/)) {
+                    return word; // Keep things like AR, BG, PM, etc.
+                }
+                
+                // Handle hyphenated words
+                if (word.includes('-')) {
+                    return word.split('-').map(part => toProperCase(part)).join('-');
+                }
+                
+                // Convert to title case
+                const lower = word.toLowerCase();
+                
+                // Keep certain words lowercase (unless it's the first word)
+                if (index > 0 && keepLowercase.includes(lower)) {
+                    return lower;
+                }
+                
+                // Title case
+                return lower.charAt(0).toUpperCase() + lower.slice(1);
+            }).join(' ');
+        }
+
+        // Load data
+        async function loadData() {
+            // Try to load combined data (remote first, then local)
+            let combinedData = null;
+            const combinedPathsToTry = [
+                CONFIG.defaultCombinedDataPath,
+                CONFIG.localCombinedDataPath
+            ].filter(Boolean);
+            
+            for (const path of combinedPathsToTry) {
+                try {
+                    if (CONFIG.enableDebugLogs) console.log(`Attempting to load combined data from: ${path}`);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        combinedData = await response.json();
+                        if (CONFIG.enableDebugLogs) console.log(`Successfully loaded combined data from: ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    if (CONFIG.enableDebugLogs) console.warn(`Failed to load combined data from ${path}:`, e.message);
+                }
+            }
+            
+            // Try to load notFound data (remote first, then local)
+            let notFoundDataTemp = [];
+            const notFoundPathsToTry = [
+                CONFIG.defaultNotFoundDataPath,
+                CONFIG.localNotFoundDataPath
+            ].filter(Boolean);
+            
+            for (const path of notFoundPathsToTry) {
+                try {
+                    if (CONFIG.enableDebugLogs) console.log(`Attempting to load notFound data from: ${path}`);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        notFoundDataTemp = await response.json();
+                        if (CONFIG.enableDebugLogs) console.log(`Successfully loaded notFound data from: ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    if (CONFIG.enableDebugLogs) console.warn(`Failed to load notFound data from ${path}:`, e.message);
+                }
+            }
+            
+            // Try to load blacklist (remote first, then local)
+            let blacklistData = null;
+            const blacklistPathsToTry = [
+                CONFIG.defaultBlacklistPath,
+                CONFIG.localBlacklistPath
+            ].filter(Boolean);
+            
+            for (const path of blacklistPathsToTry) {
+                try {
+                    if (CONFIG.enableDebugLogs) console.log(`Attempting to load blacklist from: ${path}`);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        blacklistData = await response.json();
+                        blacklist = blacklistData.blacklistedGroups || [];
+                        if (CONFIG.enableDebugLogs) console.log(`Successfully loaded blacklist from: ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    if (CONFIG.enableDebugLogs) console.warn(`Failed to load blacklist from ${path}:`, e.message);
+                }
+            }
+            
+            if (!blacklistData) {
+                blacklist = [];
+            }
+            
+            // Check if we have data
+            if (!combinedData || combinedData.length === 0) {
+                // Try to use backup/embedded data if available
+                if (typeof COMBINED_DATA !== 'undefined') {
+                    console.log('Using embedded backup data');
+                    combinedData = COMBINED_DATA;
+                    notFoundDataTemp = typeof NOT_FOUND_DATA !== 'undefined' ? NOT_FOUND_DATA : [];
+                    blacklist = typeof BLACKLIST !== 'undefined' ? BLACKLIST : blacklist;
+                } else {
+                    document.getElementById('spellList').innerHTML = 
+                        '<div class="empty-state">Error loading data. Please check network connectivity.</div>';
+                    console.error('No data could be loaded from any source');
+                    return;
+                }
+            }
+            
+            allData = combinedData;
+            notFoundData = notFoundDataTemp;
+            
+            // Combine for display
+            const combinedForDisplay = [
+                ...allData,
+                ...notFoundData.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    type: 'unknown',
+                    group: item.group,
+                    classes: [],
+                    school: '',
+                    innateLevel: '',
+                    descriptors: '',
+                    prerequisites: ''
+                }))
+            ];
+
+            allData = combinedForDisplay;
+            
+            displaySpells(allData);
+            updateStats();
+        }
+
+        // Display spells
+        function displaySpells(spells) {
+            const spellList = document.getElementById('spellList');
+            
+            if (spells.length === 0) {
+                spellList.innerHTML = '<div class="empty-state">No spells found</div>';
+                updateStats([]);
+                return;
+            }
+
+            spellList.innerHTML = spells.map(spell => {
+                const classInfo = spell.classes && spell.classes.length > 0
+                    ? spell.classes.map(c => `${c.class} ${c.level}${c.domain ? ' (' + c.domain + ')' : ''}`).join(', ')
+                    : '';
+
+                const details = [
+                    spell.school && `School: ${spell.school}`,
+                    spell.innateLevel && `Level: ${spell.innateLevel}`,
+                    spell.descriptors && `${spell.descriptors}`,
+                    spell.group && `Group: ${spell.group}`
+                ].filter(Boolean).join(' • ');
+
+                return `
+                    <div class="spell-item ${spell.type}" onclick="addToSequence('${spell.id}', '${spell.name.replace(/'/g, "\\'")}')">
+                        <div class="spell-name">
+                            <span>${toProperCase(spell.name)}</span>
+                            <span class="spell-id">ID: ${spell.id}</span>
+                        </div>
+                        ${details ? `<div class="spell-details">${details}</div>` : ''}
+                        ${classInfo ? `<div class="spell-classes">${classInfo}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // Update stats to reflect current selection
+            updateStats(spells);
+        }
+
+        // Add to sequence
+        function addToSequence(id, name) {
+            // Find the spell data to get innateLevel
+            const spellData = allData.find(s => s.id === id);
+            
+            sequence.push({
+                id: id,
+                name: name,
+                metamagic: [],
+                innateLevel: spellData ? spellData.innateLevel : null
+            });
+            updateSequenceDisplay();
+        }
+
+        // Update sequence display
+        function updateSequenceDisplay() {
+            const sequenceList = document.getElementById('sequenceList');
+            
+            if (sequence.length === 0) {
+                sequenceList.innerHTML = '<div class="empty-state">Click spells to add them to your sequence</div>';
+                updateCommandOutput();
+                return;
+            }
+
+            sequenceList.innerHTML = sequence.map((item, index) => {
+                // Calculate effective level with metamagic
+                let effectiveLevel = null;
+                let isOverCap = false;
+                if (item.innateLevel && item.innateLevel !== '') {
+                    const baseLevel = parseInt(item.innateLevel);
+                    if (!isNaN(baseLevel)) {
+                        const metamagicIncrease = getMetamagicLevelIncrease(item.metamagic);
+                        effectiveLevel = baseLevel + metamagicIncrease;
+                        isOverCap = effectiveLevel > 9;
+                    }
+                }
+                
+                return `
+                    <div class="sequence-item ${isOverCap ? 'over-cap' : ''}">
+                        <div class="sequence-spell-name">
+                            ${toProperCase(item.name)}
+                            ${isOverCap ? `<span class="spell-level-warning" title="Spell level ${effectiveLevel} exceeds maximum of 9">⚠ OVER CAP</span>` : ''}
+                        </div>
+                        <div class="metamagic-buttons">
+                            ${['x', 'e', 'm', 's', 'l', 'q'].map(m => `
+                                <button class="metamagic-btn ${item.metamagic.includes(m) ? 'active' : ''}" 
+                                        onclick="toggleMetamagic(${index}, '${m}')"
+                                        title="${getMetamagicTitle(m)}">
+                                    ${m.toUpperCase()}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <button class="remove-btn" onclick="removeFromSequence(${index})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            updateCommandOutput();
+        }
+
+        // Toggle metamagic
+        function toggleMetamagic(index, modifier) {
+            const item = sequence[index];
+            const idx = item.metamagic.indexOf(modifier);
+            
+            if (idx > -1) {
+                item.metamagic.splice(idx, 1);
+            } else {
+                item.metamagic.push(modifier);
+            }
+            
+            updateSequenceDisplay();
+        }
+
+        // Get metamagic title
+        function getMetamagicTitle(modifier) {
+            const titles = {
+                'x': 'Extend',
+                'e': 'Empower',
+                'm': 'Maximize',
+                's': 'Silent',
+                'l': 'Still',
+                'q': 'Quicken'
+            };
+            return titles[modifier] || '';
+        }
+
+        // Calculate metamagic level increase
+        function getMetamagicLevelIncrease(metamagicArray) {
+            const metamagicCosts = {
+                'e': 2,  // Empower
+                'x': 1,  // Extend
+                'm': 3,  // Maximize
+                'q': 1,  // Quicken
+                's': 1,  // Silent
+                'l': 1   // Still
+            };
+            
+            let totalIncrease = 0;
+            metamagicArray.forEach(modifier => {
+                totalIncrease += metamagicCosts[modifier] || 0;
+            });
+            return totalIncrease;
+        }
+
+        // Remove from sequence
+        function removeFromSequence(index) {
+            sequence.splice(index, 1);
+            updateSequenceDisplay();
+        }
+
+        // Update command output
+        function updateCommandOutput() {
+            const commandOutput = document.getElementById('commandOutput');
+            const spellLevelsSummary = document.getElementById('spellLevelsSummary');
+            const levelBreakdown = document.getElementById('levelBreakdown');
+            
+            if (sequence.length === 0) {
+                commandOutput.textContent = '-sq ';
+                spellLevelsSummary.style.display = 'none';
+                return;
+            }
+
+            const spellIds = sequence.map(item => {
+                const metamagicStr = item.metamagic.join('');
+                return `${item.id}${metamagicStr}`;
+            }).join('|');
+
+            commandOutput.textContent = `-sq ${spellIds}`;
+            
+            // Calculate spell level breakdown (including metamagic)
+            const levelCounts = {};
+            sequence.forEach(item => {
+                if (item.innateLevel && item.innateLevel !== '') {
+                    const baseLevel = parseInt(item.innateLevel);
+                    if (!isNaN(baseLevel)) {
+                        // Add metamagic level increase to base level
+                        const metamagicIncrease = getMetamagicLevelIncrease(item.metamagic);
+                        const effectiveLevel = baseLevel + metamagicIncrease;
+                        levelCounts[effectiveLevel] = (levelCounts[effectiveLevel] || 0) + 1;
+                    }
+                }
+            });
+            
+            // Display level breakdown
+            if (Object.keys(levelCounts).length > 0) {
+                const sortedLevels = Object.keys(levelCounts).sort((a, b) => parseInt(a) - parseInt(b));
+                const hasOverCap = sortedLevels.some(level => parseInt(level) > 9);
+                
+                levelBreakdown.innerHTML = sortedLevels.map(level => {
+                    const isOverCap = parseInt(level) > 9;
+                    return `<div class="level-badge" style="${isOverCap ? 'background: rgba(255, 50, 50, 0.5); border-color: rgba(255, 50, 50, 0.8);' : ''}">
+                        Level ${level}: ${levelCounts[level]}× ${isOverCap ? '⚠' : ''}
+                    </div>`;
+                }).join('');
+                
+                if (hasOverCap) {
+                    levelBreakdown.innerHTML += '<div style="color: #ff6b6b; font-size: 11px; margin-top: 8px; font-weight: bold;">⚠ Warning: Some spells exceed level 9 cap!</div>';
+                }
+                
+                spellLevelsSummary.style.display = 'block';
+            } else {
+                spellLevelsSummary.style.display = 'none';
+            }
+        }
+
+        // Copy command
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const command = document.getElementById('commandOutput').textContent;
+            navigator.clipboard.writeText(command).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        // Clear sequence
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            sequence = [];
+            updateSequenceDisplay();
+        });
+
+        // Search
+        document.getElementById('searchBar').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = allData.filter(spell => 
+                spell.name.toLowerCase().includes(searchTerm) ||
+                spell.id.includes(searchTerm) ||
+                (spell.school && spell.school.toLowerCase().includes(searchTerm)) ||
+                (spell.group && spell.group.toLowerCase().includes(searchTerm))
+            );
+            displaySpells(filtered);
+        });
+
+        // Tab switching
+        document.getElementById('mainTabs').addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab')) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                currentTab = e.target.dataset.tab;
+                currentFilter = null;
+                
+                handleTabChange();
+            }
+        });
+
+        // Handle tab change
+        function handleTabChange() {
+            const filterSection = document.getElementById('filterSection');
+            const filterButtons = document.getElementById('filterButtons');
+
+            if (currentTab === 'all') {
+                filterSection.style.display = 'none';
+                displaySpells(allData);
+            } else if (currentTab === 'classes') {
+                const classes = [...new Set(allData.flatMap(s => s.classes ? s.classes.map(c => c.class) : []))].sort();
+                filterSection.style.display = 'block';
+                filterButtons.innerHTML = classes.map(c => 
+                    `<button class="filter-btn" onclick="filterByClass('${c}')">${c}</button>`
+                ).join('');
+                displaySpells([]);
+            } else if (currentTab === 'schools') {
+                // Split schools by comma to handle dual schools like "Evocation, Necromancy"
+                const schools = [...new Set(allData
+                    .flatMap(s => s.school ? s.school.split(',').map(school => school.trim()) : [])
+                    .filter(Boolean))].sort();
+                filterSection.style.display = 'block';
+                filterButtons.innerHTML = schools.map(s => 
+                    `<button class="filter-btn" onclick="filterBySchool('${s}')">` + toProperCase(s) + `</button>`
+                ).join('');
+                displaySpells([]);
+            } else if (currentTab === 'groups') {
+                // Count items per group
+                const groupCounts = {};
+                allData.forEach(s => {
+                    if (s.group) {
+                        groupCounts[s.group] = (groupCounts[s.group] || 0) + 1;
+                    }
+                });
+                
+                // Only show groups with 3 or more items
+                const groups = [...new Set(allData.map(s => s.group).filter(Boolean))]
+                    .filter(g => !blacklist.includes(g) && groupCounts[g] >= CONFIG.minGroupSize)
+                    .sort();
+                filterSection.style.display = 'block';
+                filterButtons.innerHTML = groups.map(g => 
+                    `<button class="filter-btn" onclick="filterByGroup('${g.replace(/'/g, "\\'")}')">${toProperCase(g)}</button>`
+                ).join('');
+                displaySpells([]);
+            } else if (currentTab === 'unassigned') {
+                filterSection.style.display = 'none';
+                const unassigned = allData.filter(s => 
+                    (!s.group || s.group === null) && 
+                    (!s.classes || s.classes.length === 0) && 
+                    (!s.school || s.school === '')
+                );
+                displaySpells(unassigned);
+            }
+        }
+
+        // Filter functions
+        function filterByClass(className) {
+            currentFilter = className;
+            updateFilterButtons();
+            const filtered = allData.filter(s => 
+                s.classes && s.classes.some(c => c.class === className)
+            );
+            displaySpells(filtered);
+        }
+
+        function filterBySchool(school) {
+            currentFilter = school;
+            updateFilterButtons();
+            // Split schools by comma to check if spell has this school
+            const filtered = allData.filter(s => {
+                if (!s.school) return false;
+                return s.school.split(',').map(sc => sc.trim()).includes(school);
+            });
+            displaySpells(filtered);
+        }
+
+        function filterByGroup(group) {
+            currentFilter = group;
+            updateFilterButtons();
+            const filtered = allData.filter(s => s.group === group);
+            displaySpells(filtered);
+        }
+
+        // Update filter button states
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                // Compare button text with currentFilter, accounting for proper case display
+                if (btn.textContent === currentFilter || 
+                    btn.textContent === toProperCase(currentFilter) ||
+                    toProperCase(btn.textContent) === currentFilter) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Update stats
+        function updateStats(dataSet = null) {
+            const stats = document.getElementById('stats');
+            const data = dataSet || allData;
+            const spellCount = data.filter(s => s.type === 'spell').length;
+            const featCount = data.filter(s => s.type === 'feat').length;
+            const unknownCount = data.filter(s => s.type === 'unknown').length;
+            
+            stats.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${data.length}</div>
+                    <div class="stat-label">Total Items</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${spellCount}</div>
+                    <div class="stat-label">Spells</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${unknownCount}</div>
+                    <div class="stat-label">Special Abilities</div>
+                </div>
+            `;
+        }
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>

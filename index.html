@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arelith Spell Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #90cdf4;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #cbd5e0;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1em;
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .tool-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #4a5568;
+            border-radius: 15px;
+            padding: 40px 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #90cdf4;
+            box-shadow: 0 15px 30px rgba(144, 205, 244, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .tool-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .tool-title {
+            font-size: 1.8em;
+            color: #90cdf4;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .tool-description {
+            font-size: 1em;
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-features {
+            list-style: none;
+            font-size: 0.9em;
+            color: #a0aec0;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .tool-features li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tool-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #90cdf4;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #4299e1;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover .cta-button {
+            background: #3182ce;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            color: #718096;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-card {
+                padding: 30px 20px;
+            }
+
+            .tool-icon {
+                font-size: 3em;
+            }
+
+            .tool-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arelith Spell Tools</h1>
+            <p class="subtitle">Comprehensive spell utilities for Neverwinter Nights: Arelith</p>
+            <p class="description">
+                Access powerful tools designed to help you master the arcane arts on Arelith.
+                Search, filter, and queue spells with ease.
+            </p>
+        </header>
+
+        <div class="tools-grid">
+            <a href="sequenceBuilder_standalone.html" class="tool-card">
+                <span class="tool-icon">&nbsp;</span>
+                <h2 class="tool-title">Spell Queue Builder</h2>
+                <p class="tool-description">
+                    Build optimized spell action queues for combat and buff sequences
+                </p>
+                <ul class="tool-features">
+                    <li>Create custom spell sequences</li>
+                    <li>Group related spells together</li>
+                    <li>Export queue commands for in-game use</li>
+                    <li>Save and load your favorite builds</li>
+                </ul>
+                <span class="cta-button">Build Sequences →</span>
+            </a>
+
+            <a href="SpellSearch/spellSearch_standalone.html" class="tool-card">
+                <span class="tool-icon">&nbsp;</span>
+                <h2 class="tool-title">Spell Search & Filter</h2>
+                <p class="tool-description">
+                    Advanced spell database with comprehensive filtering options
+                </p>
+                <ul class="tool-features">
+                    <li>Filter by school, class, and level</li>
+                    <li>Search by damage type and duration</li>
+                    <li>Find spells with specific saves or SR</li>
+                    <li>View detailed spell information</li>
+                </ul>
+                <span class="cta-button">Search Spells →</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>Made for the Arelith community • Data sourced from Arelith Wiki</p>
+        </footer>
+    </div>
+</body>
+</html>

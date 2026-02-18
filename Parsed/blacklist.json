@@ -1,0 +1,25 @@
+{
+  "blacklistedGroups": [
+    "Mass",
+    "Epic",
+    "Eagle",
+    "Ray of",
+    "Cats",
+    "Power Word",
+    "Hold",
+    "SPELL",
+    "Improved",
+    "Cure Critical",
+    "True",
+    "Dragon",
+    "Improved",
+    "Detect",
+    "Curse",
+    "Shield",
+    "Spell",
+    "Sphere",
+    "Craft",
+    "Greater"
+  ],
+  "description": "Add group names here to hide them from the 'By Group' tab. Each group name should be on a separate line in the array."
+}
