@@ -18,7 +18,6 @@ desktop.ini
 npm-debug.log*
 
 # Source files and build scripts (not needed for GitHub Pages)
-docs/
 GITHUB_PAGES.md
 
 # Temporary files

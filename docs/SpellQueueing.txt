@@ -1,0 +1,72 @@
+Players can queue up a delimited list of spells they want to cast on themselves. You type `-sq (spell IDs)` to queue up your spells.
+
+- You can use `,` or `|` to separate spell IDs for your spell queue
+
+Example:
+
+`-sq 78x|639`
+
+`-sq 78x,639`
+
+Both of the above cast Extended Haste then Epic Mage Armor
+
+
+-sq 33|33|33|33|33|33|33|33|33|33
+
+Cast “Cure Minor Wounds” 10x in a row.
+
+
+-sq 49|9|13|355
+
+Cast “Bear’s Endurance,” “Bull’s Strength,” “Cat’s Grace,” and “Owl’s Wisdom”
+
+
+- Metamagic is supported using this list of suffixes:
+
+EXTEND   = "x"
+EMPOWER  = "e"
+MAXIMIZE = "m"
+SILENT   = "s"
+STILL    = "l"
+QUICKEN  = "q"
+- To help you build your spell queue, you can type `-sq debug` to toggle on showing the caster level and spell ID of spells when you cast them. And how spell queue is reading your queue.
+
+- I recommend creating a Custom Text Macro for each set of spells you want to cast. Long buffs, short buffs, etc.
+
+Spellqueue: Storage
+- Store up to five spell queues that you can execute using the slot name:
+
+`-sq save <slot> <spell IDs>`
+
+`-sq <slot>`
+
+Example:
+
+`-sq save a 78x,113`
+
+`-sq a`
+
+The above saves spells into slot 'a', then `-sq a` queues whatever is saved there. You can overwrite what's saved in a slot.
+
+
+Note: You must save using slot names `a`, `b`, `c`, `d`, or `e`.
+
+- To view your stored spell queue slots:
+
+`-sq display`
+
+Spellqueue: Target Mode
+- You can add a `t` to spell queue commands to cast *beneficial* spells on a target. Your cursor will change allowing you to click your target.
+
+- Self casting still works just don't include the `t`.
+
+Example:
+
+`-sq t <spell IDs>`
+
+`-sq t 78x,113`
+
+
+`-sq t <spell slot>`
+
+`-sq t a`

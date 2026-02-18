@@ -1,0 +1,859 @@
+Spell	ID
+Acid Fog	0
+Acid Splash	424
+Acrobatic Mastery	1610
+Aegis	1629
+Aid	1
+Alternate Shape Racial	1508
+Alternate Shape Totem Shape	1507
+Alternate Shape Were	1509
+Amplify	442
+Animate Dead	2
+Antimagic Field	1587
+ARArrowOfDeath	604
+Arcane Bleed	1621
+ARHailOfArrows	603
+ARImbueArrow	600
+ARSeekerArrow	601
+ARSeekerArrow2	602
+ARSentryArrow	980
+AS Assassinate	1503
+ASDarkness	606
+ASEtheralVis	1560
+ASGhostlyVisage	605
+ASImprovedInvisibility	608
+ASInvisibility	607
+AURA BLINDING	195
+Aura Cold	196
+Aura Electricity	197
+Aura Fear	198
+Aura Fear Dragon	412
+Aura Fire	199
+Aura HorrificAppearance	804
+Aura Menace	200
+Aura Of Courage	314
+Aura of Hellfire	761
+Aura of Vitality	372
+Aura Protection	201
+Aura Stun	202
+Aura Unearthly Visage	203
+Aura Unnatural	204
+Aura versus Alignment	323
+AuraOfGlory	429
+AuraOfGlory X2	562
+Avascular Mass	1575
+Awaken	363
+Azer Fire Blast	801
+BalagarnsIronHorn	436
+BalefulPolymorph BAT	1370
+BalefulPolymorph CHICKEN	1364
+BalefulPolymorph COW	1366
+BalefulPolymorph MOUSE	1368
+BalefulPolymorph PENGUIN	1365
+BalefulPolymorph SNAKE	1369
+BalefulPolymorph TOAD	1367
+Ball Lightning	516
+Bane	449
+Banishment	430
+Banner	1628
+BARBARIAN RAGE	307
+Bard Nahal Reckless Dweomer	1529
+Bards Song	411
+Barkskin	3
+Battle Boulder Toss	773
+Battle Mastery Spell	380
+Battletide	517
+Bears Endurance	49
+Bestow Curse	4
+BG AURA DESPAIR	1728
+BG CORRUPT WEAPON	1727
+BGCreateDead	609
+BGFiendish	610
+BGInflictCritical	612
+BGInflictSerious	611
+Bigbys Clenched Fist	462
+Bigbys Crushing Hand	463
+Bigbys Disrupting Hand	1581
+Bigbys Forceful Hand	460
+Bigbys Grasping Hand	461
+Bigbys Interposing Hand	459
+BK BullsStrength	614
+BK Contagion	613
+Black Blade of Disaster	533
+Blackstaff	541
+Blade Barrier	5
+Blade Thirst	535
+Blasphemy	1566
+Bless	6
+Bless Weapon	537
+Bless Weapon	7
+Blindness and Deafness	8
+Blood Frenzy	422
+Bombardment	423
+Bulls Strength	9
+Burning Hands	10
+Butterfly Spray	505
+Call Lightning	11
+Calm Emotions	12
+Cambion	1531
+Camouflage	421
+Cats Grace	481
+Cats Grace (Spellbook)	13
+Chain Lightning	14
+Chaos Shield	1562
+Charger	509
+Charm Monster	15
+Charm Person	16
+Charm Person or Animal	17
+Chosen Weapon	1637
+Chromatic Orb	1573
+Circle of Death	18
+Circle of Doom	19
+Clairaudience and Clairvoyance	20
+Clarity	21
+Cloak of Chaos	22
+Cloud of Bewilderment	569
+Cloudkill	23
+Color Spray	24
+Combust	518
+Command	1733
+Command Come	1736
+Command Dance	1740
+Command Fall	1734
+Command Flee	1737
+Command Kneel	1738
+Command reserved	1741
+Command Sit	1739
+Command Stay	1735
+Cone Acid	229
+Cone Cold	230
+Cone Disease	231
+Cone Fire	232
+Cone Lightning	233
+Cone of Cold	25
+Cone Poison	234
+Cone Sonic	235
+Confusion	26
+Contagion	27
+Continual Flame	419
+Control Undead	28
+Craft Armor	657
+Craft Armor Component	743
+CRAFT HARPER ITEM	479
+Craft Weapon	656
+Craft Weapon Component	742
+Create Greater Undead	29
+Create Undead	30
+Creeping Doom	364
+CripplingThrow	1620
+Crumble	512
+Crushing Despair	1567
+Cure Critical Wounds	31
+Cure Critical Wounds Others	567
+Cure Light Wounds	32
+Cure Minor Wounds	33
+Cure Moderate Wounds	34
+Cure Serious Wounds	35
+Curse Song	644
+Curse Weapon	1616
+Daltims fiery Tentacles	1593
+Dark Undertow	1683
+Darkbolt	1595
+Darkfire	548
+Darkness	36
+Daze	37
+DC Divine Wrath	622
+Deafening Clang	536
+Death Armor	519
+Death Ward	38
+Debilitating Strike	1627
+Decharger	510
+DeckAvatar	503
+Deflecting Force	774
+Delayed Blast Fireball	39
+Destruction	366
+DETECT EVIL	1532
+Detect Evil	312
+Detect Poison	1592
+Deterrence	1630
+DI SpellClutch	1505
+Dirge	445
+DirtyFighting 2	1761
+DirtyFighting Headbutt	1767
+DirtyFighting LowBlow	1765
+DirtyFighting NoseBreak	1766
+DirtyFighting Pommel	1764
+Disintegrate	1564
+Dismissal	40
+Dispel Magic	41
+Displacement	458
+Divine Favor	414
+Divine Might	473
+Divine Power	42
+Divine Protection	382
+Divine Shield	474
+Divine Smite	1639
+Divine Strength	381
+Divine Trickery	384
+Domain Power Air	1771
+Domain Power Animal	1772
+Domain Power Chaos	1801
+Domain Power Cold	1782
+Domain Power Darkness	1773
+Domain Power Death	1774
+Domain Power Destruction	1775
+Domain Power Earth	1776
+Domain Power Evil	1777
+Domain Power Fire	1778
+Domain Power Forge	1796
+Domain Power Good	1779
+Domain Power Healing	1780
+Domain Power Illusion	1799
+Domain Power Knowledge	1781
+Domain Power Law	1802
+Domain Power Luck	1803
+Domain Power Magic	1784
+Domain Power Mind	1800
+Domain Power Moon	1795
+Domain Power Ooze	1793
+Domain Power Plant	1785
+Domain Power Protection	1786
+Domain Power Storm	1783
+Domain Power Strength	1787
+Domain Power Suffering	1797
+Domain Power Sun	1788
+Domain Power Travel	1789
+Domain Power Trickery	1790
+Domain Power Undeath	1794
+Domain Power Vermin	1798
+Domain Power War	1791
+Domain Power Water	1792
+Dominate Animal	43
+Dominate Monster	44
+Dominate Person	45
+Doom	46
+Dragon Knight	638
+Dragon Shape	725
+Dragon Wing Buffet	246
+Drown	437
+Druid Balance	1528
+DWDEF Defensive Stance	641
+DWDEF Defensive Stance Exit	1501
+Eagle Splendor	482
+Eagle Splendor (Spellbook)	354
+Earthquake	426
+Electric Jolt	439
+Elemental Shape	319
+Elemental Shape AIR	400
+Elemental Shape EARTH	399
+Elemental Shape FIRE	397
+Elemental Shape WATER	398
+Elemental Strike	1703
+Elemental Strike Acid	1706
+Elemental Strike Cold	1704
+Elemental Strike Electrical	1707
+Elemental Strike Fire	1705
+Elemental Strike Negative	1708
+Elemental Strike Reserved	1710
+Elemental Strike Reserved	1709
+Elemental Swarm	48
+Elemental Weapon	542
+ElementalSummoningItem	502
+Empty Body	311
+Endure Elements	50
+Energy Buffer	369
+Energy Drain	51
+Enervation	52
+Entangle	53
+Entropic Shield	418
+Epic Blinding speed	647
+Epic Mage Armor	639
+Epic Second Wind	1624
+Epic Warding	695
+Ethereal Visage	121
+Etherealness	724
+Evards Black Tentacles	375
+Evil Blight	566
+Eviscerate	1622
+Expeditious Retreat	456
+Eye Bite	1578
+Faerie Fire	1569
+Fear	54
+Feeblemind	55
+Fence	1612
+Find Traps	377
+Finger of Agony	1583
+Finger of Death	56
+Fire Storm	57
+Fireball	58
+Firebrand	440
+Flame Arrow	59
+Flame Lash	60
+Flame Shield	47
+Flame Strike	61
+Flameberry	618
+Flare	416
+Flesh to stone	485
+Flying Debris	620
+Foresight reserved	1596
+Foxs Cunning	356
+Freedom of Movement	62
+Freeze	1584
+Frost Nova	1732
+Frost Shield	1633
+Frostbite	1731
+Gate	63
+Gedlees Electric Loop	520
+Ghostly Visage	120
+Glacial Wrath	1576
+Globe of Invulnerability	65
+Glyph of Warding	549
+GlyphOfWardingDefault	764
+Good Hope	1568
+GR SHADOW CON Acid Arrow	350
+GR SHADOW CON Flame Arrow	1604
+GR SHADOW CON Minor Globe	353
+GR SHADOW CON Stoneskin	342
+GR SHADOW CON Summon Shadow	324
+GR SHADOW CON Web	352
+GR SHADOW EVO Ball Lightning	1607
+GR SHADOW EVO Bigbys interposing	1606
+GR SHADOW EVO Ice Storm	1608
+GR SHADOW EVO ShadowStorm	1605
+GR Shadow Evocation	1598
+Grease	66
+Great Thunderclap	515
+Greater Bulls Strength	360
+Greater Cats Grace	361
+Greater Dispelling	67
+Greater Eagle Splendor	357
+Greater Endurance	362
+Greater Foxs Cunning	359
+Greater Magic Fang	453
+Greater Magic Weapon	545
+Greater Magic Weapon	68
+Greater Owls Wisdom	358
+Greater Planar Binding	69
+Greater Restoration	70
+Greater Sanctuary	443
+Greater Shadow Conjuration	158
+Greater Spell Breach	72
+Greater Spell Mantle	73
+Greater Stoneskin	74
+Greater Wild Shape 1	646
+Greater Wild Shape 2	675
+Greater Wild Shape 3	676
+Greater Wild Shape 4	677
+Greater Wild Shape Basilisk	670
+Greater Wild Shape Beholder	671
+Greater Wild Shape Blue dragon	708
+Greater Wild Shape DireTiger	694
+Greater Wild Shape Drider	673
+Greater Wild Shape Gargoyle	678
+Greater Wild Shape Green dragon	709
+Greater Wild Shape Harpy	672
+Greater Wild Shape Manticore	674
+Greater Wild Shape Medusa	679
+Greater Wild Shape Mindflayer	691
+Greater Wild Shape Minotaur	680
+Greater Wild Shape Red dragon	707
+Greater Wild Shape Spikes	692
+Greater Wild Shape Wyrmling Black	660
+Greater Wild Shape Wyrmling Blue	659
+Greater Wild Shape Wyrmling Green	662
+Greater Wild Shape Wyrmling Red	658
+Greater Wild Shape Wyrmling White	661
+Guard	1559
+Gust of Wind	75
+GWildShape DriderDarkness	688
+GWildShape Mindblast	693
+GWildShape Stonegaze	687
+Halt Undead	1565
+Hammer of the Gods	76
+Harm	77
+Haste	78
+Haste Slow X2	563
+Heal	79
+Healer Respite	1533
+Healing Circle	80
+Healing Sting	514
+Hell Hound Firebreath	264
+Hell Inferno	762
+Hellball	636
+Hemmorhage	1922
+Hex	1615
+Hex Worms	1617
+Hold Animal	81
+Hold Monster	82
+Hold Person	83
+Holy Aura	84
+Holy Sword	538
+Holy Sword	85
+Horizikauls Boom	521
+Horrid Wilting	367
+Ice Dagger	543
+Ice Storm	368
+Iceberg	1585
+Iceberry	617
+Identify	86
+Illithid Mindblast	789
+Imbue Armor	1719
+Imbue Armor Acid	1722
+Imbue Armor Cold	1720
+Imbue Armor Electrical	1723
+Imbue Armor Fire	1721
+Imbue Armor Negative	1724
+Imbue Armor Reserved	1726
+Imbue Armor Reserved	1725
+Imbue Weapon	1711
+Imbue Weapon Acid	1714
+Imbue Weapon Cold	1712
+Imbue Weapon Electrical	1715
+Imbue Weapon Fire	1713
+Imbue Weapon Magic	1717
+Imbue Weapon Negative	1716
+Imbue Weapon Reserved	1718
+Implosion	87
+Improved Acrobatic Mastery	1611
+Improved Chaos Shield	1563
+Improved Invisibility	88
+Improved Whirlwind	645
+Incendiary Cloud	89
+Inferno	446
+Infestation of Maggots	513
+Inflict Critical Wounds	435
+Inflict Light Wounds	432
+Inflict Minor Wounds	431
+Inflict Moderate Wounds	433
+Inflict Serious Wounds	434
+Intimidate	1634
+Invisibility	483
+Invisibility	90
+Invisibility Purge	91
+Invisibility Sphere	92
+Ironguts	522
+Irresistible Dance	1580
+Isaacs Greater Missile Storm	448
+Isaacs Lesser Missile Storm	447
+Keen Edge	539
+KiBarrier	1638
+Knock	93
+Kyristans malevolent Tentacles	1594
+Lay On Hands	313
+Legend Lore	376
+Lesser Body Adjustment	277
+Lesser Dispel	94
+Lesser Mind Blank	95
+Lesser Planar Binding	96
+Lesser Restoration	97
+Lesser Spell Breach	98
+Lesser Spell Mantle	99
+LichLyrics	616
+Light	100
+Lightning Bolt	101
+Lightning Shield	1632
+Mage Armor	102
+Magic Circle against Alignment	322
+Magic Circle against Chaos	103
+Magic Circle against Evil	104
+Magic Circle against Good	105
+Magic Circle against Law	106
+Magic Fang	452
+Magic Missile	107
+Magic Vestment	546
+Magic Vestment	108
+Magic Weapon	544
+Magic Weapon	109
+Manticore Spikes	498
+Mass Blindness and Deafness	110
+Mass Camouflage	455
+Mass Charm	111
+Mass Domination	112
+Mass Haste	113
+Mass Heal	114
+Mass Hold Monster	1597
+Maze	1570
+Melfs Acid Arrow	115
+Mephit Salt Breath	278
+Mephit Steam Breath	279
+Mestils Acid Breath	523
+Mestils Acid Sheath	524
+Meteor Swarm	116
+Mighty Rage	642
+Mind Blank	117
+Mind Fog	118
+Mindflayer Mindblast 10	713
+Mindflayer Paragon Mindblast	714
+Minor Globe of Invulnerability	119
+Monstrous Regeneration	525
+Moonbeam	1745
+Mordenkainens Disjunction	122
+Mordenkainens Sword	123
+Mummy Bolster Undead	280
+Mummy Dust	637
+Nahal Reckless Dweomer	1561
+Natures Balance	124
+Negative Energy Burst	370
+Negative Energy Protection	125
+Negative Energy Ray	371
+Negative Plane Avatar	383
+Neutralize Poison	126
+Nightmare	1579
+Nightmare Smoke	819
+One With The Land	420
+Outsider Shape	732
+Outsider Shape Azer	733
+Outsider Shape DeathSlaad	735
+Outsider Shape Rakshasa	734
+Owls Insight	438
+Owls Wisdom	355
+Paladin Summon Mount	818
+PDK Fear	808
+PDK FinalStand	810
+PDK InspireCourage	811
+PDK OathOfWrath	809
+PDK RallyingCry	806
+PDK Shield	807
+Phantasmal Killer	127
+Planar Ally	451
+Planar Binding	128
+Planar Conduit	1635
+PlanarTurning	643
+PM Animate Dead	623
+PM Deathless Master Touch	628
+PM Summon Greater Undead	627
+PM Summon Undead	624
+PM Undead Graft1	625
+PM Undead Graft2	626
+Poison	129
+Poison Weapon	655
+Polymorph GIANT SPIDER	387
+Polymorph PIXIE	390
+Polymorph Self	130
+Polymorph TROLL	388
+Polymorph UMBER HULK	389
+Polymorph ZOMBIE	391
+Power Word Kill	131
+Power Word Stun	132
+PowerStone	507
+Prayer	1534
+Prayer	133
+PrayerBox	619
+Premonition	134
+Prismatic Spray	135
+Project Image Clone	1549
+Protection from Alignment	321
+Protection from Chaos	136
+Protection from Elements	137
+Protection from Evil	138
+Protection from Good	139
+Protection from Law	140
+Protection from Spells	141
+Psionic Inertial Barrier	741
+Quivering Palm	310
+RA CreateArrow	1504
+Rage 3	299
+Rage 4	300
+Rage 5	301
+Raise Dead	142
+Ray of Enfeeblement	143
+Ray of Frost	144
+RedDragonDiscipleBreath	690
+Regenerate	374
+Remove Blindness and Deafness	145
+Remove Curse	146
+Remove Disease	316
+Remove Disease	147
+Remove Fear	148
+Remove Paralysis	149
+Resist Elements	150
+Resistance	151
+Restoration	152
+Restoration Others	568
+Resurrection	153
+RodOfWonder	499
+Rogues Cunning	385
+Ruin	640
+Sacred Flame	1730
+Safeguard	1631
+Sanctuary	154
+Scare	155
+Scintillating Pattern	1577
+Scintillating Sphere	526
+Scorching Ray	1572
+SeaHag EvilEye	803
+Searing Light	156
+Second Wind	1623
+See Invisibility	157
+SHADES Cone of Cold	340
+SHADES Fireball	341
+Shadow Attack	769
+SHADOW CON Darkness	345
+SHADOW CON Ghostly Visage	351
+SHADOW CON GREASE	1599
+SHADOW CON Inivsibility	346
+SHADOW CON Mage Armor	347
+SHADOW CON Magic Missile	348
+SHADOW CON Mest Acid Breath	1600
+SHADOW CON Summon Shadow	349
+SHADOW CON Summon Shadow	344
+Shadow Conjuration	159
+SHADOW DAZE	475
+Shadow Displacement	1618
+SHADOW EVADE	477
+SHADOW EVO Elemental Shield	1602
+SHADOW EVO Gust of Wind	1603
+SHADOW EVO Shadowbolt	1601
+SHADOW EVO Wall of Fire	343
+Shadow Evocation	71
+Shadow Plague	1609
+Shadow Shield	160
+ShadowBlend	757
+Shapechange	161
+Shapechange BALOR	394
+Shapechange DEATH SLAAD	395
+Shapechange FIRE GIANT	393
+Shapechange IRON GOLEM	396
+Shapechange RED DRAGON	392
+Shelgarns Persistent Blade	534
+Shield	417
+Shield of Faith	450
+Shield of Law	162
+Silence	163
+Slay Living	164
+Sleep	480
+Sleep	165
+Slow	166
+Smite Evil	315
+Sound Burst	167
+Sound Lance	1582
+SPELL BALEFUL POLYMORPH	1853
+SPELL BESTOW WOUND	1921
+SPELL BLACKFIRE	1858
+SPELL BLADES OF FIRE	1855
+SPELL BLOOD HOMUNCULUS	1876
+SPELL BLUR	1850
+SPELL CHILL TOUCH	1869
+SPELL CHROMATIC ORB GREATER	1871
+SPELL CRIMSON LIGHTNING	1908
+SPELL CURSE STORM	1928
+SPELL CURSED LIGHTNING SPHERE	1906
+SPELL DARK INVOCATION ELD VEIL	1696
+SPELL DARK INVOCATION FORESTALL	1695
+SPELL DARK INVOCATION GATE	1693
+SPELL DARK INVOCATION RESERVED 1	1697
+SPELL DARK INVOCATION RESERVED 2	1698
+SPELL DARK INVOCATION RESERVED 3	1699
+SPELL DARK INVOCATION RESERVED 4	1700
+SPELL DARK INVOCATION SAGE TONGUE	1694
+SPELL DEHYDRATE	1854
+SPELL DIRGE AWAKENING	1755
+SPELL DIRGE DAMNATION	1754
+SPELL DIRGE HARVEST	1752
+SPELL DIRGE REPRISAL	1753
+SPELL DIRGE TERROR	1756
+SPELL DIRGE WOE	1751
+SPELL EAGLE SIGHT	1878
+SPELL ECHO	1757
+SPELL ELDRITCH SUMMON	1690
+SPELL ELDRITCH SUMMON 1	1684
+SPELL ELDRITCH SUMMON 2	1685
+SPELL ELDRITCH SUMMON 3	1686
+SPELL ELDRITCH SUMMON 4	1687
+SPELL ELDRITCH SUMMON 5	1688
+SPELL ELDRITCH SUMMON 6	1689
+SPELL ELDRITCH SUMMON EPIC	1692
+SPELL ELDRITCH SUMMON GREATER	1691
+SPELL ELEMENTAL ANNIHILATION	1836
+SPELL ELEMENTAL HAMMER	1835
+SPELL ELEMENTAL SAVANT	1832
+SPELL EPIC ELEMENTAL METEOR	1920
+SPELL EPIC VAMPIRIC FEAST	1925
+SPELL FALSE LIFE	1852
+SPELL FRIGID DARKNESS	1861
+SPELL GREATER MAGE ARMOR	1873
+SPELL GRIM TERROR	1924
+SPELL HEMORRHAGE	1922
+SPELL HOSTILIZER	1909
+SPELL LIFE TRANSFERENCE	1856
+SPELL LIFE TRANSFERENCE GREATER	1857
+SPELL MACABRE EULOGY	1758
+Spell Mantle	169
+SPELL MASS HARM	1866
+SPELL MASS ZOO BEAR	902
+SPELL MASS ZOO BULL	900
+SPELL MASS ZOO CAT	901
+SPELL MASS ZOO EAGLE	905
+SPELL MASS ZOO FOX	903
+SPELL MASS ZOO OWL	904
+SPELL MASSACRE	1833
+SPELL MISERICORDE	1759
+SPELL NEGATIVE ENERGY FLOOD	1874
+SPELL PACIFYING BONDS	1877
+SPELL PACT ABYSSAL 1	1656
+SPELL PACT ABYSSAL 2	1657
+SPELL PACT ABYSSAL 3	1658
+SPELL PACT FEY 1	1659
+SPELL PACT FEY 2	1660
+SPELL PACT FEY 3	1661
+SPELL PACT HAG 1	1662
+SPELL PACT HAG 2	1663
+SPELL PACT HAG 3	1664
+SPELL PACT INFERNAL 1	1665
+SPELL PACT INFERNAL 2	1666
+SPELL PACT INFERNAL 3	1667
+SPELL PACT KRAKEN 1	1668
+SPELL PACT KRAKEN 2	1669
+SPELL PACT KRAKEN 3	1670
+SPELL PACT STAR 1	1671
+SPELL PACT STAR 2	1672
+SPELL PACT STAR 3	1673
+SPELL PACT UNDYING 1	1674
+SPELL PACT UNDYING 2	1675
+SPELL PACT UNDYING 3	1676
+SPELL PHANTOM WOUND	1880
+SPELL PHANTOM WOUND MASS	1881
+Power Word Bleed	1867
+Power Word Blind	1872
+Predator	1926
+SPELL RED HARVEST	1831
+Red Bolt	1927
+Spell Resistance	168
+Serene Visage	1862
+Solipsism	1879
+SPELL SOUL SCOUR	1923
+SPELL SOUL SHRIEK	1834
+Spider Skin	1851
+Spinal Tap	1865
+Stop Heart	1868
+Strangulate	1864
+Sustain	1859
+Vengeful Mount	1870
+Vermilion Stars	1907
+Vicious Mockery	1860
+Withering Ray	1863
+Wraith Stride	1875
+Spellstaff	508
+Sphere of Chaos	170
+Sphere Spell	782
+Spike Growth	454
+Spiral Fireball	772
+Spirited Charge	1613
+Sprint	1626
+Stinking Cloud	171
+Stone Bones	527
+Stone to flesh	486
+Stonehold	547
+Stoneskin	172
+Storm of Vengeance	173
+Summon Animal Companion	317
+Summon Baatezu	701
+Summon Celestial	379
+Summon Creature I	174
+Summon Creature II	175
+Summon Creature III	176
+Summon Creature IV	177
+Summon Creature IX	178
+Summon Creature V	179
+Summon Creature VI	180
+Summon Creature VII	181
+Summon Creature VIII	182
+Summon Familiar	318
+Summon Mephit	378
+SUMMON SHADOW	476
+Summon Shadow X2	564
+Summon Slaad	303
+Summon Special Warhorse	1625
+Summon Tanarri	304
+Summon Warhorse	1614
+SummonTool	1502
+Sunbeam	183
+Sunburst	427
+Sunfire	1744
+Sustenance	1742
+Tashas Hideous Laughter	457
+Tensers Transformation	184
+Tide of Battle	565
+Time Stop	185
+Touch Petrify	496
+Track	1535
+Tranmutation Lens	1550
+Transmutation Create	1551
+Trap Arrow	487
+Trap Bolt	488
+Trap Bolt Huge	1619
+Trap Dart	493
+Trap Shuriken	494
+Troglodyte Stench	805
+True Seeing	186
+True Strike	415
+Trumpet Blast	305
+Turn Undead	308
+Twinfists	615
+TYMORAS SMILE	478
+Tyrant Fog Mist	306
+Ultravision	365
+Undead shape	685
+Undead Shape risen lord	704
+Undead Shape Spectre	706
+Undead Shape Vampire	705
+UndeadSelfHarm	759
+Undeath to Death	528
+Undeaths Eternal Foe	444
+Unholy Aura	187
+Vampire Bat	1523
+Vampire Bite	1525
+Vampire DominationGaze	800
+Vampire Feed	1526
+Vampire Invisibility	799
+Vampire Menu	1522
+Vampire Offer	1527
+Vampire Wolf	1524
+Vampiric Touch	188
+Vine Mine	529
+Vine Mine Camouflage	532
+Vine Mine Entangle	530
+Vine Mine Hamper Movement	531
+Virtue	189
+Vitriolic Sphere	1743
+Wail of the Banshee	190
+Wall of Fire	191
+Wall of Ice	1571
+War Cry	373
+Ward	1547
+Ward Menu	1546
+Ward teleport	1548
+WARLOCK ELDRITCH BLAST	1640
+WARLOCK ELDRITCH CHAIN	1646
+WARLOCK ELDRITCH DOOM 1	1643
+WARLOCK ELDRITCH DOOM 2	1644
+WARLOCK ELDRITCH SPEAR	1645
+WARLOCK ELEMENT ACID	1649
+WARLOCK ELEMENT COLD	1647
+WARLOCK ELEMENT ELECTRICAL	1651
+WARLOCK ELEMENT ENTROPY	1701
+WARLOCK ELEMENT FIRE	1648
+WARLOCK ELEMENT MAGIC	1654
+WARLOCK ELEMENT NEGATIVE	1652
+WARLOCK ELEMENT POSITIVE	1653
+WARLOCK ELEMENT PSYCHIC	1702
+WARLOCK ELEMENT SONIC	1650
+WARLOCK EYEGLOW	1655
+Warlock Fey	1536
+Warlock Fiend	1537
+WARLOCK HIDEOUS BLOW 1	1641
+WARLOCK HIDEOUS BLOW 2	1642
+Water Breathing	1636
+Web	192
+Weird	193
+Whirlwind	561
+Wholeness of Body	309
+Wild Shape	320
+Wild Shape BADGER	405
+Wild Shape BOAR	404
+Wild Shape BROWN BEAR	401
+Wild Shape PANTHER	402
+Wild Shape WOLF	403
+Word of Faith	194
+Wounding Whispers	441
+Wrathful Castigation	1574

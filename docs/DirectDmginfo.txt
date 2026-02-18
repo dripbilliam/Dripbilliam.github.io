@@ -1,0 +1,126 @@
+Direct damage spells. See Persistent AoE spells also. Disclaimer: Values are compiled for general comparison and are not equivalent due to the many hundreds of variables that cannot be qualified on a simple table. For example, don't attempt to compare Hemomancer's or Elementalist's spells with other spells because the Invoker's spells are assumed to be at maximum stacks.
+
+Table key:
+i: Innate Level
+R: Range in meters to the target
+St: Saves: (f)ortitude, (r)eflex, (w)ill or a (T)ouch attack
+Eff: Additional effects from failing or passing saves: (df) deafened, (½) save for half damage, (s)tunned, (d)azed, (R)ooted
+SR: Does not have a spell resistance check: $
+Dmg: Base damage plus additional damage per caster level
+Typ: Type of damage
+Max: Maximum damage at max level
+MAv: Average damage at max level
+AoE: If spell has an area of effect (e)nemies only or (a)ll damaged
+Hover bold items in the table for additional information
+Spell	i	R	St	Ef	SR	Dmg	Typ	Max	MAv	AoE
+Acid Splash	0	20				1d6 per 3	acid	60 (10d6)	35	
+Bestow Wound	0	8				1d3 per 3	bleed	30 (10d3)	25	
+Chill Touch	0	40	w	shivering		2d2 per 3	entrop cold	40 (20d2)	30	
+Daze	0	40	w	d		1d4 per 3	psychic	40 (10d4)	25	
+Electric Jolt	0	20				1d6 per 3	electric	60 (10d6)	35	
+Flare	0	20				1d6 per 3	fire	60 (10d6)	35	
+Inflict Minor Wounds	0	0	T			1d6 per 3	negative	60 (10d6)	35	
+Ray of Frost	0	20				1d6 per 3	cold	60 (10d6)	35	
+Sacred Flame	0	20				1d6 per 3	pos neg	60 (10d6)	35	
+Vicious Mockery	0	20	w	m		1d4 per 3	psychic	40 (10d4)	25	
+Horizikaul's Boom	1	8	w	df		1d4 + 1d4 per 2	sonic	60 (15d4)	37.5	
+Ice Dagger	1	8	r	½		1d4 + 1d4 per 1	cold	80 (20d4)	50	
+Magic Missile	1	40				1d4 + 1d4 per 2	force	20 (5d4)	12.5	
+Burning Hands	1	8	r	½		1d6 + 1d6 per 1	fire	60 (10d6)	35	e
+Chromatic Orb	1	20	T			1d8 per 2	elemental	40 (5d8)	22.5	
+Negative Energy Ray	1	20	w	½		1d6 + 1d6 per 2	negative	35 (5d6)	17.5	
+Inflict Light Wounds	1	0	T, w	½		2d8 + 1 per 1	negative	62 (4d8+30)	48	
+Combust	2	0	T, r	dot		1d6 + 1 per 1	fire	16 (1d6+10)	13.5	
+Frigid Darkness	2	40	f, rT	move & blind		2d10 + 2 per 2	cold entrop	50 (2d10 + 30)	41	
+Frostbite	2	0	T, f	dot		2d4 + 1 per 1	cold	16 (2d4+8)	13	
+Melf's Acid Arrow	2	40		dot		3d6	acid	18 (3d6)	10.5	
+Inflict Moderate Wounds	2	0	T, w	½		4d8 + 1 per 1	negative	62 (4d8+30)	48	
+Scorching Ray	2	8	T			3d6 + 3d6 per 4	fire	90 (15d6)	52.5	
+Sound Burst	2	40	w	s		1d8	sonic	8 (1d8)	4.5	a
+Flame Lash	2	8	r	½		2d6 + 1d6 per 2	fire	90 (15d6)	52.5	
+Gedlee's Electric Loop	2	8	r, w	s		1d8 per 2	electric	80 (10d8)	45	a
+Call Lightning	3	40	r	½		1d6 per 1	electric	60 (10d6)	35	e
+Fireball	3	40	r	½		1d6 per 1	fire	90 (15d6)	52.5	a
+Frost Nova	3	0	r	½, R		1d4 per 1	cold	60 (15d4)	37.5	a
+Glyph of Warding	3	8	r	½		1d8 per 2	sonic	40 (5d8)	22.5	a
+Hemorrhage	3	8	f	½, curse		3d8 + 1d8 per 3	bleed neg	80 (max 10d8)	45	
+Scintillating Sphere	3	20	r	½		1d6 per 1	electric	90 (15d6)	52.5	a
+Mestil's Acid Breath	3	8	r	½		1d6 per 1	acid	90 (15d6)	52.5	e
+Moonbeam	3	8	w	s		2d6 per 2	mag div	72 (12d6)	42	a
+Negative Energy Burst	3	20	w	str		1d8 + 1 per 1	negative	28 (1d8 + 20)	24.5	a
+Lightning Bolt	3	20	r	½		1d6 per 1	electric	90 (15d6)	52.5	a
+Flame Arrow	3	40	r	½		4d6 per 4	fire	168 (28d6)	98	
+Quillfire	3	8	f	poi		1d8 + 1 per 2	magic	13 (1d8 + 5)	9.5	
+Searing Light	3	20				1d8 per 2	divine	30 (5d6)	22.5	
+Sound Lance	3	20	f	df		1d8 per 1	sonic	80 (10d8)	45	
+Vampiric Touch	3	0	T	thp		1d6 per 2	negative	60 (10d6)	35	
+Inflict Serious Wounds	3	0	T, w	½		6d8 + 1 per 1	negative	78 (6d8+30)	57	
+Poison	3	0	T, f	s		6 + 4d12	poison	54 (4d12+6)	32	
+Hammer of the Gods	4	20	w	d, ½		1d8 per 2	divine	80 (10d8)	45	e
+Crimson Lightning	4	20	r, f	AoE, ½		1d6 per 1	elec bleed	90 (15d6)	52.5	a
+Finger of Agony	4	20	f	sick, ½		3d6, 4d6, 5d6	divine	72 (12d6)	42	
+Flame Strike	4	20	r	½		1d6 per 1	div fire	90 (15d6)	52.5	a*
+Greater Chromatic Orb	4	20	rT, f	½, variable	$	1d6 per 1	multi	90 (15d6)	52.5	
+Ice Storm	4	40				3d6 + 1d6 per 3	bludgeon cold	90 (15d6)	52.5	a
+Inflict Critical Wounds	4	0	T, w	½		8d8 + 1 per 1	negative	94 (8d8+30)	66	
+Isaac's Lesser Missile Storm	4	40				1d6 per 1	force	60 (10d6)	35	e
+Phantasmal Killer	4	20	w, f	fear, death		3d6	psychic	18 (3d6)	10.5	
+Withering Ray	4	40	f	½, no bleedout		10 + 1d4 per 1	entrop	90 (10 + 20d4)	60	a
+Ball Lightning	5	20	r	½		1d6 per 1	electric	90 (15d6)	52.5	e
+Cone of Cold	5	8	r	½		1d6 per 1	cold	90 (15d6)	52.5	e
+Circle of Doom	5	20	f	½		1d8 + 1 per 1	negative	38 (1d8+30)	34.5	e
+Darkbolt	5	40	w	d		2d6 per 2	magic	84 (14d6)	49	
+Elemental Hammer	5	8	w	d, ½		1d6 per 1	Ele type	120 (20d6)	70	a
+Firebrand	5	20	r	½		1d6 per 1	fire	90 (15d6)	52.5	e
+Inferno	5	8		dot		2d6	fire	12 (2d6)	7	
+Negative Energy Flood	5	40	f	½, str & zomb		1d6 per 1	neg	120 (20d6)	70	
+Nightmare	5	20	w	nightmare		1d10 per 2	psychic	150 (15d10)	55	
+Shadowbolt	5	40	w	½		1d8 per 1	elec neg	80 (10d8)	45	
+Slay Living	5	0	T, f	death		3d6 + 1 per 1	negative	48 (3d6+30)	40.5	
+Spinal Tap	5	8	w	paralyzed, ½		1d8 per 3	negative	80 (10d8)	45	
+Sunfire	5	0	r	light, ½		1d8 per 2	fire	80 (10d8)	45	a
+Chain Lightning	6	40	r	½		1d6 per 1	electric	120 (20d6)	70	e
+Circle of Death	6	20	f	death		8d6	negative	48 (8d6)	28	a
+Crumble	6	20		construct	$	1d6 per 1	entropy	120 (20d6)	70	
+Disintegrate	6	20	f	½		2d3 per 1	entropy	120 (40d3)	80	
+Drown	6	8	f	90%		2d10+5	bludgeoning	25 (2d10+5)	16	
+Freeze	6	20	r, f	frozen		10d6	cold	60 (10d6)	35	
+Harm	6	0	T	1hp		10 per 1	negative	300 (300)	300	
+Hell Inferno	6	8	r	dot		4d6 2x per rnd	variable magic	24 (4d6)	14	
+Isaac's Greater Missile Storm	6	40				2d6 per 1	force	120 (20d6)	70	e
+Redbolt	6	20	rT, w	panicked		4d4 per 3	bleed, neg	80 (20d4)	50	
+Vermilion Stars	6	0	r	petrify, ½		1d4 per 1	bleed elec	100 (25d4)	50	e
+Vitriolic Sphere	6	40	r	½		1d6 per 1	acid	120 (20d6)	70	a
+Delayed Blast Fireball	7	20	r	½		1d6 per 1	fire	120 (20d6)	70	a
+Destruction	7	8	f	death		10d6	entropy	60 (10d6)	35	
+Finger of Death	7	8	f	death		3d6 + 1 per 1	negative	48 (3d6+30)	40.5	
+Fire Storm	7	0	r	½		1d6 per 1	divine fire	180 (30d6)	105	e
+Shadow Storm	7	40	w	½		1d8 per 1	electric	160 (20d8)	90	e
+Grim Terror	7	20	w	½, fear		4d6 + 1d6 per 4	psychic	90 (15d6)	52.5	a
+Massacre	7	8	f, w	lots, ½		5x CL	bleed, neg	240	240	a
+Power Word, Bleed	7	8	f	dot		1/2 hit points	?	60 (60)	60	
+Prismatic Spray	7	8	s			80 x 2	electric	160 (80x2)	160	e
+Sunbeam	7	20	r	negates		3d6	divine	18 (3d6)	10.5	a
+Abi-Dalzim's Horrid Wilting	8	20	f	½		1d8 per 1	entropy	200 (25d8)	112.5	a
+Avascular Mass	8	8	f	50%, ½		10 per 1	negative	300 (300)	300	
+Bombardment	8	40	r	d, ½		1d8 per 1	bludgeoning	80 (10d8)	45	e
+Cursed Lightning	8	40	r	dot, ½		1d6 per 3		10d6	35	e
+Earthquake	8	0	r	prone		1d6 per 1	physical	180 (30d6)	105	a
+Nybor's Wrathful Castigation	8	8	f, w	death, d&dmg		1d4 per 1	psychic	80 (20d4)	50	
+Sunburst	8	20	r	blind		6d6	magic	36 (6d6)	21	a
+Burst of Glacial Wrath	9	20	r	½		1d6 per 1	cold	150 (25d6)	87.5	a
+Elemental Annihilation	9	40	w	½		1d6 per 1 + 1 per 1		210 (30d6+30)	135	a
+Iceberg	9	40	r	immobile, ½		1d6 per 2	cold	90 (15d6)	52.5	a
+Meteor Swarm	9	0	r	½		30d8	fire	240 (30d8)	135	e
+Soul Shriek	9	0	f, w	lots, ½		5x CL	entropy	225 (225)	225	e
+Wail of the Banshee	9	8	f	death		10d6	sonic	60 (10d6)	35	e
+Weird	9	8	f, w	death, fear		3d6	psychic	18 (3d6)	21	
+Hellball	10	20		prone 3s	$	40d6	div ent neg pos	240 (40d6)	140	e
+Greater Ruin	10	20			$	45d6 + 10	entropy	270 (45d6+10)	157.5	
+Eldritch Blast (EEM)	30*	?				3d6 + 1d6 per 2	selectable	162 (15d6 + 12d6 EEM)	94.5	
+Elemental Meteor (Air)	10	20	r*	½	$	20d6	elec sonic	120 (20d6)	70	e
+Elemental Meteor (Fire)	10	20	r*	½	$	20d6	fire	120 (20d6)	70	e
+Elemental Meteor (Water)	10	20	r*	½	$	20d6	cold blunt	120 (20d6)	70	e
+Elemental Meteor (Earth)	10	20	r*	½	$	20d6	blunt force	120 (20d6)	70	e
+Elemental Meteor (Ooze)	10	20	r*	½	$	20d6	acid	120 (20d6)	70	e
+Vampiric Feast	10	0		dot	$	3d6	bleed or ent	216 (36d6)	126	a

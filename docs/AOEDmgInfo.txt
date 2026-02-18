@@ -1,0 +1,33 @@
+Under construction.
+Persistent area spells do not stack with themselves. When the same spell is cast it will be replaced and refreshed.
+Different area spells may be stacked.
+Same spell by different caster stacks.
+The same spell may be casted away from 50% of the center of the Area of Effect (AoE) radius, allowing a section where they can overlap, and hit twice.
+Acid Fog, Wall of Fire, Incendiary Cloud and Cloudkill spells will ignore NPC and PC corpses, but still damage furniture/placables normally.
+Table key:
+CEoR: Checks made on (e)ntry, per (r)ound, or (b)oth.
+SpR: Speed reduction.
+Persistent
+AoE Spells	Innate
+Level	CEoR	SpR
+Acid Fog	6	b	75%
+Blade Barrier	6	b	
+Cloud of Bewilderment	2	b	
+Cloudkill	5	b	
+Creeping Doom	7	b	
+Daltim's Fiery Tentacles	5	b	
+Evard's Black Tentacles	4	b	
+Entangle (spell)	1	e	
+Grease	1	b	50%[1]
+Incendiary Cloud	8	b	
+Kyristan's Malevolent Tentacles	6	b	
+Mind Fog	5	e	
+Shadow Plague	8	b	
+Spike Growth	3	b	
+Stinking Cloud	3	b	
+Stonehold	6	b	
+Storm of Vengeance	9	b	
+Wall of Fire	4	b	
+Wall of Ice	4	b	
+Web	2	b	
+Vine Mine	5	b	
