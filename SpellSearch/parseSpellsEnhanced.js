@@ -73,7 +73,7 @@ function parseXMLData(xmlContent) {
 }
 
 function extractParameter(text, paramName) {
-    const regex = new RegExp(`\\|\\s*${paramName}\\s*=\\s*([^\\n]*?)(?=\\n\\s*\\||\\n\\s*}}|$)`, 'is');
+    const regex = new RegExp(`\\|\\s*${paramName}\\s*=\\s*([\\s\\S]*?)(?=\\n\\s*\\||\\n\\s*}}|$)`, 'is');
     const match = regex.exec(text);
     return match ? match[1].trim() : '';
 }
@@ -86,12 +86,15 @@ function extractDamageTypes(descriptors, description) {
         'acid', 'cold', 'fire', 'electricity', 'sonic',
         'negative', 'positive', 'divine', 'magical',
         'bludgeoning', 'piercing', 'slashing',
-        'entropy'
+        'entropy', 'entropic'
     ];
     
     for (const type of types) {
         if (text.includes(type)) {
-            damageTypes.add(type.charAt(0).toUpperCase() + type.slice(1));
+            const label = type === 'entropic'
+                ? 'Entropy'
+                : type.charAt(0).toUpperCase() + type.slice(1);
+            damageTypes.add(label);
         }
     }
     
@@ -255,6 +258,65 @@ function normalizeName(name) {
         .trim();
 }
 
+function formatAverageDamage(value) {
+    if (value === null || Number.isNaN(value)) return null;
+    return value
+        .toFixed(2)
+        .replace(/\.00$/, '')
+        .replace(/(\.\d)0$/, '$1');
+}
+
+function parseDiceAverage(formula) {
+    if (!formula) return null;
+    const parts = formula.split('+').map(part => part.trim()).filter(Boolean);
+    let total = 0;
+    let hasDice = false;
+    for (const part of parts) {
+        const match = part.match(/(\d+)d(\d+)(?:\s*\+\s*(\d+))?/i);
+        if (!match) continue;
+        const count = parseInt(match[1], 10);
+        const sides = parseInt(match[2], 10);
+        const bonus = match[3] ? parseInt(match[3], 10) : 0;
+        total += count * (sides + 1) / 2 + bonus;
+        hasDice = true;
+    }
+    return hasDice ? total : null;
+}
+
+function extractDamageInfoFromDescription(description) {
+    if (!description) return null;
+    const text = description.replace(/\s+/g, ' ').trim();
+    const sentences = text.split(/(?<=[.!?])\s+/);
+    const damageSentence = sentences.find(sentence => sentence.toLowerCase().includes('damage')) || text;
+    const diceMatches = damageSentence.match(/\d+d\d+(?:\s*\+\s*\d+)?/gi);
+    if (!diceMatches || diceMatches.length === 0) return null;
+    const damageFormula = diceMatches.join(' + ');
+
+    let maxDamage = null;
+    const maxMatch = text.match(/maximum of ([^\n\.]+)/i);
+    if (maxMatch) {
+        const maxDiceMatches = maxMatch[1].match(/\d+d\d+(?:\s*\+\s*\d+)?/gi);
+        if (maxDiceMatches && maxDiceMatches.length > 0) {
+            maxDamage = maxDiceMatches.join(' + ');
+        }
+    }
+
+    const avgValue = parseDiceAverage(damageFormula);
+    const avgDamage = formatAverageDamage(avgValue);
+
+    return {
+        damageFormula,
+        maxDamage,
+        avgDamage,
+        combatRange: null,
+        combatEffects: null,
+        combatAoE: null,
+        isPersistentAoE: false,
+        checkTiming: null,
+        speedReduction: null
+    };
+}
+
 
 function parseEnhancedSpellData() {
     console.log('Starting enhanced spell parse...');
@@ -315,6 +377,20 @@ function parseEnhancedSpellData() {
         if (data && data.type === 'spell') {
             const spellNormalized = normalizeName(data.title);
             const combat = combatData[spellNormalized] || {};
+            const fallbackCombat = (!combat.isDirect && !combat.isPersistentAoE && (data.damageTypes || []).length > 0)
+                ? extractDamageInfoFromDescription(data.description)
+                : null;
+            const combatInfo = combat.isDirect || combat.isPersistentAoE ? {
+                damageFormula: combat.damageFormula || null,
+                maxDamage: combat.maxDamage || null,
+                avgDamage: combat.avgDamage || null,
+                combatRange: combat.range || null,
+                combatEffects: combat.effects || null,
+                combatAoE: combat.aoeType || null,
+                isPersistentAoE: combat.isPersistentAoE || false,
+                checkTiming: combat.checkTiming || null,
+                speedReduction: combat.speedReduction || null
+            } : fallbackCombat;
             
             enhancedSpells.push({
                 id: id,
@@ -338,17 +414,7 @@ function parseEnhancedSpellData() {
                 damageTypes: data.damageTypes || [],
                 tags: data.tags || [],
                 description: data.description || '',
-                combatInfo: combat.isDirect || combat.isPersistentAoE ? {
-                    damageFormula: combat.damageFormula || null,
-                    maxDamage: combat.maxDamage || null,
-                    avgDamage: combat.avgDamage || null,
-                    combatRange: combat.range || null,
-                    combatEffects: combat.effects || null,
-                    combatAoE: combat.aoeType || null,
-                    isPersistentAoE: combat.isPersistentAoE || false,
-                    checkTiming: combat.checkTiming || null,
-                    speedReduction: combat.speedReduction || null
-                } : null
+                combatInfo: combatInfo
             });
         }
     }

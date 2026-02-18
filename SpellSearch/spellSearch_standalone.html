@@ -585,14 +585,8 @@
     <script>
         // Configuration for data loading
         const CONFIG = {
-            // Remote data file path (GitHub Pages)
-            // This is tried first, then falls back to local path
             defaultSpellDataPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/SpellSearch/enhancedSpellData.json',
-            
-            // Local repo fallback path
             localSpellDataPath: 'enhancedSpellData.json',
-            
-            // Debug logging
             enableDebugLogs: true
         };
 
@@ -601,7 +595,6 @@
 
         // Load spell data
         async function loadData() {
-            // Load spell data from external JSON file
             let spellData = null;
             const pathsToTry = [
                 CONFIG.localSpellDataPath,
@@ -640,6 +633,48 @@
             filteredSpells = [...allSpells];
             displaySpells();
         }
+
+        async function setSpellDataFromUrl(url) {
+            if (!url) {
+                console.error('setSpellDataFromUrl requires a URL');
+                return;
+            }
+            try {
+                document.getElementById('spellGrid').innerHTML = '<div class="loading">Loading spell data...</div>';
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const spellData = await response.json();
+                if (!Array.isArray(spellData) || spellData.length === 0) {
+                    throw new Error('No spell data returned');
+                }
+                allSpells = spellData;
+                populateFilters();
+                filteredSpells = [...allSpells];
+                displaySpells();
+                console.log('Loaded', spellData.length, 'spells from', url);
+            } catch (error) {
+                console.error('setSpellDataFromUrl failed:', error.message);
+                document.getElementById('spellGrid').innerHTML =
+                    '<div class="error">Error loading spell data from custom URL.</div>';
+            }
+        }
+
+        function setSpellData(spellData) {
+            if (!Array.isArray(spellData) || spellData.length === 0) {
+                console.error('setSpellData requires a non-empty array');
+                return;
+            }
+            allSpells = spellData;
+            populateFilters();
+            filteredSpells = [...allSpells];
+            displaySpells();
+            console.log('Loaded', spellData.length, 'spells from provided data');
+        }
+
+        window.setSpellDataFromUrl = setSpellDataFromUrl;
+        window.setSpellData = setSpellData;
 
         // Populate filter dropdowns
         function populateFilters() {
@@ -1005,7 +1040,6 @@
             applyFilters();
         }
 
-        // Initialize on page load
         window.onload = loadData;
     </script>
 </body>

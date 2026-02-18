@@ -431,12 +431,27 @@
     "saveType": "None",
     "spellResistance": "No",
     "hasSpellResistance": false,
-    "damageTypes": [],
+    "damageTypes": [
+      "Divine",
+      "Fire",
+      "Magical",
+      "Positive"
+    ],
     "tags": [
       "Weapon Enchantment"
     ],
-    "description": "",
-    "combatInfo": null
+    "description": "You empower the touched melee weapon with some effects depending on the source of the Bless Weapon. You can target another creature to enchant its worn melee weapon.  When targeting a dual-wielding character, if the primary weapon is already blessed, the off-hand weapon will be blessed instead. Non-restricted weapon enchantment.\n\n'''[[Paladin]] Spell Book'''\n* Enhancement Bonus (Attack and Damage):\n:* Caster Level 1  -10: +1\n:* Caster Level 11-15: +2\n:* Caster Level 16-20: +3\n:* Caster Level 21-25: +4\n:* Caster Level 26-30: +5\n* Damage Bonus Undead:\n:* Caster Level  1+: +2d6 divine damage vs. undead\n* Damage Bonus Outsider:\n:* Caster Level 13+: +2d6 damage vs. outsider\n* Damage Bonus Dragon:\n:* Caster Level 13+: +2d6 damage vs. dragon\n\n'''[[Cleric]] Spell Book ([[Moon Domain]])''':\n* Damage Bonus (Undead):\n:* Caster Level 1+: +2d6 magic damage vs. undead\n* Damage Bonus (Shapechanger):\n:* Caster Level 1+: +2d6 magic damage vs. shapechanger\n\n'''[[Cleric]] Spell Book ([[Sun Domain]])''':\n* Damage Bonus (Undead):\n:* Caster Level 1+: +1d8 positive damage vs. undead\n* Damage Bonus (All):\n:* Caster Level 1+: +1d8 fire damage\n:: '''''Note:''''' This damage bonus replaces any temporary essence\n\n'''Stacking Rules''':\n* [[Cleric]] with both [[Sun Domain|Sun]] and [[Moon Domain|Moon]] Domains:\n:* Bless weapon's vs. undead damage will be either +1d8 positive '''OR''' +2d6 magical depending on the time of day\n:* Bless weapon's other bonus damage (+1d8 fire and +2d6 vs shapeshifter) will still apply\n\n* Both [[Sun Domain|Sun]]/[[Moon Domain|Moon]] Domain [[Cleric]] and [[Paladin]] levels:\n:* Enhancement bonus only applies when it is cast from [[Paladin]] spellbook. [[Cleric]] levels will not count towards enhancement bonus scaling.\n:* +2d6 Divine dmg vs. undead from Paladin spellbook and 1 of the Damage vs. Undead from [[Sun Domain|Sun]] '''OR''' [[Moon Domain|Moon]] Domain will stack",
+    "combatInfo": {
+      "damageFormula": "2d6",
+      "maxDamage": null,
+      "avgDamage": "7",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "8",
@@ -1918,7 +1933,17 @@
       "Positive"
     ],
     "description": "For every 3 caster levels, the target creature is healed by 1d3 points of damage (minimum 4). Healing spells have a reverse effect on undead, harming instead of healing them. The minimum damage against undead is 1, and a successful touch attack must first be made when this spell is used against undead. Damage versus Undead increased to 1d6 per 3 caster levels.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d3",
+      "maxDamage": null,
+      "avgDamage": "2",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "34",
@@ -3099,7 +3124,17 @@
       "Negative"
     ],
     "description": "The target creature permanently loses 2d4 character levels, until healed with greater restorative magic.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "2d4",
+      "maxDamage": null,
+      "avgDamage": "5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "52",
@@ -3168,7 +3203,17 @@
       "Negative"
     ],
     "description": "The target creature temporarily loses 1d4 character levels.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d4",
+      "maxDamage": null,
+      "avgDamage": "2.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "53",
@@ -4295,7 +4340,17 @@
       "Mind Affecting"
     ],
     "description": "The caster taps energy from the Plane of Shadow to cast a quasi-real, illusory version of a the following: Shadowbolt, Wall of Fire, Flame Shield (Elemental Shield) (9), Gust of Wind. Shadowbolt: A line of crackling, bolts erupt from your fingertips. Any creature struck by a shadowbolt takes 1d8 damage per caster level (maximum 10d8), split evenly between electricity and negative energy damage. Will save for half. All spells are be considered Illusion and use Illusion focus for calculating the DC.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d8 + 10d8",
+      "maxDamage": null,
+      "avgDamage": "49.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "72",
@@ -8083,7 +8138,17 @@
       "Negative"
     ],
     "description": "The target creature takes 1d6 strength damage, plus 1 per 2 caster levels, to a maximum of 11 damage.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d6",
+      "maxDamage": null,
+      "avgDamage": "3.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "144",
@@ -11188,7 +11253,17 @@
     ],
     "tags": [],
     "description": "When this spell is cast, the caster chooses to be protected from either good or evil. The caster and all nearby allies receives +6 will saves (+3 against neutrals) against creatures of the chosen alignment. The caster receives +4 Deflection AC, 5 + CL SR, and a damage shield of 6 + 1d8 damage against everyone. The holy aura damage shield deals divine damage, while the unholy aura damage shield deals negative energy damage. Damage shield spells (aka biteback) that cause damage to a melee attacker do not stack. The last spell cast overrides any other damage shield. All damage shield spells are moved to the top of the [[Breach List]]. One exception: these spells '''do''' stack with the damage shield of the [[Aura Versus Alignment]] spell. The protections also reduce the [[Summoning_Changes#Alignment_divergence|alignment divergence]] probability that summons of the chosen alignments will turn hostile.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d8",
+      "maxDamage": null,
+      "avgDamage": "4.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "355",
@@ -11395,7 +11470,17 @@
     ],
     "tags": [],
     "description": "The target animal gains +1 bonus attack per round, +4 constitution, +1d10 wisdom, +4 strength, and +2 to attack rolls for as long as it remains at the caster's side, even between rests. Target animals are: any Animal, Beast, Magical Beast, and Vermin allies. Expected targets are [[Animal Companion|Animal Companions]], [[Skill changes|Animal Empathy]] Henchmen, and [[Summon Creature I|Summon Creature I]] through [[Summon Creature VI|VI]] summons. Player characters are excluded.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d10",
+      "maxDamage": null,
+      "avgDamage": "5.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "364",
@@ -13021,9 +13106,12 @@
     "saveType": "Reflex",
     "spellResistance": "Yes",
     "hasSpellResistance": true,
-    "damageTypes": [],
+    "damageTypes": [
+      "Magical",
+      "Positive"
+    ],
     "tags": [],
-    "description": "",
+    "description": "A brilliant explosion occurs where the caster directs causing 1d6 points of magical damage per caster level (to a maximum of 25d6) to all undead. Non-undead creatures suffer only 6d6 damage. All enemies in the area of effect must also make a successful reflex saving throw or be blinded permanently (the blindness can only be magically removed).&lt;br&gt;&lt;br&gt;'''Effect versus Hostile Player Characters:'''     \n *Inflicts 2 rounds of blindness to light-sensitive races, regardless of the saving throw\n *Instantly kills vampires without positive damage immunity items on a failed saving throw\n *Applies severe damage to all other vampires on a failed saving throw",
     "combatInfo": {
       "damageFormula": "6d6",
       "maxDamage": "36 (6d6)",
@@ -13665,7 +13753,17 @@
       "Sonic"
     ],
     "description": "The caster is surrounded with whispers that injure any creature that hits the caster for 1d6+1/level points of sonic damage. Damage shield spells (aka biteback) that cause damage to a melee attacker do not stack. The last spell cast overrides any other damage shield. All damage shield spells are moved to the top of the [[Breach List]]. One exception: these spells '''do''' stack with the damage shield of the [[Aura Versus Alignment]] spell.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d6+1",
+      "maxDamage": null,
+      "avgDamage": "3.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "442",
@@ -13782,9 +13880,11 @@
     "saveType": "Special",
     "spellResistance": "No",
     "hasSpellResistance": false,
-    "damageTypes": [],
+    "damageTypes": [
+      "Negative"
+    ],
     "tags": [],
-    "description": "",
+    "description": "All allies in the area of effect will receive the following bonuses: immunity to negative energy damage, immunity to level/energy drain, immunity to ability score decreases, immunity to poisons, immunity to diseases and a +4 deflection bonus to AC. \n \n Locks the area from Undead Summoning for 60 seconds and attempts to banish hostile Undead from the radius of the spell.\n It will banish up to CasterLevel*2 in Hit Dice.\n It will not banish targets that have more than (CasterLevel-5) hit dice.\n Will save. Scales normally.\n Respects Spell Resistance.",
     "combatInfo": null
   },
   {
@@ -15086,7 +15186,17 @@
       "Negative"
     ],
     "description": "You inflict 1d6 + 1 damage per 2 caster levels to a cap of 10d6 + 10, to living creatures touched and gain an equal amount of hit points. If the target dies, the caster receives the excess of healing as temporary HP over the maximum by hour per 2 caster level.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d6 + 1 + 10d6 + 10",
+      "maxDamage": null,
+      "avgDamage": "38.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "515",
@@ -15411,7 +15521,17 @@
       "Magical Armor"
     ],
     "description": "A magical aura surrounds the caster — injuring creatures that touch it. Any creature striking the caster takes 1d4 points of magical damage +1 point per 2 caster levels (maximum +5). Damage shield spells (aka biteback) that cause damage to a melee attacker do not stack. The last spell cast overrides any other damage shield. All damage shield spells are moved to the top of the [[Breach List]]. One exception: these spells '''do''' stack with the damage shield of the [[Aura Versus Alignment]] spell.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d4",
+      "maxDamage": null,
+      "avgDamage": "2.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "520",
@@ -15711,7 +15831,17 @@
       "Acid"
     ],
     "description": "This spell creates an acid shield around your person. Any creature striking you with its body does normal damage, but at the same time the attacker takes 1d6 points +2 points per caster level of acid damage. Damage shield spells (aka biteback) that cause damage to a melee attacker do not stack. The last spell cast overrides any other damage shield. All damage shield spells are moved to the top of the [[Breach List]]. One exception: these spells '''do''' stack with the damage shield of the [[Aura Versus Alignment]] spell.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d6",
+      "maxDamage": null,
+      "avgDamage": "3.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "525",
@@ -16067,7 +16197,7 @@
     "hasSpellResistance": false,
     "damageTypes": [],
     "tags": [],
-    "description": "",
+    "description": "The caster creates a black blade-shaped planar rift, resembling a greatsword which fights at her side. The blade cannot be harmed by physical attacks, but it can be affected by dispel magic or similar effects. The spell requires the caster to concentrate on it — casting spells or performing any other action than walking or talking may result in a concentration failure and end the spell. Has permanent [[Haste (spell)|Haste]].\nThis spell will now always use the corresponding caster ability modifier for all classes, including Wisdom.&lt;br/&gt;\nThe spell cast from scrolls has a fixed AB of 32.",
     "combatInfo": null
   },
   {
@@ -16198,7 +16328,17 @@
       "Weapon Enchantment"
     ],
     "description": "You empower a weapon with sonic damage scaling with Caster Level: 1-13 +1d4 sonic damage, 14-20 +1d6 sonic damage, 21-27 +1d8 sonic damage, 28+ +1d10 sonic damage. This spell occupies the Temporary Essence slot on a weapon. Non-restricted weapon enchantment.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d4 + 1d6 + 1d8 + 1d10",
+      "maxDamage": null,
+      "avgDamage": "16",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "539",
@@ -18908,7 +19048,7 @@
     "tags": [
       "Mind Affecting"
     ],
-    "description": "",
+    "description": "You give the subject a single command, which it obeys to the best of its ability at its earliest opportunity. You may select from the following options.\n* Fall: On its turn, the subject falls to the ground and remains prone for 1 round. It may act normally while prone but takes any appropriate penalties.\n* Come: On its turn, the subject moves toward you as quickly and directly as possible for 1 round. The creature may do nothing but move during its turn, and it provokes attacks of opportunity for this movement as normal.\n* Flee: On its turn, the subject moves away from you as quickly as possible for 1 round. It may do nothing but move during its turn, and it provokes attacks of opportunity for this movement as normal.\n* Stay: The subject stands in place for 1 round. It may not take any action but is not considered helpless.\n* Sit: On its turn, the subject sits down for one round. It may not take any action but is not considered helpless.\n* Dance: On its turn, the subject dances for one round. It may not take any action but is not considered helpless.\n* Kneel: On its turn, the subject kneels in place for one round. It may not take any action but is not considered helpless.\n\nIf the subject can’t carry out your command on its next turn, the spell automatically fails (ie, status effect superseding it)",
     "combatInfo": null
   },
   {
@@ -19234,14 +19374,17 @@
     "saveType": "Fortitude/Will",
     "spellResistance": "Yes",
     "hasSpellResistance": true,
-    "damageTypes": [],
+    "damageTypes": [
+      "Entropy",
+      "Negative"
+    ],
     "tags": [
       "Blood Arcana",
       "Evil",
       "Fear",
       "Death"
     ],
-    "description": "",
+    "description": "You attempt to twist and crush the life out of the target, turn them into a gory explosion that splatters their blood as rain- bringing forth terror.\n You deal 5 times your caster level damage (with a small element of randomness), half is Bleeding (Or entropy, if target is immune to bleeding), and half is Negative. Fortitude saving throw halves the damage.\n \n Damage is empowered:\n by 30% if used on a near-death target (below 20% max HP).\n by 30% if used on target under a FEAR effect.\n Empowerments stack to 60% if the target is both near death and under the FEAR effect.\n \n Blood Stacks:\n When cast with 5 or more Blood Stacks, the DC of the spell improves by 1.\n When cast with 10 Blood Stacks the subject has to pass Will save against FEAR or die (Immunities to Fear, Mind-Affecting, and Death effects ward the subject from this effect).\n Blood Stacks are consumed when the spell is cast using 10 stacks.\n \n If the target (Not immune for bleeding damage) dies from the spell:\n For the next 9 seconds, the spell can be cast without Focus cost.\n All creatures within the zone will be demoralized (-2 AC, -2 AB, -2 Saves, -4 Skills) - Will save against Fear negates the penalty.\n All creatures within the zone who WERE already demoralized will be panicked (fear) instead. - Will save against Fear negates the penalty.\n All creatures within the zone who WERE already under the fear effect will be slain. - Fortitude saves against Fear negates the penalty (Death immunity is respected).\n \n Special:\n Does not work on: Objects, Constructs, Elementals, Oozes, and Undead (except vampires). Does not work on creatures under etherealness. Bleeding damage is resisted by being immune to critical damage.\n Scales with SF Evo or SF Necro.",
     "combatInfo": {
       "damageFormula": "5x CL",
       "maxDamage": "240",
@@ -19279,13 +19422,15 @@
     "saveType": "Fortitude/Will",
     "spellResistance": "Yes",
     "hasSpellResistance": true,
-    "damageTypes": [],
+    "damageTypes": [
+      "Entropy"
+    ],
     "tags": [
       "Blood Arcana",
       "Evil",
       "Fear"
     ],
-    "description": "",
+    "description": "You invoke an eruption of primal angst that spreads across the battlefield.\n You deal 5 times your caster level Entropic damage (with a small element of randomness). Fortitude saving throw halves the damage.\n \n Blood Stacks:\n Scaling requires at least 22 Hard Charisma.\n When cast with 5 or more Blood Stacks, the DC of the spell improves by 1 and subjects will require to pass a Will save against FEAR or become frightened.\n When cast with 10 Blood Stacks the DC of the spell improves by an additional 1, the damage is empowered by 50%.\n Blood Stacks are consumed when the spell is cast using 10 stacks.\n \n Special:\n Creatures harmed by Soul Shriek become immune to the spell (regardless of the caster) for 1 rounds.\n Does not work on creatures under etherealness.\n The area of the effect depends on the caster's Hard Charisma: Base: Large, 20+ Huge, 22+ Gargantuan, 24+ Colossal.\n Scales with SF Evo or SF Necro.",
     "combatInfo": {
       "damageFormula": "5x CL",
       "maxDamage": "225 (225)",
@@ -19555,7 +19700,17 @@
       "Negative"
     ],
     "description": "The caster uses necromantic energy to avoid death. They gain temporary hit points equally to 1d10 + 1 per caster level, to a maximum of hit points equal to their caster level. Cannot be placed on wands or potions. Does not stack with other sources of temporary hitpoints.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d10 + 1",
+      "maxDamage": null,
+      "avgDamage": "5.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1853",
@@ -19621,7 +19776,7 @@
     "tags": [
       "Chaos"
     ],
-    "description": "",
+    "description": "The caster attempts to transmogrify a single humanoid creature. If their target fails a Will save, they are transformed into a harmless animal or beast that is selected on the spell radial menu. A target can only be affected by one Baleful Polymorph every ingame hour, and it is now removable by [[Console_command#-pray|-pray]] and [[Remove Curse]]. It is possible to self-cast savelessly, but cannot be removed with [[Console_command#-dispel|-dispel]].\n \n While polymorphed, the target can only perform basic commands such as moving and cannot revert back to their original form at will. Also applies spell failure to prevent spellcasting. They are only able to speak in animal language.",
     "combatInfo": null
   },
   {
@@ -19680,8 +19835,18 @@
     "tags": [
       "Negative"
     ],
-    "description": "",
-    "combatInfo": null
+    "description": "The caster afflicts the target (comprised of blood or water) with a horrible, desiccating curse that deals 1d6+1 per 3 character levels (maximum 1d6+5) of Constitution damage. Oozes and plants are particularly susceptible, and receive 1d8 +1 per 3 character levels (maximum 1d8+5) of Constitution damage instead. Targets also have their water reduced by 1d20% on a failed save.\n \n On a successful save, the target instead receives 1d6 damage per 5 caster levels or 1d8 per 5 caster levels if it is an ooze or a plant subtype. Their water status is also drained by 1d10% on a successful save.",
+    "combatInfo": {
+      "damageFormula": "1d6+1 + 1d6+5",
+      "maxDamage": null,
+      "avgDamage": "7",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1855",
@@ -19745,7 +19910,17 @@
       "Fire"
     ],
     "description": "The caster ignites the subject's melee weapons, allowing each to deal an additional 2d4 worth of fire damage for the duration. The damage increases to 2d6 at level 9, 2d8 at level 18, and 2d10 at level 27. This spell does not stack with Darkfire or Elemental Weapon. Non-restricted weapon enchantment.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "2d4",
+      "maxDamage": null,
+      "avgDamage": "5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1856",
@@ -19815,7 +19990,17 @@
       "Negative"
     ],
     "description": "The caster sacrifices some of their health to mend another friendly creature's (that is sustained by life force) injuries. The caster take 8d4 Magical damage, which can't be reduced in any way, and the target creature regains a number of hit points equal to three times the damage you take. This spell will never drop the caster below 1 hit point, but if no damage is dealt to them, no healing will be done either.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "8d4",
+      "maxDamage": null,
+      "avgDamage": "20",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1858",
@@ -19863,14 +20048,25 @@
     "spellResistance": "Yes",
     "hasSpellResistance": true,
     "damageTypes": [
+      "Entropy",
       "Fire"
     ],
     "tags": [
       "Fire",
       "Evil"
     ],
-    "description": "",
-    "combatInfo": null
+    "description": "With the dark words still on your tongue, a ray of black energy springs from your hand to wrap the indicated target in black flames that absorb heat rather than create it. The black fire crackles and hisses as they feed on their victim's life force and soul. A line of black fire shoots out from the caster's hands and towards their target. The target must make a Reflex saving throw. \n \n On a failed save, the target takes 1d8 Fire damage and 1d8 Entropic damage plus an additional 1d8 to each damage type per 4 caster levels, up to a maximum of 8d8 Fire damage and 8d8 Entropic damage. The target also begins to burn for 2d8 Fire and 2d8 Entropic damage twice per round for the duration (Epic Spell Focus: Necromancy increases this damage by 1d4 + 1. On a successful save, the initial damage is halved.\n \n Regardless of the result of the previous save, the Blackfire is a caustic and volatile spell, and enemies nearby the target must roll a Reflex save to prevent the Blackfire from spreading to them and inflicting half of the initial burst damage. Those targets it spreads to also begin to burn for the duration.\n \n All enemies struck on a failed Reflex save, regardless if it is on the initial cast or spread from the initial target, become Sickened, receiving a -2 penalty to Fortitude saves. Sickened creatures must also roll a Fortitude save each round that they are affected by Blackfire Burning and, if they fail, become Nauseated(Daze) for 1 round.",
+    "combatInfo": {
+      "damageFormula": "1d8 + 1d8 + 1d8 + 8d8 + 8d8",
+      "maxDamage": "8d8 + 8d8",
+      "avgDamage": "85.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1859",
@@ -19941,7 +20137,7 @@
     "tags": [
       "Healing"
     ],
-    "description": "",
+    "description": "The caster touches a friendly creature with less than 1 hit point remaining and grants them 1/- Bleed damage resistance for a duration of 1 turn. Creatures with with 0 hit points or less (who are bleeding out) are immediately sustained this way, and then restored back to 1 hit point after 1 round. \n \n This spell will also prevent the effects of the [[Stop Heart]] spell if used upon an afflicted creature and grant immunity to it for 1 turn.",
     "combatInfo": null
   },
   {
@@ -19998,7 +20194,7 @@
     "tags": [
       "Mind"
     ],
-    "description": "",
+    "description": "The caster laces their words with hateful energy and aggressively mocks a creature in range that is capable of hearing. The target takes 1d4 Psychic damage per 3 caster levels. They must roll a Will save or receive a -1 morale penalty per 9 caster levels to their Attack Bonus and a -2 morale penalty per 9 caster levels to Leadership, Bluff, and Intimidate for 1d2 rounds. This spell has no effect on targets that are immune to mind effects. The debuff is not applied if caster level is lower than the HD of the target.\n \n Vicious Mockery will remove [[Serene Visage]] from any target it strikes.",
     "combatInfo": {
       "damageFormula": "1d4 per 3",
       "maxDamage": "40 (10d4)",
@@ -20063,6 +20259,7 @@
     "hasSpellResistance": true,
     "damageTypes": [
       "Cold",
+      "Entropy",
       "Negative"
     ],
     "tags": [
@@ -20185,6 +20382,7 @@
     "spellResistance": "Yes",
     "hasSpellResistance": true,
     "damageTypes": [
+      "Entropy",
       "Negative"
     ],
     "tags": [
@@ -20342,6 +20540,7 @@
     "spellResistance": "Yes",
     "hasSpellResistance": true,
     "damageTypes": [
+      "Entropy",
       "Negative"
     ],
     "tags": [
@@ -20470,11 +20669,13 @@
     "saveType": "Fortitude",
     "spellResistance": "Yes",
     "hasSpellResistance": true,
-    "damageTypes": [],
+    "damageTypes": [
+      "Magical"
+    ],
     "tags": [
       "Death"
     ],
-    "description": "",
+    "description": "The caster attempts to stop a living creature's heart. This spell does not affect creatures that do not have a properly functioning heart, such as undead or creatures with Deathless Mastery,  nor creatures that lack a proper circulatory system, such as Golems. Additionally, creatures who have achieved Perfect Self are capable of using Ki to restart their heart before it stops, and will not be rendered unconscious by this spell. They will still receive all expected damage otherwise.\n \n The subject must make a Fortitude saving throw. On a failure, the target can only function normally for 2 rounds as their heart slowly stops beating, receiving 2d8 Magical damage each round leading up. After 2 rounds, they are reduced to 0 hit points and begin to die. On a successful fortitude save, the target instead receives 1d8 Magical damage per 3 caster levels. Since this spell does not produce an instant death effect, Stop Heart circumvents the protection granted by Death Ward.",
     "combatInfo": null
   },
   {
@@ -20539,6 +20740,7 @@
     "hasSpellResistance": true,
     "damageTypes": [
       "Cold",
+      "Entropy",
       "Negative"
     ],
     "tags": [
@@ -20677,7 +20879,7 @@
     "hasSpellResistance": true,
     "damageTypes": [],
     "tags": [],
-    "description": "",
+    "description": "The caster utters a single word of power. A target with more than 150 current HP must pass a will save or be blinded for a duration according to their HP. Additionally, there is a small bonus DC relevant to the HP.\n \n HP above 300: No bonus. Duration is 1+1d4 rounds.\n 251 to 300: +1 DC. Duration increases to 2+1d4 rounds.\n 201 to 250: +2 DC and duration changes to 4+1d4 rounds.\n 151 to 200: +3 DC and duration changes to 5+1d4 rounds.\n 101 to 150: Automatic success and duration changes to 6+2d4 rounds. \n Less than 101: Automatic success and duration changes to 7+2d4 rounds.",
     "combatInfo": null
   },
   {
@@ -20876,7 +21078,7 @@
     "hasSpellResistance": false,
     "damageTypes": [],
     "tags": [],
-    "description": "",
+    "description": "This spell can only be cast in a natural environment.\n \n The ranger calls upon the eyes of an eagle on high, granting them [[True Seeing]] for 2 rounds. They also receive immunity to blindness and a +15 bonus to Spot (does not count against disguises) for 1 turn.",
     "combatInfo": null
   },
   {
@@ -20923,7 +21125,7 @@
     "tags": [
       "Mind Affecting"
     ],
-    "description": "",
+    "description": "The caster manipulates the senses of one creature so that it perceives itself to be the only real creature in all of existence and everything around it to be merely an illusion.\n \n If the target fails its save, it is convinced of the unreality of every situation it might encounter. It takes no actions, not even purely mental actions, and instead watches the world around it with bemusement. The subject becomes effectively helpless and takes no steps to defend itself from any threat, since it considers any hostile action merely another illusion. The target also has feedback and blind applied to the target better simulate the effects of the spell.",
     "combatInfo": null
   },
   {
@@ -21385,7 +21587,17 @@
       "Blood Arcana"
     ],
     "description": "Does 1d4 points of wisdom and charisma damage every 4 caster levels. If the wisdom or charisma would drop below 3, the target is stunned instead for 1 round/level. If subject of the spell is a divine spellcaster (Cleric, Druid, Shaman, Paladin, Fav Soul, Ranger) the DC of the spell rises by 4.",
-    "combatInfo": null
+    "combatInfo": {
+      "damageFormula": "1d4",
+      "maxDamage": null,
+      "avgDamage": "2.5",
+      "combatRange": null,
+      "combatEffects": null,
+      "combatAoE": null,
+      "isPersistentAoE": false,
+      "checkTiming": null,
+      "speedReduction": null
+    }
   },
   {
     "id": "1924",
@@ -21605,7 +21817,7 @@
     "tags": [
       "Evil"
     ],
-    "description": "",
+    "description": "The caster issues forth forlorn names of powerful curses. The area around the caster becomes damp with crimson vapor forming clouds. Before long a storm is unleashed with a single burst of power on everyone within its premise. Those unfortunate to be caught in the storm risk being subjected to one of the curses raging within the region.  \n If the caster has Epic Spell Focus Necromancy, the size of the area increases to Colossal.\n \n The curse is picked at random from the following list:\n \n Curses (announced via floating text):\n 1 - Curse of Rot - Fort Save - Death - Neglects immunity to death effects, uses disease immunity instead. Instantaneous.\n 2 - Curse of Despair - Fort Save - 3d6 bleeding damage per round (Does not stack). Healing spells harm. Inflicting spells heal. 1 round /3 CL.\n 3 - Curse of Isolation - Fort Save - Petrify, Silence, Blindness/Deafness. 1 turn /3 CL.\n 4 - Curse of Exhaustion - Fort Save - d4+6 Attribute and 1d4+1 Level drain. Instantaneous.\n 5 - Curse of Paranoia - Will Save - Panic(Fear) - 10 rounds. If the creature is still feared at the end of the duration it receives d6(CL) psychic damage (no damage if immune to fear / immune to mind-affecting).\n 6 - Curse of Madness - Will Save - 3d6 psychic damage per round. (Does not stack). Confusion. 1 round /3 CL.\n 7 - Curse of Nightmares - Will Save - Sleep - If the creature is not awake in 10 rounds is subjected to a Nightmare effect (d10(CL) psychic damage). 10 rounds.\n 8 - Curse of Misfortune - No Save - -2 penalty on attack rolls, armor class, saving throws, and skill checks. 10 rounds. (Does not stack). Breaches 1 effect (save-less): 2 effects with ESF: Necromancy.",
     "combatInfo": null
   }
 ]
