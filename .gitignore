@@ -1,5 +1,6 @@
 # Node modules
 node_modules/
+CharacterPlanner/parsers/node_modules/
 
 # OS files
 .DS_Store
@@ -19,6 +20,10 @@ npm-debug.log*
 
 # Source files and build scripts (not needed for GitHub Pages)
 GITHUB_PAGES.md
+XMLEnhancer/*
+package.json
+package-lock.json
+
 
 # Temporary files
 *.tmp

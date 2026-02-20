@@ -1,0 +1,492 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.11/ http://www.mediawiki.org/xml/export-0.11.xsd" version="0.11" xml:lang="en">
+  <siteinfo>
+    <sitename>Arelith Wiki</sitename>
+    <dbname>arelith_wiki</dbname>
+    <base>https://wiki.nwnarelith.com/Main_Page</base>
+    <generator>MediaWiki 1.43.0</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Special</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Talk</namespace>
+      <namespace key="2" case="first-letter">User</namespace>
+      <namespace key="3" case="first-letter">User talk</namespace>
+      <namespace key="4" case="first-letter">Arelith Wiki</namespace>
+      <namespace key="5" case="first-letter">Arelith Wiki talk</namespace>
+      <namespace key="6" case="first-letter">File</namespace>
+      <namespace key="7" case="first-letter">File talk</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki talk</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template talk</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help talk</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Feat changes</title>
+    <ns>0</ns>
+    <id>797</id>
+    <revision>
+      <id>37237</id>
+      <parentid>36755</parentid>
+      <timestamp>2026-01-26T16:50:18Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Added Spinal tap to the list</comment>
+      <origin>37237</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="33520" sha1="shbepv8m0wurd2yzxpucxnujiaufk73" xml:space="preserve">{{SystemsNav|title=Feat Changes}}
+
+This page lists and explains '''Feats''' that work differently than in Vanilla NWN. Note that disabled feats are disabled only for PCs. Some NPCs that characters encounter on Arelith can still have them.
+
+
+
+__TOC__
+
+
+
+
+== Disabled &amp; Obsolete Feats ==
+'''Devastating Critical''': ''"In the judgement of the Dev Team it's unbalanced... You may not agree with the decision, but it's not going to change"'' '''-Mithreas'''
+
+'''Epic Spell: Epic Warding''': This Feat is not ''technically'' disabled on Arelith. However, since PCs on Arelith are capped at Lv30, it is impossible to meet the prerequisites of the Feat with a PC. Note that some Epic Feats which can be taken multiple times suffer similar inhibitions with their later "versions" (Self Concealment V, for example, is unobtainable without some very specific builds).
+
+== Modified Feats ==
+
+'''General Feats''': Some ''General Feats'' are class limited in Vanilla NWN.  Examples include: Divine Might, Divine Shield, Terrifying Rage, Thundering Rage.  Arelith customizations allow any General Feats that are bound to specific classes to be taken as General Feats on other class levels as long as the pre-requisites are met.  Meaning, for example, you can take Barbarian Rages on non Barbarian class levels.  This offers additional build flexibility.  There are exceptions including item creation feats (Ex. Scribe Scroll), Weapon Specialization and likely others.  Class specific bonus feats like Epic Shadowlord, which cannot be taken as general feats are not included in this customization.
+: '''NOTE:''' It is highly recommended to test any combination out on [[PGCC]] as there are likely other exceptions to the rule and a definitive list is not available to provide here.
+
+'''Instant Attack''': 
+:{|
+|{{:Instant Attack}}
+|}
+
+'''Arcane Defense: Abjuration''': This Feat increases a spellcaster's effective Caster Level by +2 when trying to resist a dispel.
+
+'''Ambidexterity''': Dexterity prerequisite lowered to 13.
+
+'''Automatic Still Spell''': In addition to its Vanilla function, Auto Still Spell I reduces total Arcane Spell Failure by 5%. Auto Still Spell II reduces total ASF by 10% - Not cumulative. Unlike other ASF reduction sources, this one is not doubled for armor and shield slots, meaning you can get Autostill I and use a cloth and a buckler with 0% Penalty and Autostill II for a Padded Armor and a Buckler. 
+
+'''Bardic Knowledge''': Any class that grants this feat will receive half of the lore bonus towards scroll usage. 
+
+'''Bard Song''': See [[Bard#Bard_Song|Bard Song]].
+
+'''Blinding Speed''': 
+{{:Blinding Speed/feat}}
+
+'''Circle Kick''' no longer swap to the new target.
+
+'''Create Ammunition''': Custom Feat.  Once per day, may create a bundle of projectiles for the weapon they have the weapon focus feat in (bow, crossbow, sling, thrown weapons) by equipping the weapon and using the ability while the weapon is equipped.  Craft Ammunition ability also scales with character levels.
+:For missile (Bow, Crossbow, Sling):
+::Level 1-5: Bronze
+::Level 6-10: Iron (+1 Damage)
+::Level 11-15: Steel (+2 Damage)
+::Level 16-20: Masterly Steel (+3 Damage)
+::Level 21-25: Damask (+4 Damage)
+::Level 26-30: Masterly Damask (+5 Damage)
+
+:For Throwing (Dart (''&amp; Throwing Dagger''), Throwing Axe, Shuriken):
+::Level 1-5: Bronze
+::Level 6-10: Iron (+1 AB, +1 Damage)
+::Level 11-15: Steel (+2 AB, +2 Damage)
+::Level 16-20: Masterly Steel (+2 AB, +3 Damage)
+::Level 21-25: Damask (+3 AB, +4 Damage)
+::Level 26-30: Masterly Damask (+3 AB, +6 Damage)
+
+:'''NOTE:''' Commoners are eligible for this feat with an applicable Weapon Focus Group but can only create Bronze Ammunition.
+
+'''Dragonshape''': Removed and replaced with the Plantshape alternative. More in the [[Druid]] article. 
+
+'''Defensive Casting''': Defensive casting and other combat modes like [[Expertise]]/Improved Expertise are not disabled when your character moves.
+
+'''[[Dirty Fighting]]''':
+{{:Dirty Fighting/feat}}
+
+'''Disarm / Improved Disarm''':
+* Regular Disarm AB Malus lowered from -6 to -4
+* Improved Disarm AB Malus lowered from -4 to -2
+* Disarm Size Modifier lowered from 4 to 2
+* Weapon is no longer lost instead it prevents access to the weapon for 6 seconds and during this time:
+** Lowers the AB of the disarmed target by 10 in each hand 
+** Causes the disarmed target to do no damage unless they have Improved Unarmed Strike, in which case they do half damage.  
+** The disarmed target cannot unequip or equip weapons while under the effect of disarm. 
+
+'''Divine Might''': 
+* All characters now have the damage granted by divine might multiplied by 1.5 when using a two-handed weapon, or using the [[Console_command#-twohand|-twohand]] mode.  This does not include bows or crossbows.
+* Using this feat before the duration expires will refresh it.
+
+'''Divine Shield''': 
+* Divine Shield does not stack with [[Monk]] wisdom Armor Class (AC). The higher of the two values applies.
+* If a character has [[Epic Dodge]] Armor Class (AC) bonus are halved
+* Using this feat before the duration expires will refresh it.
+
+'''Divine Smite''': Custom Feat merged Smite Good &amp; Smite Evil and modified mechanically.  See [[Divine Smite]] for more details.
+
+'''Epic Damage Reduction''': Prerequisite for this feat lowered from 21 Constitution to 19 Constitution.
+
+'''Epic Reputation''': Counts one as a Noble for the purposes of determining the 'economic zone' one is in for [[Skill_changes#Appraise|Appraise]] checks. Opens up unique interactions with specific NPCs as if the character were a noble and allows for bidding on properties flagged as noble only. Does not make you a noble.
+
+'''Skill Focus &amp; Epic Skill Focus: Craft Mastery''': Provides +5/+10 to total crafting point pool and increases your [[dweomercrafting]] tier by 1.
+
+'''Epic Skill Focus: Hide/Move Silently''': Taking one grants the other for free.
+
+'''Epic Skill Focus: Listen/Spot''': Taking one grants the other for free.
+
+'''Epic Skill Focus: Persuade''': Renamed Epic Skill Focus: Leadership to match the Arelith specific custom [[Feat_changes#Modified_Feats|Leadership]] Feat.
+
+'''Epic Spells''': See: [[:Category:Spells#Epic_Spells|Epic Spell Changes]].
+
+'''[[Expertise]]/Improved Expertise''': Expertise/Improved Expertise mode is automatically disabled when a spell is cast.  Casters using this feat will need to re-enable it after every casting, and will not benefit from the bonus AC during casting.
+
+*Expertise/Improved expertise and other combat modes (such as defensive casting) are not cancelled when you move.
+
+'''Extra Music''': Additionally reduces the bard song replenishment cooldown by 3 minutes.
+
+'''Extra Smiting''': Additionally reduces the Divine Smite replenishment cooldown by 1.5 minutes.
+
+'''Extra Turning''': Renamed Improved Turning.
+
+'''Great Ability''': All the epic Great Ability feats from tier III to X are no longer selectable.
+Great Ability II (such as Great Wisdom II) has been renamed to Legendary Ability. The I version has lost its numeral. 
+
+'''Great Smiting''': Additionally increases the timer in-between smites to 7 seconds. 
+
+'''Hide in Plain Sight''': [[Shadowdancer]]s receive this feat at level 11. After leaving stealth mode, HIPS will have 30 second (5 rounds) of cooldown before it can be used again. Note that other ways of sneaking still work while the cooldown is in effect.
+
+'''Hostilizer''': Hostilizer is a Radial Menu tool that Sets relation between yourself and other PC(s) to hostile. Available to all base classes at level 1
+
+:::'''Modes''':
+:* Target a Creature: Set target Creature (PC) as hostile.
+:* Target Self: Set all Creatures(PCs) within a Colossal sphere around you as hostile.
+:* Target Location(Ground): Set all Creatures(PCs) within Hudge sphere around selected location as hostile.
+
+'''Improved Dweomercrafting''': Custom Feat which adds one Tier of both Magic and Mundane [[Dweomercraft#Dweomercraft_Tiers|Dweomercraft]].
+*PGCC Only Note (when new Dweomercraft system goes live): changed to add two Tiers for both, additionally allows you to work with any applied rune, regardless of the Language script it was applied with.
+
+'''Improved Turning''':
+:* Extra Turning feat now renamed Improved Turning 
+:* Adds a 1d6 to turning rolls as well as 1d6 to maximum HD allowed to turn on top of 6 extra turns per rest.
+:* Halves the [[Turn Undead]] replenishment cooldown
+
+'''Improved Two-Weapon Fighting''': Characters who take this feat gain +1 AB while dual wielding.
+: '''Note''': Any build with 9+ Ranger levels will '''NOT''' gain the benefit of this feat however it is possible to take this Feat prior to having 9 Ranger levels. Upon attaining the 9th Ranger level it becomes a wasted feat.
+
+'''Improved Whirlwind Attack''': now an instant action. See [[Whirlwind Attack]].
+
+'''Knockdown / Improved Knockdown''': When you are successfully knocked down by the Knockdown, or Improved Knockdown feats you are immune to getting knocked down again for 12 seconds.  If a character is hit with Knockdown or Improved Knockdown while currently immune to knockdown then the character is subject to a 50% speed reduction for 1 round save to prevent (Discipline vs. AB). Freedom does not block this speed reduction.
+
+'''Lasting Inspiration:''' Requirements changed to 25 Perform and Inspiring Minstrel Feat (Obtained at level 20 [[Bard]] or level 10 [[Dirgesinger]]. 
+
+'''Lay on Hands''': No longer has uses per day. Instead, it uses a 10 minutes cooldown period before being used again. 
+
+'''Monkey Grip''':
+Feat added by Arelith, see [[Monkey Grip]]
+
+:'''Note:''' See [[Template:Dual-Wielding]] for a breakdown of all dual wielding bonuses.
+
+'''Mounted Archery''': No longer gives +2 ab, instead removes Areliths -8 ab penalty for moving while using ranged weapons. This means you can kite enemies with WASD while on horseback without penalty. Longbow and Heavy crossbows still receive their added -8 penalty (-16 without mounted archery).  Arelith also uses a very customized [[Riding]] system.   
+
+'''Mounted Combat''': Adds a +1 AB to melee combat, the default AC bonus has been removed. Removes the 10% Arcane spell failure caused by riding a non arcane steed. Arelith also uses a very customized [[Riding]] system.
+
+'''[https://nwn.fandom.com/wiki/Planar_turning Planar Turning]''':  Prerequisite lowered from 25 Wisdom and Charisma to 16 Wisdom and Charisma and requires Extra Turning feat.
+
+'''Quicken Spell''': Occupies a spell slot one level higher than normal. The feat prerequisite was adjusted accordingly.
+
+'''Quivering Palm''': Has unlimited uses per day but a 5 minute cooldown.
+
+'''Skill Focus''': The skill bonus granted by regular skill foci has been increased from +3 to +5.
+
+'''Skill Focus: Hide/Move Silently''': Taking one grants the other for free.
+
+'''Skill Focus: Listen/Spot''': Taking one grants the other for free.
+
+'''Skill Focus: Perform''': Additionally reduces the bard song replenishment cooldown by 3 minutes.
+
+'''Skill Focus: Persuade''': Renamed Skill Focus: Leadership to match the Arelith specific custom [[Feat_changes#Modified_Feats|Leadership]] Feat.
+
+'''Smite Evil''': Renamed Divine Smite and merged with Smite Good
+
+'''Smite Good''': Renamed Divine Smite and merged with Smite Evil
+
+'''Sprint''': A free active feat for all characters, allowing the character to sprint for a short duration based on their '''hard''' physical modifiers:
+:* Bonus Movement Speed of 105% + 5% for each '''Hard''' Strength Mod and '''Hard''' Dexterity Mod, minimum of 105% even with negative Physical modifiers, with a maximum of 150%. 
+:** Being large races or mounted gains 150% speed instead of calculated bonus from strength and dexterity.
+:* Duration is increased by 1 for every 3 medium or high BAB class levels your character has.
+:**  Mounted Sprint has a '''base''' duration of 5 rounds, before being modified by the above.
+Complete Duration Formula
+:* Hard CON modifier (min 1) OR flat 5 if mounted + 1/3rd of total medium and high BAB class levels 
+:* Cooldown is 3 turns (30 rounds). Cooldown starts when Sprint begins.
+
+Examples:
+:* 25 Fighter / 5 Weapon Master with 16 CON: 10 + 3 = 13 rounds.
+:* 27 Sorcerer / 3 Paladin with 16 CON: 1 + 3 = 4 rounds.
+:* 30 Commoner with 10 CON riding a horse: 0 + 0 + 5 = 5 rounds.
+:* 30 Plantshape Druid with 40 CON: 10 + 15 = 25 rounds.
+
+'''Summon Shadow''': [[Shadowdancer]]’s Shadow now has a minimum duration of 24 IG hours.
+
+'''Trackless Step''':
+Now also adds 10 to the DC check for a spotter to find details when Investigating Tracks, see [[Trackless Step]].
+
+'''[[Turn Undead]]''': This feat has been extensively customized on Arelith.  Read more [[Turn Undead|here]].
+
+'''Weapon Finesse''': The list of weapons which can be finessed has been customised extensively. A sortable list is can be found in the [[Weapons#Weapon_Grouping_Summary_Chart|Weapon Grouping Summary Chart]].  Additionally, the [[Melee Weapons]] page identifies them on a per weapons basis.
+:* Free level 1 feat for all classes with medium (3/4) and high BAB.
+:* Existing characters retroactively, as follows:
+::* If you started as Swashbuckler, nothing will happen since you already received the feat at level 1.
+::* If you don't have Weapon Finesse, no relevel is required. You will simply acquire the feat if one of your classes now grants it.
+::* If you do have Weapon Finesse, a relevel will be required to ensure your feat progression remains valid.
+::* If you selected the feat at level 1, your character will also receive a general feat token. This token can be used to acquire a new general feat via the -generalfeat command.
+* Works for all melee touch spells. Caster uses the higher of their STR or DEX mod. Per [https://forum.nwnarelith.com/viewtopic.php?p=315213&amp;sid=fc8dd5a06634d30177ec18ca4d8f5727#p315213 update thread] reference.
+
+'''Weapon Proficiency (Assassin)''': Custom weapon proficiency allowing use of Kama, Katar, Sai.
+
+'''Weapon Proficiency (Aquatic Elf)''': Custom weapon proficiency allowing use of Spear, Trident, Short Bow, Long Bow.
+
+'''Weapon Proficiency (Cavalier)''': Custom weapon proficiency allowing use of  Bastard Sword, Cavalry Axe, Cavalry Hammer, Cavalry Sword, Heavy Flail, Katana, Lance, Light Mace, Light Flail, Morningstar, Naginata, Nodachi, Pike, Scythe, Spear, Wakizashi, and Warmace.
+
+'''Weapon Proficiency (Hammer)''': Custom weapon proficiency allowing use of Cavalry Hammer, Light Hammer, Maul and Warhammer.
+
+'''Weapon Proficiency (Monk)''': Also includes Katars, Naginata, Nodachi, Sai and Wakizashi.
+
+'''Weapon Proficiency (Primitive)''': Custom weapon proficiency allowing use of Club, Dart, Dire Maca, Great Club, Maca, Short Bow, Sling, and Spear.
+
+'''[[Whirlwind Attack]]''': Is now an Instant Attack. Disabled for some weapons while mounted, in parry mode, or while under any impairing effect such as Stun, Daze, Hold, Confusion, Knockdown, Blindness (not [[Darkness]]) and etc.
+
+'''Zen Archery''': Works on all RANGED touch spells and abilities. Caster uses the higher of their DEX or WIS mod.
+
+=== Magic Crafting Feats ===
+
+====Scribe Scroll====
+:Certain Spells require an additional component to be scribed, which is consumed along with the Blank Scroll from your inventory. What components are needed for which spells is considered Find Out In Game information. Spells requiring a component are:
+:*Firestorm
+:*Greater Restoration
+:*Harm
+:*Mordenkainen's Disjunction
+:*Storm of Vengeance
+:*Time Stop
+:*True Seeing
+
+:Some scrolls, such as Greater Sanctuary and Holy Sword, are purposefully impossible to scribe.''
+
+:Raise Dead and Resurrection scrolls cost 10.000 and 20.000 gold pieces to scribe, respectively. 
+
+: The XP/Gold cost of most spell-craft feats has been lowered. Scribe Scroll specifically uses: 
+:*GP: caster level of the scroll × innate level × 18.75 (then rounded down)
+:*XP: caster level of the scroll × innate level
+:Scribing scrolls will return the experience lost in [[Role Play Bonus#Adventure XP|Adventure XP]].
+
+Caster with at least 21 Caster levels can now craft on bulk with scrolls. Cost is multiplied by the amount to be crafted. Will only craft up to the number below or the amount in a stack of scrolls, whichever is smaller. 
+
+Inverse amount by Innate Level, so:
+:*9th Innate -&gt; 1 scroll
+:*8th Innate -&gt; 2 scrolls
+:*7th Innate -&gt; 3 scrolls
+:*6th Innate -&gt; 4 scrolls
+:*5th Innate -&gt; 5 scrolls
+:*4th Innate -&gt; 6 scrolls
+:*3rd Innate -&gt; 7 scrolls
+:*2nd Innate -&gt; 8 scrolls
+:*1st Innate -&gt; 9 scrolls
+:*0th Innate -&gt; 10 scrolls
+
+====Brew Potion====
+:On Arelith, almost all spells from Level 0 up to Innate Level 3 with a range that includes “self” are "potionable", even spells that are normally not potionable in the default Neverwinter Nights, like [[True Strike]], [[Expeditious Retreat]], [[Camouflage]], [[Entropic Shield]] and so on.
+
+:''Note the Bug with Cleric Domain Spells and Item Creation Feats listed below''
+
+:The XP/Gold cost of most spell-craft feats has been lowered. Brew Potion specifically uses: 
+:*GP: caster level of the potion × innate level × 15
+:*XP: caster level of the potion × innate level × 2
+:Brewing potions will return the experience lost in [[Role Play Bonus#Adventure XP|Adventure XP]].
+
+:Casting on a stack will convert up to ten empty magical bottles into finished product. XP and Gold costs will be multiplied accordingly.
+
+====Craft Wand====
+:On Arelith, almost all spells from Innate Level 0 up to Innate Level 4 are "wandable", even spells that are normally not wandable in the default Neverwinter Nights, like True Strike, Expeditious Retreat, Camouflage, Entropic Shield and so on. 
+: Some spells may not be wanded, such as Divine Power and Invisibility Purge, and this exception is intentional.
+:''Note the Bug with Cleric Domain Spells and Item Creation Feats listed below''
+: The XP/Gold cost of most spell-craft feats has been lowered. Craft Wand specifically uses: 
+:*GP: caster level of the wand × innate level × 132
+:*XP: caster level of the wand × innate level × 8
+:Crafting wands will return the experience lost in [[Role Play Bonus#Adventure XP|Adventure XP]].
+:Characters with classes that add to Caster Levels will now see this bonus applied to increased wand charges
+::  Craft Wand gives the following charges: 1d20+ (CL - 20 (minimum 0)) + 20
+
+===Spell Focus Feats=== 
+
+==== Inficasting ====
+''[[Sorcerer]]s, [[Spellsword]]s and [[Wizard]]s receive an additional effect with every Greater Spell Focus:''.&lt;br&gt;
+{{Arcane Inficasting}}
+
+====Spell Focus: Abjuration====
+:*Epic Spell Focus: The [[Ward|-ward]] and [[Ward|-ward teleport]] Commands become available. Check the command page for details.
+:* Affected Spell List: 
+:** [[Holy Sword]]: If the caster has Abjuration Foci, the Dispel check improves by +1 per focus feat.
+:** [[Endure Elements]], [[Resist Elements]], [[Protection from Elements]], [[Energy Buffer]]: Epic Spell Focus Abjuration increases Damage absorbed by 1.5 times.
+:**[[Lesser Dispel]], [[Dispel Magic|Dispel]], [[Greater Dispelling]], [[Mordenkainen's Disjunction]]:
+:*** Each Spell Focus in Abjuration grants a cumulative +1 to Dispelling Rolls to a total of +3 with Epic Spell Focus: Abjuration. These are applied after the Level Cap imposed by individual spells (so an Epic Abjurer's Greater Dispelling caps at +26, not +23).
+:** [[Remove Curse]]: Each Spell Focus in Abjuration grants a cumulative +1 CL to a total of +3.
+:**[[Shield]]: Grants scaling Force Damage reduction against [[Magic Missile]], [[Isaac's Lesser Missile Storm]], [[Isaac's Greater Missile Storm]]
+:*** 1/- No Spell Focus
+:*** 3/- Spell Focus
+:*** 6/- Greater Spell Focus
+:*** 12/- Epic Spell Focus
+:::: '''Note''':  Abjuration Specialist Wizards receive a +1 high Foci Tier equivalent and gain 16/- with Epic Spell Focus
+
+====Spell Focus: Conjuration====
+:* Greater Spell Focus: Allows discerning what plane they are when using [[Console_command#-area|-area]] command.
+:* Epic Spell Focus: Conjuration enables the [[Console_command#-yoink|-yoink]] command. Once per rest, a character may send -yoink as a tell to another PC, which will cause them to enter a dialogue telling them that your PC is attempting to summon them. If they accept, they are transported instantly to your location.
+:* Affected Spell List: 
+:** [[Summon Creature I]], [[Summon Creature II]], [[Summon Creature III]], [[Summon Creature IV]], [[Summon Creature V]], [[Summon Creature VI]], [[Summon Creature VII]], [[Summon Creature VIII]], [[Summon Creature IX]], [[Elemental Swarm]]
+:***Greater Spell Focus: Conjuration causes a caster to summon a creature one Tier higher than normal when using the Summon Creature I-VIII spells, in the same way as the bonus provided by the Cleric's [[Animal Domain]] or [[Vermin Domain]]. Note that [[Animal Domain]], [[Vermin Domain]] and Greater Spell Focus: Conjuration do not stack to add 2 or 3 Tier increases, if one of [[Animal Domain]] OR [[Vermin Domain]] AND Greater Spell Focus: Conjuration are present the summons receive the [[Summoning_Changes#Spell_Focus_Bonus|Spell Focus Bonus]] as well as the Tier Bonus. This feat will also allow the [[Summon Creature IX]] to summon a more powerful Ancient Elemental.
+:** Spell Foci feats will provide a stat bonus to summons that corresponds to the magic school associated with the Foci.  Details can be found [[Summoning Changes#Spell Focus Bonus|Here]]
+
+====Spell Focus: Divination====
+:* Spell Focus: Allows a character see whether a character is "attuned" to Life, Death, Fire, Water, Earth, or Air along the usual information of the Right Click-&gt;Examine. Through trial and error association, a player may learn much about another character's habits and abilities from their attunement.
+:* Greater Spell Focus: 
+:**Increases information gained when using [[Console_command#-investigate|-investigate]], [[Console_command#-detectevil|Detect Evil]], and other things. Also allows a character to use the mysterious Deck of Stars item.
+:** Allows cheating [[Games#Portent|Portent]] mode.
+:** Allows discerning what plane they are when using [[Console_command#-area|-area]] command.
+:* Epic Spell Focus: Grants the [[Console_command#-scry|-scry]] command. Once per rest restricted by a 10 minute cooldown the character may send -scry as a tell to another PC (or type -scry [START OF TARGET'S NAME]). This permits the character to spy on their target for roughly 2 minutes. It is possible to protect against this, but means of doing so are considered Find Out In Game information. Also, characters with the ESF will receive a feedback if somebody is trying to scry them. Additionally, epic diviners can recognize projected illusions when examining, if their caster level is above that of the illusionist. 
+:** Characters that are scrying cannot be reached by any (speedy/goblin/wisp/etc) messengers or images.
+:** '''Note:''' It is a rule that your character must know the name of the character you are intending to scry. Players may mutually agree to waive it, such as a potential "-scry victim" giving permission to use their hair/blood/so on to -scry them without their name, but without this mutual agreement you must have the name.
+:* Affected Spell List: 
+:** [[True Seeing (spell)|True Seeing]]: Each Spell Foci in Divination also increases the duration of the True Sight effect of the [[True Seeing (spell)|True Seeing]] spell by 1, 1 and 2 rounds to a total of max of five rounds.
+:* Gives bonuses to [[Games|cheat]] or spot cheaters.
+
+====Spell Focus: Enchantment====
+:* Every Spell Focus feat grants a +2 passive, soft bonus to Leadership, Perform and Bluff.
+:* Greater Spell Focus: Allows a character to automatically succeed in some social interactions with NPCs, when that NPC is charmed or dominated. Non-hostile NPC's should not be dominated/controlled without a DM present. Charming them is allowed.
+:* Affected Spell List: 
+:** [[Dominate Animal]], [[Dominate Monster]] and [[Dominate Person]] 
+:*** Spell Focus: Grants a duration of 2 + CL/3 Turns, instead of 2 + CL/3 Rounds. 
+:*** Greater Spell Focus: Further improves duration to 2 + CL/3 Hours. 
+:*** Epic Spell Focus: Allows a second creature to be Dominated.
+:*** Dominated PCs will now be [https://nwn.fandom.com/wiki/Stunned Stunned] instead of [https://nwn.fandom.com/wiki/Dazed Dazed]. The [https://nwn.fandom.com/wiki/Stunned Stun] duration against PCs remains 2 + CL/3 Rounds, and does not improve to Turns or Hours.
+:** [[Charm Person]], [[Charm Person or Animal]], [[Charm Monster]] and [[Mass Charm]]
+:*** Cause [https://nwn.fandom.com/wiki/Confused Confusion] in affected PCs.
+:** [[Mind Fog]] 
+:*** Greater Spell Focus: The one round [https://nwn.fandom.com/wiki/Dazed Daze] upon entering a [[Mind Fog]] becomes a [https://nwn.fandom.com/wiki/Stunned Stun]. 
+:*** Epic Spell Focus: The [https://nwn.fandom.com/wiki/Stunned Stun] duration is extended to 1d6 rounds.
+
+====Spell Focus: Evocation====
+:* Affected Spell List:
+:** [[Gedlee's_Electric_Loop|Geedlee's Electric Loop]]
+:*** Greater Spell Focus: Spell does not target friendly units.
+:** [[Hellball|Epic Spell: Hellball]] and [[Greater Ruin|Epic Spell: Greater Ruin]]: 
+:*** Epic Spell Focus: Removes the 30d6 of backlash damage.
+:** [[Hell Inferno]]
+:*** Increased Variable damage.
+:** Spell Foci feats will provide a stat bonus to every summon that corresponds to the magic school associated with the Foci.  Details can be found [[Summoning Changes#Spell Focus Bonus|Here]]
+
+====Spell Focus: Illusion====
+:* Greater Spell Focus: 
+:** Enables the [[Console_command#-project_image|-project_image]] command (This ability has a minimum level requirement of 21.). Once per rest (or every 10 minutes), the character may send -project_image as a tell to another PC or type -project_image [Character Name], after that the game will ask you to input your message, and the next sentence that you write will be hooked as your message.
+:***Your character's avatar, with the appropriate [[Console_command#-emote|-conjure or -cast visual]], disguise (if any), and/or polymorph state, will appear like a Speedy Messenger beside the target and relate your message. If you are targeting a PC on a different server, they will instead see only a "Mysterious Ball of Light".
+:** Allows use of [[Games#Guise|Guise]] Facing mode.
+:* Epic Spell Focus: Enables you to make a copy of yourself (or someone else) with the look of the target's current gear and the caster's current stats through the epic ability in your radial menu. The copy will last 24 hours or until you rest. On top of this, you can speak through the copy using the [[Console command#-associate / -a|-a]] command. The copy can be manoeuvred and the stealth and detect mode toggled using the Associate Tool and the radial menu.
+:** Keen Senses feat is removed from the clone if the caster has the feat.
+:** The copy cannot deal any damage
+:** It will pass through creatures
+:** Can be controlled via [[Possess Creature]]
+:* Affected Spell List: 
+:** [[Invisibility]], [[Improved Invisibility]] and [[Invisibility Sphere]]: 
+:*** Greater Spell Focus: Increases the duration of the invisibility component from 1 round/level to 3 rounds/level. 
+:*** Epic Spell Focus: Increases the duration of the invisibility component to 5 rounds/level. 
+:**[[Shadow Conjuration]], [[Greater Shadow Conjuration]] and [[Shadow Evocation]]:
+:*** Spell Foci feats will provide a stat bonus to every summon that corresponds to the magic school associated with the Foci.  Details can be found [[Summoning Changes#Spell Focus Bonus|Here]]
+:* Gives bonuses to [[Games|cheat]] or spot cheaters.
+
+====Spell Focus: Necromancy====
+:*Epic Spell Focus: Adds 1 use/day of Create Greater Undead to the Epic Spell radial.
+:* Affected Spell List:
+:**[[Animate Dead]], [[Create Undead]], [[Create Greater Undead]], [[Mummy Dust|Epic Spell: Mummy Dust]] and [[Dragon Knight|Epic Spell: Dragon Knight (Dracolich ONLY)]]:
+:*** Spell Foci feats will provide a stat bonus to every summon that corresponds to the magic school associated with the Foci.  Details can be found [[Summoning Changes#Spell Focus Bonus|Here]]
+:** [[Predator]]
+:*** Spell Foci feats improves the spell benefits to the caster.
+:** [[Spinal Tap]]
+:*** Greater Spell Focus: Damage type changes from Negative to Entropy.
+:** [[Blackfire]]
+:*** Epic Spell Focus: Improves damage over time.
+:** [[Hemorrhage]]
+:*** Epic Spell Focus: Improves curse vulnerability. 
+:** [[Grim Terror]]
+:*** Epic Spell Focus: Increases spell area size.
+:** [[Kyristan's Malevolent Tentacles]]
+:*** Epic Spell Focus: Changes spell damage from negative to entropy.
+:** [[Curse Storm]]
+:*** Epic Spell Focus: Increased area of effect.
+
+====Spell Focus: Transmutation====
+:* Greater Spell Focus: 
+:**Allows a character to activate [[Golems]].
+:**Enables the [[Console_command#-teleport|-teleport]] command to be used if the character is at least level 21. This allows the character to open the same dialogue from a [[portals|portal]] anywhere and travel to any known portal node. Usable once per 10 RL minutes (refreshes on rest), as long as the transmuter is not in a no-portal area, like the ones created by the epic abjurer.
+::: '''Note:''' You can use this ability to provide the portal dialogue to another target by sending them a [[Console_command#-teleport|-teleport]] using tell (ingame messaging).
+:* Epic Spell Focus: Enables the [[Console_command#-teleport create|-teleport create]] command to be used. This creates a short-lived one-way portal node that everybody can use to portal out.   
+:* Affected Spell List: 
+:**Animal/Zoo Spells, including the their Mass Versions ([[Bear's Endurance]], [[Bull's Strength]], [[Cat's Grace]], [[Eagle's Splendor]], [[Fox's Cunning]], [[Owl's Wisdom]]):
+:***Greater Spell Focus: "Animal/Zoo" spells grant an additional +1.
+:***Epic Spell Focus: The bonus granted to "Animal/Zoo" spells increases to a +2. 
+:**[[Aura of Vitality]]:
+:***Greater Spell Focus: Duration increased from 1 round/level to 3 rounds/level.
+:***Epic Spell Focus: Duration increased to turns/level. 
+:**[[Inferno]]:
+:***Greater Spell Focus: Damage changed to 3d6.
+:***Epic Spell Focus: Damage changed to 4d6.
+:**[[Nature's Balance]]:
+:***Greater Spell Focus: Area of effect of the Breach component increased.  Will now breach 3 effects instead of 2.
+:***Epic Spell Focus: Area of effect Breach component increased further.
+:**[[Blood Frenzy]]:
+:***Improves effects and duration. See the spell page for details.
+
+===Cleric Domains===
+'''[[Cleric]]''' '''[[:Category:Cleric_domains|Domains]]''' have been customized on Arelith, more information can be found on the '''[[Cleric]]''' page and on the '''[[:Category:Cleric_domains|Domains]]''' page.
+
+===Weapon Focus Feats===
+Arelith has added Weapon Groups across all the specific weapon feats except the Weapon Master: Weapon of Choice Feat.  This allows the character to apply the various Weapon Focus Feats across groups of weapons as shown in the [[Weapons#Weapon Grouping Summary Chart|Weapon Grouping Summary Chart]].
+
+===Improved Critical===
+Improved Critical requires that you have the appropriate custom [[Weapon Focus]] instead of the [[Weapon Proficiency]]. Only your acquired Weapon Focuses will show in the Improved Critical feat selection menu.
+
+=== Associate Tool ===
+
+The Associate Tool is a gimmick free feat that will appear in your list of feats whenever you summon any "commandable" creature. These creatures include henchmen, familiars, spell summons, transmutation golems, animal companions, shadowdancer's shadow, but '''not''' [[Misc Changes#Lasso|lasso]]ed NPCs.
+
+The feat is active, and you have to use it and target it. You may target a single creature to control that specific creature or target yourself to select and control all your summons. Target again or switch to deselect. 
+
+When you are controlling a creature, you can use the feat and target where do you want it to move. If you target a party member, it'll follow that character. If you target a hostile creature, it'll attack that creature. If you target a door, it'll try to open it. If the door is locked and the creature has a high enough Open Lock bonus to unlock the door, it will do so. For any other object, it'll try to attack - this includes closed doors that it cannot pick the lock on and fixtures. Usually, a controlled creature will stand still unless commanded to attack, but due to the complex AI, it may still go and attack hostile targets within its sight by itself, sometimes. 
+
+This feat can be used to have your summons mine for you, as well. 
+
+When you lose all your commandable creatures, the feat will disappear again, but if you quickslot it, it will appear automatically back in the same quickslot where you placed it when you summon another creature.
+
+=== Hostilizer ===
+
+Available to all base classes at level 1.
+* Hostilizer (Radial Menu, at a Class)
+* Set relation between yourself and other PC(s) to hostile.
+* Does not flag unseen targets.
+
+Modes:
+ Target a Creature: Set target Creature (PC) as hostile.
+ Target Self: Set all Creatures(PCs) within a Colossal sphere around you as hostile.
+ Target Location(Ground): Set all Creatures(PCs) within Hudge sphere around selected location as hostile.
+
+== Bugs Relating to Feats ==
+:''Please Note: These bugs are either inherent to NWN, or in some other way a long-standing &amp; chronic problem. Incidental or minor bugs should not be mentioned here.''
+
+*Instant attack feats can 'consume' all attacks and leave the character standing idle if they are activated during the first flurry.
+
+[[Category:Game mechanics]]</text>
+      <sha1>shbepv8m0wurd2yzxpucxnujiaufk73</sha1>
+    </revision>
+  </page>
+</mediawiki>
