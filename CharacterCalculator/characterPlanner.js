@@ -300,11 +300,40 @@ function getClassProficiencyFeatsUpTo(level) {
     return Array.from(new Set(proficiencies));
 }
 
+function shouldIncludeClassFeatureAsFeat(featureName) {
+    if (!featureName || typeof featureName !== 'string') return false;
+    const normalized = featureName.trim().toLowerCase();
+    if (!normalized) return false;
+    if (/^(epic\s+)?class\s+feat$/.test(normalized)) return false;
+    if (/^(epic\s+)?bonus\s+feat$/.test(normalized)) return false;
+    return true;
+}
+
+function getClassFeatureFeatNamesUpTo(level, includeCurrentLevel = false) {
+    const cappedLevel = Math.min(levelData.length, Math.max(0, includeCurrentLevel ? level : (level - 1)));
+    const featureNames = [];
+
+    for (let lv = 1; lv <= cappedLevel; lv++) {
+        const selectedClass = levelData[lv - 1].class;
+        if (!selectedClass) continue;
+
+        const classFeatureParts = getClassFeatureParts(selectedClass, lv);
+        classFeatureParts.forEach(part => {
+            if (shouldIncludeClassFeatureAsFeat(part)) {
+                featureNames.push(part);
+            }
+        });
+    }
+
+    return Array.from(new Set(featureNames));
+}
+
 function getAllOwnedFeatNamesPriorTo(beforeLevel) {
     const selectedFeats = getSelectedFeatsPriorTo(beforeLevel);
     const raceFeats = getRaceFeatNames();
     const classProficiencies = getClassProficiencyFeatsUpTo(beforeLevel);
-    return [...raceFeats, ...classProficiencies, ...selectedFeats];
+    const classFeatures = getClassFeatureFeatNamesUpTo(beforeLevel, false);
+    return [...raceFeats, ...classProficiencies, ...classFeatures, ...selectedFeats];
 }
 
 function getSaveBonus(stat) {
@@ -1514,7 +1543,8 @@ function validateFeatRequirements(level, featName, stats, mods) {
     if (reqs.feats) {
         const priorFeats = [
             ...getAllOwnedFeatNamesPriorTo(level),
-            ...getClassProficiencyFeatsUpTo(level + 1)
+            ...getClassProficiencyFeatsUpTo(level + 1),
+            ...getClassFeatureFeatNamesUpTo(level, true)
         ];
 
         const priorFeatSet = new Set(
@@ -1757,6 +1787,56 @@ function validateCharacterRealtime() {
             issues.push(...featIssues);
         });
     }
+
+    // Soft rules for class commitment:
+    // 1) Any class taken must have at least 3 total levels.
+    // 2) The first time a class is taken, it must be taken 3 levels in a row.
+    const classCommitment = new Map();
+    for (let levelIndex = 0; levelIndex < levelData.length; levelIndex++) {
+        const selectedClass = levelData[levelIndex].class;
+        if (!selectedClass) continue;
+
+        const key = selectedClass.toLowerCase();
+        if (!classCommitment.has(key)) {
+            classCommitment.set(key, {
+                className: selectedClass,
+                count: 0,
+                firstIndex: levelIndex
+            });
+        }
+
+        const entry = classCommitment.get(key);
+        entry.count += 1;
+    }
+
+    classCommitment.forEach(entry => {
+        if (entry.count < 3) {
+            issues.push({
+                level: entry.firstIndex + 1,
+                type: 'class',
+                message: `⚠️ ${entry.className} is taken ${entry.count} time(s); each class must be taken at least 3 times in the 30-level build`,
+                severity: 'warning'
+            });
+        }
+
+        let firstStreak = 0;
+        for (let levelIndex = entry.firstIndex; levelIndex < levelData.length; levelIndex++) {
+            const selectedClass = levelData[levelIndex].class;
+            if (!selectedClass || selectedClass.toLowerCase() !== entry.className.toLowerCase()) {
+                break;
+            }
+            firstStreak += 1;
+        }
+
+        if (firstStreak < 3) {
+            issues.push({
+                level: entry.firstIndex + 1,
+                type: 'class',
+                message: `⚠️ ${entry.className} first appears for ${firstStreak} consecutive level(s); first class pick must be 3 levels in a row`,
+                severity: 'warning'
+            });
+        }
+    });
 
     debugLog(`Total issues found: ${issues.length}`);
     const outputDiv = document.getElementById('validationOutput');
