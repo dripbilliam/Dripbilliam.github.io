@@ -1829,9 +1829,9 @@
 "weapon specialization (Unarmed)",
 "weapon specialization (Missle)",
       "whirlwind attack",
-      "ricochet",
-      "ballistic shot",
-      "overwatch"
+      "Ricochet",
+      "Ballistic shot",
+      "Overwatch"
     ],
     "epicBonusFeats": [
       "armor skin",
@@ -3872,7 +3872,41 @@
     "name": "Specialist",
     "requirements": {
       "alignment": "None",
-      "feats": ["skill focus"],
+      "feats": [
+        {
+          "type": "anyOf",
+          "values": [
+            "Skill Focus (Animal Empathy)",
+            "Skill Focus (Appraise)",
+            "Skill Focus (Bluff)",
+            "Skill Focus (Climb)",
+            "Skill Focus (Concentration)",
+            "Skill Focus (Craft Mastery)",
+            "Skill Focus (Disable Trap)",
+            "Skill Focus (Discipline)",
+            "Skill Focus (Heal)",
+            "Skill Focus (Hide)",
+            "Skill Focus (Intimidate)",
+            "Skill Focus (Leadership)",
+            "Skill Focus (Listen)",
+            "Skill Focus (Lore)",
+            "Skill Focus (Move Silently)",
+            "Skill Focus (Open Lock)",
+            "Skill Focus (Parry)",
+            "Skill Focus (Perform)",
+            "Skill Focus (Ride)",
+            "Skill Focus (Sail)",
+            "Skill Focus (Search)",
+            "Skill Focus (Sleight of Hand)",
+            "Skill Focus (Spellcraft)",
+            "Skill Focus (Spot)",
+            "Skill Focus (Taunt)",
+            "Skill Focus (Tumble)",
+            "Skill Focus (Use Magic Device)",
+            "Skill Focus (Use Trap)"
+          ]
+        }
+      ],
       "other": "Requires 20 character levels"
     },
     "unavailableFeats": [

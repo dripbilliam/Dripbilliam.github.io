@@ -5,9 +5,9 @@ let featData = {};
 // List of all skills in order
 const SKILL_LIST = [
     'animal empathy', 'appraise', 'bluff', 'climb', 'concentration',
-    'craft mastery', 'disable trap', 'heal', 'hide', 'intimidate',
-    'listen', 'lore', 'move silently', 'open lock', 'parry',
-    'perform', 'ride', 'search', 'sleight of hand', 'spellcraft',
+    'craft mastery', 'disable trap', 'discipline', 'heal', 'hide', 'intimidate',
+    'leadership', 'listen', 'lore', 'move silently', 'open lock', 'parry',
+    'perform', 'ride', 'sail', 'search', 'sleight of hand', 'spellcraft',
     'use magic device', 'use trap', 'spot', 'taunt', 'tumble'
 ];
 
@@ -27,11 +27,43 @@ const SKILL_ALIAS_MAP = {
     'disable traps': 'disable trap'
 };
 
+const SKILL_ABILITY_MAP = {
+    'animal empathy': ['cha'],
+    'appraise': ['int'],
+    'bluff': ['cha'],
+    'climb': ['str', 'dex'],
+    'concentration': ['con'],
+    'craft mastery': [],
+    'disable trap': ['int'],
+    'discipline': ['str'],
+    'heal': ['wis'],
+    'hide': ['dex'],
+    'intimidate': ['cha'],
+    'leadership': ['cha'],
+    'listen': ['wis'],
+    'lore': ['int'],
+    'move silently': ['dex'],
+    'open lock': ['dex'],
+    'parry': ['dex'],
+    'perform': ['cha'],
+    'ride': ['dex'],
+    'sail': ['wis'],
+    'search': ['int'],
+    'sleight of hand': ['dex'],
+    'spellcraft': ['int'],
+    'spot': ['wis'],
+    'taunt': ['cha'],
+    'tumble': ['dex'],
+    'use magic device': ['cha'],
+    'use trap': ['dex']
+};
+
 // Initialize level data with skills
 let levelData = Array(30).fill(null).map(() => ({
     class: '',
     feats: [],
     generalFeat: '',
+    extraGeneralFeat: '',
     classFeat: '',
     bonusFeat: '',
     statIncrease: '',
@@ -166,7 +198,7 @@ function populateRaceSelect() {
 
 // Handle stat changes with real-time validation
 function handleStatChange() {
-    schedulePlannerRefresh();
+    schedulePlannerRefresh({ includeSkills: true });
 }
 
 function getStats() {
@@ -193,6 +225,15 @@ function getRaceFeatNames() {
 
 function getRaceProficiencyFeats() {
     return getRaceFeatNames().filter(feat => /proficienc/i.test(feat));
+}
+
+function hasQuickToMasterFeat() {
+    return getRaceFeatNames().some(feat => {
+        if (!feat || typeof feat !== 'string') return false;
+        const normalizedRaw = feat.trim().toLowerCase();
+        const normalizedResolved = (resolveFeatName(feat) || '').toString().trim().toLowerCase();
+        return normalizedRaw === 'quick to master' || normalizedResolved === 'quick to master';
+    });
 }
 
 function normalizeProficiencyName(proficiencyName) {
@@ -270,6 +311,17 @@ function getSaveBonus(stat) {
     return Math.floor((stat - 10) / 2);
 }
 
+function normalizeSkillsArray(skills) {
+    const normalized = Array(SKILL_LIST.length).fill(0);
+    if (!Array.isArray(skills)) return normalized;
+
+    for (let index = 0; index < SKILL_LIST.length; index++) {
+        normalized[index] = parseInt(skills[index], 10) || 0;
+    }
+
+    return normalized;
+}
+
 function formatStatWithModifier(value) {
     const modifier = getSaveBonus(value);
     const modifierText = modifier >= 0 ? `+${modifier}` : `${modifier}`;
@@ -336,19 +388,101 @@ function getRaceSkillBonus(skillKey) {
     return parseInt(raw, 10) || 0;
 }
 
-function getEffectiveSkillAtLevel(level, skillName) {
+function getFeatSkillBonusAtLevel(level, skillKey) {
+    const normalizedSkill = normalizeSkillKey(skillKey);
+    if (!normalizedSkill) return 0;
+
+    let totalBonus = 0;
+    for (let lv = 1; lv <= level; lv++) {
+        const selectedFeats = getSelectedFeatsAtLevel(lv);
+        selectedFeats.forEach(rawFeatName => {
+            const featName = resolveFeatName(rawFeatName);
+            const featInfo = featData[featName];
+            if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
+
+            Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
+                const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
+                if (normalizedEffectSkill !== normalizedSkill) return;
+                totalBonus += parseStatBonusValue(rawBonus);
+            });
+        });
+    }
+
+    return totalBonus;
+}
+
+function getClassSkillBonusAtLevel(level, skillKey) {
+    const normalizedSkill = normalizeSkillKey(skillKey);
+    if (!normalizedSkill) return 0;
+
+    let totalBonus = 0;
+    const classNames = new Set();
+    for (let i = 0; i < level; i++) {
+        const className = levelData[i].class;
+        if (className) classNames.add(className);
+    }
+
+    classNames.forEach(className => {
+        const classInfo = classData[className];
+        if (!classInfo || !Array.isArray(classInfo.extras)) return;
+        const classLevel = getClassLevelUpTo(className, level);
+        if (classLevel <= 0) return;
+
+        classInfo.extras.forEach(extra => {
+            if (!extra || typeof extra !== 'object') return;
+            const normalizedExtraSkill = normalizeSkillKey(extra.name);
+            if (normalizedExtraSkill !== normalizedSkill) return;
+            if (!Array.isArray(extra.values)) return;
+
+            const rawBonus = extra.values[classLevel - 1];
+            totalBonus += parseStatBonusValue(rawBonus);
+        });
+    });
+
+    return totalBonus;
+}
+
+function getTotalSkillBonusAtLevel(level, skillKey) {
+    return getRaceSkillBonus(skillKey)
+        + getFeatSkillBonusAtLevel(level, skillKey)
+        + getClassSkillBonusAtLevel(level, skillKey);
+}
+
+function getSkillAbilityBonusAtLevel(level, skillName) {
+    const normalizedSkill = normalizeSkillKey(skillName) || (typeof skillName === 'string' ? skillName.toLowerCase() : '');
+    const abilityKeys = SKILL_ABILITY_MAP[normalizedSkill];
+    if (!Array.isArray(abilityKeys) || abilityKeys.length === 0) return 0;
+
+    const levelStats = getStatsAtLevel(level);
+    const mods = getAbilityModifiers(levelStats);
+
+    return abilityKeys.reduce((sum, key) => sum + (mods[key] || 0), 0);
+}
+
+function getRawSkillAtLevel(level, skillName) {
     const normalizedSkill = normalizeSkillKey(skillName);
     if (!normalizedSkill) return null;
 
     const skillIdx = SKILL_LIST.findIndex(s => s === normalizedSkill);
     if (skillIdx < 0) return null;
 
-    let skillTotal = 0;
+    let rawSkill = 0;
     for (let i = 0; i < level; i++) {
-        skillTotal = Math.max(skillTotal, levelData[i].skills[skillIdx]);
+        const skillValue = parseInt(levelData[i].skills[skillIdx], 10) || 0;
+        rawSkill = Math.max(rawSkill, skillValue);
     }
 
-    return skillTotal + getRaceSkillBonus(normalizedSkill);
+    return rawSkill;
+}
+
+function getDisplaySkillTotalAtLevel(level, skillName) {
+    const raw = getRawSkillAtLevel(level, skillName);
+    if (raw === null) return null;
+    return raw + getTotalSkillBonusAtLevel(level, skillName) + getSkillAbilityBonusAtLevel(level, skillName);
+}
+
+function getEffectiveSkillAtLevel(level, skillName) {
+    return getRawSkillAtLevel(level, skillName);
 }
 
 function parseClassSkillRequirements(rawRequirements) {
@@ -716,8 +850,7 @@ function updateGrid() {
 
             levelData[level - 1].class = newClass;
             calculateMulticlassProgression();
-            updateGrid();
-            validateCharacterRealtime();
+            schedulePlannerRefresh({ includeSkills: true });
         };
         classes.forEach(cls => {
             const option = document.createElement('option');
@@ -765,6 +898,7 @@ function updateGrid() {
         const hasClassFeatSlot = hasClassFeatureFlag(selectedClass, level, 'class feat');
         const hasBonusFeatFromClass = hasClassFeatureFlag(selectedClass, level, 'bonus feat');
         const hasGeneralFeatSlot = GENERAL_FEAT_LEVELS.includes(level);
+        const hasQuickToMasterSlot = level === 1 && hasQuickToMasterFeat();
         const hasBonusFeatSlot = hasBonusFeatFromClass;
 
         if (selectedClass) {
@@ -780,16 +914,6 @@ function updateGrid() {
             }
         }
 
-        if (level === 1) {
-            const racialProficiencies = getRaceProficiencyFeats();
-            racialProficiencies.forEach(racialFeat => {
-                const label = document.createElement('span');
-                label.className = 'feat-label';
-                label.textContent = `Racial: ${racialFeat}`;
-                classFeatsCell.appendChild(label);
-            });
-        }
-
         if (classFeatureParts.length > 0) {
             classFeatureParts.forEach(classFeat => {
                 const label = document.createElement('span');
@@ -800,7 +924,26 @@ function updateGrid() {
         }
         row.appendChild(classFeatsCell);
 
+        const racialFeatsCell = document.createElement('td');
+        if (level === 1) {
+            const racialFeats = getRaceFeatNames();
+            if (racialFeats.length > 0) {
+                racialFeats.forEach(racialFeat => {
+                    const label = document.createElement('span');
+                    label.className = 'feat-label';
+                    label.textContent = racialFeat;
+                    racialFeatsCell.appendChild(label);
+                });
+            } else {
+                racialFeatsCell.textContent = '---';
+            }
+        } else {
+            racialFeatsCell.textContent = '---';
+        }
+        row.appendChild(racialFeatsCell);
+
         const legacyFeat = (Array.isArray(levelData[level - 1].feats) && levelData[level - 1].feats[0]) || '';
+        const legacyExtraFeat = (Array.isArray(levelData[level - 1].feats) && levelData[level - 1].feats[1]) || '';
         if (legacyFeat && !levelData[level - 1].classFeat && !levelData[level - 1].bonusFeat && !levelData[level - 1].generalFeat) {
             if (hasGeneralFeatSlot) {
                 levelData[level - 1].generalFeat = legacyFeat;
@@ -810,6 +953,10 @@ function updateGrid() {
                 levelData[level - 1].bonusFeat = legacyFeat;
             }
             levelData[level - 1].feats = [];
+        }
+
+        if (hasQuickToMasterSlot && legacyExtraFeat && !levelData[level - 1].extraGeneralFeat) {
+            levelData[level - 1].extraGeneralFeat = legacyExtraFeat;
         }
 
         // Class feat selector
@@ -840,6 +987,18 @@ function updateGrid() {
         generalFeatBlankOption.textContent = '-- Select General Feat --';
         generalFeatSelect.appendChild(generalFeatBlankOption);
 
+        let quickToMasterFeatSelect = null;
+        if (hasQuickToMasterSlot) {
+            quickToMasterFeatSelect = document.createElement('select');
+            quickToMasterFeatSelect.id = `quickToMasterFeat_${level}`;
+            const quickToMasterBlankOption = document.createElement('option');
+            quickToMasterBlankOption.value = '';
+            quickToMasterBlankOption.textContent = '-- Select Quick To Master Feat --';
+            quickToMasterFeatSelect.appendChild(quickToMasterBlankOption);
+        } else if (levelData[level - 1].extraGeneralFeat) {
+            levelData[level - 1].extraGeneralFeat = '';
+        }
+
         Object.keys(featData).sort().forEach(feat => {
             const isEpicFeat = selectedClass && classData[selectedClass] &&
                 classData[selectedClass].epicBonusFeats &&
@@ -860,6 +1019,14 @@ function updateGrid() {
             generalOption.textContent = feat;
             if (levelData[level - 1].generalFeat === feat) generalOption.selected = true;
             generalFeatSelect.appendChild(generalOption);
+
+            if (quickToMasterFeatSelect) {
+                const quickToMasterOption = document.createElement('option');
+                quickToMasterOption.value = feat;
+                quickToMasterOption.textContent = feat;
+                if (levelData[level - 1].extraGeneralFeat === feat) quickToMasterOption.selected = true;
+                quickToMasterFeatSelect.appendChild(quickToMasterOption);
+            }
         });
 
         bonusFeatOptions.forEach(feat => {
@@ -931,8 +1098,7 @@ function updateGrid() {
             levelData[level - 1].classFeat = newFeat;
             levelData[level - 1].feats = [];
             console.log(`Level ${level} class feat changed to: ${newFeat}`);
-            updateGrid();
-            validateCharacterRealtime();
+            schedulePlannerRefresh({ includeSkills: true });
         };
 
         bonusFeatSelect.onchange = () => {
@@ -955,8 +1121,7 @@ function updateGrid() {
             levelData[level - 1].bonusFeat = newFeat;
             levelData[level - 1].feats = [];
             console.log(`Level ${level} bonus feat changed to: ${newFeat}`);
-            updateGrid();
-            validateCharacterRealtime();
+            schedulePlannerRefresh({ includeSkills: true });
         };
 
         generalFeatSelect.onchange = () => {
@@ -979,13 +1144,40 @@ function updateGrid() {
             levelData[level - 1].generalFeat = newFeat;
             levelData[level - 1].feats = [];
             console.log(`Level ${level} general feat changed to: ${newFeat}`);
-            updateGrid();
-            validateCharacterRealtime();
+            schedulePlannerRefresh({ includeSkills: true });
         };
+
+        if (quickToMasterFeatSelect) {
+            quickToMasterFeatSelect.onchange = () => {
+                const previousFeat = levelData[level - 1].extraGeneralFeat || '';
+                const newFeat = quickToMasterFeatSelect.value;
+
+                if (newFeat) {
+                    const stats = getStats();
+                    const mods = getAbilityModifiers(stats);
+                    const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
+                        .filter(issue => issue.severity === 'error');
+
+                    if (featErrors.length > 0) {
+                        alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
+                        quickToMasterFeatSelect.value = previousFeat;
+                        return;
+                    }
+                }
+
+                levelData[level - 1].extraGeneralFeat = newFeat;
+                levelData[level - 1].feats = [];
+                console.log(`Level ${level} quick-to-master feat changed to: ${newFeat}`);
+                schedulePlannerRefresh({ includeSkills: true });
+            };
+        }
 
         classFeatCell.appendChild(classFeatSelect);
         bonusFeatCell.appendChild(bonusFeatSelect);
         generalFeatCell.appendChild(generalFeatSelect);
+        if (quickToMasterFeatSelect) {
+            generalFeatCell.appendChild(quickToMasterFeatSelect);
+        }
         row.appendChild(classFeatCell);
         row.appendChild(bonusFeatCell);
         row.appendChild(generalFeatCell);
@@ -1011,18 +1203,24 @@ function updateSkillGrid() {
         // Skills
         for (let skillIdx = 0; skillIdx < SKILL_LIST.length; skillIdx++) {
             const skillCell = document.createElement('td');
+            const skillContainer = document.createElement('div');
+            skillContainer.className = 'skill-cell-wrap';
             const skillInput = document.createElement('input');
             skillInput.type = 'number';
             skillInput.className = 'skill-input';
             skillInput.min = '0';
             skillInput.max = '50';
             const skillKey = SKILL_LIST[skillIdx];
-            const raceBonus = getRaceSkillBonus(skillKey);
-            const baseValue = levelData[level - 1].skills[skillIdx];
-            skillInput.value = baseValue + raceBonus;
+            const rawValue = parseInt(levelData[level - 1].skills[skillIdx], 10) || 0;
+            const totalValue = getDisplaySkillTotalAtLevel(level, skillKey);
+            skillInput.value = rawValue;
+
+            const skillTotal = document.createElement('span');
+            skillTotal.className = 'skill-total';
+            skillTotal.textContent = `/ ${totalValue}`;
+
             skillInput.onchange = () => {
-                const effectiveValue = Math.max(0, parseInt(skillInput.value) || 0);
-                const baseRankValue = Math.max(0, effectiveValue - raceBonus);
+                const baseRankValue = Math.max(0, parseInt(skillInput.value) || 0);
                 levelData[level - 1].skills[skillIdx] = baseRankValue;
                 // Carry skills down to future levels (supports both increase and decrease)
                 for (let nextLevel = level; nextLevel < 30; nextLevel++) {
@@ -1031,7 +1229,10 @@ function updateSkillGrid() {
                 updateSkillGrid();
                 validateCharacterRealtime();
             };
-            skillCell.appendChild(skillInput);
+
+            skillContainer.appendChild(skillInput);
+            skillContainer.appendChild(skillTotal);
+            skillCell.appendChild(skillContainer);
             row.appendChild(skillCell);
         }
 
@@ -1078,6 +1279,7 @@ function updateStatGrid() {
                 levelData[level - 1].statIncrease = statSelect.value || '';
                 calculateMulticlassProgression();
                 updateGrid();
+                updateSkillGrid();
                 validateCharacterRealtime();
             };
 
@@ -1117,6 +1319,7 @@ function getSelectedFeatsAtLevel(level) {
     const selected = [];
 
     if (entry.generalFeat) selected.push(entry.generalFeat);
+    if (entry.extraGeneralFeat) selected.push(entry.extraGeneralFeat);
     if (entry.classFeat) selected.push(entry.classFeat);
     if (entry.bonusFeat) selected.push(entry.bonusFeat);
 
@@ -1212,8 +1415,16 @@ function getClassBabRequirement(classReqs) {
 function getMissingClassFeatRequirements(rawFeatRequirements, priorFeats) {
     if (!Array.isArray(rawFeatRequirements) || rawFeatRequirements.length === 0) return [];
 
-    const hasFeat = (featName) =>
-        priorFeats.some(f => f.toLowerCase() === featName.toLowerCase());
+    const priorFeatSet = new Set(
+        priorFeats
+            .filter(Boolean)
+            .map(feat => resolveFeatName(feat).toLowerCase())
+    );
+
+    const hasFeat = (featName) => {
+        if (!featName || typeof featName !== 'string') return false;
+        return priorFeatSet.has(resolveFeatName(featName).toLowerCase());
+    };
 
     const missing = [];
 
@@ -1300,14 +1511,89 @@ function validateFeatRequirements(level, featName, stats, mods) {
     }
 
     // Check feat prerequisites (other feats must be taken first)
-    if (reqs.feats && reqs.feats.length > 0) {
+    if (reqs.feats) {
         const priorFeats = [
             ...getAllOwnedFeatNamesPriorTo(level),
             ...getClassProficiencyFeatsUpTo(level + 1)
         ];
-        const missingPrereqs = reqs.feats.filter(prereq =>
-            !priorFeats.some(f => f.toLowerCase() === prereq.toLowerCase())
+
+        const priorFeatSet = new Set(
+            priorFeats
+                .filter(Boolean)
+                .map(f => resolveFeatName(f).toLowerCase())
         );
+
+        const hasFeat = (name) => {
+            if (!name || typeof name !== 'string') return false;
+            return priorFeatSet.has(resolveFeatName(name).toLowerCase());
+        };
+
+        const missingPrereqs = [];
+
+        const processRequirement = (requirement) => {
+            if (!requirement) return;
+
+            if (typeof requirement === 'string') {
+                if (!hasFeat(requirement)) {
+                    missingPrereqs.push(requirement);
+                }
+                return;
+            }
+
+            if (Array.isArray(requirement)) {
+                requirement.forEach(processRequirement);
+                return;
+            }
+
+            if (typeof requirement !== 'object') return;
+
+            if (requirement.type && Array.isArray(requirement.values)) {
+                const values = requirement.values.filter(v => typeof v === 'string');
+                if (values.length === 0) return;
+
+                if (requirement.type === 'anyOf') {
+                    if (!values.some(hasFeat)) {
+                        missingPrereqs.push(`one of: ${values.join(' / ')}`);
+                    }
+                    return;
+                }
+
+                if (requirement.type === 'allOf') {
+                    values.forEach(value => {
+                        if (!hasFeat(value)) missingPrereqs.push(value);
+                    });
+                    return;
+                }
+
+                if (requirement.type === 'noneOf') {
+                    const invalidOwned = values.filter(hasFeat);
+                    if (invalidOwned.length > 0) {
+                        missingPrereqs.push(`must not have: ${invalidOwned.join(', ')}`);
+                    }
+                }
+                return;
+            }
+
+            const anyOf = Array.isArray(requirement.anyOf) ? requirement.anyOf.filter(v => typeof v === 'string') : [];
+            const allOf = Array.isArray(requirement.allOf) ? requirement.allOf.filter(v => typeof v === 'string') : [];
+            const noneOf = Array.isArray(requirement.noneOf) ? requirement.noneOf.filter(v => typeof v === 'string') : [];
+
+            if (anyOf.length > 0 && !anyOf.some(hasFeat)) {
+                missingPrereqs.push(`one of: ${anyOf.join(' / ')}`);
+            }
+            allOf.forEach(value => {
+                if (!hasFeat(value)) missingPrereqs.push(value);
+            });
+            if (noneOf.length > 0) {
+                const invalidOwned = noneOf.filter(hasFeat);
+                if (invalidOwned.length > 0) {
+                    missingPrereqs.push(`must not have: ${invalidOwned.join(', ')}`);
+                }
+            }
+        };
+
+        processRequirement(reqs.feats);
+
         if (missingPrereqs.length > 0) {
             issues.push({ level, type: 'feat', message: `❌ ${featName} requires prior feats: ${missingPrereqs.join(', ')}`, severity: 'error' });
         }
@@ -1315,9 +1601,6 @@ function validateFeatRequirements(level, featName, stats, mods) {
 
     // Check skill requirements
     if (reqs.skills && Object.keys(reqs.skills).length > 0) {
-        const raceInfo = getSelectedRace();
-        const raceSkillBonuses = raceInfo && raceInfo.skills ? raceInfo.skills : {};
-
         for (const [skill, required] of Object.entries(reqs.skills)) {
             const normalizedSkill = normalizeSkillKey(skill);
             if (!normalizedSkill) {
@@ -1325,19 +1608,15 @@ function validateFeatRequirements(level, featName, stats, mods) {
                 continue;
             }
 
-            const skillIdx = SKILL_LIST.findIndex(s => s === normalizedSkill);
-            let skillTotal = 0;
-            for (let i = 0; i < level; i++) {
-                skillTotal = Math.max(skillTotal, levelData[i].skills[skillIdx]);
+            const rawSkillValue = getRawSkillAtLevel(level, normalizedSkill);
+            if (rawSkillValue === null) {
+                issues.push({ level, type: 'feat', message: `⚠️ ${featName} has unsupported skill requirement key: ${skill}`, severity: 'warning' });
+                continue;
             }
 
-            const raceSkillBonusRaw = raceSkillBonuses[normalizedSkill] ?? raceSkillBonuses[skill] ?? 0;
-            const raceSkillBonus = parseInt(raceSkillBonusRaw, 10) || 0;
-            const effectiveSkillTotal = skillTotal + raceSkillBonus;
-
             const requiredValue = parseInt(required, 10) || 0;
-            if (effectiveSkillTotal < requiredValue) {
-                issues.push({ level, type: 'feat', message: `❌ ${featName} requires ${normalizedSkill} ${requiredValue} (have ${effectiveSkillTotal})`, severity: 'error' });
+            if (rawSkillValue < requiredValue) {
+                issues.push({ level, type: 'feat', message: `❌ ${featName} requires ${normalizedSkill} ${requiredValue} (have ${rawSkillValue})`, severity: 'error' });
             }
         }
     }
@@ -1507,10 +1786,11 @@ function saveCharacter() {
             class: level.class || '',
             feats: level.feats || [],
             generalFeat: level.generalFeat || '',
+            extraGeneralFeat: level.extraGeneralFeat || '',
             classFeat: level.classFeat || '',
             bonusFeat: level.bonusFeat || '',
             statIncrease: level.statIncrease || '',
-            skills: level.skills || Array(SKILL_LIST.length).fill(0)
+            skills: normalizeSkillsArray(level.skills)
         }))
     };
     localStorage.setItem('dnd_character', JSON.stringify(character));
@@ -1541,10 +1821,11 @@ function loadCharacter() {
                     class: level.class || '',
                     feats: level.feats || [],
                     generalFeat: level.generalFeat || '',
+                    extraGeneralFeat: level.extraGeneralFeat || '',
                     classFeat: level.classFeat || '',
                     bonusFeat: level.bonusFeat || '',
                     statIncrease: level.statIncrease || '',
-                    skills: level.skills || Array(SKILL_LIST.length).fill(0),
+                    skills: normalizeSkillsArray(level.skills),
                     bab: 0,
                     fort: 0,
                     ref: 0,
@@ -1579,6 +1860,7 @@ function newCharacter() {
         class: '',
         feats: [],
         generalFeat: '',
+        extraGeneralFeat: '',
         classFeat: '',
         bonusFeat: '',
         statIncrease: '',

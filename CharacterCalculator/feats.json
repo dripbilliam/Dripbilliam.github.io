@@ -13821,72 +13821,6 @@
       "desc": "+10 bonus to Open Lock checks for epic levels."
     }
   },
-  "Skill Focus (Slight of Hand)": {
-    "name": "Skill Focus (Slight of Hand)",
-    "requirements": {
-      "level": null,
-      "feats": [],
-      "skills": {},
-      "stats": {},
-      "bab": null,
-      "class": [],
-      "race": [],
-      "alignment": null,
-      "spells": {},
-      "other": [],
-      "repeatable": false,
-      "repeatableCount": 0,
-      "levelGate": null
-    },
-    "effects": {
-      "stats": {},
-      "ac": {},
-      "skills": {
-        "sleight of hand": 3
-      },
-      "hp": null,
-      "other": []
-    },
-    "source": {
-      "type": "general",
-      "desc": "+3 bonus to Slight of Hand checks."
-    }
-  },
-  "Epic Skill Focus (Slight of Hand)": {
-    "name": "Epic Skill Focus (Slight of Hand)",
-    "requirements": {
-      "level": 21,
-      "feats": [
-        "Skill Focus (Slight of Hand)"
-      ],
-      "skills": {
-        "sleight of hand": 20
-      },
-      "stats": {},
-      "bab": null,
-      "class": [],
-      "race": [],
-      "alignment": null,
-      "spells": {},
-      "other": [],
-      "repeatable": false,
-      "repeatableCount": 0,
-      "levelGate": null
-    },
-    "effects": {
-      "stats": {},
-      "ac": {},
-      "skills": {
-        "sleight of hand": 10
-      },
-      "hp": null,
-      "other": []
-    },
-    "source": {
-      "type": "general",
-      "desc": "+10 bonus to Slight of Hand checks for epic levels."
-    }
-  },
   "Skill Focus (Use Trap)": {
     "name": "Skill Focus (Use Trap)",
     "requirements": {
@@ -19711,6 +19645,186 @@
     "source": {
       "type": "general",
       "desc": ""
+    }
+  },
+  "Ballistic Shot": {
+    "name": "Ballistic Shot",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Point Blank Shot",
+        {
+          "type": "anyOf",
+          "values": [
+            "Weapon Focus (Missile)",
+            "Weapon Focus (Thrown)"
+          ]
+        }
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": ""
+    }
+  },
+  "Overwatch": {
+    "name": "Overwatch",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Point Blank Shot",
+        {
+          "type": "anyOf",
+          "values": [
+            "Weapon Focus (Missile)",
+            "Weapon Focus (Thrown)"
+          ]
+        }
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character designates an area to monitor, readying their weapon for incoming threats. If an enemy enters the covered zone and is within line of sight, the character fires a projectile at them, inflicting 1d3 additional damage for every 5 character levels on a successful hit."
+    }
+  },
+  "Ricochet": {
+    "name": "Ricochet ",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Point Blank Shot",
+        {
+          "type": "anyOf",
+          "values": [
+            "Weapon Focus (Missile)",
+            "Weapon Focus (Thrown)"
+          ]
+        }
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character can attempt to ricochet their projectile between enemies, gaining one additional bounce for every six character levels. Each successive bounce reduces the attack bonus of the next bounce by 5. Use: Selected, 12 second cooldown or 6 seconds when hasted."
+    }
+  },
+  "Skill Focus (Animal Empathy)": {
+    "name": "Skill Focus (Animal Empathy)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "animal empathy": 3
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "+3 bonus to Animal Empathy checks."
+    }
+  },
+  "Epic Skill Focus (Animal Empathy)": {
+    "name": "Epic Skill Focus (Animal Empathy)",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Skill Focus (Animal Empathy)"
+      ],
+      "skills": {
+        "animal empathy": 20
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "animal empathy": 10
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "+10 bonus to Animal Empathy checks for epic levels."
     }
   }
 }
