@@ -2668,7 +2668,7 @@
     "hitDie": "d10",
     "proficiencies": [
       "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
-      "shield",
+      "shield proficiency",
       "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "hasSpellcasting": false,

@@ -86,17 +86,17 @@ let levelStatData = Array(30).fill(null).map(() => ({
 }));
 
 const GENERAL_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
-const DEBUG_LOGS = false;
 const UI_REFRESH_DEBOUNCE_MS = 80;
 let refreshTimer = null;
 let pendingSkillGridRefresh = false;
+let debugLogsEnabled = false;
 
 function debugLog(...args) {
-    if (DEBUG_LOGS) console.log(...args);
+    if (debugLogsEnabled) console.log(...args);
 }
 
 function debugWarn(...args) {
-    if (DEBUG_LOGS) console.warn(...args);
+    if (debugLogsEnabled) console.warn(...args);
 }
 
 function schedulePlannerRefresh({ includeSkills = false } = {}) {
@@ -2178,6 +2178,22 @@ function newCharacter() {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('%c D&D Character Planner - Initializing...', 'color: green; font-weight: bold;');
+
+    const debugLogsToggle = document.getElementById('debugLogsToggle');
+    if (debugLogsToggle) {
+        const savedDebugLogs = localStorage.getItem('planner_debug_logs');
+        debugLogsEnabled = savedDebugLogs === '1';
+        debugLogsToggle.checked = debugLogsEnabled;
+
+        debugLogsToggle.addEventListener('change', () => {
+            debugLogsEnabled = Boolean(debugLogsToggle.checked);
+            localStorage.setItem('planner_debug_logs', debugLogsEnabled ? '1' : '0');
+            if (debugLogsEnabled) {
+                console.log('Debug logs enabled');
+            }
+        });
+    }
+
     const knowWhatImDoingToggle = document.getElementById('knowWhatImDoingToggle');
     if (knowWhatImDoingToggle) {
         knowWhatImDoingToggle.addEventListener('change', () => {
