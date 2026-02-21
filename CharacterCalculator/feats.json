@@ -6572,37 +6572,6 @@
       "desc": "The character does not incur [[attack of opportunity|attacks of opportunity]] for casting spells while threatened."
     }
   },
-  "Improved critical": {
-    "name": "Improved critical",
-    "requirements": {
-      "level": null,
-      "feats": [
-        "Weapon Proficiency"
-      ],
-      "skills": {},
-      "stats": {},
-      "bab": 8,
-      "class": [],
-      "race": [],
-      "alignment": null,
-      "spells": {},
-      "other": [],
-      "repeatable": false,
-      "repeatableCount": 0,
-      "levelGate": null
-    },
-    "effects": {
-      "stats": {},
-      "ac": {},
-      "skills": {},
-      "hp": null,
-      "other": []
-    },
-    "source": {
-      "type": "general",
-      "desc": "Combat ability increases the critical [[threat range]] of a selected weapon by a range equal to the item's base threat range. A [[longsword]] that normally threatens a critical on a roll of 19-20 would now threaten a critical on a roll of 17-20."
-    }
-  },
   "Improved disarm": {
     "name": "Improved disarm",
     "requirements": {
@@ -14018,7 +13987,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Concussion)"
       ],
       "skills": {},
       "stats": {},
@@ -14346,7 +14315,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (One-Handed Edge)"
       ],
       "skills": {},
       "stats": {},
@@ -14510,7 +14479,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Polearm)"
       ],
       "skills": {},
       "stats": {},
@@ -14674,7 +14643,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Thrown)"
       ],
       "skills": {},
       "stats": {},
@@ -14838,7 +14807,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Two-Handed)"
       ],
       "skills": {},
       "stats": {},
@@ -15002,7 +14971,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Unarmed)"
       ],
       "skills": {},
       "stats": {},

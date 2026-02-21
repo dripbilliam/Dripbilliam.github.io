@@ -31,6 +31,9 @@ const SKILL_ALIAS_MAP = {
 let levelData = Array(30).fill(null).map(() => ({
     class: '',
     feats: [],
+    generalFeat: '',
+    classFeat: '',
+    bonusFeat: '',
     statIncrease: '',
     skills: Array(SKILL_LIST.length).fill(0),
     bab: 0,
@@ -50,7 +53,39 @@ let levelStatData = Array(30).fill(null).map(() => ({
     appliedBonuses: []
 }));
 
-const BONUS_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
+const GENERAL_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
+const DEBUG_LOGS = false;
+const UI_REFRESH_DEBOUNCE_MS = 80;
+let refreshTimer = null;
+let pendingSkillGridRefresh = false;
+
+function debugLog(...args) {
+    if (DEBUG_LOGS) console.log(...args);
+}
+
+function debugWarn(...args) {
+    if (DEBUG_LOGS) console.warn(...args);
+}
+
+function schedulePlannerRefresh({ includeSkills = false } = {}) {
+    pendingSkillGridRefresh = pendingSkillGridRefresh || includeSkills;
+
+    if (refreshTimer) {
+        clearTimeout(refreshTimer);
+    }
+
+    refreshTimer = setTimeout(() => {
+        const shouldRefreshSkills = pendingSkillGridRefresh;
+        pendingSkillGridRefresh = false;
+        refreshTimer = null;
+
+        updateGrid();
+        if (shouldRefreshSkills) {
+            updateSkillGrid();
+        }
+        validateCharacterRealtime();
+    }, UI_REFRESH_DEBOUNCE_MS);
+}
 
 async function fetchJsonWithFallback(fileName) {
     const sources = [
@@ -125,18 +160,13 @@ function populateRaceSelect() {
         select.appendChild(option);
     });
     select.addEventListener('change', () => {
-        calculateMulticlassProgression();
-        updateGrid();
-        updateSkillGrid();
-        validateCharacterRealtime();
+        schedulePlannerRefresh({ includeSkills: true });
     });
 }
 
 // Handle stat changes with real-time validation
 function handleStatChange() {
-    calculateMulticlassProgression();
-    updateGrid();
-    validateCharacterRealtime();
+    schedulePlannerRefresh();
 }
 
 function getStats() {
@@ -353,6 +383,15 @@ function parseClassSkillRequirements(rawRequirements) {
     return parsed;
 }
 
+function resolveFeatName(featName) {
+    if (!featName || typeof featName !== 'string') return featName;
+    if (featData[featName]) return featName;
+
+    const normalized = featName.trim().toLowerCase();
+    const match = Object.keys(featData).find(key => key.toLowerCase() === normalized);
+    return match || featName;
+}
+
 function parseStatBonusValue(rawValue) {
     if (rawValue === null || rawValue === undefined) return 0;
     if (typeof rawValue === 'number') return rawValue;
@@ -420,8 +459,11 @@ function calculateStatProgression() {
             });
         }
 
-        const selectedFeat = levelData[level - 1].feats && levelData[level - 1].feats[0];
-        if (selectedFeat && featData[selectedFeat] && featData[selectedFeat].effects && featData[selectedFeat].effects.stats) {
+        const selectedFeats = getSelectedFeatsAtLevel(level);
+        selectedFeats.forEach(selectedFeat => {
+            if (!selectedFeat || !featData[selectedFeat] || !featData[selectedFeat].effects || !featData[selectedFeat].effects.stats) {
+                return;
+            }
             const featStats = featData[selectedFeat].effects.stats;
             for (const [rawKey, rawValue] of Object.entries(featStats)) {
                 const statKey = normalizeStatKey(rawKey);
@@ -432,7 +474,7 @@ function calculateStatProgression() {
                     appliedBonuses.push(`${selectedFeat} ${bonus > 0 ? '+' : ''}${bonus} ${STAT_LABELS[statKey]}`);
                 }
             }
-        }
+        });
 
         computed.push({ ...current, appliedBonuses });
     }
@@ -449,7 +491,7 @@ function getStatsAtLevel(level) {
 }
 
 function calculateMulticlassProgression() {
-    console.log('\n%c=== MULTICLASS PROGRESSION CALCULATION ===', 'color: blue; font-weight: bold;');
+    debugLog('\n%c=== MULTICLASS PROGRESSION CALCULATION ===', 'color: blue; font-weight: bold;');
     calculateStatProgression();
 
     // Calculate for each level
@@ -474,12 +516,12 @@ function calculateMulticlassProgression() {
             continue;
         }
 
-        console.log(`%cLevel ${level}`, 'color: green; font-weight: bold;');
-        console.log(`  Selected class: ${selectedClass}`);
+        debugLog(`%cLevel ${level}`, 'color: green; font-weight: bold;');
+        debugLog(`  Selected class: ${selectedClass}`);
 
         const classInfo = classData[selectedClass];
         if (!classInfo) {
-            console.warn(`  ⚠ Class ${selectedClass} not found in classData`);
+            debugWarn(`  ⚠ Class ${selectedClass} not found in classData`);
             continue;
         }
 
@@ -493,7 +535,7 @@ function calculateMulticlassProgression() {
             }
         }
 
-        console.log('  Classes selected up to this level:', classLevels);
+        debugLog('  Classes selected up to this level:', classLevels);
 
         // Use class LEVEL COUNT of each class selected so far
         let totalBAB = 0;
@@ -501,15 +543,15 @@ function calculateMulticlassProgression() {
         let totalHP = 0;
         let fortBonus = 0, refBonus = 0, willBonus = 0;
 
-        console.log('  Checking all classes selected so far:');
+        debugLog('  Checking all classes selected so far:');
         
         for (const [cls, levels] of Object.entries(classLevels)) {
             const classLevel = levels.length;
-            console.log(`    ${cls}: class level = ${classLevel} (taken at character levels ${levels.join(', ')})`);
+            debugLog(`    ${cls}: class level = ${classLevel} (taken at character levels ${levels.join(', ')})`);
 
             const clsInfo = classData[cls];
             if (!clsInfo) {
-                console.warn(`      ⚠ Class ${cls} not found`);
+                debugWarn(`      ⚠ Class ${cls} not found`);
                 continue;
             }
 
@@ -525,7 +567,7 @@ function calculateMulticlassProgression() {
                 const baseWill = prog[3];
                 const hp = prog[4];
                 
-                console.log(`      levelProgression[${progressionIndex}] = [BAB:${bab}, Fort:${baseFort}, Ref:${baseRef}, Will:${baseWill}, HP:${hp}]`);
+                debugLog(`      levelProgression[${progressionIndex}] = [BAB:${bab}, Fort:${baseFort}, Ref:${baseRef}, Will:${baseWill}, HP:${hp}]`);
                 
                 totalBAB += bab;
                 maxFort = Math.max(maxFort, baseFort);
@@ -533,9 +575,9 @@ function calculateMulticlassProgression() {
                 maxWill = Math.max(maxWill, baseWill);
                 totalHP += hp;
                 
-                console.log(`      Running totals - BAB sum: ${totalBAB}, Fort max: ${maxFort}, Ref max: ${maxRef}, Will max: ${maxWill}, HP sum: ${totalHP}`);
+                debugLog(`      Running totals - BAB sum: ${totalBAB}, Fort max: ${maxFort}, Ref max: ${maxRef}, Will max: ${maxWill}, HP sum: ${totalHP}`);
             } else {
-                console.warn(`      ⚠ No levelProgression data for ${cls} class level ${classLevel}`);
+                debugWarn(`      ⚠ No levelProgression data for ${cls} class level ${classLevel}`);
             }
         }
 
@@ -563,19 +605,19 @@ function calculateMulticlassProgression() {
         levelData[level - 1].will = finalWill;
         levelData[level - 1].hp = totalHP;
 
-        console.log(`  Final values (with ability bonuses):`);
-        console.log(`    BAB: ${totalBAB} (sum of all classes)`);
-        console.log(`    Fort: ${finalFort} (max ${maxFort} + ability ${fortBonus})`);
-        console.log(`    Ref: ${finalRef} (max ${maxRef} + ability ${refBonus})`);
-        console.log(`    Will: ${finalWill} (max ${maxWill} + ability ${willBonus})`);
-        console.log(`    HP: ${totalHP} (sum of all classes)`);
+        debugLog(`  Final values (with ability bonuses):`);
+        debugLog(`    BAB: ${totalBAB} (sum of all classes)`);
+        debugLog(`    Fort: ${finalFort} (max ${maxFort} + ability ${fortBonus})`);
+        debugLog(`    Ref: ${finalRef} (max ${maxRef} + ability ${refBonus})`);
+        debugLog(`    Will: ${finalWill} (max ${maxWill} + ability ${willBonus})`);
+        debugLog(`    HP: ${totalHP} (sum of all classes)`);
     }
 
-    console.log('\n%c=== END MULTICLASS CALCULATION ===\n', 'color: blue; font-weight: bold;');
+    debugLog('\n%c=== END MULTICLASS CALCULATION ===\n', 'color: blue; font-weight: bold;');
 }
 
 function updateGrid() {
-    console.log('%c=== UPDATING GRID ===', 'color: purple; font-weight: bold;');
+    debugLog('%c=== UPDATING GRID ===', 'color: purple; font-weight: bold;');
     calculateMulticlassProgression();
 
     const tbody = document.getElementById('levelGrid');
@@ -597,7 +639,7 @@ function updateGrid() {
         classSelect.onchange = () => {
             const previousClass = levelData[level - 1].class;
             const newClass = classSelect.value;
-            console.log(`User changed level ${level} class to: ${newClass}`);
+            debugLog(`User changed level ${level} class to: ${newClass}`);
             
             // Validate class requirements before allowing selection
             if (newClass) {
@@ -634,8 +676,8 @@ function updateGrid() {
                     }
 
                     // Check BAB requirement
-                    if (classReqs.bab) {
-                        const babRequired = parseInt(classReqs.bab);
+                    const babRequired = getClassBabRequirement(classReqs);
+                    if (babRequired !== null) {
                         const babHave = levelData[level - 1].bab;
                         if (babHave < babRequired) {
                             errors.push(`${newClass} requires BAB +${babRequired} (you have +${babHave} at level ${level})`);
@@ -643,11 +685,9 @@ function updateGrid() {
                     }
 
                     // Check feat requirements
-                    if (classReqs.feats && Array.isArray(classReqs.feats) && classReqs.feats.length > 0) {
+                    if (classReqs.feats) {
                         const priorFeats = getAllOwnedFeatNamesPriorTo(level);
-                        const missingFeats = classReqs.feats.filter(reqFeat => 
-                            !priorFeats.some(f => f.toLowerCase() === reqFeat.toLowerCase())
-                        );
+                        const missingFeats = getMissingClassFeatRequirements(classReqs.feats, priorFeats);
                         if (missingFeats.length > 0) {
                             errors.push(`${newClass} requires feats: ${missingFeats.join(', ')} (take them at earlier levels)`);
                         }
@@ -721,6 +761,11 @@ function updateGrid() {
         // Class feats
         const classFeatsCell = document.createElement('td');
         const selectedClass = levelData[level - 1].class;
+        const classFeatureParts = getClassFeatureParts(selectedClass, level);
+        const hasClassFeatSlot = hasClassFeatureFlag(selectedClass, level, 'class feat');
+        const hasBonusFeatFromClass = hasClassFeatureFlag(selectedClass, level, 'bonus feat');
+        const hasGeneralFeatSlot = GENERAL_FEAT_LEVELS.includes(level);
+        const hasBonusFeatSlot = hasBonusFeatFromClass;
 
         if (selectedClass) {
             const classLevelForRow = getClassLevelUpTo(selectedClass, level);
@@ -745,85 +790,205 @@ function updateGrid() {
             });
         }
 
-        if (selectedClass && classData[selectedClass] && classData[selectedClass].feats) {
-            const classFeat = classData[selectedClass].feats[level - 1];
-            if (classFeat && classFeat !== 'Bonus Feat') {
+        if (classFeatureParts.length > 0) {
+            classFeatureParts.forEach(classFeat => {
                 const label = document.createElement('span');
                 label.className = 'feat-label';
                 label.textContent = classFeat;
                 classFeatsCell.appendChild(label);
-            }
+            });
         }
         row.appendChild(classFeatsCell);
 
-        // Feats selector
-        const featsCell = document.createElement('td');
-        const isBonus = BONUS_FEAT_LEVELS.includes(level);
-        const hasClassFeat = selectedClass && classData[selectedClass] && classData[selectedClass].feats && classData[selectedClass].feats[level - 1] === 'Bonus Feat';
+        const legacyFeat = (Array.isArray(levelData[level - 1].feats) && levelData[level - 1].feats[0]) || '';
+        if (legacyFeat && !levelData[level - 1].classFeat && !levelData[level - 1].bonusFeat && !levelData[level - 1].generalFeat) {
+            if (hasGeneralFeatSlot) {
+                levelData[level - 1].generalFeat = legacyFeat;
+            } else if (hasClassFeatSlot && !hasBonusFeatSlot) {
+                levelData[level - 1].classFeat = legacyFeat;
+            } else {
+                levelData[level - 1].bonusFeat = legacyFeat;
+            }
+            levelData[level - 1].feats = [];
+        }
 
-        if (isBonus || hasClassFeat) {
-            const existingFeat = (levelData[level - 1].feats && levelData[level - 1].feats[0]) || '';
-            if (existingFeat) {
+        // Class feat selector
+        const classFeatCell = document.createElement('td');
+        const classFeatSelect = document.createElement('select');
+        classFeatSelect.id = `classFeat_${level}`;
+        const classFeatBlankOption = document.createElement('option');
+        classFeatBlankOption.value = '';
+        classFeatBlankOption.textContent = '-- Select Class Feat --';
+        classFeatSelect.appendChild(classFeatBlankOption);
+
+        // Bonus feat selector
+        const bonusFeatCell = document.createElement('td');
+        const bonusFeatSelect = document.createElement('select');
+        bonusFeatSelect.id = `bonusFeat_${level}`;
+        const bonusFeatBlankOption = document.createElement('option');
+        bonusFeatBlankOption.value = '';
+        bonusFeatBlankOption.textContent = '-- Select Bonus Feat --';
+        bonusFeatSelect.appendChild(bonusFeatBlankOption);
+        const bonusFeatOptions = getAvailableBonusFeatOptions(selectedClass, level);
+
+        // General feat selector
+        const generalFeatCell = document.createElement('td');
+        const generalFeatSelect = document.createElement('select');
+        generalFeatSelect.id = `generalFeat_${level}`;
+        const generalFeatBlankOption = document.createElement('option');
+        generalFeatBlankOption.value = '';
+        generalFeatBlankOption.textContent = '-- Select General Feat --';
+        generalFeatSelect.appendChild(generalFeatBlankOption);
+
+        Object.keys(featData).sort().forEach(feat => {
+            const isEpicFeat = selectedClass && classData[selectedClass] &&
+                classData[selectedClass].epicBonusFeats &&
+                classData[selectedClass].epicBonusFeats.includes(feat);
+
+            if (isEpicFeat && level < 21) {
+                return;
+            }
+
+            const classOption = document.createElement('option');
+            classOption.value = feat;
+            classOption.textContent = feat;
+            if (levelData[level - 1].classFeat === feat) classOption.selected = true;
+            classFeatSelect.appendChild(classOption);
+
+            const generalOption = document.createElement('option');
+            generalOption.value = feat;
+            generalOption.textContent = feat;
+            if (levelData[level - 1].generalFeat === feat) generalOption.selected = true;
+            generalFeatSelect.appendChild(generalOption);
+        });
+
+        bonusFeatOptions.forEach(feat => {
+            const bonusOption = document.createElement('option');
+            bonusOption.value = feat;
+            bonusOption.textContent = feat;
+            if (levelData[level - 1].bonusFeat === feat) bonusOption.selected = true;
+            bonusFeatSelect.appendChild(bonusOption);
+        });
+
+        if (!hasClassFeatSlot) {
+            levelData[level - 1].classFeat = '';
+            classFeatSelect.value = '';
+            classFeatSelect.disabled = true;
+            classFeatSelect.title = 'No class feat available at this level';
+        }
+
+        if (!hasBonusFeatSlot) {
+            levelData[level - 1].bonusFeat = '';
+            bonusFeatSelect.value = '';
+            bonusFeatSelect.disabled = true;
+            bonusFeatSelect.title = 'No bonus feat available at this level';
+        } else {
+            const selectedBonusFeat = levelData[level - 1].bonusFeat || '';
+            const matchingBonusFeat = selectedBonusFeat
+                ? bonusFeatOptions.find(feat => feat.toLowerCase() === selectedBonusFeat.toLowerCase())
+                : '';
+            const isAllowedBonusFeat = selectedBonusFeat ? Boolean(matchingBonusFeat) : true;
+
+            if (!isAllowedBonusFeat) {
+                levelData[level - 1].bonusFeat = '';
+                bonusFeatSelect.value = '';
+            } else if (matchingBonusFeat && matchingBonusFeat !== selectedBonusFeat) {
+                levelData[level - 1].bonusFeat = matchingBonusFeat;
+                bonusFeatSelect.value = matchingBonusFeat;
+            }
+
+            if (bonusFeatOptions.length === 0) {
+                bonusFeatSelect.title = level >= 21
+                    ? 'No epicBonusFeats configured for this class'
+                    : 'No availableBonusFeats configured for this class';
+            }
+        }
+
+        if (!hasGeneralFeatSlot) {
+            levelData[level - 1].generalFeat = '';
+            generalFeatSelect.value = '';
+            generalFeatSelect.disabled = true;
+            generalFeatSelect.title = 'No general feat available at this level';
+        }
+
+        classFeatSelect.onchange = () => {
+            const previousFeat = levelData[level - 1].classFeat || '';
+            const newFeat = classFeatSelect.value;
+
+            if (newFeat) {
                 const stats = getStats();
                 const mods = getAbilityModifiers(stats);
-                const existingFeatErrors = validateFeatRequirements(level, existingFeat, stats, mods)
+                const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
                     .filter(issue => issue.severity === 'error');
-                if (existingFeatErrors.length > 0) {
-                    levelData[level - 1].feats = [];
+
+                if (featErrors.length > 0) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
+                    classFeatSelect.value = previousFeat;
+                    return;
                 }
             }
 
-            const featSelect = document.createElement('select');
-            featSelect.id = `feat_${level}`;
-            featSelect.onchange = () => {
-                const previousFeat = (levelData[level - 1].feats && levelData[level - 1].feats[0]) || '';
-                const newFeat = featSelect.value;
+            levelData[level - 1].classFeat = newFeat;
+            levelData[level - 1].feats = [];
+            console.log(`Level ${level} class feat changed to: ${newFeat}`);
+            updateGrid();
+            validateCharacterRealtime();
+        };
 
-                if (newFeat) {
-                    const stats = getStats();
-                    const mods = getAbilityModifiers(stats);
-                    const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
-                        .filter(issue => issue.severity === 'error');
+        bonusFeatSelect.onchange = () => {
+            const previousFeat = levelData[level - 1].bonusFeat || '';
+            const newFeat = bonusFeatSelect.value;
 
-                    if (featErrors.length > 0) {
-                        alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
-                        featSelect.value = previousFeat;
-                        return;
-                    }
+            if (newFeat) {
+                const stats = getStats();
+                const mods = getAbilityModifiers(stats);
+                const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
+                    .filter(issue => issue.severity === 'error');
+
+                if (featErrors.length > 0) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
+                    bonusFeatSelect.value = previousFeat;
+                    return;
                 }
+            }
 
-                levelData[level - 1].feats = [newFeat].filter(f => f);
-                console.log(`Level ${level} feat changed to: ${newFeat}`);
-                updateGrid();
-                validateCharacterRealtime();
-            };
-            
-            const emptyOption = document.createElement('option');
-            emptyOption.value = '';
-            emptyOption.textContent = '-- Select Feat --';
-            featSelect.appendChild(emptyOption);
+            levelData[level - 1].bonusFeat = newFeat;
+            levelData[level - 1].feats = [];
+            console.log(`Level ${level} bonus feat changed to: ${newFeat}`);
+            updateGrid();
+            validateCharacterRealtime();
+        };
 
-            Object.keys(featData).sort().forEach(feat => {
-                // Filter out epic feats if not at epic level (21+)
-                const isEpicFeat = selectedClass && classData[selectedClass] && 
-                                   classData[selectedClass].epicBonusFeats && 
-                                   classData[selectedClass].epicBonusFeats.includes(feat);
-                
-                if (isEpicFeat && level < 21) {
-                    return; // Skip epic feats for non-epic levels
+        generalFeatSelect.onchange = () => {
+            const previousFeat = levelData[level - 1].generalFeat || '';
+            const newFeat = generalFeatSelect.value;
+
+            if (newFeat) {
+                const stats = getStats();
+                const mods = getAbilityModifiers(stats);
+                const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
+                    .filter(issue => issue.severity === 'error');
+
+                if (featErrors.length > 0) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
+                    generalFeatSelect.value = previousFeat;
+                    return;
                 }
-                
-                const option = document.createElement('option');
-                option.value = feat;
-                option.textContent = feat;
-                if (levelData[level - 1].feats.includes(feat)) option.selected = true;
-                featSelect.appendChild(option);
-            });
-            featsCell.appendChild(featSelect);
-        } else {
-            featsCell.textContent = '---';
-        }
-        row.appendChild(featsCell);
+            }
+
+            levelData[level - 1].generalFeat = newFeat;
+            levelData[level - 1].feats = [];
+            console.log(`Level ${level} general feat changed to: ${newFeat}`);
+            updateGrid();
+            validateCharacterRealtime();
+        };
+
+        classFeatCell.appendChild(classFeatSelect);
+        bonusFeatCell.appendChild(bonusFeatSelect);
+        generalFeatCell.appendChild(generalFeatSelect);
+        row.appendChild(classFeatCell);
+        row.appendChild(bonusFeatCell);
+        row.appendChild(generalFeatCell);
 
         tbody.appendChild(row);
     }
@@ -942,11 +1107,75 @@ function updateStatGrid() {
 function getSelectedFeatsPriorTo(beforeLevel) {
     const feats = [];
     for (let i = 0; i < beforeLevel; i++) {
-        if (levelData[i].feats && levelData[i].feats.length > 0) {
-            feats.push(...levelData[i].feats);
-        }
+        feats.push(...getSelectedFeatsAtLevel(i + 1));
     }
     return feats;
+}
+
+function getSelectedFeatsAtLevel(level) {
+    const entry = levelData[level - 1] || {};
+    const selected = [];
+
+    if (entry.generalFeat) selected.push(entry.generalFeat);
+    if (entry.classFeat) selected.push(entry.classFeat);
+    if (entry.bonusFeat) selected.push(entry.bonusFeat);
+
+    if (Array.isArray(entry.feats) && entry.feats.length > 0) {
+        entry.feats.forEach(feat => {
+            if (feat && !selected.some(existing => existing.toLowerCase() === feat.toLowerCase())) {
+                selected.push(feat);
+            }
+        });
+    }
+
+    return selected;
+}
+
+function getClassFeatureParts(selectedClass, level) {
+    if (!selectedClass || !classData[selectedClass] || !Array.isArray(classData[selectedClass].feats)) {
+        return [];
+    }
+
+    const classLevel = getClassLevelUpTo(selectedClass, level);
+    if (classLevel <= 0) return [];
+
+    const raw = classData[selectedClass].feats[classLevel - 1];
+    if (!raw || typeof raw !== 'string') return [];
+    return raw.split(',').map(part => part.trim()).filter(Boolean);
+}
+
+function hasClassFeatureFlag(selectedClass, level, flagName) {
+    const parts = getClassFeatureParts(selectedClass, level);
+    const target = flagName.toLowerCase().trim();
+    return parts.some(part => {
+        const normalized = part.toLowerCase().trim();
+        if (normalized === target) return true;
+        if (normalized === `epic ${target}`) return true;
+        return false;
+    });
+}
+
+function getAvailableBonusFeatOptions(selectedClass, level) {
+    if (!selectedClass || !classData[selectedClass]) return [];
+
+    const classInfo = classData[selectedClass];
+    const sourceList = level >= 21
+        ? (Array.isArray(classInfo.epicBonusFeats) ? classInfo.epicBonusFeats : [])
+        : (Array.isArray(classInfo.availableBonusFeats) ? classInfo.availableBonusFeats : []);
+
+    const seen = new Set();
+    const options = [];
+
+    sourceList.forEach(featName => {
+        if (!featName || typeof featName !== 'string') return;
+        const resolvedFeatName = resolveFeatName(featName);
+        const key = resolvedFeatName.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        options.push(resolvedFeatName);
+    });
+
+    return options.sort((a, b) => a.localeCompare(b));
 }
 
 function getClassLevelUpTo(className, upToLevel) {
@@ -973,15 +1202,74 @@ function hasFeatPrerequisite(featName, beforeLevel) {
     );
 }
 
+function getClassBabRequirement(classReqs) {
+    const raw = classReqs?.bab ?? classReqs?.baseAttackBonus;
+    if (raw === null || raw === undefined) return null;
+    const match = raw.toString().match(/\d+/);
+    return match ? parseInt(match[0], 10) : null;
+}
+
+function getMissingClassFeatRequirements(rawFeatRequirements, priorFeats) {
+    if (!Array.isArray(rawFeatRequirements) || rawFeatRequirements.length === 0) return [];
+
+    const hasFeat = (featName) =>
+        priorFeats.some(f => f.toLowerCase() === featName.toLowerCase());
+
+    const missing = [];
+
+    rawFeatRequirements.forEach(req => {
+        if (typeof req === 'string') {
+            if (!hasFeat(req)) {
+                missing.push(req);
+            }
+            return;
+        }
+
+        if (!req || typeof req !== 'object' || !req.type || !Array.isArray(req.values)) {
+            return;
+        }
+
+        const values = req.values.filter(v => typeof v === 'string');
+        if (values.length === 0) return;
+
+        if (req.type === 'anyOf') {
+            const hasAny = values.some(value => hasFeat(value));
+            if (!hasAny) {
+                missing.push(`one of: ${values.join(' / ')}`);
+            }
+            return;
+        }
+
+        if (req.type === 'allOf') {
+            values.forEach(value => {
+                if (!hasFeat(value)) {
+                    missing.push(value);
+                }
+            });
+            return;
+        }
+
+        if (req.type === 'noneOf') {
+            const invalidOwned = values.filter(value => hasFeat(value));
+            if (invalidOwned.length > 0) {
+                missing.push(`must not have: ${invalidOwned.join(', ')}`);
+            }
+        }
+    });
+
+    return missing;
+}
+
 function validateFeatRequirements(level, featName, stats, mods) {
     const issues = [];
+    const resolvedFeatName = resolveFeatName(featName);
     
-    if (!featData[featName]) {
+    if (!featData[resolvedFeatName]) {
         issues.push({ level, type: 'feat', message: `❌ Feat "${featName}" not found in database` });
         return issues;
     }
 
-    const reqs = featData[featName].requirements || {};
+    const reqs = featData[resolvedFeatName].requirements || {};
 
     // Check minimum character level requirement
     if (reqs.level) {
@@ -1090,7 +1378,7 @@ function validateFeatRequirements(level, featName, stats, mods) {
 }
 
 function validateCharacterRealtime() {
-    console.log('\n%c=== REAL-TIME CHARACTER VALIDATION ===', 'color: orange; font-weight: bold;');
+    debugLog('\n%c=== REAL-TIME CHARACTER VALIDATION ===', 'color: orange; font-weight: bold;');
     const race = document.getElementById('raceSelect').value;
     calculateStatProgression();
     const issues = [];
@@ -1142,8 +1430,8 @@ function validateCharacterRealtime() {
         }
 
         // Check BAB requirement
-        if (classReqs.bab) {
-            const babRequired = parseInt(classReqs.bab);
+        const babRequired = getClassBabRequirement(classReqs);
+        if (babRequired !== null) {
             const babHave = levelData[level - 1].bab;
             if (babHave < babRequired) {
                 issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires BAB +${babRequired} (have +${babHave})`, severity: 'error' });
@@ -1151,11 +1439,9 @@ function validateCharacterRealtime() {
         }
 
         // Check feat requirements (must have taken these feats previously)
-        if (classReqs.feats && Array.isArray(classReqs.feats) && classReqs.feats.length > 0) {
+        if (classReqs.feats) {
             const priorFeats = getAllOwnedFeatNamesPriorTo(level);
-            const missingFeats = classReqs.feats.filter(reqFeat => 
-                !priorFeats.some(f => f.toLowerCase() === reqFeat.toLowerCase())
-            );
+            const missingFeats = getMissingClassFeatRequirements(classReqs.feats, priorFeats);
             if (missingFeats.length > 0) {
                 issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires feats: ${missingFeats.join(', ')}`, severity: 'error' });
             }
@@ -1186,14 +1472,14 @@ function validateCharacterRealtime() {
         });
 
         // Check feat requirements
-        const feat = levelData[level - 1].feats[0];
-        if (feat) {
+        const selectedFeats = getSelectedFeatsAtLevel(level);
+        selectedFeats.forEach(feat => {
             const featIssues = validateFeatRequirements(level, feat, levelStats, levelMods);
             issues.push(...featIssues);
-        }
+        });
     }
 
-    console.log(`Total issues found: ${issues.length}`);
+    debugLog(`Total issues found: ${issues.length}`);
     const outputDiv = document.getElementById('validationOutput');
     
     if (issues.length === 0) {
@@ -1220,6 +1506,9 @@ function saveCharacter() {
         levels: levelData.map(level => ({
             class: level.class || '',
             feats: level.feats || [],
+            generalFeat: level.generalFeat || '',
+            classFeat: level.classFeat || '',
+            bonusFeat: level.bonusFeat || '',
             statIncrease: level.statIncrease || '',
             skills: level.skills || Array(SKILL_LIST.length).fill(0)
         }))
@@ -1251,6 +1540,9 @@ function loadCharacter() {
                 levelData = character.levels.map(level => ({
                     class: level.class || '',
                     feats: level.feats || [],
+                    generalFeat: level.generalFeat || '',
+                    classFeat: level.classFeat || '',
+                    bonusFeat: level.bonusFeat || '',
                     statIncrease: level.statIncrease || '',
                     skills: level.skills || Array(SKILL_LIST.length).fill(0),
                     bab: 0,
@@ -1286,6 +1578,9 @@ function newCharacter() {
     levelData = Array(30).fill(null).map(() => ({
         class: '',
         feats: [],
+        generalFeat: '',
+        classFeat: '',
+        bonusFeat: '',
         statIncrease: '',
         skills: Array(SKILL_LIST.length).fill(0),
         bab: 0,
