@@ -1301,6 +1301,6 @@ function newCharacter() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('%c🎭 D&D Character Planner - Initializing...', 'color: green; font-weight: bold;');
+    console.log('%c D&D Character Planner - Initializing...', 'color: green; font-weight: bold;');
     loadData();
 });
