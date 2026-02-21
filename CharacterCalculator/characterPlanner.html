@@ -191,6 +191,53 @@
             font-size: 11px;
             color: #444;
         }
+
+        .share-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .share-modal-backdrop.open {
+            display: flex;
+        }
+
+        .share-modal {
+            width: min(900px, 92vw);
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .share-modal h3 {
+            margin: 0 0 8px;
+        }
+
+        .share-modal textarea {
+            width: 100%;
+            min-height: 280px;
+            resize: vertical;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .share-modal-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .share-modal-note {
+            color: #555;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -207,7 +254,12 @@
             <button onclick="validateCharacter()">Validate</button>
             <button onclick="saveCharacter()">Save</button>
             <button onclick="loadCharacter()">Load</button>
+            <button onclick="exportCharacter()">Export Build</button>
+            <button onclick="importCharacter()">Import Build</button>
             <button onclick="newCharacter()">New</button>
+            <label title="When enabled, blocking validation errors are treated as warnings.">
+                <input type="checkbox" id="knowWhatImDoingToggle"> I know what I'm doing
+            </label>
         </div>
 
         <div class="stats-display">
@@ -330,6 +382,28 @@
         <div class="validation-section">
             <h3>Validation & Status</h3>
             <div id="validationOutput">Character loaded. Ready to build.</div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="share-modal-backdrop" aria-hidden="true">
+        <div class="share-modal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+            <h3 id="shareModalTitle">Share Build</h3>
+            <div id="shareModalNote" class="share-modal-note"></div>
+            <textarea id="shareModalText" spellcheck="false"></textarea>
+
+            <div id="shareExportActions" class="share-modal-actions">
+                <button type="button" onclick="copyShareText()">Copy to Clipboard</button>
+                <button type="button" onclick="saveShareTextToFile()">Save to File</button>
+                <button type="button" onclick="closeShareModal()">Close</button>
+            </div>
+
+            <div id="shareImportActions" class="share-modal-actions" style="display:none;">
+                <button type="button" onclick="triggerShareImportFile()">Load JSON File</button>
+                <button type="button" onclick="applyImportedShareText()">Import</button>
+                <button type="button" onclick="closeShareModal()">Close</button>
+            </div>
+
+            <input id="shareImportFileInput" type="file" accept=".json,application/json" style="display:none;">
         </div>
     </div>
 

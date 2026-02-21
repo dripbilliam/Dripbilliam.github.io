@@ -201,6 +201,11 @@ function handleStatChange() {
     schedulePlannerRefresh({ includeSkills: true });
 }
 
+function isKnowWhatImDoingEnabled() {
+    const toggle = document.getElementById('knowWhatImDoingToggle');
+    return Boolean(toggle && toggle.checked);
+}
+
 function getStats() {
     return {
         str: parseInt(document.getElementById('stat_str').value) || 10,
@@ -869,7 +874,7 @@ function updateGrid() {
                         }
                     });
 
-                    if (errors.length > 0) {
+                    if (errors.length > 0 && !isKnowWhatImDoingEnabled()) {
                         alert(`Cannot select ${newClass} at level ${level}:\n\n${errors.join('\n')}`);
                         classSelect.value = previousClass;
                         return;
@@ -1117,7 +1122,7 @@ function updateGrid() {
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
                     .filter(issue => issue.severity === 'error');
 
-                if (featErrors.length > 0) {
+                if (featErrors.length > 0 && !isKnowWhatImDoingEnabled()) {
                     alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
                     classFeatSelect.value = previousFeat;
                     return;
@@ -1140,7 +1145,7 @@ function updateGrid() {
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
                     .filter(issue => issue.severity === 'error');
 
-                if (featErrors.length > 0) {
+                if (featErrors.length > 0 && !isKnowWhatImDoingEnabled()) {
                     alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
                     bonusFeatSelect.value = previousFeat;
                     return;
@@ -1163,7 +1168,7 @@ function updateGrid() {
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
                     .filter(issue => issue.severity === 'error');
 
-                if (featErrors.length > 0) {
+                if (featErrors.length > 0 && !isKnowWhatImDoingEnabled()) {
                     alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
                     generalFeatSelect.value = previousFeat;
                     return;
@@ -1187,7 +1192,7 @@ function updateGrid() {
                     const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
                         .filter(issue => issue.severity === 'error');
 
-                    if (featErrors.length > 0) {
+                    if (featErrors.length > 0 && !isKnowWhatImDoingEnabled()) {
                         alert(`Cannot select ${newFeat} at level ${level}:\n\n${featErrors.map(issue => issue.message.replace(/^❌\s*/, '')).join('\n')}`);
                         quickToMasterFeatSelect.value = previousFeat;
                         return;
@@ -1838,16 +1843,74 @@ function validateCharacterRealtime() {
         }
     });
 
-    debugLog(`Total issues found: ${issues.length}`);
+    // Soft rules:
+    // 3) Max 3 distinct classes in the build.
+    // 4) If Commoner is taken, it must be taken at level 1.
+    // 5) Commoner can only multiclass with Specialist and Zhent/Harper classes.
+    const distinctClasses = Array.from(classCommitment.values());
+    if (distinctClasses.length > 3) {
+        issues.push({
+            level: 1,
+            type: 'class',
+            message: `⚠️ Build uses ${distinctClasses.length} classes; maximum allowed is 3`,
+            severity: 'warning'
+        });
+    }
+
+    const commonerEntry = classCommitment.get('commoner');
+    if (commonerEntry) {
+        const level1Class = (levelData[0] && levelData[0].class) ? levelData[0].class.trim().toLowerCase() : '';
+        if (level1Class !== 'commoner') {
+            issues.push({
+                level: commonerEntry.firstIndex + 1,
+                type: 'class',
+                message: '⚠️ Commoner must be taken at level 1',
+                severity: 'warning'
+            });
+        }
+
+        const invalidWithCommoner = distinctClasses
+            .map(entry => entry.className)
+            .filter(className => {
+                const normalized = className.toLowerCase();
+                if (normalized === 'commoner') return false;
+                return !(normalized.includes('specialist') || normalized.includes('zhent') || normalized.includes('harper'));
+            });
+
+        if (invalidWithCommoner.length > 0) {
+            issues.push({
+                level: 1,
+                type: 'class',
+                message: `⚠️ Commoner may only multiclass with Specialist and Zhent/Harper classes (invalid: ${invalidWithCommoner.join(', ')})`,
+                severity: 'warning'
+            });
+        }
+    }
+
+    const knowWhatImDoing = isKnowWhatImDoingEnabled();
+    const displayIssues = knowWhatImDoing
+        ? issues.map(issue => {
+            if (!issue || issue.severity !== 'error') return issue;
+            return {
+                ...issue,
+                severity: 'warning',
+                message: typeof issue.message === 'string'
+                    ? issue.message.replace(/^❌/u, '⚠️')
+                    : issue.message
+            };
+        })
+        : issues;
+
+    debugLog(`Total issues found: ${displayIssues.length}`);
     const outputDiv = document.getElementById('validationOutput');
     
-    if (issues.length === 0) {
+    if (displayIssues.length === 0) {
         outputDiv.innerHTML = '<span class="valid">✅ Character is valid!</span>';
     } else {
-        const errorCount = issues.filter(i => i.severity === 'error').length;
-        const warningCount = issues.filter(i => i.severity === 'warning').length;
+        const errorCount = displayIssues.filter(i => i.severity === 'error').length;
+        const warningCount = displayIssues.filter(i => i.severity === 'warning').length;
         const html = `<span class="invalid">Issues found: ${errorCount} errors, ${warningCount} warnings</span><ul>` + 
-            issues.map(issue => `<li>Lvl ${issue.level}: ${issue.message}</li>`).join('') + 
+            displayIssues.map(issue => `<li>Lvl ${issue.level}: ${issue.message}</li>`).join('') + 
             '</ul>';
         outputDiv.innerHTML = html;
     }
@@ -1857,8 +1920,11 @@ function validateCharacter() {
     validateCharacterRealtime();
 }
 
-function saveCharacter() {
-    const character = {
+function getCharacterSnapshot() {
+    return {
+        formatVersion: 1,
+        exportedAt: new Date().toISOString(),
+        knowWhatImDoing: isKnowWhatImDoingEnabled(),
         name: document.getElementById('charName').value,
         race: document.getElementById('raceSelect').value,
         stats: getStats(),
@@ -1873,6 +1939,62 @@ function saveCharacter() {
             skills: normalizeSkillsArray(level.skills)
         }))
     };
+}
+
+function applyCharacterSnapshot(character) {
+    if (!character || typeof character !== 'object') {
+        throw new Error('Invalid character data');
+    }
+
+    document.getElementById('charName').value = character.name || 'New Character';
+    document.getElementById('raceSelect').value = character.race || '';
+
+    const stats = character.stats || {};
+    document.getElementById('stat_str').value = parseInt(stats.str, 10) || 10;
+    document.getElementById('stat_dex').value = parseInt(stats.dex, 10) || 10;
+    document.getElementById('stat_con').value = parseInt(stats.con, 10) || 10;
+    document.getElementById('stat_int').value = parseInt(stats.int, 10) || 10;
+    document.getElementById('stat_wis').value = parseInt(stats.wis, 10) || 10;
+    document.getElementById('stat_cha').value = parseInt(stats.cha, 10) || 10;
+
+    const incomingLevels = Array.isArray(character.levels) ? character.levels.slice(0, 30) : [];
+    const normalizedLevels = [];
+
+    for (let index = 0; index < 30; index++) {
+        const level = incomingLevels[index] || {};
+        normalizedLevels.push({
+            class: level.class || '',
+            feats: Array.isArray(level.feats) ? level.feats : [],
+            generalFeat: level.generalFeat || '',
+            extraGeneralFeat: level.extraGeneralFeat || '',
+            classFeat: level.classFeat || '',
+            bonusFeat: level.bonusFeat || '',
+            statIncrease: level.statIncrease || '',
+            skills: normalizeSkillsArray(level.skills),
+            bab: 0,
+            fort: 0,
+            ref: 0,
+            will: 0,
+            hp: 0
+        });
+    }
+
+    levelData = normalizedLevels;
+
+    const knowWhatImDoingToggle = document.getElementById('knowWhatImDoingToggle');
+    if (knowWhatImDoingToggle && Object.prototype.hasOwnProperty.call(character, 'knowWhatImDoing')) {
+        knowWhatImDoingToggle.checked = Boolean(character.knowWhatImDoing);
+    }
+
+    calculateMulticlassProgression();
+    updateGrid();
+    updateSkillGrid();
+    updateStatGrid();
+    validateCharacterRealtime();
+}
+
+function saveCharacter() {
+    const character = getCharacterSnapshot();
     localStorage.setItem('dnd_character', JSON.stringify(character));
     console.log('Character saved:', character);
     alert('Character saved!');
@@ -1884,46 +2006,143 @@ function loadCharacter() {
         try {
             console.log('Loading saved character...');
             const character = JSON.parse(saved);
-            document.getElementById('charName').value = character.name || 'New Character';
-            document.getElementById('raceSelect').value = character.race || '';
-            
-            if (character.stats) {
-                document.getElementById('stat_str').value = character.stats.str;
-                document.getElementById('stat_dex').value = character.stats.dex;
-                document.getElementById('stat_con').value = character.stats.con;
-                document.getElementById('stat_int').value = character.stats.int;
-                document.getElementById('stat_wis').value = character.stats.wis;
-                document.getElementById('stat_cha').value = character.stats.cha;
-            }
-
-            if (character.levels) {
-                levelData = character.levels.map(level => ({
-                    class: level.class || '',
-                    feats: level.feats || [],
-                    generalFeat: level.generalFeat || '',
-                    extraGeneralFeat: level.extraGeneralFeat || '',
-                    classFeat: level.classFeat || '',
-                    bonusFeat: level.bonusFeat || '',
-                    statIncrease: level.statIncrease || '',
-                    skills: normalizeSkillsArray(level.skills),
-                    bab: 0,
-                    fort: 0,
-                    ref: 0,
-                    will: 0,
-                    hp: 0
-                }));
-            }
+            applyCharacterSnapshot(character);
 
             console.log('Character loaded successfully');
-            calculateMulticlassProgression();
-            updateGrid();
-            updateSkillGrid();
-            updateStatGrid();
-            validateCharacterRealtime();
         } catch (error) {
             console.error('Error loading character:', error);
         }
     }
+}
+
+function openShareModal(mode, text = '') {
+    const modal = document.getElementById('shareModal');
+    const title = document.getElementById('shareModalTitle');
+    const note = document.getElementById('shareModalNote');
+    const textarea = document.getElementById('shareModalText');
+    const exportActions = document.getElementById('shareExportActions');
+    const importActions = document.getElementById('shareImportActions');
+
+    if (!modal || !title || !note || !textarea || !exportActions || !importActions) {
+        alert('Share UI is unavailable.');
+        return;
+    }
+
+    const isExport = mode === 'export';
+    title.textContent = isExport ? 'Export Build JSON' : 'Import Build JSON';
+    note.textContent = isExport
+        ? 'Copy this JSON to share, or save it as a file.'
+        : 'Paste a build JSON string here or load a JSON file, then click Import.';
+
+    textarea.value = text || '';
+    textarea.readOnly = isExport;
+    exportActions.style.display = isExport ? 'flex' : 'none';
+    importActions.style.display = isExport ? 'none' : 'flex';
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    textarea.focus();
+    textarea.select();
+}
+
+function closeShareModal() {
+    const modal = document.getElementById('shareModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+function copyShareText() {
+    const textarea = document.getElementById('shareModalText');
+    if (!textarea) return;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textarea.value)
+            .then(() => alert('Build JSON copied to clipboard.'))
+            .catch(() => {
+                textarea.focus();
+                textarea.select();
+                document.execCommand('copy');
+                alert('Build JSON copied to clipboard.');
+            });
+        return;
+    }
+
+    textarea.focus();
+    textarea.select();
+    document.execCommand('copy');
+    alert('Build JSON copied to clipboard.');
+}
+
+function saveShareTextToFile() {
+    try {
+        const textarea = document.getElementById('shareModalText');
+        if (!textarea) return;
+
+        const payload = textarea.value || '';
+        const blob = new Blob([payload], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const characterName = (document.getElementById('charName').value || 'character')
+            .trim()
+            .replace(/[^a-z0-9-_ ]/gi, '')
+            .replace(/\s+/g, '_') || 'character';
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${characterName}_build.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error saving share text to file:', error);
+        alert('Failed to save JSON file.');
+    }
+}
+
+function triggerShareImportFile() {
+    const input = document.getElementById('shareImportFileInput');
+    if (!input) return;
+    input.value = '';
+    input.click();
+}
+
+function applyImportedShareText() {
+    try {
+        const textarea = document.getElementById('shareModalText');
+        if (!textarea) return;
+
+        const text = (textarea.value || '').trim();
+        if (!text) {
+            alert('Paste JSON or load a JSON file first.');
+            return;
+        }
+
+        const parsed = JSON.parse(text);
+        applyCharacterSnapshot(parsed);
+        localStorage.setItem('dnd_character', JSON.stringify(getCharacterSnapshot()));
+        closeShareModal();
+        alert('Character build imported!');
+    } catch (error) {
+        console.error('Error importing character:', error);
+        alert('Invalid character JSON.');
+    }
+}
+
+function exportCharacter() {
+    try {
+        const character = getCharacterSnapshot();
+        const payload = JSON.stringify(character, null, 2);
+        openShareModal('export', payload);
+    } catch (error) {
+        console.error('Error exporting character:', error);
+        alert('Failed to export character build.');
+    }
+}
+
+function importCharacter() {
+    openShareModal('import', '');
 }
 
 function newCharacter() {
@@ -1959,5 +2178,43 @@ function newCharacter() {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('%c D&D Character Planner - Initializing...', 'color: green; font-weight: bold;');
+    const knowWhatImDoingToggle = document.getElementById('knowWhatImDoingToggle');
+    if (knowWhatImDoingToggle) {
+        knowWhatImDoingToggle.addEventListener('change', () => {
+            schedulePlannerRefresh({ includeSkills: true });
+        });
+    }
+
+    const shareImportFileInput = document.getElementById('shareImportFileInput');
+    if (shareImportFileInput) {
+        shareImportFileInput.addEventListener('change', () => {
+            const file = shareImportFileInput.files && shareImportFileInput.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const text = typeof reader.result === 'string' ? reader.result : '';
+                const textarea = document.getElementById('shareModalText');
+                if (textarea) {
+                    textarea.value = text;
+                }
+            };
+            reader.onerror = () => {
+                console.error('Error reading import file:', reader.error);
+                alert('Failed to read build file.');
+            };
+            reader.readAsText(file);
+        });
+    }
+
+    const shareModal = document.getElementById('shareModal');
+    if (shareModal) {
+        shareModal.addEventListener('click', (event) => {
+            if (event.target === shareModal) {
+                closeShareModal();
+            }
+        });
+    }
+
     loadData();
 });
