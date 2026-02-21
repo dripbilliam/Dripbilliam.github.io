@@ -1,0 +1,1396 @@
+{
+  "Aasimar (Aasimon Heritage)": {
+    "name": "Aasimar (Aasimon Heritage)",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Darkvision"
+    ],
+    "skills": {
+      "leadership": 2
+    },
+    "ecl": 0
+  },
+  "Aasimar (Archon Heritage)": {
+    "name": "Aasimar (Archon Heritage)",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Darkvision"
+    ],
+    "skills": {
+      "listen": 2
+    },
+    "ecl": 0
+  },
+  "Aasimar (Divine Heritage)": {
+    "name": "Aasimar (Divine Heritage)",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Darkvision"
+    ],
+    "skills": {
+      "leadership": 2
+    },
+    "ecl": 0
+  },
+  "Aasimar (Eladrin Heritage)": {
+    "name": "Aasimar (Eladrin Heritage)",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Darkvision"
+    ],
+    "skills": {
+      "perform": 2
+    },
+    "ecl": 0
+  },
+  "Aasimar (Guardinal Heritage)": {
+    "name": "Aasimar (Guardinal Heritage)",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Darkvision"
+    ],
+    "skills": {
+      "animal empathy": 2
+    },
+    "ecl": 0
+  },
+  "Aquatic Elf": {
+    "name": "Aquatic Elf",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Darkvision",
+      "Weapon Proficiency (Aquatic Elf)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)",
+      "Amphibious Character",
+      "Weapon Focus (Polearm)"
+    ],
+    "skills": {
+      "spot": 4,
+      "listen": 2,
+      "search": 2
+    },
+    "ecl": 1
+  },
+  "Arctic Dwarf": {
+    "name": "Arctic Dwarf",
+    "stats": {
+      "str": 0,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardines vs. Spells",
+      "Battle training vs. giants",
+      "Weapon Proficiency (Primitive)"
+    ],
+    "skills": {
+      "climb": 4
+    },
+    "ecl": 0
+  },
+  "Avariel": {
+    "name": "Avariel",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": -2,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Weapon Proficiency (Elf)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)",
+      "Winged Character",
+      "Hollow Bones"
+    ],
+    "skills": {
+      "listen": 4,
+      "search": 4,
+      "spot": 2
+    },
+    "ecl": 0
+  },
+  "Bugbear": {
+    "name": "Bugbear",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -4
+    },
+    "feats": [
+      "Darkvision",
+      "Use Poison",
+      "Keen Senses"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Bugbear (Skirmisher)": {
+    "name": "Bugbear (Skirmisher)",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": -4
+    },
+    "feats": [
+      "Darkvision",
+      "Use Poison",
+      "Keen Senses"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Cloud Half-Giant": {
+    "name": "Cloud Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": 2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 3
+  },
+    "Cloud Half-Giant(Fog)": {
+    "name": "Cloud Half-Giant(Fog)",
+    "stats": {
+      "str": 2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+  "Deep Imaskari": {
+    "name": "Deep Imaskari",
+    "stats": {
+      "str": 0,
+      "dex": -2,
+      "con": 0,
+      "int": 2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Quick To Master",
+      "Skilled",
+      "Low-Light Vision",
+      "Spell Clutch"
+    ],
+    "skills": {
+      "hide": 4
+    },
+    "ecl": 0
+  },
+  "Derro": {
+    "name": "Derro",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": 2,
+      "int": 0,
+      "wis": -2,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Sunlight Sensitivity",
+      "Stonecunning",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardines vs. Spells",
+      "Use Poison"
+    ],
+    "skills": {
+      "lore": 2,
+      "hide": 4,
+      "move silently": 5
+    },
+    "ecl": 1
+  },
+  "Drow": {
+    "name": "Drow",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": -2,
+      "int": 2,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Weapon Proficiency (Elf)","Weapon Proficiency (Whip)","Immunity to Sleep","Weapon Proficiency (Aquatic Elf)", "Keen Senses","Low-Light Vision","Hardiness vs. Enchantments","Darkvision","Rapid Reload"],
+    "skills": {
+      "listen": 2,
+      "search": 2,
+      "spot": 2
+    },
+    "ecl": 2
+  },
+  "Duergar": {
+    "name": "Duergar",
+    "stats": {
+      "str": 2,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -4
+    },
+    "feats": [
+      "Medium Stature",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardines vs. Spells",
+      "Weapon Proficiency (Dwarven Waraxe)",
+      "Venom Immunity",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs"
+    ],
+    "skills": {
+      "lore": 2,
+      "listen": 1,
+      "spot": 1,
+      "appraise": 4,
+      "move silently": 4
+    },
+    "ecl": 1
+  },
+  "Durzagon": {
+    "name": "Durzagon",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Stonecunning",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardines vs. Spells",
+      "Battle training vs. orcs",
+      "Battle training vs. goblinoids",
+      "Battle training vs. giants",
+      "Weapon Proficiency (Dwarven Waraxe)",
+      "Venom Immunity"
+    ],
+    "skills": {
+      "listen": 1,
+      "spot": 1,
+      "leadership": 2,
+      "lore": 2,
+      "appraise": 4,
+      "move silently": 4
+    },
+    "ecl": 2
+  },
+  "Fey": {
+    "name": "Fey",
+    "stats": {
+      "str": -4,
+      "dex": 4,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 4
+    },
+    "feats": [
+      "Small Stature",
+      "Good Aim",
+      "Winged Character"
+    ],
+    "skills": {
+      "listen": 4,
+      "move silently": 5
+    },
+    "ecl": 3
+  },
+  "Fey'ri": {
+    "name": "Fey'ri",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": -2,
+      "int": 2,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Winged Character","Darkvision","Medium Stature",
+"Immunity to Sleep",
+"Keen Senses",
+"Low-Light Vision",
+"Weapon Proficiency (Elf)",
+"Hardiness vs. Enchantments"],
+    "skills": {"bluff":4},
+    "ecl": 0
+  },
+  "Firbolg": {
+    "name": "Firbolg",
+    "stats": {
+      "str": 4,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -4
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision",
+      "Track",
+      "Deflect Arrows",
+      "Firbolg Fast Healing"
+    ],
+    "skills": {},
+    "ecl": 3
+  },
+  "Firbolg(Moon-Seer)": {
+    "name": "Firbolg",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": -4
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision",
+      "Track",
+      "Deflect Arrows",
+      "Firbolg Fast Healing"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+  "Fire Half-Giant": {
+    "name": "Fire Half-Giant",
+    "stats": {
+      "str": 4,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 3
+  },  
+  "Fire Half-Giant(Priest)": {
+    "name": "Fire Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": -2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+  "Fire Half-Giant(Fire Praetor)": {
+    "name": "Fire Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": 2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+  "Forest Gnome": {
+    "name": "Forest Gnome",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Hardiness vs. Illusions",
+      "Low-Light Vision",
+      "Spell Focus: Illusion",
+      "Weapon Proficiency (Hookhammer)",
+      "Weapon Proficiency (Primitive)",
+      "Track",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs"
+    ],
+    "skills": {
+      "concentration": 2,
+      "listen": 2
+    },
+    "ecl": 0
+  },
+  "Frost Half-Giant": {
+    "name": "Frost Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 4,
+      "int": 0,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 3
+  },
+    "Frost Half-Giant(Shaman)": {
+    "name": "Frost Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": -2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+    "Frost Half-Giant(Frost Skald)": {
+    "name": "Frost Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 3
+  },
+  "Ghostwise Halfling": {
+    "name": "Ghostwise Halfling",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Fearless",
+      "Good Aim",
+      "Lucky",
+      "Weapon Proficiency (Primitive)"
+    ],
+    "skills": {
+      "listen": 2,
+      "move silently": 2
+    },
+    "ecl": 0
+  },
+  "Githzerai": {
+    "name": "Githzerai",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": ["Weapon Proficiency (Monk)","Still Mind"],
+    "skills": {"concentration": 2},
+    "ecl": 1
+  },
+   "Githyanki": {
+    "name": "Githyanki",
+    "stats": {
+      "str": 2,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Weapon Proficiency (Martial)","Improved Combat Casting","Darkvision"],
+    "skills": {"intimidate": 2},
+    "ecl": 1
+  },
+  "Gloaming": {
+    "name": "Gloaming",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": -2,
+      "cha": 2
+    },
+    "feats": [
+      "Small Stature",
+      "Minor Sunlight Sensitivity",
+      "Shadow Affinity",
+      "Immunity to Sleep",
+      "Hardiness vs. Illusions",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Spell Focus: Illusion",
+      "Winged Character"
+    ],
+    "skills": {
+      "move silently": 1
+    },
+    "ecl": 2
+  },
+  "Gnoll": {
+    "name": "Gnoll",
+    "stats": {
+      "str": 2,
+      "dex": 2,
+      "con": 0,
+      "int": -2,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": ["Darkvision","Keen Senses", "Power Attack","Toughness"],
+    "skills": {"listen": 2,"spot": 2},
+    "ecl": 1
+  },
+  "Goblin": {
+    "name": "Goblin",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Weapon Proficiency (Primitive)","Darkvision","Use Poison"],
+    "skills": {"listen": 2,"move silently": 4,"spot": 2},
+    "ecl": 0
+  },
+  "Gold Dwarf": {
+    "name": "Gold Dwarf",
+    "stats": {
+      "str": 0,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardiness vs. Spells",
+      "Weapon Proficiency (Dwarven Waraxe)",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs",
+      "Stonecunning"
+    ],
+    "skills": {
+      "lore": 2
+    },
+    "ecl": 0
+  },
+  "Green Hag": {
+    "name": "Green Hag",
+    "stats": {
+      "str": 0,
+      "dex": -2,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": 2
+    },
+    "feats": ["Use Poison","Brew Potion", "Darkvision"],
+    "skills": {"leadership": 4,"bluff": 4},
+    "ecl": 1
+  },
+  "Grodd Goblin": {
+    "name": "Grodd Goblin",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 0,
+      "int": 2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Darkvision", "Small Stature","Stealthy","Weapon Proficiency (Simple)"],
+    "skills": {"listen": 2,"spot": 2},
+    "ecl": 0
+  },
+  
+    "Grodd Goblin(Adept)": {
+    "name": "Grodd Goblin",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": ["Darkvision", "Small Stature","Stealthy","Weapon Proficiency (Simple)"],
+    "skills": {"listen": 2,"spot": 2},
+    "ecl": 0
+  },
+  
+
+  "Half-Elf": {
+    "name": "Half-Elf",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Hardiness vs. Enchantments",
+      "Low-Light Vision",
+      "Dodge",
+      "Race (Surface Elf)"
+    ],
+    "skills": {
+      "listen": 1,
+      "search": 1,
+      "spot": 1
+    },
+    "ecl": 0
+  },
+  "Half-Orc": {
+    "name": "Half-Orc",
+    "stats": {
+      "str": 2,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": [
+      "Medium Stature",
+      "Darkvision",
+      "Ambidexterity"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Hobgoblin": {
+    "name": "Hobgoblin",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Skill Focus (Leadership)", "Skilled"],
+    "skills": {"move silently": 4},
+    "ecl": 1
+  },
+  "Human": {
+    "name": "Human",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Quick To Master",
+      "Skilled"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Imp": {
+    "name": "Imp",
+    "stats": {
+      "str": -4,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 4
+    },
+    "feats": ["Darkvision","Winged Character"],
+    "skills": {},
+    "ecl": 3
+  },
+  "Kenku": {
+    "name": "Kenku",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Low-Light Vision",
+      "Stealthy",
+      "Use Poison",
+      "Hollow Bones",
+      "Skill Focus (Perform)"
+    ],
+    "skills": {
+      "bluff": 4,
+      "search": 2
+    },
+    "ecl": 0
+  },
+  "Kobold": {
+    "name": "Kobold",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Rapid Reload","Darkvision"],
+    "skills": {"use trap": 2,"listen": 2,"spot": 2},
+    "ecl": 0
+  },
+  "Lightfoot Halfling": {
+    "name": "Lightfoot Halfling",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Fearless",
+      "Good Aim",
+      "Lucky"
+    ],
+    "skills": {
+      "listen": 2,
+      "move silently": 2
+    },
+    "ecl": 0
+  },
+  "Minotaur": {
+    "name": "Minotaur",
+    "stats": {
+      "str": 4,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": -2,
+      "cha": -2
+    },
+    "feats": ["Weapon Focus (Two-Handed)"],
+    "skills": {"spot": 4,"search": 4,"listen": 4},
+    "ecl": 3
+  },
+    "Minotaur(Mystic)": {
+    "name": "Minotaur",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": -2
+    },
+    "feats": ["Weapon Focus (Two-Handed)"],
+    "skills": {"spot": 4,"search": 4,"listen": 4},
+    "ecl": 4
+  },
+  "Moon Elf": {
+    "name": "Moon Elf",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": -2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Weapon Proficiency (Elf)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)"
+    ],
+    "skills": {
+      "listen": 2,
+      "search": 2,
+      "spot": 2
+    },
+    "ecl": 0
+  },
+  "Ogre": {
+    "name": "Ogre",
+    "stats": {
+      "str": 4,
+      "dex": -2,
+      "con": 2,
+      "int": -2,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": ["Darkvision"],
+    "skills": {"hide": -4},
+    "ecl": 3
+  },
+    "Ogre(Magus)": {
+    "name": "Ogre",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 2,
+      "int": -2,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Darkvision"],
+    "skills": {"hide": -4},
+    "ecl": 4
+  },
+  "Orog": {
+    "name": "Orog",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [],
+    "skills": {},
+    "ecl": 0
+  },
+  "Rakshasa": {
+    "name": "Rakshasa",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Keen Senses"],
+    "skills": {"bluff": 8,"listen": 2,"spot": 2},
+    "ecl": 3
+  },
+  "Rock Gnome": {
+    "name": "Rock Gnome",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Hardiness vs. Illusions",
+      "Low-Light Vision",
+      "Spell Focus: Illusion",
+      "Weapon Proficiency (Hookhammer)",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs"
+    ],
+    "skills": {
+      "concentration": 2,
+      "listen": 2
+    },
+    "ecl": 0
+  },
+  "Shadovar": {
+    "name": "Shadovar",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 0,
+      "int": 2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Shadow Weave Magic",
+      "Medium Stature",
+      "Quick To Master",
+      "Skilled"
+    ],
+    "skills": {},
+    "ecl": 1
+  },
+  "Shield Dwarf": {
+    "name": "Shield Dwarf",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": [
+      "Medium Stature",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardiness vs. Spells",
+      "Weapon Proficiency (Dwarven Waraxe)",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs",
+      "Stonecunning"
+    ],
+    "skills": {
+      "lore": 2
+    },
+    "ecl": 0
+  },
+  "Snow Goblin": {
+    "name": "Snow Goblin",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Darkvision","Small Stature","Stealthy","Weapon Proficiency (Primitive)"],
+    "skills": {"intimidate": 2,"climb": 4},
+    "ecl": 0
+  },
+    "Snow Goblin(Warlord)": {
+    "name": "Snow Goblin",
+    "stats": {
+      "str": -2,
+      "dex": 0,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Darkvision","Small Stature","Stealthy","Weapon Proficiency (Primitive)"],
+    "skills": {"intimidate": 2,"climb": 4},
+    "ecl": 0
+  },
+  "Stone Half-Giant": {
+    "name": "Stone Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 4,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 3
+  },
+    "Stone Half-Giant(Stone Augur)": {
+    "name": "Stone Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -4,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision"
+    ],
+    "skills": {},
+    "ecl": 4
+  },
+  "Storm Half-Giant": {
+    "name": "Storm Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision",
+      "Amphibious Character"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+    "Storm Half-Giant(Sage)": {
+    "name": "Storm Half-Giant",
+    "stats": {
+      "str": 2,
+      "dex": -2,
+      "con": 2,
+      "int": 0,
+      "wis": 2,
+      "cha": 0
+    },
+    "feats": [
+      "Large Stature",
+      "Quick To Master",
+      "Skilled",
+      "Darkvision",
+      "Amphibious Character"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Strongheart Halfling": {
+    "name": "Strongheart Halfling",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Small Stature",
+      "Fearless",
+      "Good Aim",
+      "Alertness",
+      "Strong Soul"
+    ],
+    "skills": {
+      "listen": 2,
+      "move silently": 2
+    },
+    "ecl": 0
+  },
+  "Sun Elf": {
+    "name": "Sun Elf",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": -2,
+      "int": 2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Weapon Proficiency (Elf)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)"
+    ],
+    "skills": {
+      "listen": 2,
+      "search": 2,
+      "spot": 2
+    },
+    "ecl": 0
+  },
+  "Svirfneblin": {
+    "name": "Svirfneblin",
+    "stats": {
+      "str": -2,
+      "dex": 2,
+      "con": 0,
+      "int": 0,
+      "wis": 2,
+      "cha": -4
+    },
+    "feats": [
+      "Small Stature",
+      "Hardiness vs. Illusions",
+      "Darkvision",
+      "Spell Focus: Illusion",
+      "Weapon Proficiency (Hookhammer)",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs"
+    ],
+    "skills": {
+      "concentration": 2,
+      "listen": 2
+    },
+    "ecl": 2
+  },
+  "Troglodyte": {
+    "name": "Troglodyte",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": -2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": ["Weapon Proficiency (Primitive)","Darkvision"],
+    "skills": {},
+    "ecl": 0
+  },
+  "Wild Dwarf": {
+    "name": "Wild Dwarf",
+    "stats": {
+      "str": 0,
+      "dex": 0,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": -2
+    },
+    "feats": [
+      "Small Stature",
+      "Darkvision",
+      "Hardiness vs. Poisons",
+      "Hardines vs. Spells",
+      "Use Poison",
+      "Weapon Proficiency (Primitive)",
+      "Track",
+      "Battle training vs. giants",
+      "Battle training vs. goblinoids",
+      "Battle training vs. orcs"
+    ],
+    "skills": {},
+    "ecl": 0
+  },
+  "Wild Elf": {
+    "name": "Wild Elf",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": 0,
+      "int": -2,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Weapon Proficiency (Primitive)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)",
+      "Toughness",
+      "Trackless Step",
+      "Track"
+    ],
+    "skills": {
+      "listen": 2,
+      "search": 2,
+      "spot": 2
+    },
+    "ecl": 0
+  },
+  "Wood Elf": {
+    "name": "Wood Elf",
+    "stats": {
+      "str": 2,
+      "dex": 0,
+      "con": -2,
+      "int": 0,
+      "wis": 0,
+      "cha": 0
+    },
+    "feats": [
+      "Medium Stature",
+      "Immunity to Sleep",
+      "Keen Senses",
+      "Low-Light Vision",
+      "Weapon Proficiency (Elf)",
+      "Hardiness vs. Enchantments",
+      "Race (Surface Elf)",
+      "Track",
+      "Weapon Focus (Missile)"
+    ],
+    "skills": {
+      "listen": 2,
+      "search": 2,
+      "spot": 2
+    },
+    "ecl": 0
+  },
+  "Yuan-ti": {
+    "name": "Yuan-ti",
+    "stats": {
+      "str": 0,
+      "dex": 2,
+      "con": 2,
+      "int": 0,
+      "wis": 0,
+      "cha": 2
+    },
+    "feats": ["Snake blood","Darkvision","Use Poison"],
+    "skills": {"bluff": 6},
+    "ecl": 3
+  }
+}

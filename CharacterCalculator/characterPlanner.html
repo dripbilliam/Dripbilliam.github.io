@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Planner</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background: #f0f0f0;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        h1 { margin-top: 0; }
+        .toolbar {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .toolbar input, .toolbar select {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-family: Arial;
+        }
+        .toolbar label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+        button {
+            padding: 8px 12px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #0052a3; }
+        
+        .stats-display {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat label {
+            display: block;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .stat input {
+            width: 60px;
+            padding: 4px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #0066cc;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background: #e6f0ff;
+            color: #0066cc;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-size: 14px;
+        }
+        .tab-button.active {
+            background: #0066cc;
+            color: white;
+            border-bottom: 3px solid #0066cc;
+        }
+        .tab-button:hover {
+            background: #cce5ff;
+        }
+        .tab-button.active:hover {
+            background: #0052a3;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 6px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #0066cc;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) { background: #f9f9f9; }
+        tr:hover { background: #fffacd; }
+        
+        select, input[type="text"], input[type="number"] {
+            padding: 3px;
+            border: 1px solid #ccc;
+            width: 100%;
+            font-family: Arial;
+            font-size: 12px;
+        }
+        
+        .feat-label {
+            display: inline-block;
+            background: #cce5ff;
+            padding: 2px 6px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 11px;
+            border: 1px solid #0066cc;
+        }
+        
+        .feat-label.error {
+            background: #ffcccc;
+            border-color: #cc0000;
+            color: #cc0000;
+        }
+
+        .feat-label.warning {
+            background: #ffeecc;
+            border-color: #ff9900;
+            color: #ff6600;
+        }
+        
+        .validation-section {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .valid { color: green; font-weight: bold; }
+        .invalid { color: red; font-weight: bold; }
+
+        .skill-input {
+            width: 50px !important;
+            text-align: center;
+        }
+
+        .stat-source {
+            font-size: 11px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>D&D 3.5 Character Planner</h1>
+        
+        <div class="toolbar">
+            <label>
+                Name: <input type="text" id="charName" value="New Character" placeholder="Character name">
+            </label>
+            <label>
+                Race: <select id="raceSelect"></select>
+            </label>
+            <button onclick="validateCharacter()">Validate</button>
+            <button onclick="saveCharacter()">Save</button>
+            <button onclick="loadCharacter()">Load</button>
+            <button onclick="newCharacter()">New</button>
+        </div>
+
+        <div class="stats-display">
+            <div class="stat">
+                <label>STR</label>
+                <input type="number" id="stat_str" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+            <div class="stat">
+                <label>DEX</label>
+                <input type="number" id="stat_dex" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+            <div class="stat">
+                <label>CON</label>
+                <input type="number" id="stat_con" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+            <div class="stat">
+                <label>INT</label>
+                <input type="number" id="stat_int" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+            <div class="stat">
+                <label>WIS</label>
+                <input type="number" id="stat_wis" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+            <div class="stat">
+                <label>CHA</label>
+                <input type="number" id="stat_cha" value="10" min="1" max="30" onchange="handleStatChange()">
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('classes')">Classes & Feats</button>
+            <button class="tab-button" onclick="switchTab('skills')">Skills</button>
+            <button class="tab-button" onclick="switchTab('stats')">Stats</button>
+        </div>
+
+        <!-- Classes & Feats Tab -->
+        <div id="classes" class="tab-content active">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">Lvl</th>
+                        <th style="width: 150px;">Class</th>
+                        <th style="width: 60px;">BAB</th>
+                        <th style="width: 60px;">Fort</th>
+                        <th style="width: 60px;">Ref</th>
+                        <th style="width: 60px;">Will</th>
+                        <th style="width: 50px;">HP</th>
+                        <th style="width: 150px;">Class Feats</th>
+                        <th>Selected Feats</th>
+                    </tr>
+                </thead>
+                <tbody id="levelGrid"></tbody>
+            </table>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="skills" class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">Lvl</th>
+                        <th style="width: 80px;">Animal</th>
+                        <th style="width: 80px;">Appraise</th>
+                        <th style="width: 80px;">Bluff</th>
+                        <th style="width: 80px;">Climb</th>
+                        <th style="width: 100px;">Concentration</th>
+                        <th style="width: 100px;">Craft Mastery</th>
+                        <th style="width: 100px;">Disable Trap</th>
+                        <th style="width: 80px;">Heal</th>
+                        <th style="width: 80px;">Hide</th>
+                        <th style="width: 100px;">Intimidate</th>
+                        <th style="width: 80px;">Listen</th>
+                        <th style="width: 80px;">Lore</th>
+                        <th style="width: 100px;">Move Silently</th>
+                        <th style="width: 100px;">Open Lock</th>
+                        <th style="width: 80px;">Parry</th>
+                        <th style="width: 80px;">Perform</th>
+                        <th style="width: 80px;">Ride</th>
+                        <th style="width: 80px;">Search</th>
+                        <th style="width: 100px;">Sleight Hand</th>
+                        <th style="width: 100px;">Spellcraft</th>
+                        <th style="width: 100px;">Use Magic</th>
+                        <th style="width: 100px;">Use Trap</th>
+                        <th style="width: 80px;">Spot</th>
+                        <th style="width: 80px;">Taunt</th>
+                        <th style="width: 80px;">Tumble</th>
+                    </tr>
+                </thead>
+                <tbody id="skillGrid"></tbody>
+            </table>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="stats" class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">Lvl</th>
+                        <th style="width: 130px;">Level-up +1</th>
+                        <th style="width: 90px;">STR</th>
+                        <th style="width: 90px;">DEX</th>
+                        <th style="width: 90px;">CON</th>
+                        <th style="width: 90px;">INT</th>
+                        <th style="width: 90px;">WIS</th>
+                        <th style="width: 90px;">CHA</th>
+                        <th>Bonuses Applied This Level</th>
+                    </tr>
+                </thead>
+                <tbody id="statGrid"></tbody>
+            </table>
+        </div>
+
+        <div class="validation-section">
+            <h3>Validation & Status</h3>
+            <div id="validationOutput">Character loaded. Ready to build.</div>
+        </div>
+    </div>
+
+    <script src="characterPlanner.js"></script>
+</body>
+</html>

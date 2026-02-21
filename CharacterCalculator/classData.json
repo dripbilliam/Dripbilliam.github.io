@@ -12,7 +12,7 @@
         "classes": ["Bard", "Sorcerer", "Spellsword", "Warlock", "Wizard"],
         "exclude": []
       },
-      "proficiencies": ["armor (light, medium)", "shields", "weapons (martial, simple)"],
+      "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
       "other": "Ranger no longer qualifies as a Class prerequisite"
     },
     "unavailableFeats": ["scribe scroll", "craft wand", "weapon specialization"],
@@ -99,7 +99,7 @@
     "requirements": {
       "alignment": "evil",
       "skills": ["Hide 8", "Move Silently 8"],
-      "proficiencies": ["armor (light)", "weapons (simple)"],
+      "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
       "other": "DM approval required"
     },
     "unavailableFeats": ["craft wand", "scribe scroll", "weapon specialization"],
@@ -185,7 +185,7 @@
     "name": "Barbarian",
     "requirements": {
       "alignment": "non-lawful",
-      "proficiencies": ["armor (light, medium)", "shields", "weapons (martial, simple)"]
+      "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"]
     },
     "unavailableFeats": ["weapon specialization"],
     "skillPointsPerLevel": "(6 + ${int})",
@@ -328,6 +328,7 @@
     "bonusFeatsAtLevels": [
       10
     ],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (simple)", "weapon proficiency (whips)"],
     "availableBonusFeats": [
       "craft wand",
       "scribe scroll",
@@ -504,6 +505,7 @@
       "alignment": "evil",
       "bab": "6"
     },
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "unavailableFeats": [
       "craft wand",
       "scribe scroll",
@@ -607,6 +609,7 @@
       "skills": ["Ride 8"],
       "bab": "5"
     },
+    "proficiencies": ["weapon proficiency (Cavalier)"],
     "unavailableFeats": [
       "craft wand",
       "scribe scroll",
@@ -886,7 +889,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "hasSpellcasting": false,
     "maxLevel": 30,
     "levelProgression": [
@@ -962,6 +965,7 @@
   },
   "Dirgesinger": {
     "name": "Dirgesinger",
+    "proficiencies": null,
     "requirements": {
       "alignment": "None",
       "skills": ["Lore 5", "Intimidate 5"],
@@ -1056,9 +1060,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
     "proficiencies": [
-      "armor (light, medium)",
-      "shields",
-      "weapons (martial, simple)"
+      "armor proficiency (light)", "armor proficiency (medium)",
+      "Shield proficiency",
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [2, 4, 6, 8, 10, 14, 18],
     "availableBonusFeats": [
@@ -1184,6 +1188,7 @@
   },
   "Dragon Disciple": {
     "name": "Dragon Disciple",
+    "proficiencies": null,
     "requirements": {
       "alignment": "Any",
       "class": {
@@ -1276,10 +1281,6 @@
         "values": ["+1", "+1", "+1", "+1", "+2", "+2", "+2", "+3", "+3", "+4", "+4", "+4", "+4", "+4", "+5", "+5", "+5", "+5", "+5", "+6"]
       },
       {
-        "name": "breath damage",
-        "values": ["-", "-", "48-57", "64-76", "80-95", "96-114", "112-133", "128-152", "144-171", "160-190", "176-209", "192-228", "208-247", "224-266", "240-285", "256-304", "272-323", "288-342", "304-361", "320-380"]
-      },
-      {
         "name": "str",
         "values": ["-", "+2", "-", "+2", "-", "-", "-", "-", "-", "+4", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
       },
@@ -1325,9 +1326,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
     "proficiencies": [
-      "armor (light, medium)",
-      "shields",
-      "weapons (druid)"
+      "armor proficiency (light)", "armor proficiency (medium)",
+      "Shield proficiency",
+      "weapon proficiency (druid)"
     ],
     "bonusFeatsAtLevels": [23, 26, 29],
     "epicBonusFeats": [
@@ -1448,7 +1449,7 @@
       "alignment": "Any lawful",
       "bab": "7",
       "feats": ["toughness"],
-      "race": ["dwarf", "gnome", "halfling"]
+      "race": ["shield dwarf","gold dwarf","wild dwarf", "duergar", "rock gnome", "forest gnome","svirfneblin","lightfoot halfling","ghostwise halfling","strongheart halfling"]
     },
     "unavailableFeats": [
       "craft wand",
@@ -1459,9 +1460,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d12",
     "proficiencies": [
-      "armor (light, medium, heavy)",
-      "shields",
-      "weapons (martial, simple)"
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
+      "Shield proficiency",
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [1, 4, 7, 10, 13, 16, 19],
     "availableBonusFeats": [
@@ -1540,7 +1541,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "bonusFeatsAtLevels": [23, 26, 29],
     "epicBonusFeats": [
       "automatic quicken spell",
@@ -1659,9 +1660,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
     "proficiencies": [
-      "weapons (simple)",
-      "armor (light, medium, heavy)",
-      "shields"
+      "weapon proficiency (simple)",
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
+      "Shield proficiency"
     ],
     "bonusFeatsAtLevels": [23, 26, 29],
     "epicBonusFeats": [
@@ -1775,9 +1776,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
     "proficiencies": [
-      "armor (light, medium, heavy)",
-      "shields",
-      "weapons (martial, simple)"
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
+      "Shield proficiency",
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
     "availableBonusFeats": [
@@ -1945,9 +1946,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
     "proficiencies": [
-      "armor (light, medium)",
+      "armor proficiency (light)", "armor proficiency (medium)",
       "shield",
-      "weapons (simple, martial)"
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [6, 11, 16, 22, 26, 29],
     "availableBonusFeats": [
@@ -2090,7 +2091,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "8 + int modifier",
@@ -2125,7 +2126,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -2220,7 +2221,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d8",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -2280,7 +2281,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d10",
-    "proficiencies": ["armor (light, medium, heavy)", "shields", "weapons (simple, martial)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+1/level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -2334,7 +2335,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d8",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "6 + int modifier",
@@ -2446,8 +2447,8 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d6",
     "proficiencies": [
-      "armor (light)",
-      "weapons (simple)"
+      "armor proficiency (light)",
+      "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [23, 26, 29],
     "epicBonusFeats": [
@@ -2564,6 +2565,7 @@
   },
   "Invisible Blade": {
     "name": "Invisible Blade",
+    "proficiencies": null,
     "requirements": {
       "alignment": "any",
       "baseAttackBonus": 4,
@@ -2612,9 +2614,9 @@
     "skillPointsAtFirstLevel": "(6 + ${int}) * 4",
     "hitDie": "d10",
     "proficiencies": [
-      "armor (light, medium, heavy)",
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
       "shield",
-      "weapons (simple, martial)"
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "hasSpellcasting": false,
     "maxLevel": 10,
@@ -2662,9 +2664,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
     "proficiencies": [
-      "armor (all)",
-      "shield",
-      "weapons (simple, martial)"
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
+      "shield proficiency",
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [6, 9, 13, 16, 19],
     "availableBonusFeats": [
@@ -2780,6 +2782,7 @@
   },
   "Loremaster": {
     "name": "Loremaster",
+    "proficiencies": null,
     "requirements": {
       "attributes": {"intelligence": 16},
       "skills": {"lore": 8},
@@ -2820,8 +2823,7 @@
     "skillPointsAtFirstLevel": "(6 + ${int}) * 4",
     "hitDie": "d8",
     "proficiencies": [
-      "armor (robes)",
-      "weapons (monk)"
+      "weapon proficiency (monk)"
     ],
     "bonusFeatsAtLevels": [25, 30],
     "availableBonusFeats": [
@@ -2937,9 +2939,9 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
     "proficiencies": [
-      "armor (light, medium, heavy)",
+      "armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)",
       "shield",
-      "weapons (simple, martial)"
+      "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
     "bonusFeatsAtLevels": [23, 26, 29],
     "availableBonusFeats": [
@@ -3058,6 +3060,7 @@
   },
   "Pale Master": {
     "name": "Pale Master",
+    "proficiencies": null,
     "requirements": {
       "alignment": "evil",
       "class": {
@@ -3186,7 +3189,7 @@
     "skillPointsPerLevel": "(8 + ${int})",
     "skillPointsAtFirstLevel": "(8 + ${int}) * 4",
     "hitDie": "d10",
-    "proficiencies": ["armor (light, medium)", "shields", "weapons (martial, simple)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "bonusFeatsAtLevels": [],
     "availableBonusFeats": [
       "ambidexterity",
@@ -3328,7 +3331,7 @@
     "skillPointsPerLevel": "(10 + ${int})",
     "skillPointsAtFirstLevel": "(10 + ${int}) * 4",
     "hitDie": "d8",
-    "proficiencies": ["armor (light)", "weapons (rogue)", "weapons (whip)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (rogue)", "weapon proficiency (whip)"],
     "bonusFeatsAtLevels": [],
     "availableBonusFeats": [
       "crippling strike",
@@ -3455,7 +3458,7 @@
     "skillPointsPerLevel": "(8 + ${int})",
     "skillPointsAtFirstLevel": "(8 + ${int}) * 4",
     "hitDie": "d8",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "3/4 level",
     "savingThrows": ["reflex"],
     "maxLevel": 20,
@@ -3541,7 +3544,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
-    "proficiencies": ["weapons (simple)", "armor (light)", "armor (medium)", "shields"],
+    "proficiencies": ["weapon proficiency (simple)", "armor proficiency (light)", "armor (medium)", "Shield proficiency"],
     "baseAttackBonus": "3/4 level",
     "savingThrows": ["fortitude", "will"],
     "maxLevel": 30,
@@ -3648,7 +3651,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
-    "proficiencies": [],
+    "proficiencies": null,
     "baseAttackBonus": "3/4 level",
     "savingThrows": ["fortitude", "reflex"],
     "maxLevel": 20,
@@ -3731,7 +3734,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d4",
-    "proficiencies": ["weapons (simple)"],
+    "proficiencies": ["weapon proficiency (simple)"],
     "baseAttackBonus": "1/2 level",
     "savingThrows": ["will"],
     "maxLevel": 30,
@@ -3897,7 +3900,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
-    "proficiencies": ["armor (light, medium)", "shields", "weapons (simple, martial)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "bonusFeatsAtLevels": [6, 12, 18, 23, 26, 29],
     "availableBonusFeats": [
       "abjurant champion",
@@ -4099,7 +4102,7 @@
     "skillPointsPerLevel": "(6 + ${int})",
     "skillPointsAtFirstLevel": "(6 + ${int}) * 4",
     "hitDie": "d10",
-    "proficiencies": ["armor (light)", "shields", "weapons (martial, simple)"],
+    "proficiencies": ["armor proficiency (light)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "baseAttackBonus": "1/level",
     "savingThrows": ["fortitude", "reflex"],
     "bonusFeatsAtLevels": [23, 26, 29],
@@ -4229,7 +4232,7 @@
     "skillPointsPerLevel": "(8 + ${int})",
     "skillPointsAtFirstLevel": "(8 + ${int}) * 4",
     "hitDie": "d10",
-    "proficiencies": ["armor (light, medium)", "weapons (martial, simple)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "baseAttackBonus": "1/level",
     "savingThrows": ["reflex"],
     "bonusFeatsAtLevels": [6, 9, 13, 16, 19],
@@ -4327,7 +4330,7 @@
     "skillPointsPerLevel": "(6 + ${int})",
     "skillPointsAtFirstLevel": "(6 + ${int}) * 4",
     "hitDie": "d6",
-    "proficiencies": ["armor (light, medium)", "shields", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (simple)"],
     "baseAttackBonus": "3/4 level",
     "savingThrows": ["reflex", "will"],
     "bonusFeatsAtLevels": [5, 10, 15, 20, 24, 25, 28, 30],
@@ -4557,7 +4560,7 @@
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
-    "proficiencies": [],
+    "proficiencies": null,
     "baseAttackBonus": "1/level",
     "savingThrows": ["reflex"],
     "bonusFeatsAtLevels": [1, 13, 16, 19],
@@ -4647,10 +4650,6 @@
       ""
     ]
   },
-  "Wild mage": {
-    "name": "Wild mage",
-    "hasSpellcasting": true
-  },
   "Wizard": {
     "name": "Wizard",
     "requirements": {
@@ -4660,7 +4659,7 @@
     "skillPointsPerLevel": "(2 + ${int})",
     "skillPointsAtFirstLevel": "(2 + ${int}) * 4",
     "hitDie": "d4",
-    "proficiencies": ["armor (robes)", "weapons (wizard)"],
+    "proficiencies": ["weapon proficiency (wizard)"],
     "baseAttackBonus": "1/2 level",
     "savingThrows": ["will"],
     "bonusFeatsAtLevels": [5, 10, 15, 20, 23, 26, 29],
@@ -4818,7 +4817,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -4914,7 +4913,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d8",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -4974,7 +4973,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d10",
-    "proficiencies": ["armor (light, medium, heavy)", "shields", "weapons (martial, simple)"],
+    "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "armor proficiency (heavy)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+1/level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "4 + int modifier",
@@ -5029,7 +5028,7 @@
     },
     "maxLevel": 5,
     "hitDie": "d6",
-    "proficiencies": ["armor (light)", "weapons (simple)"],
+    "proficiencies": ["armor proficiency (light)", "weapon proficiency (simple)"],
     "baseAttackBonus": "+3/4 level",
     "savingThrows": ["reflex", "will"],
     "skillPointsPerLevel": "8 + int modifier",
