@@ -4790,10 +4790,8 @@
       "desc": "[[vampiric feast|The caster issues forth a curse that causes bleeding damage to nearby creatures, draining their blood to heal the caster. Creatures with blood take 3d6 bleeding damage twice per round, while creatures without blood take entropy damage instead. The caster gains 1d4+2 healing per hit (no overheal). A creature can only be subject to one such curse at a time]]."
     }
   },
-  "Epic toughness": {
-    "name": "Epic toughness",
-    "repeatable": true,
-    "repeatableCount": 10,
+  "Epic Toughness I": {
+    "name": "Epic Toughness I",
     "requirements": {
       "level": 21,
       "feats": [],
@@ -4818,7 +4816,286 @@
     },
     "source": {
       "type": "general",
-      "desc": "The character gains 20 [[hit point]]s. This feat may be taken multiple times, up to a maximum of 200 hit points."
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness II": {
+    "name": "Epic Toughness II",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness I"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness III": {
+    "name": "Epic Toughness III",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness II"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness IV": {
+    "name": "Epic Toughness IV",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness III"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness V": {
+    "name": "Epic Toughness V",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness IV"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness VI": {
+    "name": "Epic Toughness VI",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness V"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness VII": {
+    "name": "Epic Toughness VII",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness VI"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness VIII": {
+    "name": "Epic Toughness VIII",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness VII"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness IX": {
+    "name": "Epic Toughness IX",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness VIII"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
+    }
+  },
+  "Epic Toughness X": {
+    "name": "Epic Toughness X",
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Epic Toughness IX"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": 20,
+      "other": []
+    },
+    "source": {
+      "type": "general",
+      "desc": "The character gains 20 [[hit point]]s."
     }
   },
   "Epic weapon focus": {
@@ -11303,49 +11580,26 @@
     "name": "Uncanny dodge",
     "requirements": {
       "level": null,
-      "feats": [
-        "10",
-        "13",
-        "16",
-        "19)",
-        "11",
-        "14",
-        "17",
-        "20)",
-        "10)",
-        "10)"
-      ],
+      "feats": [],
       "skills": {},
       "stats": {},
       "bab": null,
       "class": [
         {
           "name": "barbarian",
-          "levels": [
-            2,
-            5
-          ]
+          "level": 2
         },
         {
           "name": "rogue",
-          "levels": [
-            3,
-            6
-          ]
+          "level": 3
         },
         {
           "name": "shadowdancer",
-          "levels": [
-            2,
-            5
-          ]
+          "level": 2
         },
         {
           "name": "assassin",
-          "levels": [
-            2,
-            5
-          ]
+          "level": 2
         }
       ],
       "race": [],
@@ -11365,7 +11619,223 @@
     },
     "source": {
       "type": "class",
-      "desc": "There are six versions of this feat, with cumulative (but not [[stack]]ing) benefits. (Assassins and shadowdancers only qualify for the first three versions.) The sixth version includes benefits extending into [[epic class]] levels."
+      "desc": "Version I of Uncanny Dodge progression."
+    }
+  },
+  "Uncanny dodge II": {
+    "name": "Uncanny dodge II",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Uncanny dodge"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "barbarian",
+          "level": 5
+        },
+        {
+          "name": "rogue",
+          "level": 6
+        },
+        {
+          "name": "shadowdancer",
+          "level": 5
+        },
+        {
+          "name": "assassin",
+          "level": 5
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Version II of Uncanny Dodge progression."
+    }
+  },
+  "Uncanny dodge III": {
+    "name": "Uncanny dodge III",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Uncanny dodge II"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "barbarian",
+          "level": 10
+        },
+        {
+          "name": "rogue",
+          "level": 11
+        },
+        {
+          "name": "shadowdancer",
+          "level": 10
+        },
+        {
+          "name": "assassin",
+          "level": 10
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Version III of Uncanny Dodge progression."
+    }
+  },
+  "Uncanny dodge IV": {
+    "name": "Uncanny dodge IV",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Uncanny dodge III"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "barbarian",
+          "level": 13
+        },
+        {
+          "name": "rogue",
+          "level": 14
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Version IV of Uncanny Dodge progression."
+    }
+  },
+  "Uncanny dodge V": {
+    "name": "Uncanny dodge V",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Uncanny dodge IV"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "barbarian",
+          "level": 16
+        },
+        {
+          "name": "rogue",
+          "level": 17
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Version V of Uncanny Dodge progression."
+    }
+  },
+  "Uncanny dodge VI": {
+    "name": "Uncanny dodge VI",
+    "requirements": {
+      "level": null,
+      "feats": [
+        "Uncanny dodge V"
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "barbarian",
+          "level": 19
+        },
+        {
+          "name": "rogue",
+          "level": 20
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Version VI of Uncanny Dodge progression."
     }
   },
   "Undead graft": {
@@ -17806,9 +18276,11 @@
         "spellcraft": 3
       },
       "hp": null,
+          "grantedFeats": [
+          { "feat": "Improved Combat Casting", "when": "always" },
+          { "feat": "Sinister Call", "when": "class:harbinger>=21" }
+        ],
       "other": [
-        "Improved Combat Casting",
-        "Sinister Call"
       ]
     },
     "source": {
@@ -17850,10 +18322,13 @@
         "use trap": 3
       },
       "hp": null,
+       "grantedFeats": [
+      { "feat": "Uncanny Dodge I", "when": "always" },
+      { "feat": "Trackless Step", "when": "always" },
+      { "feat": "Method: Hidden Persona", "when": "class:harbinger>=21" },
+      { "feat": "Uncanny Dodge II", "when": "class:harbinger>=21" }
+    ],
       "other": [
-        "Uncanny Dodge",
-        "Trackless Step",
-        "Method: Hidden Persona"
       ]
     },
     "source": {
@@ -17872,7 +18347,7 @@
       "class": [
         {
           "name": "harbinger",
-          "level": null
+          "level": 1
         }
       ],
       "race": [],
@@ -17892,11 +18367,18 @@
         "taunt": 3
       },
       "hp": null,
-      "other": [
-        "Turn Undead",
-        "Divine Synergy",
-        "Extra Turning feat",
-        "Dark Blessing"
+      "grantedFeats": [
+        { "feat": "Turn Undead", "when": "always" },
+        {"feat": "Divine Synergy",
+             "when": {
+             "classLevel": { "class": "harbinger", "min": 23 },
+             "featsAll": ["Divine shield", "Divine might"]
+            }
+        },
+        { "feat": "Extra Turning", "when": "class:harbinger>=23" },
+        { "feat": "Dark Blessing", "when": "class:harbinger>=26" }
+      ],
+          "other": [
       ]
     },
     "source": {
@@ -17931,9 +18413,11 @@
       "ac": {},
       "skills": {},
       "hp": null,
+       "grantedFeats": [
+      { "feat": "Sneak attack", "when": "always" },
+      { "feat": "Keen Senses", "when": "class:harbinger>=21" }
+    ],
       "other": [
-        "Sneak Attack",
-        "Keen Senses"
       ]
     },
     "source": {
@@ -17972,13 +18456,1153 @@
         "heal": 3
       },
       "hp": null,
+            "grantedFeats": [
+        { "feat": "Mounted Combat", "when": "always" }
+      ],
       "other": [
-        "Mounted Combat"
       ]
     },
     "source": {
       "type": "class",
       "desc": "Harbinger Curse Empowerment feat providing passive effects. Soft bonuses: +3 Leadership, Ride, Heal. Mounted Combat feat, 10% Elemental Immunity (Fire/Cold/Acid/Electric), 100% Life Transference refund. Epic gains 10% Negative Immunity and enhanced Weapon Mortality Hex vs. Dragons/Outsiders/Aberrations/Giants. Class Synergy with Knight/Cavalier."
+    }
+  },
+  "Knight Protector": {
+    "name": "Knight Protector",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Knight",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "The Knight Protector is the defender of the weak, and stalwart comrade-at-arms."
+    }
+  },
+  "Knight Valiant": {
+    "name": "Knight Valiant",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Knight",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "The Knight Valiant inspires all around her to feats of heroism."
+    }
+  },
+  "Knight Vanguard": {
+    "name": "Knight Vanguard",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Knight",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "The Knight Vanguard is the scourge of his enemies, scattering all before her."
+    }
+  },
+  "Path of the Cleric": {
+    "name": "Path of the Cleric",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Armor proficiency (medium)", "when": "always" },
+        { "feat": "Armor proficiency (heavy)", "when": "always" },
+        { "feat": "Shield proficiency", "when": "always" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Default cleric path focused on traveling ministry and broad divine practice."
+    }
+  },
+  "Path of the Cloistered": {
+    "name": "Path of the Cloistered",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Scribe scroll", "when": "always" },
+        {
+          "feat": "Craft wand",
+          "when": {
+            "featsAny": ["Magic Domain", "Knowledge Domain", "Forge Domain"]
+          }
+        },
+        {
+          "feat": "Brew potion",
+          "when": {
+            "anyOf": [
+              { "featsAll": ["Magic Domain", "Knowledge Domain"] },
+              { "featsAll": ["Magic Domain", "Forge Domain"] },
+              { "featsAll": ["Knowledge Domain", "Forge Domain"] }
+            ]
+          }
+        },
+        { "feat": "Spell penetration", "when": "class:cleric>=6" },
+        { "feat": "Greater spell penetration", "when": "class:cleric>=18" },
+        {
+          "feat": "Automatic silent spell II",
+          "when": {
+            "allOf": [
+              { "classLevel": { "class": "cleric", "min": 23 } },
+              { "featsAll": ["Automatic silent spell I"] }
+            ]
+          }
+        },
+        {
+          "feat": "Automatic silent spell III",
+          "when": {
+            "allOf": [
+              { "classLevel": { "class": "cleric", "min": 23 } },
+              { "featsAll": ["Automatic silent spell I"] }
+            ]
+          }
+        }
+      ],
+      "other": [
+        "future:clericSkillPointsPerLevel:+1"
+      ]
+    },
+    "source": {
+      "type": "class",
+      "desc": "Cloistered path trades martial breadth for study and divine scholarship."
+    }
+  },
+  "Path of the Defiler": {
+    "name": "Path of the Defiler",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Armor proficiency (medium)", "when": "always" },
+        { "feat": "Shield proficiency", "when": "always" }
+      ],
+      "other": [
+        "future:restrictWeaponProficienciesToSimple"
+      ]
+    },
+    "source": {
+      "type": "class",
+      "desc": "Defiler path embraces corruption and conquest in service of dark patrons."
+    }
+  },
+  "Path of the Evangelist": {
+    "name": "Path of the Evangelist",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Armor proficiency (medium)", "when": "always" },
+        { "feat": "Shield proficiency", "when": "always" },
+        { "feat": "Bard song", "when": "class:cleric>=6" },
+        { "feat": "Curse song", "when": "class:cleric>=6" },
+        { "feat": "Inspiring minstrel", "when": "class:cleric>=20" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Evangelist path focuses on conversion, rhetoric, and crusading zeal."
+    }
+  },
+  "Path of the Healer": {
+    "name": "Path of the Healer",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" }
+      ],
+      "removedFeats": [
+        {
+          "startsWith": "Weapon proficiency (",
+          "except": ["Weapon proficiency (simple)"],
+          "reason": "Path of the Healer restricts weapon proficiencies to simple weapons only.",
+          "when": "always"
+        }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Healer path prioritizes restorative divine arts over martial breadth."
+    }
+  },
+  "Path of the Seeker": {
+    "name": "Path of the Seeker",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (rogue)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Shield proficiency", "when": "always" },
+        { "feat": "Uncanny Dodge I", "when": "class:cleric>=12" }
+      ],
+      "other": [
+        "future:swashbucklerSynergyUsesTwoThirdsClericLevels",
+        "future:sneakAttackEveryThreeClericLevels",
+        "future:grantSeekerSoftSkillBonusesAtCleric18"
+      ]
+    },
+    "source": {
+      "type": "class",
+      "desc": "Seeker path hunts heresy, relics, and hidden corruption with investigative craft."
+    }
+  },
+  "Path of the Warpriest": {
+    "name": "Path of the Warpriest",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Cleric",
+          "level": 3
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon proficiency (simple)", "when": "always" },
+        { "feat": "Armor proficiency (light)", "when": "always" },
+        { "feat": "Armor proficiency (medium)", "when": "always" },
+        { "feat": "Armor proficiency (heavy)", "when": "always" },
+        { "feat": "Shield proficiency", "when": "always" },
+        { "feat": "Divine smite", "when": "always" },
+        { "feat": "Combat casting", "when": "class:cleric>=6" },
+        { "feat": "Improved combat casting", "when": "class:cleric>=18" },
+        { "feat": "Divine Synergy", "when": "class:cleric>=21" }
+      ],
+      "other": [
+        "future:grantWeaponSpecializationAtCleric12FromOwnedWeaponFocusFeats"
+      ]
+    },
+    "source": {
+      "type": "class",
+      "desc": "Warpriest path binds devotion to martial doctrine and holy warfare."
+    }
+  },
+  "Path: Slayer": {
+    "name": "Path: Slayer",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Ranger",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Improved two-weapon fighting", "when": "class:ranger>=9" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Ranger Path (Slayer): keeps Dual-wield and gains Improved Two-Weapon Fighting at Ranger level 9."
+    }
+  },
+  "Path: Archer": {
+    "name": "Path: Archer",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Ranger",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Rapid reload", "when": "always" },
+        { "feat": "Rapid shot", "when": "always" },
+        { "feat": "Point blank shot", "when": "always" },
+        { "feat": "Called shot", "when": "class:ranger>=9" }
+      ],
+      "removedFeats": [
+        {
+          "startsWith": "Dual-wield",
+          "reason": "Path: Archer replaces Dual-wield with ranged combat training.",
+          "when": "always"
+        }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Ranger Path (Archer): loses Dual-wield and gains ranged combat feats, with Called Shot at Ranger level 9."
+    }
+  },
+  "Oath of Inquisition (Tier I)": {
+    "name": "Oath of Inquisition (Tier I)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 6 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "spot": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Improved turning", "when": "always" },
+        { "feat": "Oath of Inquisition (Tier II)", "when": "class:paladin>=16" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Inquisition) Tier I." }
+  },
+  "Oath of Inquisition (Tier II)": {
+    "name": "Oath of Inquisition (Tier II)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 16 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "spot": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Planar turning", "when": "always" },
+        { "feat": "Greater Spell Focus: Abjuration", "when": { "featsAll": ["Spell focus: abjuration"] } },
+        { "feat": "Oath of Inquisition (Tier III)", "when": "class:paladin>=26" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Inquisition) Tier II." }
+  },
+  "Oath of Inquisition (Tier III)": {
+    "name": "Oath of Inquisition (Tier III)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 26 }] },
+    "effects": { "stats": {}, "ac": {}, "skills": { "spot": 3 }, "hp": null, "other": [] },
+    "source": { "type": "class", "desc": "Paladin Oath (Inquisition) Tier III." }
+  },
+  "Oath of Perseverance (Tier I)": {
+    "name": "Oath of Perseverance (Tier I)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 6 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "heal": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Oath of Perseverance (Tier II)", "when": "class:paladin>=16" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Perseverance) Tier I." }
+  },
+  "Oath of Perseverance (Tier II)": {
+    "name": "Oath of Perseverance (Tier II)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 16 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "heal": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Divine might", "when": { "featsAll": ["Divine shield"] } },
+        { "feat": "Divine shield", "when": { "featsAll": ["Divine might"] } },
+        { "feat": "Oath of Perseverance (Tier III)", "when": "class:paladin>=26" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Perseverance) Tier II." }
+  },
+  "Oath of Perseverance (Tier III)": {
+    "name": "Oath of Perseverance (Tier III)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 26 }] },
+    "effects": { "stats": {}, "ac": {}, "skills": { "heal": 3 }, "hp": null, "other": [] },
+    "source": { "type": "class", "desc": "Paladin Oath (Perseverance) Tier III." }
+  },
+  "Oath of Reckoning (Tier I)": {
+    "name": "Oath of Reckoning (Tier I)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 6 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "concentration": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Heroic shield", "when": "always" },
+        { "feat": "Oath of Reckoning (Tier II)", "when": "class:paladin>=16" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Reckoning) Tier I." }
+  },
+  "Oath of Reckoning (Tier II)": {
+    "name": "Oath of Reckoning (Tier II)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 16 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "concentration": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Divine shield", "when": { "featsAll": ["Power attack"] } },
+        { "feat": "Oath of Reckoning (Tier III)", "when": "class:paladin>=26" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Reckoning) Tier II." }
+  },
+  "Oath of Reckoning (Tier III)": {
+    "name": "Oath of Reckoning (Tier III)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 26 }] },
+    "effects": { "stats": {}, "ac": {}, "skills": { "concentration": 3 }, "hp": null, "other": [] },
+    "source": { "type": "class", "desc": "Paladin Oath (Reckoning) Tier III." }
+  },
+  "Oath of Vengeance (Tier I)": {
+    "name": "Oath of Vengeance (Tier I)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 6 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "leadership": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Extra smiting", "when": "always" },
+        { "feat": "Oath of Vengeance (Tier II)", "when": "class:paladin>=16" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Vengeance) Tier I." }
+  },
+  "Oath of Vengeance (Tier II)": {
+    "name": "Oath of Vengeance (Tier II)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 16 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "leadership": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Great smiting I", "when": "always" },
+        { "feat": "Divine might", "when": { "featsAll": ["Power attack"] } },
+        { "feat": "Oath of Vengeance (Tier III)", "when": "class:paladin>=26" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (Vengeance) Tier II." }
+  },
+  "Oath of Vengeance (Tier III)": {
+    "name": "Oath of Vengeance (Tier III)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 26 }] },
+    "effects": { "stats": {}, "ac": {}, "skills": { "leadership": 3 }, "hp": null, "other": [] },
+    "source": { "type": "class", "desc": "Paladin Oath (Vengeance) Tier III." }
+  },
+  "Oath of the Ancients (Tier I)": {
+    "name": "Oath of the Ancients (Tier I)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 6 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "animal empathy": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Woodland stride", "when": "always" },
+        { "feat": "Oath of the Ancients (Tier II)", "when": "class:paladin>=16" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (the Ancients) Tier I." }
+  },
+  "Oath of the Ancients (Tier II)": {
+    "name": "Oath of the Ancients (Tier II)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 16 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "animal empathy": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Improved expertise", "when": { "featsAll": ["Expertise"] } },
+        { "feat": "Oath of the Ancients (Tier III)", "when": "class:paladin>=26" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (the Ancients) Tier II." }
+  },
+  "Oath of the Ancients (Tier III)": {
+    "name": "Oath of the Ancients (Tier III)",
+    "requirements": { "class": [{ "name": "Paladin", "level": 26 }] },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": { "animal empathy": 3 },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Nature sense", "when": "always" }
+      ],
+      "other": []
+    },
+    "source": { "type": "class", "desc": "Paladin Oath (the Ancients) Tier III." }
+  },
+  "Druid Totem: Wolf (Predator)": {
+    "name": "Druid Totem: Wolf (Predator)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "str": { "value": 2, "soft": true, "softCap": 12 },
+        "dex": { "value": 2, "soft": true, "softCap": 12 }
+      },
+      "ac": {},
+      "skills": {
+        "spot": 2,
+        "hide": 2,
+        "move silently": 2
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Wolf/Predator): +2 STR (soft), +2 DEX (soft), +2 Spot, +2 Hide, +2 Move Silently."
+    }
+  },
+  "Druid Totem: Panther (Sneak)": {
+    "name": "Druid Totem: Panther (Sneak)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "dex": { "value": 4, "soft": true, "softCap": 12 }
+      },
+      "ac": {},
+      "skills": {
+        "hide": 4,
+        "move silently": 4
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Panther/Sneak): +4 DEX (soft), +4 Hide, +4 Move Silently."
+    }
+  },
+  "Druid Totem: Spider (Cunning)": {
+    "name": "Druid Totem: Spider (Cunning)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "int": 2
+      },
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Spider/Cunning): +2 INT."
+    }
+  },
+  "Druid Totem: Parrot (Beauty)": {
+    "name": "Druid Totem: Parrot (Beauty)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "cha": 4
+      },
+      "ac": {},
+      "skills": {
+        "perform": 8
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Parrot/Beauty): +4 CHA, +8 Perform."
+    }
+  },
+  "Druid Totem: Eagle (Nobility)": {
+    "name": "Druid Totem: Eagle (Nobility)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "cha": 2
+      },
+      "ac": {},
+      "skills": {
+        "spot": 12
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Eagle/Nobility): +2 CHA, +12 Spot."
+    }
+  },
+  "Druid Totem: Bear (Brawn)": {
+    "name": "Druid Totem: Bear (Brawn)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "str": { "value": 4, "soft": true, "softCap": 12 },
+        "con": { "value": 4, "soft": true, "softCap": 12 }
+      },
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Bear/Brawn): +4 STR (soft), +4 CON (soft)."
+    }
+  },
+  "Druid Totem: Raven (Lore)": {
+    "name": "Druid Totem: Raven (Lore)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "int": 2
+      },
+      "ac": {},
+      "skills": {
+        "listen": 8,
+        "lore": 10
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Raven/Lore): +2 INT, +8 Listen, +10 Lore."
+    }
+  },
+  "Druid Totem: Bat (Mystery)": {
+    "name": "Druid Totem: Bat (Mystery)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "listen": 12
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Bat/Mystery): +12 Listen."
+    }
+  },
+  "Druid Totem: Rat (Creativity)": {
+    "name": "Druid Totem: Rat (Creativity)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "int": 4
+      },
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Rat/Creativity): +4 INT."
+    }
+  },
+  "Druid Totem: Snake (Grace)": {
+    "name": "Druid Totem: Snake (Grace)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {
+        "dex": { "value": 2, "soft": true, "softCap": 12 },
+        "cha": 2
+      },
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem (Snake/Grace): +2 DEX (soft), +2 CHA."
+    }
+  },
+  "No Totem": {
+    "name": "No Totem",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "Druid",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Druid Totem option to take no totem path bonuses."
     }
   },
   "Herald of the Grave": {
@@ -18012,9 +19636,11 @@
         "search": 3
       },
       "hp": null,
+            "grantedFeats": [
+        { "feat": "Skill Focus (Perform)", "when": "always" },
+        { "feat": "Extra Music", "when": "class:harbinger>=21" }
+      ],
       "other": [
-        "Skill Focus (Perform)",
-        "Extra Music"
       ]
     },
     "source": {
@@ -18049,6 +19675,10 @@
       "ac": {},
       "skills": {},
       "hp": null,
+            "grantedFeats": [
+        { "feat": "Epic Toughness I", "when": "class:harbinger>=23" },
+        { "feat": "Epic Toughness II", "when": "class:harbinger>=28" }
+      ],
       "other": []
     },
     "source": {
@@ -18083,9 +19713,11 @@
       "ac": {},
       "skills": {},
       "hp": null,
+      "grantedFeats": [
+        { "feat": "Armor Proficiency (Heavy)", "when": "class:harbinger>=23" },
+        { "feat": "Weapon Proficiency (Exotic)", "when": "class:harbinger>=28" }
+      ],
       "other": [
-        "Armor Proficiency (Heavy)",
-        "Weapon Proficiency (Exotic)"
       ]
     },
     "source": {
@@ -18152,15 +19784,16 @@
     "effects": {
       "stats": {},
       "ac": {},
-      "skills": {},
-      "hp": null,
-      "other": [
-        {
+      "skills": {
           "fort": 2,
           "ref": 2,
           "will": 2
         },
-        "Evasion"
+      "hp": null,
+            "grantedFeats": [
+        { "feat": "Evasion", "when": "always" }
+      ],
+      "other": [
       ]
     },
     "source": {

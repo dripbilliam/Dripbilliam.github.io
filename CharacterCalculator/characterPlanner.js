@@ -82,7 +82,24 @@ let levelStatData = Array(30).fill(null).map(() => ({
     int: 10,
     wis: 10,
     cha: 10,
-    appliedBonuses: []
+    appliedBonuses: [],
+    softStats: {
+        str: 10,
+        dex: 10,
+        con: 10,
+        int: 10,
+        wis: 10,
+        cha: 10
+    },
+    softBonusTotals: {
+        str: 0,
+        dex: 0,
+        con: 0,
+        int: 0,
+        wis: 0,
+        cha: 0
+    },
+    softAppliedBonuses: []
 }));
 
 const GENERAL_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
@@ -333,12 +350,455 @@ function getClassFeatureFeatNamesUpTo(level, includeCurrentLevel = false) {
     return Array.from(new Set(featureNames));
 }
 
+function addOwnedFeatDetail(container, rawFeatName, sourceLabel, grantedBy = null, gainedLevel = null) {
+    if (!rawFeatName || typeof rawFeatName !== 'string') return;
+    const resolvedName = resolveFeatName(rawFeatName);
+    const key = resolvedName.toLowerCase();
+
+    if (!container.has(key)) {
+        container.set(key, {
+            name: resolvedName,
+            sources: new Set(),
+            grantedBy: new Set(),
+            gainedLevel: null
+        });
+    }
+
+    const detail = container.get(key);
+    if (sourceLabel) detail.sources.add(sourceLabel);
+    if (grantedBy) detail.grantedBy.add(grantedBy);
+    if (Number.isInteger(gainedLevel) && gainedLevel > 0) {
+        if (!detail.gainedLevel || gainedLevel < detail.gainedLevel) {
+            detail.gainedLevel = gainedLevel;
+        }
+    }
+}
+
+function addRemovedFeatDetail(container, rawFeatName, removedBy, reasonText = '', gainedLevel = null) {
+    if (!rawFeatName || typeof rawFeatName !== 'string') return;
+    const resolvedName = resolveFeatName(rawFeatName);
+    const key = resolvedName.toLowerCase();
+
+    if (!container.has(key)) {
+        container.set(key, {
+            name: resolvedName,
+            removedBy: new Set(),
+            reasons: new Set(),
+            sources: new Set(),
+            grantedLevel: null
+        });
+    }
+
+    const detail = container.get(key);
+    if (removedBy) detail.removedBy.add(removedBy);
+    if (reasonText) detail.reasons.add(reasonText);
+    if (Number.isInteger(gainedLevel) && gainedLevel > 0) {
+        if (!detail.grantedLevel || gainedLevel < detail.grantedLevel) {
+            detail.grantedLevel = gainedLevel;
+        }
+    }
+}
+
+function addRemovedFeatSources(container, rawFeatName, sourceLabels) {
+    if (!rawFeatName || typeof rawFeatName !== 'string') return;
+    const key = resolveFeatName(rawFeatName).toLowerCase();
+    if (!container.has(key)) return;
+
+    const detail = container.get(key);
+    if (!detail || !(detail.sources instanceof Set)) return;
+
+    if (sourceLabels instanceof Set) {
+        sourceLabels.forEach(source => {
+            if (source) detail.sources.add(source);
+        });
+        return;
+    }
+
+    if (Array.isArray(sourceLabels)) {
+        sourceLabels.forEach(source => {
+            if (source) detail.sources.add(source);
+        });
+    }
+}
+
+function parseGrantedFeatEntry(entry) {
+    if (!entry) return null;
+    if (typeof entry === 'string') {
+        return { feat: entry, when: 'always' };
+    }
+
+    if (typeof entry === 'object' && typeof entry.feat === 'string') {
+        return {
+            feat: entry.feat,
+            when: entry.when ?? 'always'
+        };
+    }
+
+    return null;
+}
+
+function parseRemovedFeatEntry(entry) {
+    if (!entry) return null;
+
+    const toExceptSet = (values) => {
+        const list = Array.isArray(values) ? values : [];
+        return new Set(
+            list
+                .filter(value => typeof value === 'string' && value.trim())
+                .map(value => resolveFeatName(value).toLowerCase())
+        );
+    };
+
+    if (typeof entry === 'string') {
+        return {
+            mode: 'exact',
+            value: entry,
+            when: 'always',
+            exceptSet: new Set(),
+            reason: ''
+        };
+    }
+
+    if (typeof entry !== 'object') return null;
+
+    const when = entry.when ?? 'always';
+    const exceptSet = toExceptSet(entry.except);
+    const reason = typeof entry.reason === 'string' ? entry.reason : '';
+
+    if (typeof entry.feat === 'string') {
+        return {
+            mode: 'exact',
+            value: entry.feat,
+            when,
+            exceptSet,
+            reason
+        };
+    }
+
+    if (typeof entry.startsWith === 'string') {
+        return {
+            mode: 'startsWith',
+            value: entry.startsWith,
+            when,
+            exceptSet,
+            reason
+        };
+    }
+
+    if (typeof entry.includes === 'string') {
+        return {
+            mode: 'includes',
+            value: entry.includes,
+            when,
+            exceptSet,
+            reason
+        };
+    }
+
+    if (typeof entry.regex === 'string') {
+        try {
+            return {
+                mode: 'regex',
+                value: new RegExp(entry.regex, 'i'),
+                when,
+                exceptSet,
+                reason
+            };
+        } catch (error) {
+            console.warn('Invalid removeFeats regex rule:', entry.regex, error);
+            return null;
+        }
+    }
+
+    return null;
+}
+
+function getRemovedRuleDescription(rule) {
+    if (!rule) return 'feat removal rule';
+    if (rule.reason) return rule.reason;
+
+    if (rule.mode === 'exact') {
+        return `removes ${resolveFeatName(rule.value)}`;
+    }
+
+    if (rule.mode === 'startsWith') {
+        return `removes feats starting with "${rule.value}"`;
+    }
+
+    if (rule.mode === 'includes') {
+        return `removes feats containing "${rule.value}"`;
+    }
+
+    if (rule.mode === 'regex') {
+        return 'removes feats matching configured pattern';
+    }
+
+    return 'feat removal rule';
+}
+
+function doesRemovedFeatEntryMatch(rule, featName) {
+    if (!rule || !featName || typeof featName !== 'string') return false;
+
+    const resolvedName = resolveFeatName(featName);
+    const normalizedName = resolvedName.toLowerCase();
+
+    if (rule.exceptSet && rule.exceptSet.has(normalizedName)) {
+        return false;
+    }
+
+    if (rule.mode === 'exact') {
+        return normalizedName === resolveFeatName(rule.value).toLowerCase();
+    }
+
+    if (rule.mode === 'startsWith') {
+        return normalizedName.startsWith(rule.value.toString().trim().toLowerCase());
+    }
+
+    if (rule.mode === 'includes') {
+        return normalizedName.includes(rule.value.toString().trim().toLowerCase());
+    }
+
+    if (rule.mode === 'regex') {
+        return rule.value.test(resolvedName);
+    }
+
+    return false;
+}
+
+function doesGrantedFeatConditionMatch(when, level, ownedFeatSet = null) {
+    const hasOwnedFeat = (featName) => {
+        if (!featName || typeof featName !== 'string' || !ownedFeatSet) return false;
+        return ownedFeatSet.has(resolveFeatName(featName).toLowerCase());
+    };
+
+    if (!when || when === 'always') return true;
+
+    if (typeof when === 'string') {
+        const text = when.trim().toLowerCase();
+        if (!text || text === 'always') return true;
+
+        const classMatch = text.match(/^class\s*:\s*([^>=<\s]+)\s*>=\s*(\d+)$/);
+        if (classMatch) {
+            const className = classMatch[1].trim();
+            const requiredLevel = parseInt(classMatch[2], 10) || 0;
+            return getClassLevelUpTo(className, level) >= requiredLevel;
+        }
+
+        const featMatch = text.match(/^feat\s*:\s*(.+)$/);
+        if (featMatch) {
+            return hasOwnedFeat(featMatch[1].trim());
+        }
+
+        return false;
+    }
+
+    if (typeof when === 'object') {
+        const checks = [];
+
+        const classLevelRule = when.classLevel;
+        if (classLevelRule && typeof classLevelRule === 'object') {
+            const className = classLevelRule.class;
+            const requiredLevel = parseInt(classLevelRule.min, 10) || 0;
+            if (!className || typeof className !== 'string') {
+                checks.push(false);
+            } else {
+                checks.push(getClassLevelUpTo(className, level) >= requiredLevel);
+            }
+        }
+
+        const featsAll = Array.isArray(when.featsAll)
+            ? when.featsAll
+            : (Array.isArray(when.feats) ? when.feats : []);
+        if (featsAll.length > 0) {
+            checks.push(featsAll.every(featName => hasOwnedFeat(featName)));
+        }
+
+        const featsAny = Array.isArray(when.featsAny) ? when.featsAny : [];
+        if (featsAny.length > 0) {
+            checks.push(featsAny.some(featName => hasOwnedFeat(featName)));
+        }
+
+        const allOf = Array.isArray(when.allOf) ? when.allOf : [];
+        if (allOf.length > 0) {
+            checks.push(allOf.every(condition => doesGrantedFeatConditionMatch(condition, level, ownedFeatSet)));
+        }
+
+        const anyOf = Array.isArray(when.anyOf) ? when.anyOf : [];
+        if (anyOf.length > 0) {
+            checks.push(anyOf.some(condition => doesGrantedFeatConditionMatch(condition, level, ownedFeatSet)));
+        }
+
+        if (checks.length > 0) {
+            return checks.every(Boolean);
+        }
+    }
+
+    return false;
+}
+
+function getEffectiveFeatStateAtLevel(level, options = {}) {
+    const includeSelectedCurrentLevel = options.includeSelectedCurrentLevel !== false;
+    const cappedLevel = Math.max(0, Math.min(levelData.length, level));
+    const details = new Map();
+    const removedDetails = new Map();
+
+    getRaceFeatNames().forEach(featName => addOwnedFeatDetail(details, featName, 'race', null, 1));
+
+    const classFirstLevels = new Map();
+    for (let lv = 1; lv <= cappedLevel; lv++) {
+        const selectedClass = levelData[lv - 1].class;
+        if (selectedClass) {
+            const key = selectedClass.toLowerCase();
+            if (!classFirstLevels.has(key)) {
+                classFirstLevels.set(key, { className: selectedClass, level: lv });
+            }
+        }
+    }
+
+    Array.from(classFirstLevels.values()).forEach(entry => {
+        getClassProficiencyFeatsForClass(entry.className).forEach(featName => {
+            addOwnedFeatDetail(details, featName, 'class proficiency', null, entry.level);
+        });
+    });
+
+    for (let lv = 1; lv <= cappedLevel; lv++) {
+        const selectedClass = levelData[lv - 1].class;
+        if (selectedClass) {
+            const classFeatureParts = getClassFeatureParts(selectedClass, lv);
+            classFeatureParts.forEach(part => {
+                if (shouldIncludeClassFeatureAsFeat(part)) {
+                    addOwnedFeatDetail(details, part, 'class feature', null, lv);
+                }
+            });
+        }
+
+        if (lv < cappedLevel || includeSelectedCurrentLevel) {
+            getSelectedFeatsAtLevel(lv).forEach(featName => addOwnedFeatDetail(details, featName, 'selected', null, lv));
+        }
+    }
+
+    const processedGrantors = new Set();
+    let expanded = true;
+    while (expanded) {
+        expanded = false;
+
+        Array.from(details.values()).forEach(detail => {
+            const grantorKey = detail.name.toLowerCase();
+            if (processedGrantors.has(grantorKey)) return;
+            processedGrantors.add(grantorKey);
+
+            const featInfo = featData[resolveFeatName(detail.name)];
+            const grantedFeats = featInfo && featInfo.effects ? featInfo.effects.grantedFeats : null;
+            if (!Array.isArray(grantedFeats)) return;
+            const ownedFeatSet = new Set(Array.from(details.keys()));
+
+            grantedFeats.forEach(rawGrant => {
+                const parsed = parseGrantedFeatEntry(rawGrant);
+                if (!parsed || !parsed.feat) return;
+                if (!doesGrantedFeatConditionMatch(parsed.when, cappedLevel, ownedFeatSet)) return;
+
+                const grantedName = resolveFeatName(parsed.feat);
+                const grantedKey = grantedName.toLowerCase();
+                const hadEntry = details.has(grantedKey);
+                const grantedLevel = detail.gainedLevel || cappedLevel;
+                addOwnedFeatDetail(details, grantedName, 'granted', detail.name, grantedLevel);
+                if (!hadEntry) {
+                    expanded = true;
+                }
+            });
+        });
+    }
+
+    let removedAny = true;
+    while (removedAny) {
+        removedAny = false;
+
+        const removalSources = Array.from(details.values());
+        removalSources.forEach(sourceDetail => {
+            const sourceFeatInfo = featData[resolveFeatName(sourceDetail.name)];
+            const removalRules = sourceFeatInfo && sourceFeatInfo.effects
+                ? sourceFeatInfo.effects.removedFeats
+                : null;
+            if (!Array.isArray(removalRules) || removalRules.length === 0) return;
+
+            const ownedFeatSet = new Set(Array.from(details.keys()));
+
+            removalRules.forEach(rawRule => {
+                const parsedRule = parseRemovedFeatEntry(rawRule);
+                if (!parsedRule) return;
+                if (!doesGrantedFeatConditionMatch(parsedRule.when, cappedLevel, ownedFeatSet)) return;
+
+                const targetFeats = Array.from(details.values());
+                targetFeats.forEach(targetDetail => {
+                    const targetKey = targetDetail.name.toLowerCase();
+                    const sourceKey = sourceDetail.name.toLowerCase();
+                    if (targetKey === sourceKey) return;
+                    if (!details.has(targetKey)) return;
+
+                    if (doesRemovedFeatEntryMatch(parsedRule, targetDetail.name)) {
+                        const reasonText = getRemovedRuleDescription(parsedRule);
+                        addRemovedFeatDetail(removedDetails, targetDetail.name, sourceDetail.name, reasonText, targetDetail.gainedLevel);
+                        addRemovedFeatSources(removedDetails, targetDetail.name, targetDetail.sources);
+                        details.delete(targetKey);
+                        removedAny = true;
+                    }
+                });
+            });
+        });
+    }
+
+    return {
+        details,
+        removedDetails
+    };
+}
+
+function getEffectiveOwnedFeatDetailsAtLevel(level, options = {}) {
+    return getEffectiveFeatStateAtLevel(level, options).details;
+}
+
+function getGrantedFeatDetailsAtLevel(level) {
+    return Array.from(getEffectiveOwnedFeatDetailsAtLevel(level).values())
+        .filter(detail => detail.grantedBy.size > 0)
+        .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function getRemovedFeatDetailsAtLevel(level) {
+    return Array.from(getEffectiveFeatStateAtLevel(level).removedDetails.values())
+        .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function getRemovedFeatDetailsGainedAtLevel(level) {
+    if (level <= 1) {
+        return getRemovedFeatDetailsAtLevel(level);
+    }
+
+    const current = getRemovedFeatDetailsAtLevel(level);
+    const previousNames = new Set(
+        getRemovedFeatDetailsAtLevel(level - 1)
+            .map(detail => detail.name.toLowerCase())
+    );
+
+    return current.filter(detail => !previousNames.has(detail.name.toLowerCase()));
+}
+
+function getGrantedFeatDetailsGainedAtLevel(level) {
+    if (level <= 1) {
+        return getGrantedFeatDetailsAtLevel(level);
+    }
+
+    const current = getGrantedFeatDetailsAtLevel(level);
+    const previousNames = new Set(
+        getGrantedFeatDetailsAtLevel(level - 1)
+            .map(detail => detail.name.toLowerCase())
+    );
+
+    return current.filter(detail => !previousNames.has(detail.name.toLowerCase()));
+}
+
 function getAllOwnedFeatNamesPriorTo(beforeLevel) {
-    const selectedFeats = getSelectedFeatsPriorTo(beforeLevel);
-    const raceFeats = getRaceFeatNames();
-    const classProficiencies = getClassProficiencyFeatsUpTo(beforeLevel);
-    const classFeatures = getClassFeatureFeatNamesUpTo(beforeLevel, false);
-    return [...raceFeats, ...classProficiencies, ...classFeatures, ...selectedFeats];
+    const cappedLevel = Math.max(0, beforeLevel - 1);
+    return Array.from(getEffectiveOwnedFeatDetailsAtLevel(cappedLevel).values()).map(detail => detail.name);
 }
 
 function getSaveBonus(stat) {
@@ -427,20 +887,18 @@ function getFeatSkillBonusAtLevel(level, skillKey) {
     if (!normalizedSkill) return 0;
 
     let totalBonus = 0;
-    for (let lv = 1; lv <= level; lv++) {
-        const selectedFeats = getSelectedFeatsAtLevel(lv);
-        selectedFeats.forEach(rawFeatName => {
-            const featName = resolveFeatName(rawFeatName);
-            const featInfo = featData[featName];
-            if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
+    const ownedFeats = getEffectiveOwnedFeatDetailsAtLevel(level);
+    ownedFeats.forEach(detail => {
+        const featName = resolveFeatName(detail.name);
+        const featInfo = featData[featName];
+        if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
 
-            Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
-                const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
-                if (normalizedEffectSkill !== normalizedSkill) return;
-                totalBonus += parseStatBonusValue(rawBonus);
-            });
+        Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
+            const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
+            if (normalizedEffectSkill !== normalizedSkill) return;
+            totalBonus += parseStatBonusValue(rawBonus);
         });
-    }
+    });
 
     return totalBonus;
 }
@@ -569,6 +1027,24 @@ function parseStatBonusValue(rawValue) {
     return match ? parseInt(match[0], 10) : 0;
 }
 
+function parseStatEffectEntry(rawValue) {
+    if (rawValue && typeof rawValue === 'object' && !Array.isArray(rawValue)) {
+        const valueRaw = rawValue.value ?? rawValue.amount ?? rawValue.bonus ?? rawValue.modifier ?? 0;
+        const value = parseStatBonusValue(valueRaw);
+        const isSoft = Boolean(rawValue.soft || rawValue.isSoft || rawValue.softOnly || rawValue.softStat);
+        const rawCap = rawValue.softCap ?? rawValue.cap ?? rawValue.softCapTotal;
+        const parsedCap = rawCap === null || rawCap === undefined ? null : parseInt(rawCap, 10);
+        const softCap = Number.isNaN(parsedCap) ? null : parsedCap;
+        return { value, isSoft, softCap };
+    }
+
+    return {
+        value: parseStatBonusValue(rawValue),
+        isSoft: false,
+        softCap: null
+    };
+}
+
 function calculateStatProgression() {
     const baseStats = getStats();
     const raceInfo = getSelectedRace();
@@ -595,6 +1071,11 @@ function calculateStatProgression() {
             cha: previous.cha
         };
         const appliedBonuses = [];
+        const previousSoftBonusTotals = level === 1
+            ? { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }
+            : { ...(computed[level - 2].softBonusTotals || { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 }) };
+        const currentSoftBonusTotals = { ...previousSoftBonusTotals };
+        const softAppliedBonuses = [];
 
         if (level === 1 && raceInfo) {
             STAT_KEYS.forEach(statKey => {
@@ -619,10 +1100,26 @@ function calculateStatProgression() {
             extras.forEach(extra => {
                 const statKey = normalizeStatKey(extra.name);
                 if (!statKey || !Array.isArray(extra.values)) return;
-                const bonus = parseStatBonusValue(extra.values[classLevel - 1]);
+                const parsedEffect = parseStatEffectEntry(extra.values[classLevel - 1]);
+                const bonus = parsedEffect.value;
                 if (bonus !== 0) {
-                    current[statKey] += bonus;
-                    appliedBonuses.push(`${selectedClass} ${bonus > 0 ? '+' : ''}${bonus} ${STAT_LABELS[statKey]}`);
+                    if (parsedEffect.isSoft) {
+                        let appliedSoftBonus = bonus;
+                        if (parsedEffect.softCap !== null) {
+                            const alreadyApplied = currentSoftBonusTotals[statKey] || 0;
+                            const remaining = parsedEffect.softCap - alreadyApplied;
+                            appliedSoftBonus = Math.max(0, Math.min(bonus, remaining));
+                        }
+
+                        if (appliedSoftBonus !== 0) {
+                            currentSoftBonusTotals[statKey] += appliedSoftBonus;
+                            const capText = parsedEffect.softCap !== null ? ` (soft cap ${parsedEffect.softCap})` : '';
+                            softAppliedBonuses.push(`${selectedClass} ${appliedSoftBonus > 0 ? '+' : ''}${appliedSoftBonus} ${STAT_LABELS[statKey]} (soft)${capText}`);
+                        }
+                    } else {
+                        current[statKey] += bonus;
+                        appliedBonuses.push(`${selectedClass} ${bonus > 0 ? '+' : ''}${bonus} ${STAT_LABELS[statKey]}`);
+                    }
                 }
             });
         }
@@ -636,15 +1133,46 @@ function calculateStatProgression() {
             for (const [rawKey, rawValue] of Object.entries(featStats)) {
                 const statKey = normalizeStatKey(rawKey);
                 if (!statKey) continue;
-                const bonus = parseStatBonusValue(rawValue);
+                const parsedEffect = parseStatEffectEntry(rawValue);
+                const bonus = parsedEffect.value;
                 if (bonus !== 0) {
-                    current[statKey] += bonus;
-                    appliedBonuses.push(`${selectedFeat} ${bonus > 0 ? '+' : ''}${bonus} ${STAT_LABELS[statKey]}`);
+                    if (parsedEffect.isSoft) {
+                        let appliedSoftBonus = bonus;
+                        if (parsedEffect.softCap !== null) {
+                            const alreadyApplied = currentSoftBonusTotals[statKey] || 0;
+                            const remaining = parsedEffect.softCap - alreadyApplied;
+                            appliedSoftBonus = Math.max(0, Math.min(bonus, remaining));
+                        }
+
+                        if (appliedSoftBonus !== 0) {
+                            currentSoftBonusTotals[statKey] += appliedSoftBonus;
+                            const capText = parsedEffect.softCap !== null ? ` (soft cap ${parsedEffect.softCap})` : '';
+                            softAppliedBonuses.push(`${selectedFeat} ${appliedSoftBonus > 0 ? '+' : ''}${appliedSoftBonus} ${STAT_LABELS[statKey]} (soft)${capText}`);
+                        }
+                    } else {
+                        current[statKey] += bonus;
+                        appliedBonuses.push(`${selectedFeat} ${bonus > 0 ? '+' : ''}${bonus} ${STAT_LABELS[statKey]}`);
+                    }
                 }
             }
         });
 
-        computed.push({ ...current, appliedBonuses });
+        const softStats = {
+            str: current.str + (currentSoftBonusTotals.str || 0),
+            dex: current.dex + (currentSoftBonusTotals.dex || 0),
+            con: current.con + (currentSoftBonusTotals.con || 0),
+            int: current.int + (currentSoftBonusTotals.int || 0),
+            wis: current.wis + (currentSoftBonusTotals.wis || 0),
+            cha: current.cha + (currentSoftBonusTotals.cha || 0)
+        };
+
+        computed.push({
+            ...current,
+            appliedBonuses,
+            softStats,
+            softBonusTotals: currentSoftBonusTotals,
+            softAppliedBonuses
+        });
     }
 
     levelStatData = computed;
@@ -707,7 +1235,7 @@ function calculateMulticlassProgression() {
 
         // Use class LEVEL COUNT of each class selected so far
         let totalBAB = 0;
-        let maxFort = 0, maxRef = 0, maxWill = 0;
+        let totalFort = 0, totalRef = 0, totalWill = 0;
         let totalHP = 0;
         let fortBonus = 0, refBonus = 0, willBonus = 0;
 
@@ -738,12 +1266,12 @@ function calculateMulticlassProgression() {
                 debugLog(`      levelProgression[${progressionIndex}] = [BAB:${bab}, Fort:${baseFort}, Ref:${baseRef}, Will:${baseWill}, HP:${hp}]`);
                 
                 totalBAB += bab;
-                maxFort = Math.max(maxFort, baseFort);
-                maxRef = Math.max(maxRef, baseRef);
-                maxWill = Math.max(maxWill, baseWill);
+                totalFort += baseFort;
+                totalRef += baseRef;
+                totalWill += baseWill;
                 totalHP += hp;
                 
-                debugLog(`      Running totals - BAB sum: ${totalBAB}, Fort max: ${maxFort}, Ref max: ${maxRef}, Will max: ${maxWill}, HP sum: ${totalHP}`);
+                debugLog(`      Running totals - BAB sum: ${totalBAB}, Fort sum: ${totalFort}, Ref sum: ${totalRef}, Will sum: ${totalWill}, HP sum: ${totalHP}`);
             } else {
                 debugWarn(`      ⚠ No levelProgression data for ${cls} class level ${classLevel}`);
             }
@@ -763,9 +1291,9 @@ function calculateMulticlassProgression() {
             // This would be custom logic per game
         }
 
-        const finalFort = maxFort + fortBonus;
-        const finalRef = maxRef + refBonus;
-        const finalWill = maxWill + willBonus;
+        const finalFort = totalFort + fortBonus;
+        const finalRef = totalRef + refBonus;
+        const finalWill = totalWill + willBonus;
 
         levelData[level - 1].bab = totalBAB;
         levelData[level - 1].fort = finalFort;
@@ -775,9 +1303,9 @@ function calculateMulticlassProgression() {
 
         debugLog(`  Final values (with ability bonuses):`);
         debugLog(`    BAB: ${totalBAB} (sum of all classes)`);
-        debugLog(`    Fort: ${finalFort} (max ${maxFort} + ability ${fortBonus})`);
-        debugLog(`    Ref: ${finalRef} (max ${maxRef} + ability ${refBonus})`);
-        debugLog(`    Will: ${finalWill} (max ${maxWill} + ability ${willBonus})`);
+        debugLog(`    Fort: ${finalFort} (sum ${totalFort} + ability ${fortBonus})`);
+        debugLog(`    Ref: ${finalRef} (sum ${totalRef} + ability ${refBonus})`);
+        debugLog(`    Will: ${finalWill} (sum ${totalWill} + ability ${willBonus})`);
         debugLog(`    HP: ${totalHP} (sum of all classes)`);
     }
 
@@ -791,6 +1319,7 @@ function updateGrid() {
     const tbody = document.getElementById('levelGrid');
     tbody.innerHTML = '';
     const classes = [''].concat(Object.keys(classData).sort());
+    const removedFeatDetailsByBuild = getRemovedFeatDetailsAtLevel(levelData.length);
 
     for (let level = 1; level <= 30; level++) {
         const row = document.createElement('tr');
@@ -874,6 +1403,12 @@ function updateGrid() {
                         }
                     });
 
+                    // Check class progression requirements (anyOf / noneOf class blocks)
+                    const classRequirementErrors = getClassRequirementErrors(classReqs.class, level);
+                    classRequirementErrors.forEach(message => {
+                        errors.push(`${newClass} ${message}`);
+                    });
+
                     if (errors.length > 0 && !isKnowWhatImDoingEnabled()) {
                         alert(`Cannot select ${newClass} at level ${level}:\n\n${errors.join('\n')}`);
                         classSelect.value = previousClass;
@@ -929,17 +1464,73 @@ function updateGrid() {
         const classFeatsCell = document.createElement('td');
         const selectedClass = levelData[level - 1].class;
         const classFeatureParts = getClassFeatureParts(selectedClass, level);
-        const hasClassFeatSlot = hasClassFeatureFlag(selectedClass, level, 'class feat');
+        const classFeatSlotContext = getClassFeatSlotContext(selectedClass, level);
+        const hasClassFeatSlotFromTrack = Boolean(classFeatSlotContext);
+        const hasClassFeatSlot = hasClassFeatSlotFromTrack || hasClassFeatureFlag(selectedClass, level, 'class feat');
+        const classFeatSlotLabel = getClassFeatSlotLabel(classFeatSlotContext);
         const hasBonusFeatFromClass = hasClassFeatureFlag(selectedClass, level, 'bonus feat');
         const hasGeneralFeatSlot = GENERAL_FEAT_LEVELS.includes(level);
         const hasQuickToMasterSlot = level === 1 && hasQuickToMasterFeat();
         const hasBonusFeatSlot = hasBonusFeatFromClass;
+        const removedFeatDetailsAtLevel = getRemovedFeatDetailsAtLevel(level);
+        const removedFeatDetails = removedFeatDetailsByBuild.filter(detail => detail.grantedLevel === level);
+        const removedFeatNameSet = new Set([
+            ...removedFeatDetailsAtLevel.map(detail => detail.name.toLowerCase()),
+            ...removedFeatDetails.map(detail => detail.name.toLowerCase())
+        ]);
+        const removedFeatDetailMap = new Map();
+        removedFeatDetailsAtLevel.forEach(detail => {
+            removedFeatDetailMap.set(detail.name.toLowerCase(), detail);
+        });
+        removedFeatDetails.forEach(detail => {
+            const key = detail.name.toLowerCase();
+            if (!removedFeatDetailMap.has(key)) {
+                removedFeatDetailMap.set(key, detail);
+            }
+        });
+        const renderedRemovedClassFeatNames = new Set();
+        const renderedRemovedRacialFeatNames = new Set();
+
+        const createRemovedFeatLabel = (detail) => {
+            const label = document.createElement('span');
+            label.className = 'feat-label removed-feat';
+            label.textContent = detail.name;
+
+            const removedByText = Array.from(detail.removedBy).join(', ');
+            const reasonText = Array.from(detail.reasons).join('; ');
+            const tooltipParts = [];
+            if (removedByText) tooltipParts.push(`Removed by: ${removedByText}`);
+            if (reasonText) tooltipParts.push(`Reason: ${reasonText}`);
+            label.title = tooltipParts.join('\n');
+
+            return label;
+        };
+
+        const appendRemovedClassFeatLabel = (featName) => {
+            const key = resolveFeatName(featName).toLowerCase();
+            const detail = removedFeatDetailMap.get(key);
+            if (!detail || renderedRemovedClassFeatNames.has(key)) return;
+            classFeatsCell.appendChild(createRemovedFeatLabel(detail));
+            renderedRemovedClassFeatNames.add(key);
+        };
+
+        const appendRemovedRacialFeatLabel = (featName) => {
+            const key = resolveFeatName(featName).toLowerCase();
+            const detail = removedFeatDetailMap.get(key);
+            if (!detail || renderedRemovedRacialFeatNames.has(key)) return;
+            racialFeatsCell.appendChild(createRemovedFeatLabel(detail));
+            renderedRemovedRacialFeatNames.add(key);
+        };
 
         if (selectedClass) {
             const classLevelForRow = getClassLevelUpTo(selectedClass, level);
             if (classLevelForRow === 1) {
                 const classProficiencies = getClassProficiencyFeatsForClass(selectedClass);
                 classProficiencies.forEach(prof => {
+                    if (removedFeatNameSet.has(resolveFeatName(prof).toLowerCase())) {
+                        appendRemovedClassFeatLabel(prof);
+                        return;
+                    }
                     const label = document.createElement('span');
                     label.className = 'feat-label';
                     label.textContent = `Class: ${prof}`;
@@ -950,29 +1541,70 @@ function updateGrid() {
 
         if (classFeatureParts.length > 0) {
             classFeatureParts.forEach(classFeat => {
+                if (removedFeatNameSet.has(resolveFeatName(classFeat).toLowerCase())) {
+                    appendRemovedClassFeatLabel(classFeat);
+                    return;
+                }
                 const label = document.createElement('span');
                 label.className = 'feat-label';
                 label.textContent = classFeat;
                 classFeatsCell.appendChild(label);
             });
         }
+
+        const grantedFeatDetails = getGrantedFeatDetailsGainedAtLevel(level);
+        grantedFeatDetails.forEach(detail => {
+            if (removedFeatNameSet.has(detail.name.toLowerCase())) {
+                appendRemovedClassFeatLabel(detail.name);
+                return;
+            }
+            const label = document.createElement('span');
+            label.className = 'feat-label granted-feat';
+            label.textContent = detail.name;
+            label.title = `Granted by: ${Array.from(detail.grantedBy).join(', ')}`;
+            classFeatsCell.appendChild(label);
+        });
+
+        const removedClassFeatDetails = removedFeatDetails.filter(detail => !detail.sources.has('race'));
+        removedClassFeatDetails.forEach(detail => {
+            appendRemovedClassFeatLabel(detail.name);
+        });
         row.appendChild(classFeatsCell);
 
         const racialFeatsCell = document.createElement('td');
+        const removedRacialFeatDetails = removedFeatDetails.filter(detail => detail.sources.has('race'));
         if (level === 1) {
             const racialFeats = getRaceFeatNames();
             if (racialFeats.length > 0) {
                 racialFeats.forEach(racialFeat => {
+                    if (removedFeatNameSet.has(resolveFeatName(racialFeat).toLowerCase())) {
+                        appendRemovedRacialFeatLabel(racialFeat);
+                        return;
+                    }
                     const label = document.createElement('span');
                     label.className = 'feat-label';
                     label.textContent = racialFeat;
                     racialFeatsCell.appendChild(label);
                 });
-            } else {
+            }
+
+            if (removedRacialFeatDetails.length > 0) {
+                removedRacialFeatDetails.forEach(detail => {
+                    appendRemovedRacialFeatLabel(detail.name);
+                });
+            }
+
+            if (racialFeats.length === 0 && removedRacialFeatDetails.length === 0) {
                 racialFeatsCell.textContent = '---';
             }
         } else {
-            racialFeatsCell.textContent = '---';
+            if (removedRacialFeatDetails.length > 0) {
+                removedRacialFeatDetails.forEach(detail => {
+                    appendRemovedRacialFeatLabel(detail.name);
+                });
+            } else {
+                racialFeatsCell.textContent = '---';
+            }
         }
         row.appendChild(racialFeatsCell);
 
@@ -999,7 +1631,7 @@ function updateGrid() {
         classFeatSelect.id = `classFeat_${level}`;
         const classFeatBlankOption = document.createElement('option');
         classFeatBlankOption.value = '';
-        classFeatBlankOption.textContent = '-- Select Class Feat --';
+        classFeatBlankOption.textContent = `-- Select ${classFeatSlotLabel} --`;
         classFeatSelect.appendChild(classFeatBlankOption);
 
         // Bonus feat selector
@@ -1010,7 +1642,7 @@ function updateGrid() {
         bonusFeatBlankOption.value = '';
         bonusFeatBlankOption.textContent = '-- Select Bonus Feat --';
         bonusFeatSelect.appendChild(bonusFeatBlankOption);
-        const bonusFeatOptions = getAvailableBonusFeatOptions(selectedClass, level);
+        const bonusFeatOptionsRaw = getAvailableBonusFeatOptions(selectedClass, level);
 
         // General feat selector
         const generalFeatCell = document.createElement('td');
@@ -1033,35 +1665,62 @@ function updateGrid() {
             levelData[level - 1].extraGeneralFeat = '';
         }
 
-        Object.keys(featData).sort().forEach(feat => {
-            const isEpicFeat = selectedClass && classData[selectedClass] &&
-                classData[selectedClass].epicBonusFeats &&
-                classData[selectedClass].epicBonusFeats.includes(feat);
+        const allFeatNames = Object.keys(featData).sort();
+        const classFeatOptionsRaw = hasClassFeatSlotFromTrack
+            ? getAvailableClassFeatOptions(selectedClass, level, classFeatSlotContext)
+            : allFeatNames;
+        const classFeatOptions = filterAlreadyTakenFeats(
+            classFeatOptionsRaw,
+            level,
+            'classFeat',
+            levelData[level - 1].classFeat || ''
+        );
+        const generalFeatOptions = filterAlreadyTakenFeats(
+            allFeatNames,
+            level,
+            'generalFeat',
+            levelData[level - 1].generalFeat || ''
+        );
+        const quickToMasterFeatOptions = quickToMasterFeatSelect
+            ? filterAlreadyTakenFeats(
+                allFeatNames,
+                level,
+                'extraGeneralFeat',
+                levelData[level - 1].extraGeneralFeat || ''
+            )
+            : [];
+        const bonusFeatOptions = filterAlreadyTakenFeats(
+            bonusFeatOptionsRaw,
+            level,
+            'bonusFeat',
+            levelData[level - 1].bonusFeat || ''
+        );
 
-            if (isEpicFeat && level < 21) {
-                return;
-            }
-
+        classFeatOptions.forEach(feat => {
             const classOption = document.createElement('option');
             classOption.value = feat;
             classOption.textContent = feat;
             if (levelData[level - 1].classFeat === feat) classOption.selected = true;
             classFeatSelect.appendChild(classOption);
+        });
 
+        generalFeatOptions.forEach(feat => {
             const generalOption = document.createElement('option');
             generalOption.value = feat;
             generalOption.textContent = feat;
             if (levelData[level - 1].generalFeat === feat) generalOption.selected = true;
             generalFeatSelect.appendChild(generalOption);
+        });
 
-            if (quickToMasterFeatSelect) {
+        if (quickToMasterFeatSelect) {
+            quickToMasterFeatOptions.forEach(feat => {
                 const quickToMasterOption = document.createElement('option');
                 quickToMasterOption.value = feat;
                 quickToMasterOption.textContent = feat;
                 if (levelData[level - 1].extraGeneralFeat === feat) quickToMasterOption.selected = true;
                 quickToMasterFeatSelect.appendChild(quickToMasterOption);
-            }
-        });
+            });
+        }
 
         bonusFeatOptions.forEach(feat => {
             const bonusOption = document.createElement('option');
@@ -1076,6 +1735,24 @@ function updateGrid() {
             classFeatSelect.value = '';
             classFeatSelect.disabled = true;
             classFeatSelect.title = 'No class feat available at this level';
+        } else if (hasClassFeatSlotFromTrack) {
+            const selectedClassFeat = levelData[level - 1].classFeat || '';
+            const matchingClassFeat = selectedClassFeat
+                ? classFeatOptions.find(feat => feat.toLowerCase() === selectedClassFeat.toLowerCase())
+                : '';
+            const isAllowedClassFeat = selectedClassFeat ? Boolean(matchingClassFeat) : true;
+
+            if (!isAllowedClassFeat) {
+                levelData[level - 1].classFeat = '';
+                classFeatSelect.value = '';
+            } else if (matchingClassFeat && matchingClassFeat !== selectedClassFeat) {
+                levelData[level - 1].classFeat = matchingClassFeat;
+                classFeatSelect.value = matchingClassFeat;
+            }
+
+            if (classFeatOptions.length === 0) {
+                classFeatSelect.title = `No available ${classFeatSlotLabel} options configured`;
+            }
         }
 
         if (!hasBonusFeatSlot) {
@@ -1325,14 +2002,40 @@ function updateStatGrid() {
 
         STAT_KEYS.forEach(statKey => {
             const statCell = document.createElement('td');
-            statCell.textContent = formatStatWithModifier(levelStats[statKey]);
+            const hardValue = levelStats[statKey];
+            const softValue = levelStats.softStats && typeof levelStats.softStats[statKey] === 'number'
+                ? levelStats.softStats[statKey]
+                : hardValue;
+
+            const statWrap = document.createElement('div');
+            statWrap.className = 'skill-cell-wrap';
+
+            const hardValueLabel = document.createElement('span');
+            hardValueLabel.className = 'skill-total';
+            hardValueLabel.textContent = `${formatStatWithModifier(hardValue)} /`;
+
+            const softValueLabel = document.createElement('span');
+            softValueLabel.className = 'skill-total';
+            softValueLabel.textContent = formatStatWithModifier(softValue);
+            softValueLabel.title = `${STAT_LABELS[statKey]} soft score (not used for prerequisites)`;
+
+            statWrap.appendChild(hardValueLabel);
+            statWrap.appendChild(softValueLabel);
+            statCell.appendChild(statWrap);
             row.appendChild(statCell);
         });
 
         const sourceCell = document.createElement('td');
         sourceCell.className = 'stat-source';
-        sourceCell.textContent = levelStats.appliedBonuses && levelStats.appliedBonuses.length > 0
+        const hardBonusText = levelStats.appliedBonuses && levelStats.appliedBonuses.length > 0
             ? levelStats.appliedBonuses.join(', ')
+            : '';
+        const softBonusText = levelStats.softAppliedBonuses && levelStats.softAppliedBonuses.length > 0
+            ? levelStats.softAppliedBonuses.join(', ')
+            : '';
+
+        sourceCell.textContent = [hardBonusText, softBonusText].filter(Boolean).join(', ')
+            ? [hardBonusText, softBonusText].filter(Boolean).join(', ')
             : '---';
         row.appendChild(sourceCell);
 
@@ -1368,6 +2071,49 @@ function getSelectedFeatsAtLevel(level) {
     return selected;
 }
 
+function getTakenFeatNameSet({ excludeLevel = null, excludeField = '' } = {}) {
+    const taken = new Set();
+
+    for (let lv = 1; lv <= levelData.length; lv++) {
+        const entry = levelData[lv - 1] || {};
+        const selectedByField = [
+            { key: 'generalFeat', value: entry.generalFeat },
+            { key: 'extraGeneralFeat', value: entry.extraGeneralFeat },
+            { key: 'classFeat', value: entry.classFeat },
+            { key: 'bonusFeat', value: entry.bonusFeat }
+        ];
+
+        selectedByField.forEach(item => {
+            if (!item.value) return;
+            if (excludeLevel === lv && excludeField === item.key) return;
+            taken.add(resolveFeatName(item.value).toLowerCase());
+        });
+
+        if (Array.isArray(entry.feats)) {
+            entry.feats.forEach(feat => {
+                if (!feat || typeof feat !== 'string') return;
+                taken.add(resolveFeatName(feat).toLowerCase());
+            });
+        }
+    }
+
+    return taken;
+}
+
+function filterAlreadyTakenFeats(options, level, fieldKey, currentValue = '') {
+    const taken = getTakenFeatNameSet({ excludeLevel: level, excludeField: fieldKey });
+    const currentKey = currentValue
+        ? resolveFeatName(currentValue).toLowerCase()
+        : '';
+
+    return options.filter(featName => {
+        const resolvedName = resolveFeatName(featName);
+        const key = resolvedName.toLowerCase();
+        if (currentKey && key === currentKey) return true;
+        return !taken.has(key);
+    });
+}
+
 function getClassFeatureParts(selectedClass, level) {
     if (!selectedClass || !classData[selectedClass] || !Array.isArray(classData[selectedClass].feats)) {
         return [];
@@ -1390,6 +2136,156 @@ function hasClassFeatureFlag(selectedClass, level, flagName) {
         if (normalized === `epic ${target}`) return true;
         return false;
     });
+}
+
+function getClassFeatTrackEntries(selectedClass) {
+    if (!selectedClass || !classData[selectedClass]) return [];
+    const rawTracks = classData[selectedClass].classFeatTracks;
+    if (!rawTracks) return [];
+
+    if (Array.isArray(rawTracks)) {
+        return rawTracks
+            .filter(track => track && typeof track === 'object')
+            .map((track, index) => ({
+                id: track.id || `track_${index + 1}`,
+                track
+            }));
+    }
+
+    if (typeof rawTracks === 'object') {
+        return Object.entries(rawTracks)
+            .filter(([, track]) => track && typeof track === 'object')
+            .map(([id, track]) => ({ id, track }));
+    }
+
+    return [];
+}
+
+function doesClassFeatSlotMatch(slot, classLevel, characterLevel) {
+    if (!slot || typeof slot !== 'object') return false;
+
+    if (Array.isArray(slot.classLevels) && slot.classLevels.length > 0) {
+        return slot.classLevels.map(value => parseInt(value, 10)).includes(classLevel);
+    }
+
+    if (Array.isArray(slot.levels) && slot.levels.length > 0) {
+        return slot.levels.map(value => parseInt(value, 10)).includes(classLevel);
+    }
+
+    const classLevelValue = slot.classLevel ?? slot.level;
+    if (classLevelValue !== undefined && classLevelValue !== null) {
+        return classLevel === (parseInt(classLevelValue, 10) || 0);
+    }
+
+    const minClassLevel = slot.minClassLevel;
+    const maxClassLevel = slot.maxClassLevel;
+    if (minClassLevel !== undefined || maxClassLevel !== undefined) {
+        const min = minClassLevel !== undefined ? parseInt(minClassLevel, 10) : Number.NEGATIVE_INFINITY;
+        const max = maxClassLevel !== undefined ? parseInt(maxClassLevel, 10) : Number.POSITIVE_INFINITY;
+        return classLevel >= min && classLevel <= max;
+    }
+
+    const minCharacterLevel = slot.minCharacterLevel;
+    const maxCharacterLevel = slot.maxCharacterLevel;
+    if (minCharacterLevel !== undefined || maxCharacterLevel !== undefined) {
+        const min = minCharacterLevel !== undefined ? parseInt(minCharacterLevel, 10) : Number.NEGATIVE_INFINITY;
+        const max = maxCharacterLevel !== undefined ? parseInt(maxCharacterLevel, 10) : Number.POSITIVE_INFINITY;
+        return characterLevel >= min && characterLevel <= max;
+    }
+
+    return false;
+}
+
+function getClassFeatSlotContexts(selectedClass, level) {
+    if (!selectedClass || !classData[selectedClass]) return [];
+    const classLevel = getClassLevelUpTo(selectedClass, level);
+    if (classLevel <= 0) return [];
+
+    const contexts = [];
+    getClassFeatTrackEntries(selectedClass).forEach(entry => {
+        const slots = Array.isArray(entry.track.slots) ? entry.track.slots : [];
+        slots.forEach((slot, slotIndex) => {
+            if (!doesClassFeatSlotMatch(slot, classLevel, level)) return;
+            const count = Math.max(1, parseInt(slot.count, 10) || 1);
+            for (let index = 0; index < count; index++) {
+                contexts.push({
+                    trackId: entry.id,
+                    track: entry.track,
+                    slot,
+                    slotIndex,
+                    optionIndex: index
+                });
+            }
+        });
+    });
+
+    return contexts;
+}
+
+function getClassFeatSlotContext(selectedClass, level) {
+    const contexts = getClassFeatSlotContexts(selectedClass, level);
+    return contexts.length > 0 ? contexts[0] : null;
+}
+
+function getClassFeatSlotLabel(slotContext) {
+    if (!slotContext || !slotContext.track) return 'Class Feat';
+    if (slotContext.slot && typeof slotContext.slot.label === 'string' && slotContext.slot.label.trim()) {
+        return slotContext.slot.label.trim();
+    }
+    const tier = (slotContext.slot && slotContext.slot.tier)
+        ? slotContext.slot.tier.toString().trim().toLowerCase()
+        : '';
+
+    if (tier === 'epic') {
+        return slotContext.track.epicLabel || slotContext.track.label || 'Epic Class Feat';
+    }
+
+    return slotContext.track.label || 'Class Feat';
+}
+
+function getAvailableClassFeatOptions(selectedClass, level, slotContext = null) {
+    const effectiveContext = slotContext || getClassFeatSlotContext(selectedClass, level);
+    if (!effectiveContext || !effectiveContext.track) return [];
+
+    const optionEntries = Array.isArray(effectiveContext.track.options)
+        ? effectiveContext.track.options
+        : [];
+    const slotTier = effectiveContext.slot && effectiveContext.slot.tier
+        ? effectiveContext.slot.tier.toString().trim().toLowerCase()
+        : '';
+
+    const priorOwnedFeatSet = new Set(
+        Array.from(getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: false }).keys())
+    );
+
+    const seen = new Set();
+    const options = [];
+
+    optionEntries.forEach(entry => {
+        let featName = '';
+        let when = 'always';
+        let optionTier = '';
+
+        if (typeof entry === 'string') {
+            featName = entry;
+        } else if (entry && typeof entry === 'object') {
+            featName = entry.feat || '';
+            when = entry.when ?? 'always';
+            optionTier = entry.tier ? entry.tier.toString().trim().toLowerCase() : '';
+        }
+
+        if (!featName || typeof featName !== 'string') return;
+        if (slotTier && optionTier && slotTier !== optionTier) return;
+        if (!doesGrantedFeatConditionMatch(when, level, priorOwnedFeatSet)) return;
+
+        const resolvedFeatName = resolveFeatName(featName);
+        const key = resolvedFeatName.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        options.push(resolvedFeatName);
+    });
+
+    return options.sort((left, right) => left.localeCompare(right));
 }
 
 function getAvailableBonusFeatOptions(selectedClass, level) {
@@ -1444,6 +2340,108 @@ function getClassBabRequirement(classReqs) {
     if (raw === null || raw === undefined) return null;
     const match = raw.toString().match(/\d+/);
     return match ? parseInt(match[0], 10) : null;
+}
+
+function getClassLevelMapPriorTo(level) {
+    const levelLimit = Math.max(0, (parseInt(level, 10) || 0) - 1);
+    const counts = new Map();
+
+    for (let index = 0; index < levelLimit; index++) {
+        const className = (levelData[index] && levelData[index].class) ? levelData[index].class : '';
+        if (!className) continue;
+        const key = className.toLowerCase();
+        counts.set(key, (counts.get(key) || 0) + 1);
+    }
+
+    return counts;
+}
+
+function getClassLevelsFromMap(classLevelMap, className) {
+    if (!className || !classLevelMap) return 0;
+    return classLevelMap.get(className.toLowerCase()) || 0;
+}
+
+function getClassRequirementErrors(rawClassRequirement, level) {
+    if (!rawClassRequirement) return [];
+
+    const classLevelMap = getClassLevelMapPriorTo(level);
+    const errors = [];
+
+    const evaluateRequirement = (requirement, fallbackType = null) => {
+        if (!requirement || typeof requirement !== 'object') return;
+
+        const type = (requirement.type || fallbackType || '').toString().toLowerCase();
+        const classList = Array.isArray(requirement.classes)
+            ? requirement.classes.filter(name => typeof name === 'string' && name.trim().length > 0)
+            : [];
+        const requiredLevels = Math.max(1, parseInt(requirement.levels ?? requirement.level ?? 1, 10) || 1);
+        const excludeList = Array.isArray(requirement.exclude)
+            ? requirement.exclude.filter(name => typeof name === 'string' && name.trim().length > 0)
+            : [];
+
+        if (type === 'anyof') {
+            if (classList.length > 0) {
+                const meetsAny = classList.some(className => getClassLevelsFromMap(classLevelMap, className) >= requiredLevels);
+                if (!meetsAny) {
+                    errors.push(`requires ${requiredLevels} level(s) in one of: ${classList.join(' / ')}`);
+                }
+            }
+
+            if (excludeList.length > 0) {
+                const invalidOwned = excludeList.filter(className => getClassLevelsFromMap(classLevelMap, className) > 0);
+                if (invalidOwned.length > 0) {
+                    errors.push(`cannot have levels in: ${invalidOwned.join(', ')}`);
+                }
+            }
+
+            return;
+        }
+
+        if (type === 'noneof') {
+            if (classList.length > 0) {
+                const invalidOwned = classList.filter(className => getClassLevelsFromMap(classLevelMap, className) > 0);
+                if (invalidOwned.length > 0) {
+                    errors.push(`cannot have levels in: ${invalidOwned.join(', ')}`);
+                }
+            }
+
+            return;
+        }
+
+        if (classList.length > 0) {
+            const meetsAny = classList.some(className => getClassLevelsFromMap(classLevelMap, className) >= requiredLevels);
+            if (!meetsAny) {
+                errors.push(`requires ${requiredLevels} level(s) in one of: ${classList.join(' / ')}`);
+            }
+        }
+    };
+
+    if (Array.isArray(rawClassRequirement)) {
+        rawClassRequirement.forEach(requirement => {
+            if (typeof requirement === 'string') {
+                evaluateRequirement({ type: 'anyOf', levels: 1, classes: [requirement] });
+                return;
+            }
+            evaluateRequirement(requirement);
+        });
+        return errors;
+    }
+
+    if (typeof rawClassRequirement === 'object') {
+        if (rawClassRequirement.anyOf) {
+            evaluateRequirement(rawClassRequirement.anyOf, 'anyOf');
+        }
+
+        if (rawClassRequirement.noneOf) {
+            evaluateRequirement(rawClassRequirement.noneOf, 'noneOf');
+        }
+
+        if (rawClassRequirement.type || rawClassRequirement.classes || rawClassRequirement.exclude) {
+            evaluateRequirement(rawClassRequirement);
+        }
+    }
+
+    return errors;
 }
 
 function getMissingClassFeatRequirements(rawFeatRequirements, priorFeats) {
@@ -1546,11 +2544,9 @@ function validateFeatRequirements(level, featName, stats, mods) {
 
     // Check feat prerequisites (other feats must be taken first)
     if (reqs.feats) {
-        const priorFeats = [
-            ...getAllOwnedFeatNamesPriorTo(level),
-            ...getClassProficiencyFeatsUpTo(level + 1),
-            ...getClassFeatureFeatNamesUpTo(level, true)
-        ];
+        const priorFeats = Array.from(
+            getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: false }).values()
+        ).map(detail => detail.name);
 
         const priorFeatSet = new Set(
             priorFeats
@@ -1783,6 +2779,12 @@ function validateCharacterRealtime() {
             if (effectiveSkill < required) {
                 issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires ${skill} ${required} (have ${effectiveSkill})`, severity: 'error' });
             }
+        });
+
+        // Check class progression requirements (anyOf / noneOf class blocks)
+        const classRequirementErrors = getClassRequirementErrors(classReqs.class, level);
+        classRequirementErrors.forEach(message => {
+            issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} ${message}`, severity: 'error' });
         });
 
         // Check feat requirements

@@ -736,6 +736,23 @@
     "unavailableFeats": [
       "weapon specialization"
     ],
+    "classFeatTracks": {
+      "cleric_path": {
+        "label": "Path Feat",
+        "slots": [
+          { "classLevel": 3, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Path of the Cleric", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Cloistered", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Defiler", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Evangelist", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Healer", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Seeker", "tier": "standard", "when": "always" },
+          { "feat": "Path of the Warpriest", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
@@ -1322,6 +1339,27 @@
       "weapon proficiency (martial)",
       "weapon proficiency (simple)"
     ],
+    "classFeatTracks": {
+      "druid_totem": {
+        "label": "Druid Totem",
+        "slots": [
+          { "classLevel": 1, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Druid Totem: Wolf (Predator)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Panther (Sneak)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Spider (Cunning)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Parrot (Beauty)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Eagle (Nobility)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Bear (Brawn)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Raven (Lore)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Bat (Mystery)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Rat (Creativity)", "tier": "standard", "when": "always" },
+          { "feat": "Druid Totem: Snake (Grace)", "tier": "standard", "when": "always" },
+          { "feat": "No Totem", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
@@ -1411,7 +1449,7 @@
       [20, 17, 11, 17, 240]
     ],
     "feats": [
-      "Animal Companion, Nature Sense, -balance",
+      "Animal Companion, Nature Sense, Druid Totem",
       "Woodland Stride",
       "Trackless Step",
       "Resist Nature's Lure",
@@ -1477,6 +1515,44 @@
       "aegis",
       "deterrence"
     ],
+    "classFeatTracks": {
+      "earthkin_defender_class_feat": {
+        "label": "Class Feat",
+        "epicLabel": "Epic Class Feat",
+        "slots": [
+          { "classLevel": 1, "tier": "standard", "count": 1 },
+          { "classLevel": 4, "tier": "standard", "count": 1 },
+          { "classLevel": 7, "tier": "standard", "count": 1 },
+          { "classLevel": 10, "tier": "standard", "count": 1 },
+          { "classLevel": 13, "tier": "epic", "count": 1 },
+          { "classLevel": 16, "tier": "epic", "count": 1 },
+          { "classLevel": 19, "tier": "epic", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Iron Stance", "tier": "standard", "when": "always" },
+
+          { "feat": "Safeguard I", "tier": "standard", "when": "always" },
+          { "feat": "Safeguard II", "tier": "standard", "when": { "featsAll": ["Safeguard I"] } },
+          { "feat": "Safeguard III", "tier": "epic", "when": { "allOf": [ { "featsAll": ["Safeguard II"] }, { "classLevel": { "class": "earthkin defender", "min": 11 } } ] } },
+
+          { "feat": "Debilitating Strike I", "tier": "standard", "when": "always" },
+          { "feat": "Debilitating Strike II", "tier": "standard", "when": { "featsAll": ["Debilitating Strike I"] } },
+          { "feat": "Debilitating Strike III", "tier": "epic", "when": { "allOf": [ { "featsAll": ["Debilitating Strike II"] }, { "classLevel": { "class": "earthkin defender", "min": 11 } } ] } },
+
+          { "feat": "Banner I", "tier": "standard", "when": "always" },
+          { "feat": "Banner II", "tier": "standard", "when": { "featsAll": ["Banner I"] } },
+          { "feat": "Banner III", "tier": "epic", "when": { "allOf": [ { "featsAll": ["Banner II"] }, { "classLevel": { "class": "earthkin defender", "min": 11 } } ] } },
+
+          { "feat": "Mounting Resistance I", "tier": "standard", "when": "always" },
+          { "feat": "Mounting Resistance II", "tier": "standard", "when": { "featsAll": ["Mounting Resistance I"] } },
+          { "feat": "Mounting Resistance III", "tier": "epic", "when": { "allOf": [ { "featsAll": ["Mounting Resistance II"] }, { "classLevel": { "class": "earthkin defender", "min": 11 } } ] } },
+
+          { "feat": "Magebane", "tier": "epic", "when": { "classLevel": { "class": "earthkin defender", "min": 11 } } },
+          { "feat": "Aegis", "tier": "epic", "when": { "classLevel": { "class": "earthkin defender", "min": 11 } } },
+          { "feat": "Deterrence", "tier": "epic", "when": { "classLevel": { "class": "earthkin defender", "min": 11 } } }
+        ]
+      }
+    },
     "hasSpellcasting": false,
     "maxLevel": 20,
     "levelProgression": [
@@ -2671,6 +2747,19 @@
       "shield proficiency",
       "weapon proficiency (martial)", "weapon proficiency (simple)"
     ],
+    "classFeatTracks": {
+      "knightly_traditions": {
+        "label": "Knightly Traditions",
+        "slots": [
+          { "classLevel": 1, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Knight Vanguard", "tier": "standard", "when": "always" },
+          { "feat": "Knight Protector", "tier": "standard", "when": "always" },
+          { "feat": "Knight Valiant", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "hasSpellcasting": false,
     "maxLevel": 10,
     "levelProgression": [
@@ -2741,17 +2830,7 @@
 "Overwhelming critical (Thrown)",
 "Overwhelming critical (Two-Handed)",
 "Overwhelming critical (Unarmed)",
-      "great dexterity",
-      "method: gruesome technique",
-      "method: grenadier basics",
-      "method: skirmish maneuvers",
-      "method: hidden persona",
-      "improved method: guerilla warfare",
-      "improved method: nightmare tactics",
-      "improved method: secret identity",
-      "improved method: ordnance familiarity",
-      
-      "improved method: signature weapon mastery"
+      "great dexterity"
     ],
     "epicBonusFeats": [
       "armor skin",
@@ -2772,12 +2851,7 @@
 "Overwhelming critical (Thrown)",
 "Overwhelming critical (Two-Handed)",
 "Overwhelming critical (Unarmed)",
-      "great dexterity",
-      
-      "improved method: guerilla warfare",
-      "improved method: nightmare tactics",
-      "improved method: secret identity",
-      "improved method: signature weapon mastery"
+      "great dexterity"
     ],
     "epicUnavailableFeats": [
       "epic weapon specialization",
@@ -2786,6 +2860,26 @@
       "plant shape",
       "undead shape"
     ],
+    "classFeatTracks": {
+      "liberator_methods": {
+        "label": "Method I (Bonus Feat)",
+        "slots": [
+          { "classLevel": 6, "label": "Method I (Bonus Feat)", "tier": "standard", "count": 1 },
+          { "classLevel": 9, "label": "Method II (Bonus Feat)", "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Method: Hidden Persona", "tier": "standard", "when": "always" },
+          { "feat": "Method: Gruesome Technique", "tier": "standard", "when": "always" },
+          { "feat": "Method: Grenadier Basics", "tier": "standard", "when": "always" },
+          { "feat": "Method: Skirmish Maneuvers", "tier": "standard", "when": "always" },
+
+          { "feat": "Improved Method: Secret Identity", "tier": "standard", "when": { "featsAll": ["Method: Hidden Persona"] } },
+          { "feat": "Improved Method: Nightmare Tactics", "tier": "standard", "when": { "featsAll": ["Method: Gruesome Technique"] } },
+          { "feat": "Improved Method: Ordnance Familiarity", "tier": "standard", "when": { "featsAll": ["Method: Grenadier Basics"] } },
+          { "feat": "Improved Method: Guerilla Warfare", "tier": "standard", "when": { "featsAll": ["Method: Skirmish Maneuvers"] } }
+        ]
+      }
+    },
     "hasSpellcasting": false,
     "maxLevel": 20,
     "levelProgression": [
@@ -2988,6 +3082,21 @@
     "unavailableFeats": [
       "weapon specialization"
     ],
+    "classFeatTracks": {
+      "paladin_oath": {
+        "label": "Paladin Oath",
+        "slots": [
+          { "classLevel": 6, "tier": "standard", "count": 1, "label": "Oath Tier 1" }
+        ],
+        "options": [
+          { "feat": "Oath of Inquisition (Tier I)", "tier": "standard", "when": "always" },
+          { "feat": "Oath of Perseverance (Tier I)", "tier": "standard", "when": "always" },
+          { "feat": "Oath of Reckoning (Tier I)", "tier": "standard", "when": "always" },
+          { "feat": "Oath of Vengeance (Tier I)", "tier": "standard", "when": "always" },
+          { "feat": "Oath of the Ancients (Tier I)", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d10",
@@ -3104,10 +3213,10 @@
       "Epic Bonus Feat",
       "",
       "",
-      "Epic Bonus Feat",
-      "",
-      "",
       "Epic Bonus Feat, Oath Tier 3",
+      "",
+      "",
+      "Epic Bonus Feat",
       ""
     ]
   },
@@ -3239,6 +3348,18 @@
       "other": "While many rangers follow a nature deity, they are no longer required to follow any deity to cast spells in Arelith."
     },
     "unavailableFeats": ["weapon specialization"],
+    "classFeatTracks": {
+      "ranger_path": {
+        "label": "Path Feat",
+        "slots": [
+          { "classLevel": 2, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Path: Slayer", "tier": "standard", "when": "always" },
+          { "feat": "Path: Archer", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "skillPointsPerLevel": "(8 + ${int})",
     "skillPointsAtFirstLevel": "(8 + ${int}) * 4",
     "hitDie": "d10",
@@ -3346,12 +3467,12 @@
       "Dual-wield, Trackless Step",
       "Bonus Feat (Path: Ranger or Slayer)",
       "Bonus Feat",
-      "",
-      "Bonus Feat (Path: Archer or Slayer)",
+      "Animal Companion",
+      "Bonus Feat",
       "Bonus Feat, Use Poison",
       "Woodland Stride",
       "Uncanny Dodge I",
-      "Evasion, Improved Two-Weapon Fighting (Slayer)",
+      "Evasion",
       "Keen Senses, Bonus Feat",
       "",
       "Wilderness Map",
@@ -4261,30 +4382,30 @@
       "",
       "",
       "",
-      "Arcane Bonus Feat, Elemental Strike",
+      "Bonus Feat, Elemental Strike",
       "",
       "",
       "",
       "Uncanny Dodge I",
       "Imbue Armor",
-      "Arcane Bonus Feat, Combat Casting",
+      "Bonus Feat + Path, Combat Casting",
       "",
       "",
       "",
       "Greater Elemental Strike",
       "",
-      "Arcane Bonus Feat",
+      "Bonus Feat + Path",
       "",
       "",
       "",
       "",
-      "Epic Arcane Bonus Feat",
+      "Epic Bonus Feat + Path",
       "Improved Combat Casting",
       "",
-      "Epic Arcane Bonus Feat, Greater Imbue Armor, Elemental Maelstrom, Caster level against dispels +3",
+      "Epic Bonus Feat + Path, Greater Imbue Armor, Elemental Maelstrom, Caster level against dispels +3",
       "Bonus Attack",
       "Breach Resistance",
-      "Epic Arcane Bonus Feat",
+      "Epic Bonus Feat + Path",
       ""
     ]
   },
