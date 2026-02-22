@@ -2257,7 +2257,7 @@ function updateSkillGrid() {
             skillInput.className = 'skill-input';
             skillInput.id = `skill_${level}_${skillIdx}`;
             skillInput.min = '0';
-            skillInput.max = '50';
+            skillInput.max = '33';
             const skillKey = SKILL_LIST[skillIdx];
             const rawValue = parseInt(levelData[level - 1].skills[skillIdx], 10) || 0;
             const totalValue = getDisplaySkillTotalAtLevel(level, skillKey);
