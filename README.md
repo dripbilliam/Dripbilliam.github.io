@@ -219,6 +219,51 @@ node rebuild.js
 
 ## Development Notes
 
+### Character Planner Runtime Flow (when you change "X")
+
+`X` = race, class, feat, stat, or skill.
+
+```mermaid
+flowchart TD
+  A[User changes X in UI] --> B{What changed?}
+  B -->|Race/Class/Feat| C[schedulePlannerRefresh]
+  B -->|Stat/Skill| D[updateStatGrid or skill column refresh]
+
+  C --> E[updateGrid]
+  E --> F{includeSkills?}
+  F -->|yes| G[updateSkillGrid]
+  F -->|no| H[scheduleValidation]
+  G --> H
+
+  D --> I[scheduleValidation with delayed debounce]
+  I --> J[validateCharacterRealtime]
+  H --> J
+
+  J --> K[Loop levels 1..30]
+  K --> L[Compare class requirements: race/BAB/feats/stats/skills/class blocks]
+  L --> M[Validate selected feats at level]
+  M --> N[validateFeatRequirements]
+  N --> O[Compare feat requirements: level/BAB/stats/feats/skills/class]
+  O --> P[Aggregate issues]
+
+  P --> Q[Apply soft-rule loops: class commitment/commoner/multiclass caps]
+  Q --> R{Know What Im Doing?}
+  R -->|on| S[Downgrade errors to warnings]
+  R -->|off| T[Keep severities]
+  S --> U[Render validation output]
+  T --> U
+```
+
+**Main comparisons performed:**
+- Class checks: race match, BAB threshold, required feats present, stat minimums, skill minimums, class progression rules.
+- Feat checks: required level, BAB, stats, prior-feat logic (`anyOf`/`allOf`/`noneOf`), skill minimums, class requirements.
+- Policy checks: 3-level commitment behavior, max distinct classes, Commoner-specific restrictions.
+
+**Main loops in runtime path:**
+- `for level = 1..30` in realtime validation and grid/stat/skill refresh paths.
+- Nested loops over requirement entries (stats, skills, feats, class blocks) per level.
+- Recursive requirement walking for feat prerequisite groups and effective feat expansion/removal resolution.
+
 ### Data Pipeline Flow
 
 ```
