@@ -1474,15 +1474,23 @@ function updateGrid() {
         const hasBonusFeatSlot = hasBonusFeatFromClass;
         const removedFeatDetailsAtLevel = getRemovedFeatDetailsAtLevel(level);
         const removedFeatDetails = removedFeatDetailsByBuild.filter(detail => detail.grantedLevel === level);
+        const removedFeatDetailsByName = removedFeatDetailsByBuild;
         const removedFeatNameSet = new Set([
             ...removedFeatDetailsAtLevel.map(detail => detail.name.toLowerCase()),
-            ...removedFeatDetails.map(detail => detail.name.toLowerCase())
+            ...removedFeatDetails.map(detail => detail.name.toLowerCase()),
+            ...removedFeatDetailsByName.map(detail => detail.name.toLowerCase())
         ]);
         const removedFeatDetailMap = new Map();
         removedFeatDetailsAtLevel.forEach(detail => {
             removedFeatDetailMap.set(detail.name.toLowerCase(), detail);
         });
         removedFeatDetails.forEach(detail => {
+            const key = detail.name.toLowerCase();
+            if (!removedFeatDetailMap.has(key)) {
+                removedFeatDetailMap.set(key, detail);
+            }
+        });
+        removedFeatDetailsByName.forEach(detail => {
             const key = detail.name.toLowerCase();
             if (!removedFeatDetailMap.has(key)) {
                 removedFeatDetailMap.set(key, detail);
