@@ -19488,12 +19488,59 @@
         { "feat": "Shield proficiency", "when": "always" },
         { "feat": "Divine smite", "when": "always" },
         { "feat": "Combat casting", "when": "class:cleric>=6" },
+        {
+          "feat": "Weapon specialization (Concussion)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Concussion)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (Missile)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Missile)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (One-Handed Edge)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (One-Handed Edge)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (Polearm)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Polearm)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (Thrown)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Thrown)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (Two-Handed)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Two-Handed)"]
+          }
+        },
+        {
+          "feat": "Weapon specialization (Unarmed)",
+          "when": {
+            "classLevel": { "class": "cleric", "min": 12 },
+            "featsAny": ["Weapon focus (Unarmed)"]
+          }
+        },
         { "feat": "Improved combat casting", "when": "class:cleric>=18" },
         { "feat": "Divine Synergy", "when": "class:cleric>=21" }
       ],
-      "other": [
-        "future:grantWeaponSpecializationAtCleric12FromOwnedWeaponFocusFeats"
-      ]
+      "other": []
     },
     "source": {
       "type": "class",
