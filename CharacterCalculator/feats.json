@@ -5,7 +5,6 @@
       "level": null,
       "feats": [],
       "skills": {},
-      "stats": {},
       "bab": null,
       "class": [],
       "race": [],
@@ -560,7 +559,6 @@
       },
       "feats": [],
       "skills": {
-        "perform": 1
       },
       "stats": {},
       "bab": null,
@@ -623,10 +621,10 @@
       "desc": "A character with this feat is immune to [[fear]]."
     }
   },
-  "Automatic quicken spell": {
-    "name": "Automatic quicken spell",
-    "repeatable": true,
-    "repeatableCount": 3,
+  "Automatic quicken spell I": {
+    "name": "Automatic quicken spell I",
+    "repeatable": false,
+    "repeatableCount": 0,
     "requirements": {
       "level": 21,
       "feats": [
@@ -660,10 +658,84 @@
       "desc": "This feat allows the character to cast spells with a moment of thought. This feat may be taken multiple times:"
     }
   },
-  "Automatic silent spell": {
-    "name": "Automatic silent spell",
-    "repeatable": true,
-    "repeatableCount": 3,
+  "Automatic quicken spell II": {
+    "name": "Automatic quicken spell II",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic quicken spell I"
+      ],
+      "skills": {
+        "spellcraft": 30
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Second tier of Automatic Quicken Spell."
+    }
+  },
+  "Automatic quicken spell III": {
+    "name": "Automatic quicken spell III",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic quicken spell II"
+      ],
+      "skills": {
+        "spellcraft": 30
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Third tier of Automatic Quicken Spell."
+    }
+  },
+  "Automatic silent spell I": {
+    "name": "Automatic silent spell I",
+    "repeatable": false,
+    "repeatableCount": 0,
     "requirements": {
       "level": 21,
       "feats": [
@@ -697,10 +769,84 @@
       "desc": "This feat allows the character to cast all spells of a given level range without the caster making any sound. This is especially useful if the caster has been [[silence]]d. This feat may be taken multiple times:"
     }
   },
-  "Automatic still spell": {
-    "name": "Automatic still spell",
-    "repeatable": true,
-    "repeatableCount": 3,
+  "Automatic silent spell II": {
+    "name": "Automatic silent spell II",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic silent spell I"
+      ],
+      "skills": {
+        "spellcraft": 24
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Second tier of Automatic Silent Spell."
+    }
+  },
+  "Automatic silent spell III": {
+    "name": "Automatic silent spell III",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic silent spell II"
+      ],
+      "skills": {
+        "spellcraft": 24
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Third tier of Automatic Silent Spell."
+    }
+  },
+  "Automatic still spell I": {
+    "name": "Automatic still spell I",
+    "repeatable": false,
+    "repeatableCount": 0,
     "requirements": {
       "level": 21,
       "feats": [
@@ -732,6 +878,80 @@
     "source": {
       "type": "metamagic",
       "desc": "This feat allows the character to cast all spells of a given level range as still spells automatically. These spells may be cast while wearing armor. This feat may be taken multiple times:"
+    }
+  },
+  "Automatic still spell II": {
+    "name": "Automatic still spell II",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic still spell I"
+      ],
+      "skills": {
+        "spellcraft": 27
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Second tier of Automatic Still Spell."
+    }
+  },
+  "Automatic still spell III": {
+    "name": "Automatic still spell III",
+    "repeatable": false,
+    "repeatableCount": 0,
+    "requirements": {
+      "level": 21,
+      "feats": [
+        "Automatic still spell II"
+      ],
+      "skills": {
+        "spellcraft": 27
+      },
+      "stats": {},
+      "bab": null,
+      "class": [],
+      "race": [],
+      "alignment": null,
+      "spells": {
+        "level": 9
+      },
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "metamagic",
+      "desc": "Third tier of Automatic Still Spell."
     }
   },
   "Bane of enemies": {
@@ -15510,7 +15730,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {
@@ -15545,7 +15776,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {
@@ -15926,11 +16168,6 @@
       "skills": {},
       "hp": null,
       "other": [
-        "Like Eldritch Spear but affects two nearby targets at reduced damage",
-        "Secondary at d4 damage",
-        "Tertiary at d3 damage",
-        "Negative/Positive variants heal eligible allies",
-        "Triggers Epic Pact blast bonuses"
       ]
     },
     "source": {
@@ -15969,6 +16206,9 @@
         "intimidate": 3
       },
       "hp": null,
+                "grantedFeats": [
+          { "feat": "Darkvision", "when": "always" }
+        ],
       "other": []
     },
     "source": {
@@ -16006,11 +16246,13 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "intimidate": 6
+        "intimidate": 3
       },
       "hp": null,
+      "grantedFeats": [
+          { "feat": "Devil's Sight", "when": "always" }
+        ],
       "other": [
-        "Devil's Sight"
       ]
     },
     "source": {
@@ -16048,9 +16290,33 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "intimidate": 9
+        "intimidate": 3
       },
       "hp": null,
+"grantedFeats": [
+  {
+    "feat": "Greater Eldritch Summon",
+    "when": {
+      "allOf": [
+        "feat:Eldritch Summon",
+        { "classLevel": { "class": "warlock", "min": 20 } }
+      ]
+    }
+  }
+],
+"removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Shield."
+  }
+],
+        
       "other": [
         ""
       ]
@@ -16123,9 +16389,15 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "sail": 6
+        "sail": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Amphibious Character",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16165,9 +16437,21 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "sail": 9
+        "sail": 3
       },
       "hp": null,
+      "removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Shield."
+  }
+],
       "other": [
         ""
       ]
@@ -16201,6 +16485,12 @@
         "leadership": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Darkvision",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16240,9 +16530,15 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "leadership": 6
+        "leadership": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Devil's Sight",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16282,9 +16578,32 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "leadership": 9
+        "leadership": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Greater Eldritch Summon",
+    "when": {
+      "allOf": [
+        "feat:Eldritch Summon",
+        { "classLevel": { "class": "warlock", "min": 20 } }
+      ]
+    }
+  }
+],
+"removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Infernal) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Infernal) prevents Divine Shield."
+  }
+],
       "other": [
         ""
       ]
@@ -16319,6 +16638,12 @@
         "use trap": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Darkvision",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16358,10 +16683,16 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "bluff": 6,
-        "use trap": 6
+        "bluff": 3,
+        "use trap": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Deceive Item",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16401,10 +16732,22 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "bluff": 9,
-        "use trap": 9
+        "bluff": 3,
+        "use trap": 3
       },
       "hp": null,
+      "removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Night Hag) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Night Hag) prevents Divine Shield."
+  }
+],
       "other": [
         ""
       ]
@@ -16477,9 +16820,15 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "spot": 6
+        "spot": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "See the Unseen",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16519,9 +16868,21 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "spot": 9
+        "spot": 3
       },
       "hp": null,
+      "removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Shield."
+  }
+],
       "other": [
         ""
       ]
@@ -16633,6 +16994,24 @@
       "ac": {},
       "skills": {},
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Deathless Mastery",
+    "when": "always"
+  }
+],
+      "removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Undying) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Undying) prevents Divine Shield."
+  }
+],
       "other": [
         ""
       ]
@@ -16706,10 +17085,16 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "perform": 6,
-        "anima empathy": 6
+        "perform": 3,
+        "anima empathy": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Beguiling Influence",
+    "when": "always"
+  }
+],
       "other": [
         ""
       ]
@@ -16749,21 +17134,29 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "perform": 9,
-        "animalempathy": 9
+        "perform": 3,
+        "animal empathy": 3
       },
       "hp": null,
+      "grantedFeats": [
+  {
+    "feat": "Woodland stride",
+    "when": "always"
+  }
+],
+"removedFeats": [
+  {
+    "feat": "Divine Might",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Might."
+  },
+  {
+    "feat": "Divine Shield",
+    "when": "always",
+    "reason": "Epic Pact (Abyssal) prevents Divine Shield."
+  }
+],
       "other": [
-        "Cold DI 15%",
-        "Cold DR 15/-",
-        "Acid DI 10%",
-        "Acid DR 10/-",
-        "Blast Damage Types: Cold, Acid, Positive",
-        "Woodland Stride",
-        "Double Dominate (Req: 24+ Hard Charisma)",
-        "Prevents Divine Might/Shield",
-        "Haste spell triggers no CD on self-cast",
-        "Eldritch Blast disorients targets with Faerie Fire, inflicting miss chance equal to 25% plus 1% per warlock level (Duration: 1 round)"
       ]
     },
     "source": {
@@ -16776,7 +17169,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -16812,7 +17216,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Greater Pact (Any)",
+        {
+          "type": "anyOf",
+          "values": [
+            "Greater Pact (Abyssal)",
+            "Greater Pact (Fathomless)",
+            "Greater Pact (Infernal)",
+            "Greater Pact (Night Hag)",
+            "Greater Pact (Star)",
+            "Greater Pact (Undying)",
+            "Greater Pact (Unseelie Fey)"
+          ]
+        },
         "Eldritch Summon"
       ],
       "skills": {},
@@ -16851,7 +17266,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Epic Pact (Any)",
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        },
         "Greater Eldritch Summon"
       ],
       "skills": {},
@@ -16890,7 +17316,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "spellcraft": 27
@@ -16925,7 +17362,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "spellcraft": 27
@@ -16960,7 +17408,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "spellcraft": 27
@@ -16995,7 +17454,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "spellcraft": 27
@@ -17030,7 +17500,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "spellcraft": 27
@@ -17065,7 +17546,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17101,7 +17593,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {
@@ -17149,7 +17652,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17167,7 +17681,7 @@
       "stats": {},
       "ac": {},
       "skills": {
-        "usemagicdevice": 10
+        "use magic device": 10
       },
       "hp": null,
       "other": []
@@ -17182,7 +17696,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17213,7 +17738,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Epic Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {
@@ -17248,7 +17784,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Greater Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Greater Pact (Abyssal)",
+            "Greater Pact (Fathomless)",
+            "Greater Pact (Infernal)",
+            "Greater Pact (Night Hag)",
+            "Greater Pact (Star)",
+            "Greater Pact (Undying)",
+            "Greater Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17281,7 +17828,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17315,7 +17873,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Greater Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Greater Pact (Abyssal)",
+            "Greater Pact (Fathomless)",
+            "Greater Pact (Infernal)",
+            "Greater Pact (Night Hag)",
+            "Greater Pact (Star)",
+            "Greater Pact (Undying)",
+            "Greater Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {},
       "stats": {},
@@ -17346,7 +17915,18 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Pact (Any)"
+        {
+          "type": "anyOf",
+          "values": [
+            "Pact (Abyssal)",
+            "Pact (Fathomless)",
+            "Pact (Infernal)",
+            "Pact (Night Hag)",
+            "Pact (Star)",
+            "Pact (Undying)",
+            "Pact (Unseelie Fey)"
+          ]
+        }
       ],
       "skills": {
         "perform": 8
@@ -17379,7 +17959,18 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Epic Pact (Any)",
+        {
+          "type": "anyOf",
+          "values": [
+            "Epic Pact (Abyssal)",
+            "Epic Pact (Fathomless)",
+            "Epic Pact (Infernal)",
+            "Epic Pact (Night Hag)",
+            "Epic Pact (Star)",
+            "Epic Pact (Undying)",
+            "Epic Pact (Unseelie Fey)"
+          ]
+        },
         "Eldritch Euphony"
       ],
       "skills": {
@@ -20469,6 +21060,252 @@
       "desc": "Method feat. Requires Rogue 7, Liberator 6, or Vigilante 6. Automatically granted by Vigilante (Cause of Vindication) 5. Required for Improved Method: Guerilla Warfare."
     }
   },
+  "Cause of Vigilance": {
+    "name": "Cause of Vigilance",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 3
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "spot": 3
+      },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Ki Barrier", "when": "class:vigilante>=3" },
+        { "feat": "Zen archery", "when": "class:vigilante>=3" },
+        { "feat": "Method: Signature Weapon", "when": "class:vigilante>=5" },
+        { "feat": "Still mind", "when": "class:vigilante>=8" },
+        { "feat": "Cause of Vigilance (Rank II)", "when": "class:vigilante>=11" },
+        { "feat": "Slippery mind", "when": "class:vigilante>=12" },
+        { "feat": "Improved Method: Signature Weapon Mastery", "when": "class:vigilante>=15" },
+        { "feat": "Keen Senses", "when": "class:vigilante>=18" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause feat path selectable at Vigilante 3. Vigilance grants awareness and signature weapon progression."
+    }
+  },
+  "Cause of Vigilance (Rank II)": {
+    "name": "Cause of Vigilance (Rank II)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 11
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "spot": 3
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause of Vigilance milestone at level 11 (+3 additional Spot)."
+    }
+  },
+  "Cause of Freedom": {
+    "name": "Cause of Freedom",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 3
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "climb": 3,
+        "sail": 3
+      },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Evasion", "when": "class:vigilante>=3" },
+        { "feat": "Uncanny Dodge I", "when": "class:vigilante>=3" },
+        { "feat": "Method: Gruesome Technique", "when": "class:vigilante>=5" },
+        { "feat": "Uncanny Dodge II", "when": "class:vigilante>=8" },
+        { "feat": "Improved Evasion", "when": "class:vigilante>=10" },
+        { "feat": "Cause of Freedom (Rank II)", "when": "class:vigilante>=11" },
+        { "feat": "Uncanny Dodge III", "when": "class:vigilante>=13" },
+        { "feat": "Defensive roll", "when": "class:vigilante>=16" },
+        { "feat": "Uncanny Dodge IV", "when": "class:vigilante>=19" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause feat path selectable at Vigilante 3. Freedom grants mobility, survivability, and dodge progression."
+    }
+  },
+  "Cause of Freedom (Rank II)": {
+    "name": "Cause of Freedom (Rank II)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 11
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "climb": 3,
+        "sail": 3
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause of Freedom milestone at level 11 (+3 additional Climb and Sail)."
+    }
+  },
+  "Cause of Vindication": {
+    "name": "Cause of Vindication",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 3
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "bluff": 3,
+        "intimidate": 3
+      },
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Brutal Attack 1d6", "when": "class:vigilante>=3" },
+        { "feat": "Use poison", "when": "class:vigilante>=3" },
+        { "feat": "Brutal Attack 2d6", "when": "class:vigilante>=4" },
+        { "feat": "Brutal Attack 3d6", "when": "class:vigilante>=5" },
+        { "feat": "Method: Skirmish Maneuvers", "when": "class:vigilante>=5" },
+        { "feat": "Brutal Attack 4d6", "when": "class:vigilante>=7" },
+        { "feat": "Brutal Attack 5d6", "when": "class:vigilante>=9" },
+        { "feat": "Brutal Attack 6d6", "when": "class:vigilante>=11" },
+        { "feat": "Cause of Vindication (Rank II)", "when": "class:vigilante>=11" },
+        { "feat": "Improved Method: Guerilla Warfare", "when": "class:vigilante>=12" },
+        { "feat": "Brutal Attack 7d6", "when": "class:vigilante>=13" },
+        { "feat": "Brutal Attack 8d6", "when": "class:vigilante>=15" },
+        { "feat": "Crippling Strike", "when": "class:vigilante>=15" },
+        { "feat": "Brutal Attack 9d6", "when": "class:vigilante>=17" },
+        { "feat": "Brutal Attack 10d6", "when": "class:vigilante>=19" }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause feat path selectable at Vigilante 3. Vindication grants brutal attack progression and skirmish method upgrades."
+    }
+  },
+  "Cause of Vindication (Rank II)": {
+    "name": "Cause of Vindication (Rank II)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "vigilante",
+        "level": 11
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {
+        "bluff": 3,
+        "intimidate": 3
+      },
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Vigilante Cause of Vindication milestone at level 11 (+3 additional Bluff and Intimidate)."
+    }
+  },
   "Call of the Wild": {
     "name": "Call of the Wild",
     "requirements": {
@@ -20581,11 +21418,102 @@
       "ac": {},
       "skills": {},
       "hp": null,
+      "grantedFeats": [
+        { "feat": "Automatic still spell I", "when": "class:spellsword>=14" },
+        { "feat": "Automatic still spell II", "when": "class:spellsword>=21" },
+        { "feat": "Epic Spell Focus: Abjuration", "when": "class:spellsword>=28" }
+      ],
       "other": []
     },
     "source": {
       "type": "class",
       "desc": "Spellsword class feat. Automatically granted. Requires Spellsword 12+, Armor Proficiency (Heavy), Greater Spell Focus: Abjuration, and base Strength 13+."
+    }
+  },
+  "Arcane Marauder": {
+    "name": "Arcane Marauder",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "spellsword",
+        "level": 12
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Weapon specialization (Concussion)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 14 } }, { "featsAny": ["Weapon focus (Concussion)"] } ] } },
+        { "feat": "Weapon specialization (Two-Handed)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 14 } }, { "featsAny": ["Weapon focus (Two-Handed)"] } ] } },
+        { "feat": "Weapon specialization (Polearm)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 14 } }, { "featsAny": ["Weapon focus (Polearm)"] } ] } },
+        { "feat": "Weapon specialization (One-Handed Edge)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 14 } }, { "featsAny": ["Weapon focus (One-Handed Edge)"] } ] } },
+        { "feat": "Weapon specialization (Missile)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 14 } }, { "featsAny": ["Weapon focus (Missile)"] } ] } },
+        { "feat": "Power attack", "when": "class:spellsword>=21" },
+        { "feat": "Epic weapon specialization (Concussion)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 28 } }, { "featsAny": ["Weapon focus (Concussion)"] } ] } },
+        { "feat": "Epic weapon specialization (Two-Handed)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 28 } }, { "featsAny": ["Weapon focus (Two-Handed)"] } ] } },
+        { "feat": "Epic weapon specialization (Polearm)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 28 } }, { "featsAny": ["Weapon focus (Polearm)"] } ] } },
+        { "feat": "Epic weapon specialization (One-Handed Edge)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 28 } }, { "featsAny": ["Weapon focus (One-Handed Edge)"] } ] } },
+        { "feat": "Epic weapon specialization (Missile)", "when": { "allOf": [ { "classLevel": { "class": "spellsword", "min": 28 } }, { "featsAny": ["Weapon focus (Missile)"] } ] } }
+      ],
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Spellsword class feat path selectable via bonus feat at Spellsword 12+."
+    }
+  },
+  "Bladesinger": {
+    "name": "Bladesinger",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": {
+        "name": "spellsword",
+        "level": 12
+      },
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "grantedFeats": [
+        { "feat": "Deflect arrows", "when": "always" },
+        { "feat": "Automatic quicken spell I", "when": "class:spellsword>=14" },
+        { "feat": "Automatic quicken spell II", "when": "class:spellsword>=21" },
+        { "feat": "Ki critical", "when": "class:spellsword>=28" },
+        { "feat": "Weapon of choice", "when": "class:spellsword>=28" }
+      ],
+      "other": [
+        "Weapon of choice applies to Longsword and Rapier for this path."
+      ]
+    },
+    "source": {
+      "type": "class",
+      "desc": "Spellsword class feat path selectable via bonus feat at Spellsword 12+."
     }
   },
   "Weapon Proficiency (Aquatic Elf)": {

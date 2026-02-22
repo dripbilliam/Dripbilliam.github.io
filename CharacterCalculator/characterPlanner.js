@@ -104,7 +104,9 @@ let levelStatData = Array(30).fill(null).map(() => ({
 
 const GENERAL_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
 const UI_REFRESH_DEBOUNCE_MS = 80;
+const SKILL_STAT_VALIDATION_DEBOUNCE_MS = 2500;
 let refreshTimer = null;
+let validationTimer = null;
 let pendingSkillGridRefresh = false;
 let debugLogsEnabled = false;
 
@@ -116,7 +118,18 @@ function debugWarn(...args) {
     if (debugLogsEnabled) console.warn(...args);
 }
 
-function schedulePlannerRefresh({ includeSkills = false } = {}) {
+function scheduleValidation(delayMs = UI_REFRESH_DEBOUNCE_MS) {
+    if (validationTimer) {
+        clearTimeout(validationTimer);
+    }
+
+    validationTimer = setTimeout(() => {
+        validationTimer = null;
+        validateCharacterRealtime();
+    }, Math.max(0, parseInt(delayMs, 10) || 0));
+}
+
+function schedulePlannerRefresh({ includeSkills = false, validationDelayMs = UI_REFRESH_DEBOUNCE_MS } = {}) {
     pendingSkillGridRefresh = pendingSkillGridRefresh || includeSkills;
 
     if (refreshTimer) {
@@ -132,7 +145,7 @@ function schedulePlannerRefresh({ includeSkills = false } = {}) {
         if (shouldRefreshSkills) {
             updateSkillGrid();
         }
-        validateCharacterRealtime();
+        scheduleValidation(validationDelayMs);
     }, UI_REFRESH_DEBOUNCE_MS);
 }
 
@@ -215,7 +228,9 @@ function populateRaceSelect() {
 
 // Handle stat changes with real-time validation
 function handleStatChange() {
-    schedulePlannerRefresh({ includeSkills: true });
+    updateStatGrid();
+    updateSkillGrid();
+    scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
 }
 
 function isKnowWhatImDoingEnabled() {
@@ -636,6 +651,140 @@ function doesGrantedFeatConditionMatch(when, level, ownedFeatSet = null) {
     return false;
 }
 
+function isDuplicateFeatExempt(rawFeatName) {
+    if (!rawFeatName || typeof rawFeatName !== 'string') return false;
+    const normalized = resolveFeatName(rawFeatName).toLowerCase();
+    return (
+        normalized.includes('sneak attack') ||
+        normalized.includes('sneak attach') ||
+        normalized.includes('brutal attack') ||
+        normalized.includes('death attack') ||
+        /^armor proficiency \(.+\)$/i.test(normalized) ||
+        /^weapon proficiency \(.+\)$/i.test(normalized)
+    );
+}
+
+function getDuplicateOwnedFeatWarningsAtLevel(level) {
+    const cappedLevel = Math.max(0, Math.min(levelData.length, level));
+    if (cappedLevel <= 0) return [];
+
+    const details = new Map();
+    const occurrences = new Map();
+
+    const recordOccurrence = (rawFeatName, sourceLabel, gainedLevel = null, grantedBy = null) => {
+        if (!rawFeatName || typeof rawFeatName !== 'string') return;
+
+        const resolvedName = resolveFeatName(rawFeatName);
+        const key = resolvedName.toLowerCase();
+
+        if (!occurrences.has(key)) {
+            occurrences.set(key, {
+                name: resolvedName,
+                count: 0,
+                firstLevel: Number.isInteger(gainedLevel) && gainedLevel > 0 ? gainedLevel : null,
+                sources: new Set(),
+                grantedBy: new Set()
+            });
+        }
+
+        const entry = occurrences.get(key);
+        entry.count += 1;
+        if (sourceLabel) entry.sources.add(sourceLabel);
+        if (grantedBy) entry.grantedBy.add(grantedBy);
+        if (Number.isInteger(gainedLevel) && gainedLevel > 0) {
+            if (!entry.firstLevel || gainedLevel < entry.firstLevel) {
+                entry.firstLevel = gainedLevel;
+            }
+        }
+
+        addOwnedFeatDetail(details, resolvedName, sourceLabel, grantedBy, gainedLevel);
+    };
+
+    getRaceFeatNames().forEach(featName => recordOccurrence(featName, 'race', 1));
+
+    const classFirstLevels = new Map();
+    for (let lv = 1; lv <= cappedLevel; lv++) {
+        const selectedClass = levelData[lv - 1].class;
+        if (!selectedClass) continue;
+
+        const key = selectedClass.toLowerCase();
+        if (!classFirstLevels.has(key)) {
+            classFirstLevels.set(key, { className: selectedClass, level: lv });
+        }
+    }
+
+    Array.from(classFirstLevels.values()).forEach(entry => {
+        getClassProficiencyFeatsForClass(entry.className).forEach(featName => {
+            recordOccurrence(featName, 'class proficiency', entry.level);
+        });
+    });
+
+    for (let lv = 1; lv <= cappedLevel; lv++) {
+        const selectedClass = levelData[lv - 1].class;
+        if (selectedClass) {
+            const classFeatureParts = getClassFeatureParts(selectedClass, lv);
+            classFeatureParts.forEach(part => {
+                if (shouldIncludeClassFeatureAsFeat(part)) {
+                    recordOccurrence(part, 'class feature', lv);
+                }
+            });
+        }
+
+        getSelectedFeatsAtLevel(lv).forEach(featName => recordOccurrence(featName, 'selected', lv));
+    }
+
+    const processedGrantors = new Set();
+    let expanded = true;
+    while (expanded) {
+        expanded = false;
+
+        Array.from(details.values()).forEach(detail => {
+            const grantorKey = detail.name.toLowerCase();
+            if (processedGrantors.has(grantorKey)) return;
+            processedGrantors.add(grantorKey);
+
+            const featInfo = featData[resolveFeatName(detail.name)];
+            const grantedFeats = featInfo && featInfo.effects ? featInfo.effects.grantedFeats : null;
+            if (!Array.isArray(grantedFeats)) return;
+
+            const ownedFeatSet = new Set(Array.from(details.keys()));
+
+            grantedFeats.forEach(rawGrant => {
+                const parsed = parseGrantedFeatEntry(rawGrant);
+                if (!parsed || !parsed.feat) return;
+                if (!doesGrantedFeatConditionMatch(parsed.when, cappedLevel, ownedFeatSet)) return;
+
+                const grantedName = resolveFeatName(parsed.feat);
+                const grantedKey = grantedName.toLowerCase();
+                const hadEntry = details.has(grantedKey);
+                const grantedLevel = detail.gainedLevel || cappedLevel;
+
+                recordOccurrence(grantedName, 'granted', grantedLevel, detail.name);
+
+                if (!hadEntry) {
+                    expanded = true;
+                }
+            });
+        });
+    }
+
+    const warnings = [];
+    occurrences.forEach(entry => {
+        if (!entry || entry.count <= 1) return;
+        if (isDuplicateFeatExempt(entry.name)) return;
+
+        const sourceSummary = Array.from(entry.sources).sort().join(', ');
+        warnings.push({
+            level: entry.firstLevel || cappedLevel,
+            type: 'feat',
+            message: `⚠️ Duplicate feat detected: ${entry.name} appears ${entry.count} times${sourceSummary ? ` (sources: ${sourceSummary})` : ''}`,
+            severity: 'warning'
+        });
+    });
+
+    return warnings;
+}
+
 function getEffectiveFeatStateAtLevel(level, options = {}) {
     const includeSelectedCurrentLevel = options.includeSelectedCurrentLevel !== false;
     const cappedLevel = Math.max(0, Math.min(levelData.length, level));
@@ -973,6 +1122,168 @@ function getDisplaySkillTotalAtLevel(level, skillName) {
     return raw + getTotalSkillBonusAtLevel(level, skillName) + getSkillAbilityBonusAtLevel(level, skillName);
 }
 
+function formatSignedValue(value) {
+    return value >= 0 ? `+${value}` : `${value}`;
+}
+
+function getSkillIncreaseBreakdownAtLevel(level, skillName) {
+    const normalizedSkill = normalizeSkillKey(skillName);
+    if (!normalizedSkill) return null;
+
+    const raw = getRawSkillAtLevel(level, normalizedSkill);
+    if (raw === null) return null;
+
+    const raceBonus = getRaceSkillBonus(normalizedSkill);
+
+    const featSources = [];
+    const ownedFeats = getEffectiveOwnedFeatDetailsAtLevel(level);
+    ownedFeats.forEach(detail => {
+        const featName = resolveFeatName(detail.name);
+        const featInfo = featData[featName];
+        if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
+
+        let sourceBonus = 0;
+        Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
+            const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
+            if (normalizedEffectSkill !== normalizedSkill) return;
+            sourceBonus += parseStatBonusValue(rawBonus);
+        });
+
+        if (sourceBonus !== 0) {
+            featSources.push({ name: featName, bonus: sourceBonus });
+        }
+    });
+
+    featSources.sort((left, right) => left.name.localeCompare(right.name));
+    const featBonus = featSources.reduce((sum, entry) => sum + entry.bonus, 0);
+
+    const classSources = [];
+    const classNames = new Set();
+    for (let i = 0; i < level; i++) {
+        const className = levelData[i].class;
+        if (className) classNames.add(className);
+    }
+
+    classNames.forEach(className => {
+        const classInfo = classData[className];
+        if (!classInfo || !Array.isArray(classInfo.extras)) return;
+
+        const classLevel = getClassLevelUpTo(className, level);
+        if (classLevel <= 0) return;
+
+        let sourceBonus = 0;
+        classInfo.extras.forEach(extra => {
+            if (!extra || typeof extra !== 'object') return;
+            const normalizedExtraSkill = normalizeSkillKey(extra.name);
+            if (normalizedExtraSkill !== normalizedSkill) return;
+            if (!Array.isArray(extra.values)) return;
+
+            const rawBonus = extra.values[classLevel - 1];
+            sourceBonus += parseStatBonusValue(rawBonus);
+        });
+
+        if (sourceBonus !== 0) {
+            classSources.push({ name: className, bonus: sourceBonus });
+        }
+    });
+
+    classSources.sort((left, right) => left.name.localeCompare(right.name));
+    const classBonus = classSources.reduce((sum, entry) => sum + entry.bonus, 0);
+
+    const levelStats = getStatsAtLevel(level);
+    const mods = getAbilityModifiers(levelStats);
+    const abilityKeys = Array.isArray(SKILL_ABILITY_MAP[normalizedSkill])
+        ? SKILL_ABILITY_MAP[normalizedSkill]
+        : [];
+    const abilitySources = abilityKeys.map(key => ({
+        key,
+        label: STAT_LABELS[key] || key.toUpperCase(),
+        bonus: mods[key] || 0
+    }));
+    const abilityBonus = abilitySources.reduce((sum, entry) => sum + entry.bonus, 0);
+
+    const total = raw + raceBonus + featBonus + classBonus + abilityBonus;
+
+    return {
+        skill: normalizedSkill,
+        raw,
+        raceBonus,
+        featBonus,
+        featSources,
+        classBonus,
+        classSources,
+        abilityBonus,
+        abilitySources,
+        total
+    };
+}
+
+function getSkillIncreaseTooltipAtLevel(level, skillName) {
+    const breakdown = getSkillIncreaseBreakdownAtLevel(level, skillName);
+    if (!breakdown) return '';
+
+    const lines = [
+        `${breakdown.skill.toUpperCase()} @ Lvl ${level}`,
+        `Ranks: ${breakdown.raw}`,
+        `Race: ${formatSignedValue(breakdown.raceBonus)}`,
+        `Feats: ${formatSignedValue(breakdown.featBonus)}`
+    ];
+
+    breakdown.featSources.forEach(source => {
+        lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Class Extras: ${formatSignedValue(breakdown.classBonus)}`);
+    breakdown.classSources.forEach(source => {
+        lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Ability: ${formatSignedValue(breakdown.abilityBonus)}`);
+    breakdown.abilitySources.forEach(source => {
+        lines.push(`  - ${source.label}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Total: ${breakdown.total}`);
+    return lines.join('\n');
+}
+
+function attachLazySkillTooltip(skillContainer, skillInput, skillTotal, level, skillKey) {
+    const applyTooltip = () => {
+        const skillTooltip = getSkillIncreaseTooltipAtLevel(level, skillKey);
+        skillContainer.title = skillTooltip;
+        skillInput.title = skillTooltip;
+        skillTotal.title = skillTooltip;
+    };
+
+    skillContainer.addEventListener('mouseenter', applyTooltip);
+    skillInput.addEventListener('focus', applyTooltip);
+}
+
+function refreshSkillColumnInPlace(skillIdx, startLevel = 1) {
+    const normalizedStartLevel = Math.max(1, parseInt(startLevel, 10) || 1);
+    if (skillIdx < 0 || skillIdx >= SKILL_LIST.length) return;
+
+    const skillKey = SKILL_LIST[skillIdx];
+
+    for (let level = normalizedStartLevel; level <= levelData.length; level++) {
+        const input = document.getElementById(`skill_${level}_${skillIdx}`);
+        const total = document.getElementById(`skillTotal_${level}_${skillIdx}`);
+        if (!input || !total) continue;
+
+        const rawValue = parseInt(levelData[level - 1].skills[skillIdx], 10) || 0;
+        const totalValue = getDisplaySkillTotalAtLevel(level, skillKey);
+
+        input.value = rawValue;
+        total.textContent = `/ ${totalValue}`;
+
+        input.removeAttribute('title');
+        total.removeAttribute('title');
+        if (input.parentElement) {
+            input.parentElement.removeAttribute('title');
+        }
+    }
+}
+
 function getEffectiveSkillAtLevel(level, skillName) {
     return getRawSkillAtLevel(level, skillName);
 }
@@ -1013,7 +1324,24 @@ function resolveFeatName(featName) {
     if (!featName || typeof featName !== 'string') return featName;
     if (featData[featName]) return featName;
 
+    const aliasMap = {
+        'automatic quicken spell': 'Automatic quicken spell I',
+        'automatic silent spell': 'Automatic silent spell I',
+        'automatic still spell': 'Automatic still spell I'
+    };
+
+    const directAlias = aliasMap[featName.trim().toLowerCase()];
+    if (directAlias && featData[directAlias]) {
+        return directAlias;
+    }
+
     const normalized = featName.trim().toLowerCase();
+
+    const normalizedAlias = aliasMap[normalized];
+    if (normalizedAlias && featData[normalizedAlias]) {
+        return normalizedAlias;
+    }
+
     const match = Object.keys(featData).find(key => key.toLowerCase() === normalized);
     return match || featName;
 }
@@ -1927,6 +2255,7 @@ function updateSkillGrid() {
             const skillInput = document.createElement('input');
             skillInput.type = 'number';
             skillInput.className = 'skill-input';
+            skillInput.id = `skill_${level}_${skillIdx}`;
             skillInput.min = '0';
             skillInput.max = '50';
             const skillKey = SKILL_LIST[skillIdx];
@@ -1936,7 +2265,9 @@ function updateSkillGrid() {
 
             const skillTotal = document.createElement('span');
             skillTotal.className = 'skill-total';
+            skillTotal.id = `skillTotal_${level}_${skillIdx}`;
             skillTotal.textContent = `/ ${totalValue}`;
+            attachLazySkillTooltip(skillContainer, skillInput, skillTotal, level, skillKey);
 
             skillInput.onchange = () => {
                 const baseRankValue = Math.max(0, parseInt(skillInput.value) || 0);
@@ -1945,8 +2276,8 @@ function updateSkillGrid() {
                 for (let nextLevel = level; nextLevel < 30; nextLevel++) {
                     levelData[nextLevel].skills[skillIdx] = baseRankValue;
                 }
-                updateSkillGrid();
-                validateCharacterRealtime();
+                refreshSkillColumnInPlace(skillIdx, level);
+                scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
             };
 
             skillContainer.appendChild(skillInput);
@@ -1999,7 +2330,7 @@ function updateStatGrid() {
                 calculateMulticlassProgression();
                 updateGrid();
                 updateSkillGrid();
-                validateCharacterRealtime();
+                scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
             };
 
             increaseCell.appendChild(statSelect);
@@ -2307,13 +2638,31 @@ function getAvailableBonusFeatOptions(selectedClass, level) {
     const seen = new Set();
     const options = [];
 
-    sourceList.forEach(featName => {
-        if (!featName || typeof featName !== 'string') return;
-        const resolvedFeatName = resolveFeatName(featName);
-        const key = resolvedFeatName.toLowerCase();
+    const addOption = (candidateFeatName) => {
+        if (!candidateFeatName || typeof candidateFeatName !== 'string') return;
+        const resolved = resolveFeatName(candidateFeatName);
+        const key = resolved.toLowerCase();
         if (seen.has(key)) return;
         seen.add(key);
-        options.push(resolvedFeatName);
+        options.push(resolved);
+    };
+
+    sourceList.forEach(featName => {
+        if (!featName || typeof featName !== 'string') return;
+
+        const resolvedFeatName = resolveFeatName(featName);
+        addOption(resolvedFeatName);
+
+        const chainMap = {
+            'automatic quicken spell i': ['Automatic quicken spell II', 'Automatic quicken spell III'],
+            'automatic silent spell i': ['Automatic silent spell II', 'Automatic silent spell III'],
+            'automatic still spell i': ['Automatic still spell II', 'Automatic still spell III']
+        };
+
+        const chain = chainMap[resolvedFeatName.toLowerCase()];
+        if (Array.isArray(chain)) {
+            chain.forEach(addOption);
+        }
     });
 
     return options.sort((a, b) => a.localeCompare(b));
@@ -2896,6 +3245,10 @@ function validateCharacterRealtime() {
             });
         }
     }
+
+    // Duplicate feat warnings disabled by user request
+    // const duplicateFeatWarnings = getDuplicateOwnedFeatWarningsAtLevel(levelData.length);
+    // issues.push(...duplicateFeatWarnings);
 
     const knowWhatImDoing = isKnowWhatImDoingEnabled();
     const displayIssues = knowWhatImDoing
