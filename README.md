@@ -10,6 +10,17 @@ This repository is licensed under **AGPL-3.0-or-later**.
 - If you modify and distribute this project, you must provide source under AGPL-compatible terms.
 - If you run a modified version for users over a network, you must provide corresponding source to those users.
 
+### Local REUSE check on every commit
+
+Enable repo-tracked hooks once per clone:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/enable-git-hooks.ps1
+```
+
+This makes Git run `python -m reuse lint` before each commit.
+If REUSE fails, the commit is blocked locally until fixed.
+
 ## Quick Start
 
 ### Prerequisites
