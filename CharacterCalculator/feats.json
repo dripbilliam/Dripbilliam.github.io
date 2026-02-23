@@ -18530,6 +18530,108 @@
       "desc": "Earthkin Defender epic class feat. Requires Level 21+. All other allies near the Earthkin Defender (but not the Earthkin Defender) receive biteback damage. The damage is calculated by a number of d3 dice equal to the Earthkin Defender's (Hard) constitution modifier. Lasts for 18 seconds. 2 minute cooldown."
     }
   },
+  "Crimson Count(ess)": {
+    "name": "Crimson Count(ess)",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "harbinger",
+          "level": 2
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Harbinger Dark Focus path selection placeholder feat for the planner."
+    }
+  },
+  "Cursed Razor": {
+    "name": "Cursed Razor",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "harbinger",
+          "level": 2
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Harbinger Dark Focus path selection placeholder feat for the planner."
+    }
+  },
+  "Dark Seraph": {
+    "name": "Dark Seraph",
+    "requirements": {
+      "level": null,
+      "feats": [],
+      "skills": {},
+      "stats": {},
+      "bab": null,
+      "class": [
+        {
+          "name": "harbinger",
+          "level": 2
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "class",
+      "desc": "Harbinger Dark Focus path selection placeholder feat for the planner."
+    }
+  },
   "Hex of Rust": {
     "name": "Hex of Rust",
     "requirements": {

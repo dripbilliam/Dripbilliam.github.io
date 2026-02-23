@@ -2304,6 +2304,19 @@
     "unavailableFeats": [
       "weapon specialization"
     ],
+    "classFeatTracks": {
+      "harbinger_dark_focus": {
+        "label": "Dark Focus (Path)",
+        "slots": [
+          { "classLevel": 5, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Crimson Count(ess)", "tier": "standard", "when": "always" },
+          { "feat": "Cursed Razor", "tier": "standard", "when": "always" },
+          { "feat": "Dark Seraph", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "skillPointsPerLevel": "(4 + ${int})",
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
@@ -2416,30 +2429,30 @@
       "Accursed Will",
       "Blood Arcana Proficiency",
       "Weapon Hex: Mortality, Dark Focus (Path), Atrocity: Strike",
-      "Bonus Feat (Rumors of War)",
+      "Bonus Feat",
       "Dark Messenger",
       "Ill Tidings",
       "",
       "Atrocity: Whisper",
-      "Bonus Feat (Rumors of War)",
+      "Bonus Feat",
       "",
       "Shadow Evade, Shadow Sight",
       "Atrocity: Invocation",
       "",
-      "Bonus Feat (Rumors of War)",
+      "Bonus Feat",
       "",
       "",
       "Grim News",
       "",
       "Epic Harbinger",
-      "Bonus Feat (Rumors of War)",
+      "Bonus Feat",
       "",
       "",
       "",
-      "Bonus Feat (Rumors of War)",
+      "Bonus Feat",
       "",
       "",
-      "Improved Dark Claim, Bonus Feat (Rumors of War)",
+      "Improved Dark Claim, Bonus Feat",
       ""
     ]
   ,
