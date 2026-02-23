@@ -93,6 +93,19 @@
         "values": ["", "10d6", "10d6", "10d6", "10d6", "10d6", "10d6", "10d6", "10d6", "10d6", "10d6", "11d6", "11d6", "12d6", "12d6", "13d6", "13d6", "14d6", "14d6", "15d6"]
       }
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "listen",
+      "lore",
+      "move silently",
+      "ride",
+      "sail",
+      "spot"
+    ]
   },
   "Assassin": {
     "name": "Assassin",
@@ -179,6 +192,30 @@
         "name": "death attack",
         "values": ["1d6", "1d6", "2d6", "2d6", "3d6", "3d6", "4d6", "4d6", "5d6", "5d6", "6d6", "6d6", "7d6", "7d6", "8d6", "8d6", "9d6", "9d6", "10d6", "10d6"]
       }
+    ]
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "craft mastery",
+      "disable trap",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "lore",
+      "move silently",
+      "open lock",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spot",
+      "tumble",
+      "use magic device",
+      "use trap"
     ]
   },
   "Barbarian": {
@@ -315,6 +352,22 @@
         "name": "rage will save",
         "values": ["+1", "+1", "+1", "+2", "+2", "+2", "+2", "+3", "+3", "+3", "+3", "+4", "+4", "+4", "+4", "+5", "+5", "+5", "+5", "+6", "+6", "+6", "+6", "+7", "+7", "+7", "+7", "+8", "+8", "+8"]
       }
+    ]
+  ,
+    "classSkills": [
+      "animal empathy",
+      "climb",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
     ]
   },
   "Bard": {
@@ -498,6 +551,34 @@
       "",
       ""
     ]
+  ,
+    "classSkills": [
+      "appraise",
+      "animal empathy",
+      "bluff",
+      "concentration",
+      "climb",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "move silently",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spellcraft",
+      "spot",
+      "taunt",
+      "tumble",
+      "use magic device"
+    ]
   },
   "Blackguard": {
     "name": "Blackguard",
@@ -599,6 +680,23 @@
         "name": "acp +dc",
         "values": ["-", "-", "-", "1", "1", "1", "1", "2", "2", "2", "2", "3", "3", "3", "3", "4", "4", "4", "4", "5"]
       }
+    ]
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
     ]
   },
   "Cavalier": {
@@ -725,6 +823,21 @@
         "name": "bullrush bludgeon",
         "values": ["-", "-", "-", "1s", "-", "-", "1.5s", "-", "-", "2s"]
       }
+    ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
     ]
   },
   "Cleric": {
@@ -876,6 +989,18 @@
       "",
       ""
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "heal",
+      "intimidate",
+      "leadership",
+      "lore",
+      "ride",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Commoner": {
     "name": "Commoner",
@@ -979,6 +1104,23 @@
         "values": [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92, 96, 100, 104, 108, 112, 116, 120]
       }
     ]
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "craft mastery",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "spot",
+      "taunt"
+    ]
   },
   "Dirgesinger": {
     "name": "Dirgesinger",
@@ -1050,6 +1192,29 @@
       "Requiem",
       "Danse Macabre, Macabre Eulogy III",
       "Echo, Inspiring Minstrel, Rhapsody of Blood, Bonus Feat"
+    ]
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "move silently",
+      "perform",
+      "sleight of hand",
+      "ride",
+      "sail",
+      "spellcraft",
+      "taunt",
+      "tumble",
+      "use magic device"
     ]
   },
   "Divine Champion": {
@@ -1202,6 +1367,22 @@
         "values": [0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10]
       }
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
+    ]
   },
   "Dragon Disciple": {
     "name": "Dragon Disciple",
@@ -1321,6 +1502,21 @@
         "name": "cha",
         "values": ["-", "-", "-", "-", "-", "-", "-", "-", "-", "+2", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
       }
+    ]
+  ,
+    "classSkills": [
+      "climb",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "intimidate",
+      "heal",
+      "listen",
+      "lore",
+      "sail",
+      "search",
+      "spellcraft",
+      "spot"
     ]
   },
   "Druid": {
@@ -1480,6 +1676,17 @@
       "Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "animal empathy",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Earthkin Defender": {
     "name": "Earthkin Defender",
@@ -1605,6 +1812,20 @@
         "values": ["-", "1/-", "1/-", "2/-", "2/-", "3/-", "3/-", "4/-", "4/-", "8/-", "8/-", "9/-", "9/-", "10/-", "10/-", "11/-", "11/-", "12/-", "12/-", "13/-"]
       }
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
+    ]
   },
   "Elementalist": {
     "name": "Elementalist",
@@ -1720,6 +1941,17 @@
       "",
       "Epic Bonus Feat",
       ""
+    ]
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft"
     ]
   },
   "Favored Soul": {
@@ -1837,6 +2069,18 @@
       "",
       "",
       ""
+    ]
+  ,
+    "classSkills": [
+      "craft mastery",
+      "concentration",
+      "intimidate",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft",
+      "ride"
     ]
   },
   "Fighter": {
@@ -2031,6 +2275,22 @@
         "values": ["-", "-", "-", "-", "-", "-", "-", "-", "-", "+1", "+1", "+1", "+1", "+1", "+1", "+1", "+1", "+1", "+1", "+2", "+2", "+2", "+2", "+2", "+2", "+2", "+2", "+2", "+2", "+2"]
       }
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "listen",
+      "leadership",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
+    ]
   },
   "Harbinger": {
     "name": "Harbinger",
@@ -2182,6 +2442,26 @@
       "Improved Dark Claim, Bonus Feat (Rumors of War)",
       ""
     ]
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "disable trap",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "search",
+      "spot",
+      "taunt",
+      "use trap"
+    ]
   },
   "Harper Scout": {
     "name": "Harper Scout",
@@ -2242,6 +2522,30 @@
       [2, 0, 3, 3, 18],
       [3, 1, 4, 4, 24],
       [3, 1, 4, 4, 30]
+    ]
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "craft mastery",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "leadership",
+      "lore",
+      "move silently",
+      "open lock",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spot",
+      "tumble",
+      "use magic device",
+      "use trap"
     ]
   },
   "Harper Mage": {
@@ -2339,6 +2643,21 @@
       [3, 1, 4, 4, 30]
     ],
     "hasSpellcasting": true
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "leadership",
+      "lore",
+      "move silently",
+      "ride",
+      "sail",
+      "spellcraft",
+      "use trap\\"
+    ]
   },
   "Harper Priest": {
     "name": "Harper Priest",
@@ -2399,6 +2718,21 @@
       [3, 1, 4, 4, 40]
     ],
     "hasSpellcasting": true
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "leadership",
+      "lore",
+      "move silently",
+      "ride",
+      "sail",
+      "spellcraft",
+      "tumble"
+    ]
   },
   "Harper Paragon": {
     "name": "Harper Paragon",
@@ -2452,6 +2786,24 @@
       [3, 0, 3, 3, 30],
       [4, 1, 4, 4, 40],
       [5, 1, 4, 4, 50]
+    ]
+  ,
+    "classSkills": [
+      "bluff",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "leadership",
+      "lore",
+      "move silently",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt\\"
     ]
   },
   "Master Harper": {
@@ -2559,6 +2911,27 @@
       [3, 1, 4, 4, 40]
     ],
     "hasSpellcasting": true
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "listen",
+      "leadership",
+      "lore",
+      "move silently",
+      "perform",
+      "ride",
+      "sleight of hand",
+      "sail",
+      "spellcraft",
+      "tumble",
+      "use magic device"
+    ]
   },
   "Hemomancer": {
     "name": "Hemomancer",
@@ -2691,6 +3064,17 @@
       "Epic Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Invisible Blade": {
     "name": "Invisible Blade",
@@ -2723,6 +3107,25 @@
       "Eviscerate",
       "",
       ""
+    ]
+  ,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "listen",
+      "lore",
+      "move silently",
+      "parry",
+      "ride",
+      "sail",
+      "sleight of hand",
+      "spot",
+      "tumble"
     ]
   },
   "Knight": {
@@ -2785,6 +3188,22 @@
       "",
       "",
       "Valiant/Protector/Vanguard bonuses"
+    ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "sail",
+      "spot",
+      "taunt",
+      "ride"
     ]
   },
   "Liberator": {
@@ -2926,6 +3345,24 @@
       "Epic Bonus Feat, Great Smiting I, Brutal Attack 6d6",
       "Aura of Resolve"
     ]
+  ,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt",
+      "use trap"
+    ]
   },
   "Loremaster": {
     "name": "Loremaster",
@@ -2954,6 +3391,23 @@
       "Secret Knowledge, Scroll Mastery III, Wand Mastery III",
       "Secret Knowledge, Scroll Mastery IV, Wand Mastery IV, Bonus Language II",
       "Secret Knowledge, Scroll Mastery V, Wand Mastery V, Bonus Language III"
+    ]
+  ,
+    "classSkills": [
+      "appraise",
+      "concentration",
+      "craft mastery",
+      "disable trap",
+      "heal",
+      "listen",
+      "lore",
+      "open lock",
+      "ride",
+      "sail",
+      "search",
+      "spellcraft",
+      "spot",
+      "use magic device"
     ]
   },
   "Monk": {
@@ -3071,6 +3525,25 @@
       "Monk Speed IV",
       "",
       "Epic Bonus Feat"
+    ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "move silently",
+      "sail",
+      "spot",
+      "parry",
+      "perform",
+      "tumble",
+      "ride"
     ]
   },
   "Paladin": {
@@ -3219,6 +3692,22 @@
       "Epic Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
+    ]
   },
   "Pale Master": {
     "name": "Pale Master",
@@ -3339,6 +3828,18 @@
       "",
       "Epic Bonus Feat",
       ""
+    ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "intimidate",
+      "lore",
+      "move silently",
+      "sail",
+      "spellcraft"
     ]
   },
   "Ranger": {
@@ -3495,6 +3996,27 @@
       "Bonus Feat",
       "Studied Enemy x2, Bonus Feat"
     ]
+  ,
+    "classSkills": [
+      "animal empathy",
+      "climb",
+      "concentration",
+      "craft mastery",
+      "disable trap",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "lore",
+      "move silently",
+      "parry",
+      "ride",
+      "sail",
+      "search",
+      "spot",
+      "use trap"
+    ]
   },
   "Rogue": {
     "name": "Rogue",
@@ -3620,6 +4142,33 @@
       "Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "climb",
+      "craft mastery",
+      "disable trap",
+      "heal",
+      "hide",
+      "intimidate",
+      "leadership",
+      "listen",
+      "lore",
+      "move silently",
+      "open lock",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spot",
+      "taunt",
+      "tumble",
+      "use magic device",
+      "use trap"
+    ]
   },
   "Shadowdancer": {
     "name": "Shadowdancer",
@@ -3707,6 +4256,25 @@
       }
     ],
     "hasSpellcasting": false
+  ,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "craft mastery",
+      "heal",
+      "hide",
+      "listen",
+      "lore",
+      "move silently",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spot",
+      "tumble"
+    ]
   },
   "Shaman": {
     "name": "Shaman",
@@ -3814,6 +4382,17 @@
         "9": [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10]
       }
     }
+  ,
+    "classSkills": [
+      "animal empathy",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Shifter": {
     "name": "Shifter",
@@ -3898,6 +4477,20 @@
       ""
     ],
     "hasSpellcasting": false
+  ,
+    "classSkills": [
+      "animal empathy",
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "listen",
+      "lore",
+      "move silently",
+      "ride",
+      "spot"
+    ]
   },
   "Sorcerer": {
     "name": "Sorcerer",
@@ -4015,6 +4608,17 @@
         "6": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
       }
     }
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "leadership",
+      "lore",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Specialist": {
     "name": "Specialist",
@@ -4205,6 +4809,10 @@
       "",
       "Bonus Feat",
       ""
+    ]
+  ,
+    "classSkills": [
+      "all"
     ]
   },
   "Spellsword": {
@@ -4412,6 +5020,21 @@
       "Epic Bonus Feat + Path",
       ""
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "leadership",
+      "listen",
+      "lore",
+      "parry",
+      "ride",
+      "sail",
+      "spellcraft",
+      "spot"
+    ]
   },
   "Swashbuckler": {
     "name": "Swashbuckler",
@@ -4539,6 +5162,24 @@
       "Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "leadership",
+      "lore",
+      "parry",
+      "perform",
+      "sail",
+      "spot",
+      "taunt",
+      "tumble",
+      "ride"
+    ]
   },
   "Vigilante": {
     "name": "Vigilante",
@@ -4657,6 +5298,31 @@
       "",
       "Epic Bonus Feat, Brutal Attack 6d6",
       ""
+    ]
+  ,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "concentration",
+      "craft mastery",
+      "disable trap",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "lore",
+      "move silently",
+      "open lock",
+      "parry",
+      "ride",
+      "sail",
+      "search",
+      "sleight-of-hand",
+      "spot",
+      "taunt",
+      "tumble",
+      "use trap"
     ]
   },
   "Warlock": {
@@ -4853,6 +5519,25 @@
       "",
       "Epic Class Feat, Eldritch Carapace II"
     ]
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "leadership",
+      "lore",
+      "move silently",
+      "perform",
+      "sail",
+      "spellcraft",
+      "spot",
+      "tumble",
+      "use magic device"
+    ]
   },
   "Weapon master": {
     "name": "Weapon master",
@@ -4970,6 +5655,22 @@
       "",
       "Bonus Feat, AB Bonus +4",
       ""
+    ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "intimidate",
+      "listen",
+      "lore",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
     ]
   },
   "Wizard": {
@@ -5127,6 +5828,15 @@
       "Bonus Feat",
       ""
     ]
+  ,
+    "classSkills": [
+      "concentration",
+      "craft mastery",
+      "heal",
+      "lore",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Zhentarim Naug-adar": {
     "name": "Zhentarim Naug-adar",
@@ -5224,6 +5934,20 @@
       [3, 1, 4, 4, 30]
     ],
     "hasSpellcasting": true
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "leadership",
+      "lore",
+      "move silently",
+      "ride",
+      "sail",
+      "spellcraft"
+    ]
   },
   "Zhentarim Fear Speaker": {
     "name": "Zhentarim Fear Speaker",
@@ -5284,6 +6008,21 @@
       [3, 1, 4, 4, 40]
     ],
     "hasSpellcasting": true
+  ,
+    "classSkills": [
+      "bluff",
+      "concentration",
+      "craft mastery",
+      "heal",
+      "hide",
+      "leadership",
+      "lore",
+      "move silently",
+      "ride",
+      "sail",
+      "spellcraft",
+      "tumble"
+    ]
   },
   "Zhentarim Enforcer": {
     "name": "Zhentarim Enforcer",
@@ -5339,6 +6078,24 @@
       [5, 1, 4, 4, 50]
     ],
     "hasSpellcasting": false
+  ,
+    "classSkills": [
+      "bluff",
+      "craft mastery",
+      "discipline",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "leadership",
+      "lore",
+      "move silently",
+      "parry",
+      "ride",
+      "sail",
+      "spot",
+      "taunt"
+    ]
   },
   "Zhentarim Operative": {
     "name": "Zhentarim Operative",
@@ -5401,5 +6158,29 @@
       [3, 1, 4, 4, 30]
     ],
     "hasSpellcasting": false
+  ,
+    "classSkills": [
+      "appraise",
+      "bluff",
+      "craft mastery",
+      "heal",
+      "hide",
+      "intimidate",
+      "listen",
+      "leadership",
+      "lore",
+      "move silently",
+      "open lock",
+      "parry",
+      "perform",
+      "ride",
+      "sail",
+      "search",
+      "sleight of hand",
+      "spot",
+      "tumble",
+      "use magic device",
+      "use trap"
+    ]
   }
 }

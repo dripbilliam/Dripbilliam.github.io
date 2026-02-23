@@ -1116,6 +1116,163 @@ function getRawSkillAtLevel(level, skillName) {
     return rawSkill;
 }
 
+function isClassSkillAtLevel(level, skillName) {
+    const normalizedSkill = normalizeSkillKey(skillName);
+    if (!normalizedSkill) return false;
+
+    const className = levelData[level - 1] && levelData[level - 1].class;
+    if (!className || !classData[className]) return false;
+
+    const classSkills = Array.isArray(classData[className].classSkills)
+        ? classData[className].classSkills
+        : [];
+
+    return classSkills.some(skill => normalizeSkillKey(skill) === normalizedSkill);
+}
+
+function getSkillRankCapAtLevel(level, skillName) {
+    const normalizedSkill = normalizeSkillKey(skillName);
+    if (!normalizedSkill) return 0;
+
+    const classSkillCap = 3 + level;
+    const nonClassSkillCap = Math.floor((3 + level) / 2);
+    return isClassSkillAtLevel(level, normalizedSkill) ? classSkillCap : nonClassSkillCap;
+}
+
+function parseSkillPointBaseValue(rawExpression) {
+    if (rawExpression === null || rawExpression === undefined) return null;
+    if (typeof rawExpression === 'number') return Number.isFinite(rawExpression) ? rawExpression : null;
+
+    const text = String(rawExpression).trim();
+    if (!text) return null;
+
+    const withIntMatch = text.match(/(\d+)\s*\+\s*\$\{\s*int\s*\}/i);
+    if (withIntMatch) return parseInt(withIntMatch[1], 10);
+
+    const plainNumberMatch = text.match(/^\D*(\d+)\D*$/);
+    if (plainNumberMatch) return parseInt(plainNumberMatch[1], 10);
+
+    return null;
+}
+
+function parseSkillPointMultiplier(rawExpression, fallback = 1) {
+    if (rawExpression === null || rawExpression === undefined) return fallback;
+    const text = String(rawExpression);
+    const multMatch = text.match(/\*\s*(\d+)/);
+    if (multMatch) {
+        const parsed = parseInt(multMatch[1], 10);
+        if (!Number.isNaN(parsed) && parsed > 0) return parsed;
+    }
+    return fallback;
+}
+
+function getSkillPointsBudgetAtLevel(level) {
+    const className = levelData[level - 1] && levelData[level - 1].class;
+    if (!className || !classData[className]) return 0;
+
+    const classInfo = classData[className];
+    const levelStats = getStatsAtLevel(level);
+    const mods = getAbilityModifiers(levelStats);
+    const intMod = mods.int || 0;
+
+    const perLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsPerLevel);
+    const perLevelBase = perLevelBaseRaw === null ? 0 : perLevelBaseRaw;
+
+    if (level === 1) {
+        const firstLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsAtFirstLevel);
+        const firstLevelBase = firstLevelBaseRaw === null ? perLevelBase : firstLevelBaseRaw;
+        const firstLevelMultiplier = parseSkillPointMultiplier(classInfo.skillPointsAtFirstLevel, 4);
+        return Math.max(0, Math.floor((firstLevelBase + intMod) * firstLevelMultiplier));
+    }
+
+    return Math.max(0, Math.floor(perLevelBase + intMod));
+}
+
+function getSkillPointUsageAtLevel(level, overrideSkillIdx = null, overrideRankValue = null) {
+    const previousRanks = level > 1 ? normalizeSkillsArray(levelData[level - 2].skills) : Array(SKILL_LIST.length).fill(0);
+    const currentRanks = normalizeSkillsArray(levelData[level - 1].skills);
+
+    if (Number.isInteger(overrideSkillIdx) && overrideSkillIdx >= 0 && overrideSkillIdx < SKILL_LIST.length) {
+        currentRanks[overrideSkillIdx] = Math.max(0, parseInt(overrideRankValue, 10) || 0);
+    }
+
+    const issues = [];
+    let spent = 0;
+
+    for (let skillIdx = 0; skillIdx < SKILL_LIST.length; skillIdx++) {
+        const skillName = SKILL_LIST[skillIdx];
+        const previousRank = previousRanks[skillIdx] || 0;
+        const currentRank = currentRanks[skillIdx] || 0;
+        const delta = currentRank - previousRank;
+
+        if (delta < 0) {
+            issues.push({
+                level,
+                type: 'skill',
+                message: `❌ ${skillName} at level ${level} cannot be reduced below previous level (${previousRank})`,
+                severity: 'error'
+            });
+            continue;
+        }
+
+        const classSkill = isClassSkillAtLevel(level, skillName);
+        const cap = getSkillRankCapAtLevel(level, skillName);
+        const maxAllowedAtThisLevel = previousRank > cap ? previousRank : cap;
+
+        if (currentRank > maxAllowedAtThisLevel) {
+            issues.push({
+                level,
+                type: 'skill',
+                message: `❌ ${skillName} at level ${level} exceeds max purchasable rank (${maxAllowedAtThisLevel})`,
+                severity: 'error'
+            });
+        }
+
+        if (!classSkill && skillName === 'use magic device' && delta > 0) {
+            issues.push({
+                level,
+                type: 'skill',
+                message: `❌ Use Magic Device can only be increased on levels where it is a class skill`,
+                severity: 'error'
+            });
+            continue;
+        }
+
+        if (delta > 0) {
+            const rankCost = classSkill ? 1 : 2;
+            spent += delta * rankCost;
+        }
+    }
+
+    const budget = getSkillPointsBudgetAtLevel(level);
+    if (spent > budget) {
+        issues.push({
+            level,
+            type: 'skill',
+            message: `❌ Level ${level} spends ${spent} skill points but only ${budget} are available`,
+            severity: 'error'
+        });
+    }
+
+    return { spent, budget, issues };
+}
+
+function getSkillPointSummaryText(level) {
+    const usage = getSkillPointUsageAtLevel(level);
+    const remaining = usage.budget - usage.spent;
+    return `${usage.spent}/${usage.budget} (${remaining} left)`;
+}
+
+function applySkillCellClass(skillCell, level, skillName) {
+    if (!skillCell) return;
+    skillCell.classList.remove('skill-class-cell', 'skill-nonclass-cell');
+    if (isClassSkillAtLevel(level, skillName)) {
+        skillCell.classList.add('skill-class-cell');
+    } else {
+        skillCell.classList.add('skill-nonclass-cell');
+    }
+}
+
 function getDisplaySkillTotalAtLevel(level, skillName) {
     const raw = getRawSkillAtLevel(level, skillName);
     if (raw === null) return null;
@@ -1268,13 +1425,24 @@ function refreshSkillColumnInPlace(skillIdx, startLevel = 1) {
     for (let level = normalizedStartLevel; level <= levelData.length; level++) {
         const input = document.getElementById(`skill_${level}_${skillIdx}`);
         const total = document.getElementById(`skillTotal_${level}_${skillIdx}`);
+        const pointsCell = document.getElementById(`skillPoints_${level}`);
         if (!input || !total) continue;
 
         const rawValue = parseInt(levelData[level - 1].skills[skillIdx], 10) || 0;
         const totalValue = getDisplaySkillTotalAtLevel(level, skillKey);
+        const capValue = getSkillRankCapAtLevel(level, skillKey);
+        const previousRank = level > 1 ? (parseInt(levelData[level - 2].skills[skillIdx], 10) || 0) : 0;
+        const maxInputRank = Math.max(previousRank, capValue);
 
         input.value = rawValue;
+        input.max = String(maxInputRank);
         total.textContent = `/ ${totalValue}`;
+        if (pointsCell) {
+            pointsCell.textContent = getSkillPointSummaryText(level);
+        }
+
+        const skillCell = input.closest('td');
+        applySkillCellClass(skillCell, level, skillKey);
 
         input.removeAttribute('title');
         total.removeAttribute('title');
@@ -2244,8 +2412,13 @@ function updateSkillGrid() {
         
         // Level number
         const lvlCell = document.createElement('td');
-        lvlCell.textContent = level;
+        lvlCell.textContent = `${level}`;
         row.appendChild(lvlCell);
+
+        const pointsCell = document.createElement('td');
+        pointsCell.id = `skillPoints_${level}`;
+        pointsCell.textContent = getSkillPointSummaryText(level);
+        row.appendChild(pointsCell);
 
         // Skills
         for (let skillIdx = 0; skillIdx < SKILL_LIST.length; skillIdx++) {
@@ -2261,7 +2434,12 @@ function updateSkillGrid() {
             const skillKey = SKILL_LIST[skillIdx];
             const rawValue = parseInt(levelData[level - 1].skills[skillIdx], 10) || 0;
             const totalValue = getDisplaySkillTotalAtLevel(level, skillKey);
+            const capValue = getSkillRankCapAtLevel(level, skillKey);
+            const previousRank = level > 1 ? (parseInt(levelData[level - 2].skills[skillIdx], 10) || 0) : 0;
+            const maxInputRank = Math.max(previousRank, capValue);
             skillInput.value = rawValue;
+            skillInput.max = String(maxInputRank);
+            applySkillCellClass(skillCell, level, skillKey);
 
             const skillTotal = document.createElement('span');
             skillTotal.className = 'skill-total';
@@ -2270,7 +2448,32 @@ function updateSkillGrid() {
             attachLazySkillTooltip(skillContainer, skillInput, skillTotal, level, skillKey);
 
             skillInput.onchange = () => {
-                const baseRankValue = Math.max(0, parseInt(skillInput.value) || 0);
+                const previousLevelRank = level > 1 ? (parseInt(levelData[level - 2].skills[skillIdx], 10) || 0) : 0;
+                let baseRankValue = Math.max(0, parseInt(skillInput.value) || 0);
+
+                if (baseRankValue < previousLevelRank) {
+                    baseRankValue = previousLevelRank;
+                }
+
+                const classSkill = isClassSkillAtLevel(level, skillKey);
+                const cap = getSkillRankCapAtLevel(level, skillKey);
+                const maxAllowedAtThisLevel = previousLevelRank > cap ? previousLevelRank : cap;
+                baseRankValue = Math.min(baseRankValue, maxAllowedAtThisLevel);
+
+                if (!classSkill && skillKey === 'use magic device' && baseRankValue > previousLevelRank) {
+                    baseRankValue = previousLevelRank;
+                }
+
+                const spentWithoutThisSkill = getSkillPointUsageAtLevel(level, skillIdx, previousLevelRank);
+                const pointsLeftForThisSkill = Math.max(0, spentWithoutThisSkill.budget - spentWithoutThisSkill.spent);
+                const rankCost = classSkill ? 1 : 2;
+                const maxAffordableIncrease = rankCost > 0 ? Math.floor(pointsLeftForThisSkill / rankCost) : 0;
+                const maxAffordableRank = previousLevelRank + maxAffordableIncrease;
+
+                if (baseRankValue > maxAffordableRank) {
+                    baseRankValue = maxAffordableRank;
+                }
+
                 levelData[level - 1].skills[skillIdx] = baseRankValue;
                 // Carry skills down to future levels (supports both increase and decrease)
                 for (let nextLevel = level; nextLevel < 30; nextLevel++) {
@@ -3150,6 +3353,9 @@ function validateCharacterRealtime() {
             const featIssues = validateFeatRequirements(level, feat, levelStats, levelMods);
             issues.push(...featIssues);
         });
+
+        const skillPointUsage = getSkillPointUsageAtLevel(level);
+        issues.push(...skillPointUsage.issues);
     }
 
     // Soft rules for class commitment:
