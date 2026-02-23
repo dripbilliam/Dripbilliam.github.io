@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Sequence Builder
+Source: local
+
+Files: *
+Copyright: 2026 Niflheim and contributors
+License: AGPL-3.0-or-later
+
+Files: docs/*
+Comment: Source material imported from external wiki exports; retained under project AGPL distribution policy for this repository.
+Copyright: 2026 Niflheim and contributors
+License: AGPL-3.0-or-later

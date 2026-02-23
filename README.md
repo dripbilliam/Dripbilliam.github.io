@@ -2,6 +2,14 @@
 
 Spell Queue Builder and Spell Search & Filter utility with shared data parsing.
 
+## License
+
+This repository is licensed under **AGPL-3.0-or-later**.
+
+- See [LICENSE](LICENSE).
+- If you modify and distribute this project, you must provide source under AGPL-compatible terms.
+- If you run a modified version for users over a network, you must provide corresponding source to those users.
+
 ## Quick Start
 
 ### Prerequisites
