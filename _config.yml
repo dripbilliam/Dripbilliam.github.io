@@ -23,7 +23,7 @@ exclude:
 # Include specific files
 include:
   - index.html
-  - sequenceBuilder_standalone.html
+  - SequenceBuilder/sequenceBuilder_standalone.html
   - SpellSearch/spellSearch_standalone.html
   - SpellSearch/enhancedSpellData.json
   - Parsed/combinedSpellFeatData.json

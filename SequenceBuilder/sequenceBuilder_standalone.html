@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arelith Spell Queue Builder</title>
+    <!-- 
+        Custom Data Paths:
+        You can specify custom data file paths using URL parameters:
+        - ?combinedData=path/to/combinedSpellFeatData.json
+        - ?notFoundData=path/to/notFound.json
+        
+        Example (local): ?combinedData=./custom/data.json
+        Example (remote): ?combinedData=https://example.com/data.json
+        
+        If loading fails, it will fall back to default paths or embedded backup data.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -641,7 +652,7 @@
         // CONFIGURATION - Edit these paths and settings here
         // ========================================
         
-        // Data file paths
+        // Data file paths (can be local or remote URLs)
         const CONFIG = {
             // Remote data file paths 
             // These are tried first, then falls back to local paths
@@ -649,10 +660,10 @@
             defaultNotFoundDataPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/Parsed/notFound.json',
             defaultBlacklistPath: 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/main/Parsed/blacklist.json',
             
-            // Local repo fallback paths
-            localCombinedDataPath: 'Parsed/combinedSpellFeatData.json',
-            localNotFoundDataPath: 'Parsed/notFound.json',
-            localBlacklistPath: 'Parsed/blacklist.json',
+            // Local fallback paths (if remote fails)
+            localCombinedDataPath: '../Parsed/combinedSpellFeatData.json',
+            localNotFoundDataPath: '../Parsed/notFound.json',
+            localBlacklistPath: '../Parsed/blacklist.json',
             
             // UI Settings
             minGroupSize: 3,  // Minimum items required for a group to appear in "By Group" tab

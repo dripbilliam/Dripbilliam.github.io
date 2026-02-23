@@ -3,15 +3,15 @@ const path = require('path');
 
 console.log('Building sequence builder with embedded data...');
 
-const combinedData = JSON.parse(fs.readFileSync(path.join(__dirname, 'Parsed', 'combinedSpellFeatData.json'), 'utf-8'));
-const notFoundData = JSON.parse(fs.readFileSync(path.join(__dirname, 'Parsed', 'notFound.json'), 'utf-8'));
-const blacklist = JSON.parse(fs.readFileSync(path.join(__dirname, 'blacklist.json'), 'utf-8'));
+const combinedData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'Parsed', 'combinedSpellFeatData.json'), 'utf-8'));
+const notFoundData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'Parsed', 'notFound.json'), 'utf-8'));
+const blacklist = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'Parsed', 'blacklist.json'), 'utf-8'));
 
 console.log(`Loaded ${combinedData.length} combined entries`);
 console.log(`Loaded ${notFoundData.length} not found entries`);
 console.log(`Loaded ${blacklist.blacklistedGroups.length} blacklisted groups`);
 
-const htmlTemplate = fs.readFileSync(path.join(__dirname, 'sequenceBuilder.html'), 'utf-8');
+const htmlTemplate = fs.readFileSync(path.join(__dirname, '..', 'SequenceBuilder', 'sequenceBuilder.html'), 'utf-8');
 
 const modifiedHtml = htmlTemplate.replace(
     /\/\/ Load data\s+async function loadData\(\) \{[\s\S]*?\}\s+catch \(error\) \{[\s\S]*?\}\s+\}/,
@@ -51,7 +51,7 @@ const modifiedHtml = htmlTemplate.replace(
         }`
 );
 
-const outputPath = path.join(__dirname, 'sequenceBuilder_standalone.html');
+const outputPath = path.join(__dirname, '..', 'SequenceBuilder', 'sequenceBuilder_standalone.html');
 fs.writeFileSync(outputPath, modifiedHtml);
 
 console.log(`\nBuilt standalone HTML: ${outputPath}`);

@@ -67,7 +67,7 @@ Outputs: `SpellSearch/enhancedSpellData.json` (356 spells)
 node SpellSearch/buildStandalone.js
 node parsing/buildStandalone.js
 ```
-Outputs: `spellSearch_standalone.html`, `sequenceBuilder_standalone.html`
+Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standalone.html`
 
 ---
 
@@ -76,8 +76,9 @@ Outputs: `spellSearch_standalone.html`, `sequenceBuilder_standalone.html`
 ```
 .
 ├── index.html                          # Landing page with tool navigation
-├── sequenceBuilder_standalone.html     # Spell Queue Builder (standalone)
-├── sequenceBuilder.html                # Spell Queue Builder (source)
+├── SequenceBuilder/
+│   ├── sequenceBuilder_standalone.html # Spell Queue Builder (standalone)
+│   └── sequenceBuilder.html            # Spell Queue Builder (source)
 ├── rebuild.js                          # Master build script (run this!)
 ├── _config.yml                         # Jekyll config for GitHub Pages
 ├── .nojekyll                           # Tells GitHub Pages to skip Jekyll
@@ -197,7 +198,7 @@ node rebuild.js
 **Required files to push:**
 - `index.html`, `_config.yml`, `.nojekyll`
 - `SpellSearch/spellSearch_standalone.html` + `enhancedSpellData.json`
-- `sequenceBuilder_standalone.html`
+- `SequenceBuilder/sequenceBuilder_standalone.html`
 - `Parsed/combinedSpellFeatData.json`
 
 **Access:**

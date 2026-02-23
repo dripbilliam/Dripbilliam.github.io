@@ -339,7 +339,7 @@ function buildStandaloneHTML() {
         const combinedDataPath = path.join(__dirname, '..', 'Parsed', 'combinedSpellFeatData.json');
         const notFoundDataPath = path.join(__dirname, '..', 'Parsed', 'notFound.json');
         const blacklistPath = path.join(__dirname, '..', 'Parsed', 'blacklist.json');
-        const htmlTemplatePath = path.join(__dirname, '..', 'sequenceBuilder.html');
+        const htmlTemplatePath = path.join(__dirname, '..', 'SequenceBuilder', 'sequenceBuilder.html');
         
         const combinedData = JSON.parse(fs.readFileSync(combinedDataPath, 'utf-8'));
         const notFoundData = JSON.parse(fs.readFileSync(notFoundDataPath, 'utf-8'));
@@ -358,7 +358,7 @@ function buildStandaloneHTML() {
             `${dataInjection}$1`
         );
         
-        const outputPath = path.join(__dirname, '..', 'sequenceBuilder_standalone.html');
+        const outputPath = path.join(__dirname, '..', 'SequenceBuilder', 'sequenceBuilder_standalone.html');
         fs.writeFileSync(outputPath, modifiedHtml);
         
         console.log(`Built standalone HTML: ${path.basename(outputPath)}`);
@@ -378,4 +378,4 @@ if (require.main === module) {
     }
 }
 
-module.exports = { combineSpellFeatData, parseSpellFeatIDs, parseXMLData };
+module.exports = { combineSpellFeatData, buildStandaloneHTML, parseSpellFeatIDs, parseXMLData };

@@ -5,7 +5,7 @@ console.log('========================================');
 console.log('  Arelith Spell Tools - Full Rebuild');
 console.log('========================================\n');
 
-const { combineSpellFeatData } = require('./parsing/parseSpellsAndFeats.js');
+const { combineSpellFeatData, buildStandaloneHTML } = require('./parsing/parseSpellsAndFeats.js');
 const { generateCombatDataJSON } = require('./SpellSearch/parseCombatData.js');
 const { parseEnhancedSpellData } = require('./SpellSearch/parseSpellsEnhanced.js');
 const { buildStandaloneSpellSearch } = require('./SpellSearch/buildStandalone.js');
@@ -15,6 +15,7 @@ async function rebuild() {
         console.log('Step 1: Building Sequence Builder data...');
         console.log('==========================================');
         combineSpellFeatData();
+        buildStandaloneHTML();
         
         console.log('\nStep 2: Parsing combat data...');
         console.log('======================================');
@@ -34,7 +35,7 @@ async function rebuild() {
         console.log('\nGenerated files:');
         console.log('  - Parsed/combinedSpellFeatData.json');
         console.log('  - Parsed/notFound.json');
-        console.log('  - sequenceBuilder_standalone.html');
+        console.log('  - SequenceBuilder/sequenceBuilder_standalone.html');
         console.log('  - SpellSearch/combatData.json');
         console.log('  - SpellSearch/enhancedSpellData.json');
         console.log('  - SpellSearch/spellSearch_standalone.html');
