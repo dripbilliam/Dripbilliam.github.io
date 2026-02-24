@@ -12588,7 +12588,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "weapon focus (chosen weapon)"
+        "weapon focus (chosen weapon)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -12617,6 +12618,41 @@
     "source": {
       "type": "special",
       "desc": "A [[character]] with this [[feat]] has trained especially hard with a specific [[weapon]] type, and gains a +2 damage bonus when using these weapons in combat."
+    }
+  },
+  "Weapon Specialization First Available": {
+    "name": "Weapon Specialization First Available",
+    "requirements": {
+      "level": null,
+      "feats": [
+      ],
+      "skills": {},
+      "stats": {},
+      "bab": 4,
+      "class": [
+        {
+          "name": "fighter",
+          "level": 1
+        }
+      ],
+      "race": [],
+      "alignment": null,
+      "spells": {},
+      "other": [],
+      "repeatable": false,
+      "repeatableCount": 0,
+      "levelGate": null
+    },
+    "effects": {
+      "stats": {},
+      "ac": {},
+      "skills": {},
+      "hp": null,
+      "other": []
+    },
+    "source": {
+      "type": "special",
+      "desc": "Unlock marker feat for weapon specialization availability."
     }
   },
   "Whirlwind attack": {
@@ -14642,7 +14678,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Concussion)"
+        "Weapon focus (Concussion)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -14806,7 +14843,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Missile)"
+        "Weapon focus (Missile)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -14970,7 +15008,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (One-Handed Edge)"
+        "Weapon focus (One-Handed Edge)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -15134,7 +15173,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Polearm)"
+        "Weapon focus (Polearm)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -15298,7 +15338,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Thrown)"
+        "Weapon focus (Thrown)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -15462,7 +15503,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Two-Handed)"
+        "Weapon focus (Two-Handed)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
@@ -15626,7 +15668,8 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon focus (Unarmed)"
+        "Weapon focus (Unarmed)",
+        "Weapon Specialization First Available"
       ],
       "skills": {},
       "stats": {},
