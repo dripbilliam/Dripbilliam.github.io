@@ -5629,7 +5629,7 @@
       "desc": "The character gains 3 extra stunning attacks per day."
     }
   },
-  "Extra turning": {
+  "Extra Turning": {
     "name": "Extra turning",
     "requirements": {
       "level": null,

@@ -2173,28 +2173,31 @@ function updateGrid() {
         const classFeatOptionsRaw = hasClassFeatSlotFromTrack
             ? getAvailableClassFeatOptions(selectedClass, level, classFeatSlotContext)
             : allFeatNames;
+        const classFeatOptionsFiltered = filterClassAutoGrantedFeats(classFeatOptionsRaw, selectedClass);
+        const generalFeatOptionsRaw = filterClassAutoGrantedFeats(allFeatNames, selectedClass);
+        const bonusFeatOptionsFiltered = filterClassAutoGrantedFeats(bonusFeatOptionsRaw, selectedClass);
         const classFeatOptions = filterAlreadyTakenFeats(
-            classFeatOptionsRaw,
+            classFeatOptionsFiltered,
             level,
             'classFeat',
             levelData[level - 1].classFeat || ''
         );
         const generalFeatOptions = filterAlreadyTakenFeats(
-            allFeatNames,
+            generalFeatOptionsRaw,
             level,
             'generalFeat',
             levelData[level - 1].generalFeat || ''
         );
         const quickToMasterFeatOptions = quickToMasterFeatSelect
             ? filterAlreadyTakenFeats(
-                allFeatNames,
+                generalFeatOptionsRaw,
                 level,
                 'extraGeneralFeat',
                 levelData[level - 1].extraGeneralFeat || ''
             )
             : [];
         const bonusFeatOptions = filterAlreadyTakenFeats(
-            bonusFeatOptionsRaw,
+            bonusFeatOptionsFiltered,
             level,
             'bonusFeat',
             levelData[level - 1].bonusFeat || ''
@@ -2291,6 +2294,36 @@ function updateGrid() {
             generalFeatSelect.value = '';
             generalFeatSelect.disabled = true;
             generalFeatSelect.title = 'No general feat available at this level';
+        } else {
+            const selectedGeneralFeat = levelData[level - 1].generalFeat || '';
+            const matchingGeneralFeat = selectedGeneralFeat
+                ? generalFeatOptions.find(feat => feat.toLowerCase() === selectedGeneralFeat.toLowerCase())
+                : '';
+            const isAllowedGeneralFeat = selectedGeneralFeat ? Boolean(matchingGeneralFeat) : true;
+
+            if (!isAllowedGeneralFeat) {
+                levelData[level - 1].generalFeat = '';
+                generalFeatSelect.value = '';
+            } else if (matchingGeneralFeat && matchingGeneralFeat !== selectedGeneralFeat) {
+                levelData[level - 1].generalFeat = matchingGeneralFeat;
+                generalFeatSelect.value = matchingGeneralFeat;
+            }
+        }
+
+        if (quickToMasterFeatSelect) {
+            const selectedQuickFeat = levelData[level - 1].extraGeneralFeat || '';
+            const matchingQuickFeat = selectedQuickFeat
+                ? quickToMasterFeatOptions.find(feat => feat.toLowerCase() === selectedQuickFeat.toLowerCase())
+                : '';
+            const isAllowedQuickFeat = selectedQuickFeat ? Boolean(matchingQuickFeat) : true;
+
+            if (!isAllowedQuickFeat) {
+                levelData[level - 1].extraGeneralFeat = '';
+                quickToMasterFeatSelect.value = '';
+            } else if (matchingQuickFeat && matchingQuickFeat !== selectedQuickFeat) {
+                levelData[level - 1].extraGeneralFeat = matchingQuickFeat;
+                quickToMasterFeatSelect.value = matchingQuickFeat;
+            }
         }
 
         classFeatSelect.onchange = () => {
@@ -2298,6 +2331,12 @@ function updateGrid() {
             const newFeat = classFeatSelect.value;
 
             if (newFeat) {
+                if (isClassAutoGrantedFeatBlockedAtLevel(level, newFeat)) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${selectedClass} grants this feat as part of class progression, so it cannot be manually selected on ${selectedClass} levels.`);
+                    classFeatSelect.value = previousFeat;
+                    return;
+                }
+
                 const stats = getStats();
                 const mods = getAbilityModifiers(stats);
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
@@ -2321,6 +2360,12 @@ function updateGrid() {
             const newFeat = bonusFeatSelect.value;
 
             if (newFeat) {
+                if (isClassAutoGrantedFeatBlockedAtLevel(level, newFeat)) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${selectedClass} grants this feat as part of class progression, so it cannot be manually selected on ${selectedClass} levels.`);
+                    bonusFeatSelect.value = previousFeat;
+                    return;
+                }
+
                 const stats = getStats();
                 const mods = getAbilityModifiers(stats);
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
@@ -2344,6 +2389,12 @@ function updateGrid() {
             const newFeat = generalFeatSelect.value;
 
             if (newFeat) {
+                if (isClassAutoGrantedFeatBlockedAtLevel(level, newFeat)) {
+                    alert(`Cannot select ${newFeat} at level ${level}:\n\n${selectedClass} grants this feat as part of class progression, so it cannot be manually selected on ${selectedClass} levels.`);
+                    generalFeatSelect.value = previousFeat;
+                    return;
+                }
+
                 const stats = getStats();
                 const mods = getAbilityModifiers(stats);
                 const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
@@ -2368,6 +2419,12 @@ function updateGrid() {
                 const newFeat = quickToMasterFeatSelect.value;
 
                 if (newFeat) {
+                    if (isClassAutoGrantedFeatBlockedAtLevel(level, newFeat)) {
+                        alert(`Cannot select ${newFeat} at level ${level}:\n\n${selectedClass} grants this feat as part of class progression, so it cannot be manually selected on ${selectedClass} levels.`);
+                        quickToMasterFeatSelect.value = previousFeat;
+                        return;
+                    }
+
                     const stats = getStats();
                     const mods = getAbilityModifiers(stats);
                     const featErrors = validateFeatRequirements(level, newFeat, stats, mods)
@@ -2654,6 +2711,57 @@ function filterAlreadyTakenFeats(options, level, fieldKey, currentValue = '') {
         if (currentKey && key === currentKey) return true;
         return !taken.has(key);
     });
+}
+
+function getClassAutoGrantedFeatNameSet(selectedClass) {
+    const autoGranted = new Set();
+    if (!selectedClass || !classData[selectedClass]) return autoGranted;
+
+    const addIfFeatExists = (rawName) => {
+        if (!rawName || typeof rawName !== 'string') return;
+        const resolvedName = resolveFeatName(rawName);
+        if (!resolvedName || !featData[resolvedName]) return;
+        autoGranted.add(resolvedName.toLowerCase());
+    };
+
+    const classInfo = classData[selectedClass] || {};
+    if (Array.isArray(classInfo.feats)) {
+        classInfo.feats.forEach(rawEntry => {
+            if (!rawEntry || typeof rawEntry !== 'string') return;
+            rawEntry
+                .split(',')
+                .map(part => part.trim())
+                .filter(Boolean)
+                .forEach(addIfFeatExists);
+        });
+    }
+
+    getClassProficiencyFeatsForClass(selectedClass).forEach(addIfFeatExists);
+
+    return autoGranted;
+}
+
+function filterClassAutoGrantedFeats(options, selectedClass) {
+    if (!Array.isArray(options) || options.length === 0 || !selectedClass) return options;
+    const autoGranted = getClassAutoGrantedFeatNameSet(selectedClass);
+    if (autoGranted.size === 0) return options;
+
+    return options.filter(featName => {
+        if (!featName || typeof featName !== 'string') return false;
+        const resolvedName = resolveFeatName(featName);
+        return !autoGranted.has(resolvedName.toLowerCase());
+    });
+}
+
+function isClassAutoGrantedFeatBlockedAtLevel(level, featName) {
+    if (!featName || typeof featName !== 'string') return false;
+    const selectedClass = (levelData[level - 1] && levelData[level - 1].class) || '';
+    if (!selectedClass) return false;
+
+    const autoGranted = getClassAutoGrantedFeatNameSet(selectedClass);
+    if (autoGranted.size === 0) return false;
+
+    return autoGranted.has(resolveFeatName(featName).toLowerCase());
 }
 
 function getClassFeatureParts(selectedClass, level) {
@@ -3350,6 +3458,16 @@ function validateCharacterRealtime() {
         // Check feat requirements
         const selectedFeats = getSelectedFeatsAtLevel(level);
         selectedFeats.forEach(feat => {
+            if (isClassAutoGrantedFeatBlockedAtLevel(level, feat)) {
+                issues.push({
+                    level,
+                    type: 'feat',
+                    message: `❌ Level ${level}: ${feat} cannot be manually selected on ${selectedClass} levels because ${selectedClass} grants it via class progression`,
+                    severity: 'error'
+                });
+                return;
+            }
+
             const featIssues = validateFeatRequirements(level, feat, levelStats, levelMods);
             issues.push(...featIssues);
         });
