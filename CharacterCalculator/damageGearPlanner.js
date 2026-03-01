@@ -299,9 +299,25 @@
             pendingGearRefresh = false;
             renderSummaries();
 
+            if (typeof window.updateGrid === 'function') {
+                try {
+                    window.updateGrid();
+                } catch {
+                    // no-op
+                }
+            }
+
             if (typeof window.updateStatGrid === 'function') {
                 try {
                     window.updateStatGrid();
+                } catch {
+                    // no-op
+                }
+            }
+
+            if (typeof window.updateSkillGrid === 'function') {
+                try {
+                    window.updateSkillGrid();
                 } catch {
                     // no-op
                 }
@@ -804,6 +820,9 @@
             labelEl.textContent = label;
             labelEl.style.minWidth = '68px';
             const select = document.createElement('select');
+            let matchedOptionValue = null;
+            const currentValue = p[key] === undefined || p[key] === null ? '' : String(p[key]);
+            const currentValueLower = currentValue.toLowerCase();
             values.forEach(value => {
                 const option = document.createElement('option');
                 if (typeof value === 'object') {
@@ -813,9 +832,15 @@
                     option.value = value;
                     option.textContent = value;
                 }
-                if (String(p[key]) === String(option.value)) option.selected = true;
+                if (currentValue && String(option.value).toLowerCase() === currentValueLower) {
+                    option.selected = true;
+                    matchedOptionValue = option.value;
+                }
                 select.appendChild(option);
             });
+            if (matchedOptionValue !== null) {
+                p[key] = matchedOptionValue;
+            }
             if (!p[key] && values.length > 0) {
                 const firstValue = typeof values[0] === 'object' ? values[0].value : values[0];
                 p[key] = firstValue;
@@ -2558,7 +2583,7 @@
 
         renderPaperDoll();
         renderEditor();
-        renderSummaries();
+        scheduleGearRefreshAndValidation();
     }
 
     function resetGearPlannerState() {
@@ -2567,7 +2592,7 @@
         SLOT_CONFIG.forEach(slot => ensureSlotState(slot.key));
         renderPaperDoll();
         renderEditor();
-        renderSummaries();
+        scheduleGearRefreshAndValidation();
     }
 
     window.getGearPlannerSnapshot = getGearPlannerSnapshot;

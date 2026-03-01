@@ -3,6 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = 8000;
+const ROOT_DIRS = [
+  path.resolve(__dirname),
+  path.resolve(__dirname, '..')
+];
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -24,35 +28,46 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Parse URL
-  let filePath = req.url === '/' ? '/characterPlanner.html' : req.url;
-  filePath = path.join(__dirname, filePath);
+  // Parse URL and strip query/hash
+  const rawUrl = (req.url || '').split('?')[0].split('#')[0];
+  const requestPath = rawUrl === '/' ? '/index.html' : rawUrl;
+  const normalizedRequestPath = decodeURIComponent(requestPath);
 
-  // Prevent directory traversal
-  const realPath = path.resolve(filePath);
-  const realDir = path.resolve(__dirname);
-  if (!realPath.startsWith(realDir)) {
-    res.writeHead(403, { 'Content-Type': 'text/plain' });
-    res.end('Forbidden');
-    return;
-  }
+  const candidatePaths = [];
+  ROOT_DIRS.forEach(rootDir => {
+    const filePath = path.join(rootDir, normalizedRequestPath);
+    const realPath = path.resolve(filePath);
+    if (realPath.startsWith(rootDir)) {
+      candidatePaths.push({ rootDir, filePath, realPath });
+    }
+  });
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
+  const tryRead = (index) => {
+    if (index >= candidatePaths.length) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('404 Not Found: ' + req.url);
       return;
     }
 
-    const ext = path.extname(filePath);
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-    
-    res.writeHead(200, { 
-      'Content-Type': contentType,
-      'Content-Length': data.length
+    const candidate = candidatePaths[index];
+    fs.readFile(candidate.filePath, (err, data) => {
+      if (err) {
+        tryRead(index + 1);
+        return;
+      }
+
+      const ext = path.extname(candidate.filePath);
+      const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Length': data.length
+      });
+      res.end(data);
     });
-    res.end(data);
-  });
+  };
+
+  tryRead(0);
 });
 
 // Set higher timeout limits for large files
