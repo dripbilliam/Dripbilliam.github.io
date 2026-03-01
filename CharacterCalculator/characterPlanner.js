@@ -4111,27 +4111,156 @@ function openShareModal(mode, text = '') {
     }
 
     const isExport = mode === 'export';
-    title.textContent = isExport ? 'Export Build JSON' : 'Import Build JSON';
+    title.textContent = isExport ? 'Export Build Code' : 'Import Build Code';
     note.textContent = isExport
-        ? 'Copy this JSON to share, or save it as a file.'
-        : 'Paste a build JSON string here or load a JSON file, then click Import.';
+        ? 'Copy this compact build code to share, or save it as a file. Import accepts both compact codes and legacy JSON.'
+        : 'Paste a build code or JSON here, or load a code/JSON file, then click Import.';
 
     textarea.value = text || '';
     textarea.readOnly = isExport;
     exportActions.style.display = isExport ? 'flex' : 'none';
     importActions.style.display = isExport ? 'none' : 'flex';
 
+    shareModalLastFocusedElement = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+
+    if ('inert' in modal) {
+        modal.inert = false;
+    }
+
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
-    textarea.focus();
-    textarea.select();
+    requestAnimationFrame(() => {
+        textarea.focus();
+        textarea.select();
+    });
+}
+
+const SHARE_FORMAT_PREFIX_COMPRESSED = 'CPZ1:';
+const SHARE_FORMAT_PREFIX_BASE64 = 'CPB1:';
+let shareModalLastFocusedElement = null;
+
+function bytesToBase64Url(bytes) {
+    const data = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || 0);
+    if (data.length === 0) return '';
+
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let index = 0; index < data.length; index += chunkSize) {
+        const chunk = data.subarray(index, Math.min(index + chunkSize, data.length));
+        binary += String.fromCharCode(...chunk);
+    }
+
+    return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/g, '');
+}
+
+function base64UrlToBytes(text) {
+    const normalized = String(text || '')
+        .trim()
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
+
+    if (!normalized) return new Uint8Array();
+
+    const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+    const binary = atob(padded);
+    const bytes = new Uint8Array(binary.length);
+    for (let index = 0; index < binary.length; index++) {
+        bytes[index] = binary.charCodeAt(index);
+    }
+    return bytes;
+}
+
+async function gzipBytes(bytes) {
+    if (typeof CompressionStream !== 'function') {
+        throw new Error('CompressionStream unsupported');
+    }
+
+    const source = new Blob([bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || 0)]).stream();
+    const compressedStream = source.pipeThrough(new CompressionStream('gzip'));
+    const compressed = await new Response(compressedStream).arrayBuffer();
+    return new Uint8Array(compressed);
+}
+
+async function gunzipBytes(bytes) {
+    if (typeof DecompressionStream !== 'function') {
+        throw new Error('DecompressionStream unsupported');
+    }
+
+    const source = new Blob([bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || 0)]).stream();
+    const decompressedStream = source.pipeThrough(new DecompressionStream('gzip'));
+    const decompressed = await new Response(decompressedStream).arrayBuffer();
+    return new Uint8Array(decompressed);
+}
+
+async function encodeCharacterForShare(character) {
+    const compactJson = JSON.stringify(character);
+    const utf8 = new TextEncoder().encode(compactJson);
+
+    try {
+        const compressed = await gzipBytes(utf8);
+        return `${SHARE_FORMAT_PREFIX_COMPRESSED}${bytesToBase64Url(compressed)}`;
+    } catch {
+        return `${SHARE_FORMAT_PREFIX_BASE64}${bytesToBase64Url(utf8)}`;
+    }
+}
+
+async function decodeCharacterFromShareText(inputText) {
+    const text = String(inputText || '').trim();
+    if (!text) {
+        throw new Error('No build data provided');
+    }
+
+    if (text.startsWith('{') || text.startsWith('[')) {
+        return JSON.parse(text);
+    }
+
+    if (text.startsWith(SHARE_FORMAT_PREFIX_COMPRESSED)) {
+        const payload = text.slice(SHARE_FORMAT_PREFIX_COMPRESSED.length);
+        const compressedBytes = base64UrlToBytes(payload);
+        const decompressed = await gunzipBytes(compressedBytes);
+        const json = new TextDecoder().decode(decompressed);
+        return JSON.parse(json);
+    }
+
+    if (text.startsWith(SHARE_FORMAT_PREFIX_BASE64)) {
+        const payload = text.slice(SHARE_FORMAT_PREFIX_BASE64.length);
+        const bytes = base64UrlToBytes(payload);
+        const json = new TextDecoder().decode(bytes);
+        return JSON.parse(json);
+    }
+
+    throw new Error('Unsupported share format');
 }
 
 function closeShareModal() {
     const modal = document.getElementById('shareModal');
     if (!modal) return;
+
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement && modal.contains(activeElement)) {
+        activeElement.blur();
+    }
+
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+
+    if ('inert' in modal) {
+        modal.inert = true;
+    }
+
+    if (shareModalLastFocusedElement instanceof HTMLElement && document.contains(shareModalLastFocusedElement)) {
+        try {
+            shareModalLastFocusedElement.focus();
+        } catch {
+            // no-op
+        }
+    }
+    shareModalLastFocusedElement = null;
 }
 
 function copyShareText() {
@@ -4140,12 +4269,12 @@ function copyShareText() {
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(textarea.value)
-            .then(() => alert('Build JSON copied to clipboard.'))
+            .then(() => alert('Build code copied to clipboard.'))
             .catch(() => {
                 textarea.focus();
                 textarea.select();
                 document.execCommand('copy');
-                alert('Build JSON copied to clipboard.');
+                alert('Build code copied to clipboard.');
             });
         return;
     }
@@ -4153,7 +4282,7 @@ function copyShareText() {
     textarea.focus();
     textarea.select();
     document.execCommand('copy');
-    alert('Build JSON copied to clipboard.');
+    alert('Build code copied to clipboard.');
 }
 
 function saveShareTextToFile() {
@@ -4162,7 +4291,7 @@ function saveShareTextToFile() {
         if (!textarea) return;
 
         const payload = textarea.value || '';
-        const blob = new Blob([payload], { type: 'application/json' });
+        const blob = new Blob([payload], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
 
         const characterName = (document.getElementById('charName').value || 'character')
@@ -4172,14 +4301,14 @@ function saveShareTextToFile() {
 
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${characterName}_build.json`;
+        link.download = `${characterName}_build.txt`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     } catch (error) {
         console.error('Error saving share text to file:', error);
-        alert('Failed to save JSON file.');
+        alert('Failed to save build code file.');
     }
 }
 
@@ -4190,32 +4319,32 @@ function triggerShareImportFile() {
     input.click();
 }
 
-function applyImportedShareText() {
+async function applyImportedShareText() {
     try {
         const textarea = document.getElementById('shareModalText');
         if (!textarea) return;
 
         const text = (textarea.value || '').trim();
         if (!text) {
-            alert('Paste JSON or load a JSON file first.');
+            alert('Paste a build code/JSON or load a file first.');
             return;
         }
 
-        const parsed = JSON.parse(text);
+        const parsed = await decodeCharacterFromShareText(text);
         applyCharacterSnapshot(parsed);
         localStorage.setItem('dnd_character', JSON.stringify(getCharacterSnapshot()));
         closeShareModal();
         alert('Character build imported!');
     } catch (error) {
         console.error('Error importing character:', error);
-        alert('Invalid character JSON.');
+        alert('Invalid build code/JSON.');
     }
 }
 
-function exportCharacter() {
+async function exportCharacter() {
     try {
         const character = getCharacterSnapshot();
-        const payload = JSON.stringify(character, null, 2);
+        const payload = await encodeCharacterForShare(character);
         openShareModal('export', payload);
     } catch (error) {
         console.error('Error exporting character:', error);
@@ -4307,6 +4436,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const shareModal = document.getElementById('shareModal');
     if (shareModal) {
+        if ('inert' in shareModal && shareModal.getAttribute('aria-hidden') === 'true') {
+            shareModal.inert = true;
+        }
+
         shareModal.addEventListener('click', (event) => {
             if (event.target === shareModal) {
                 closeShareModal();
