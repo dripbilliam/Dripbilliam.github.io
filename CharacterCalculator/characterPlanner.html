@@ -686,6 +686,8 @@
         <div id="damageGear" class="tab-content">
             <div class="gear-subtabs">
                 <button type="button" id="damageGearSubtabPlanner" class="gear-subtab-btn active">Gear Planner</button>
+                <button type="button" id="damageGearSubtabBuffs" class="gear-subtab-btn">Buffs</button>
+                <button type="button" id="damageGearSubtabSongs" class="gear-subtab-btn">Songs</button>
                 <button type="button" id="damageGearSubtabGraph" class="gear-subtab-btn">Damage Graph</button>
             </div>
 
@@ -773,6 +775,44 @@
                         </div>
                         <pre id="damageSimTraceOutput">Run simulation to generate trace output.</pre>
                     </div>
+                </div>
+            </div>
+
+            <div id="damageGearBuffsPanel" class="gear-subtab-panel">
+                <div class="gear-panel">
+                    <h3 style="margin-top:0;">Combat Buffs</h3>
+                    <div id="damageBuffList"></div>
+                    <p class="muted-note">Buff AB contributes to capped AB bonus (+20 cap section).</p>
+                </div>
+            </div>
+
+            <div id="damageGearSongsPanel" class="gear-subtab-panel">
+                <div class="gear-panel">
+                    <h3 style="margin-top:0;">Songs</h3>
+                    <div class="gear-field-row">
+                        <label for="songEnabledToggle" style="min-width:120px; font-weight:bold;">Enable Song</label>
+                        <input id="songEnabledToggle" type="checkbox">
+                    </div>
+                    <div class="gear-field-row">
+                        <label for="songNameSelect" style="min-width:120px; font-weight:bold;">Song</label>
+                        <select id="songNameSelect"></select>
+                    </div>
+                    <div class="gear-field-row">
+                        <label for="songLevelSelect" style="min-width:120px; font-weight:bold;">Song Level</label>
+                        <select id="songLevelSelect"></select>
+                    </div>
+                    <div class="gear-field-row">
+                        <label for="songUseSothToggle" style="min-width:120px; font-weight:bold;">Use SOTH</label>
+                        <input id="songUseSothToggle" type="checkbox">
+                        <span class="muted-note">Only applies at song level 30 with Song of the Heart feat.</span>
+                    </div>
+                    <div class="gear-field-row">
+                        <label for="songPropagateToggle" style="min-width:120px; font-weight:bold;">Propagate L30</label>
+                        <input id="songPropagateToggle" type="checkbox">
+                        <span class="muted-note">Apply level-30 song skills/saves/stats/feats to planner rows beyond combat.</span>
+                    </div>
+                    <div id="songEffectSummary" class="feat-label">No active song effects.</div>
+                    <div id="songUnmappedSummary" class="muted-note"></div>
                 </div>
             </div>
         </div>

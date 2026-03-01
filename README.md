@@ -48,6 +48,18 @@ node parsing/parseSpellsAndFeats.js
 Reads: `docs/ArelithClassData.xml`, `docs/ArelithSpellsandFeats.xml`
 Outputs: `Parsed/combinedSpellFeatData.json`, `Parsed/notFound.json`
 
+### Step 1b: Parse Bard Song Tables
+```bash
+node parsing/parseBardSongTables.js
+```
+Reads: `docs/ArelithBard.xml`
+Outputs: `Parsed/bardSongTables.json`
+
+Query example (song/effect/level, with Song of the Heart applied):
+```bash
+node parsing/parseBardSongTables.js --query --table bard --song "Bardic Rhythm" --effect "AB" --level 24 --with-soth
+```
+
 ### Step 2: Parse Combat Data
 ```bash
 node SpellSearch/parseCombatData.js

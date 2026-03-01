@@ -208,7 +208,7 @@
             <p class="subtitle">Comprehensive spell utilities for Neverwinter Nights: Arelith</p>
             <p class="description">
                 Access powerful tools designed to help you master the arcane arts on Arelith.
-                Character planning is available here, while spell tools have moved to Astrolabe.
+                Plan characters and access spell tools from one place.
             </p>
         </header>
 
@@ -232,16 +232,16 @@
         <h2 class="section-title">Moved to Astrolabe</h2>
 
         <div class="tools-grid">
-            <a href="https://astrolabe.nwnarelith.com/sequencer" class="tool-card" target="_blank" rel="noopener noreferrer">
+            <a href="SequenceBuilder/sequenceBuilder_standalone.html" class="tool-card" id="sequencerCard">
                 <span class="tool-icon">&nbsp;</span>
                 <h2 class="tool-title">Spell Sequencer</h2>
-                <p class="tool-description">
-                    This tool has moved and is now maintained on the main Arelith Astrolabe.
+                <p class="tool-description" id="sequencerDescription">
+                    Build optimized spell action queues for combat and buff sequences.
                 </p>
-                <ul class="tool-features">
-                    <li>https://astrolabe.nwnarelith.com/sequencer</li>
+                <ul class="tool-features" id="sequencerFeatures">
+                    <li>Create and manage spell sequences</li>
                 </ul>
-                <span class="cta-button">Open Sequencer on Astrolabe →</span>
+                <span class="cta-button" id="sequencerCta">Open Local Sequencer →</span>
             </a>
 
             <a href="https://astrolabe.nwnarelith.com/spells" class="tool-card" target="_blank" rel="noopener noreferrer">
@@ -261,5 +261,40 @@
             <p>Made for the Arelith community • Data sourced from Arelith Wiki</p>
         </footer>
     </div>
+    <script>
+        const INDEX_CONFIG = {
+            useAstrolabeSequencer: false,
+            localSequencerPath: 'SequenceBuilder/sequenceBuilder_standalone.html',
+            astrolabeSequencerUrl: 'https://astrolabe.nwnarelith.com/sequencer'
+        };
+
+        (function configureSequencerCard() {
+            const card = document.getElementById('sequencerCard');
+            const description = document.getElementById('sequencerDescription');
+            const features = document.getElementById('sequencerFeatures');
+            const cta = document.getElementById('sequencerCta');
+
+            if (!card || !description || !features || !cta) {
+                return;
+            }
+
+            if (INDEX_CONFIG.useAstrolabeSequencer) {
+                card.href = INDEX_CONFIG.astrolabeSequencerUrl;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+                description.textContent = 'This tool has moved and is now maintained on the main Arelith Astrolabe.';
+                features.innerHTML = '<li>https://astrolabe.nwnarelith.com/sequencer</li>';
+                cta.textContent = 'Open Sequencer on Astrolabe →';
+                return;
+            }
+
+            card.href = INDEX_CONFIG.localSequencerPath;
+            card.removeAttribute('target');
+            card.removeAttribute('rel');
+            description.textContent = 'Build optimized spell action queues for combat and buff sequences.';
+            features.innerHTML = '<li>Create and manage spell sequences</li>';
+            cta.textContent = 'Open Local Sequencer →';
+        })();
+    </script>
 </body>
 </html>
