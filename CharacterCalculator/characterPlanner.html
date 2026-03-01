@@ -791,13 +791,15 @@
 
             <div id="shareExportActions" class="share-modal-actions">
                 <button type="button" onclick="copyShareText()">Copy to Clipboard</button>
-                <button type="button" onclick="saveShareTextToFile()">Save to File</button>
+                <button type="button" onclick="setExportShareFormat('code')">Use Share Code</button>
+                <button type="button" onclick="setExportShareFormat('json')">Use Raw JSON</button>
+                <button type="button" onclick="saveShareTextToFile()">Save to File (Secondary)</button>
                 <button type="button" onclick="closeShareModal()">Close</button>
             </div>
 
             <div id="shareImportActions" class="share-modal-actions" style="display:none;">
-                <button type="button" onclick="triggerShareImportFile()">Load JSON File</button>
                 <button type="button" onclick="applyImportedShareText()">Import</button>
+                <button type="button" onclick="triggerShareImportFile()">Load from File (Secondary)</button>
                 <button type="button" onclick="closeShareModal()">Close</button>
             </div>
 

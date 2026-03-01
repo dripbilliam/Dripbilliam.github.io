@@ -112,7 +112,8 @@ const SKILL_POINT_FEAT_BONUS_RULES = [
     }
 ];
 const UI_REFRESH_DEBOUNCE_MS = 80;
-const SKILL_STAT_VALIDATION_DEBOUNCE_MS = 2500;
+const VALIDATION_TRAILING_DEBOUNCE_MS = 1500;
+const SKILL_STAT_VALIDATION_DEBOUNCE_MS = VALIDATION_TRAILING_DEBOUNCE_MS;
 let refreshTimer = null;
 let validationTimer = null;
 let pendingSkillGridRefresh = false;
@@ -131,13 +132,16 @@ function scheduleValidation(delayMs = UI_REFRESH_DEBOUNCE_MS) {
         clearTimeout(validationTimer);
     }
 
+    const requestedDelay = Math.max(0, parseInt(delayMs, 10) || 0);
+    const effectiveDelay = Math.max(VALIDATION_TRAILING_DEBOUNCE_MS, requestedDelay);
+
     validationTimer = setTimeout(() => {
         validationTimer = null;
         validateCharacterRealtime();
-    }, Math.max(0, parseInt(delayMs, 10) || 0));
+    }, effectiveDelay);
 }
 
-function schedulePlannerRefresh({ includeSkills = false, validationDelayMs = UI_REFRESH_DEBOUNCE_MS } = {}) {
+function schedulePlannerRefresh({ includeSkills = false, validationDelayMs = VALIDATION_TRAILING_DEBOUNCE_MS } = {}) {
     pendingSkillGridRefresh = pendingSkillGridRefresh || includeSkills;
 
     if (refreshTimer) {
@@ -1489,18 +1493,21 @@ function getSkillPointBudgetTooltipAtLevel(level) {
         lines.push(`  - ${entry.feat}: ${formatSignedValue(entry.bonus)}`);
     });
 
-    const totalBudget = Math.max(0, subtotal + featBonusData.total);
+    const totalEarnedAtLevel = Math.max(0, subtotal + featBonusData.total);
     const usage = getSkillPointUsageAtLevel(level);
+    const carryOver = Math.max(0, Number(usage.carryOverBudget) || 0);
     const remaining = usage.budget - usage.spent;
 
-    lines.push(`Total budget: ${totalBudget}`);
+    lines.push(`Earned this level: ${totalEarnedAtLevel}`);
+    lines.push(`Carry-over from previous levels: ${carryOver}`);
+    lines.push(`Total available: ${usage.budget}`);
     lines.push(`Spent: ${usage.spent}`);
     lines.push(`Remaining: ${remaining}`);
 
     return lines.join('\n');
 }
 
-function getSkillPointUsageAtLevel(level, overrideSkillIdx = null, overrideRankValue = null) {
+function getSkillPointSpentAtLevel(level, overrideSkillIdx = null, overrideRankValue = null) {
     const previousRanks = level > 1 ? normalizeSkillsArray(levelData[level - 2].skills) : Array(SKILL_LIST.length).fill(0);
     const currentRanks = normalizeSkillsArray(levelData[level - 1].skills);
 
@@ -1556,17 +1563,49 @@ function getSkillPointUsageAtLevel(level, overrideSkillIdx = null, overrideRankV
         }
     }
 
-    const budget = getSkillPointsBudgetAtLevel(level);
+    return { spent, issues };
+}
+
+function getSkillPointCarryOverBeforeLevel(level) {
+    const targetLevel = Math.max(1, parseInt(level, 10) || 1);
+    if (targetLevel <= 1) return 0;
+
+    let carryOver = 0;
+
+    for (let lvl = 1; lvl < targetLevel; lvl++) {
+        const earned = getSkillPointsBudgetAtLevel(lvl);
+        const spentData = getSkillPointSpentAtLevel(lvl);
+        const remaining = (Number(earned) || 0) + carryOver - (Number(spentData.spent) || 0);
+        carryOver = Math.max(0, remaining);
+    }
+
+    return carryOver;
+}
+
+function getSkillPointUsageAtLevel(level, overrideSkillIdx = null, overrideRankValue = null) {
+    const spentData = getSkillPointSpentAtLevel(level, overrideSkillIdx, overrideRankValue);
+    const earnedBudget = getSkillPointsBudgetAtLevel(level);
+    const carryOverBudget = getSkillPointCarryOverBeforeLevel(level);
+    const budget = Math.max(0, earnedBudget + carryOverBudget);
+    const spent = spentData.spent;
+    const issues = Array.isArray(spentData.issues) ? [...spentData.issues] : [];
+
     if (spent > budget) {
         issues.push({
             level,
             type: 'skill',
-            message: `❌ Level ${level} spends ${spent} skill points but only ${budget} are available`,
+            message: `❌ Level ${level} spends ${spent} skill points but only ${budget} are available (includes ${carryOverBudget} carry-over)`,
             severity: 'error'
         });
     }
 
-    return { spent, budget, issues };
+    return {
+        spent,
+        budget,
+        issues,
+        earnedBudget,
+        carryOverBudget
+    };
 }
 
 function getSkillPointSummaryText(level) {
@@ -1601,6 +1640,11 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
 
     const raw = getRawSkillAtLevel(level, normalizedSkill);
     if (raw === null) return null;
+
+    const previousRaw = level > 1
+        ? Math.max(0, getRawSkillAtLevel(level - 1, normalizedSkill) || 0)
+        : 0;
+    const investedThisLevel = Math.max(0, raw - previousRaw);
 
     const raceBonus = getRaceSkillBonus(normalizedSkill);
 
@@ -1662,6 +1706,8 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
     return {
         skill: normalizedSkill,
         raw,
+        previousRaw,
+        investedThisLevel,
         raceBonus,
         featBonus,
         featSources,
@@ -1681,7 +1727,9 @@ function getSkillIncreaseTooltipAtLevel(level, skillName) {
 
     const lines = [
         `${breakdown.skill.toUpperCase()} @ Lvl ${level}`,
-        `Ranks: ${breakdown.raw}`,
+        `Ranks (total): ${breakdown.raw}`,
+        `  - From previous levels: ${breakdown.previousRaw}`,
+        `  - Invested this level: ${breakdown.investedThisLevel}`,
         `Race: ${formatSignedValue(breakdown.raceBonus)}`,
         `Feats: ${formatSignedValue(breakdown.featBonus)}`
     ];
@@ -2900,6 +2948,7 @@ function updateSkillGrid() {
 
             skillInput.onchange = () => {
                 const previousLevelRank = level > 1 ? (parseInt(levelData[level - 2].skills[skillIdx], 10) || 0) : 0;
+                const previousCurrentLevelRank = Math.max(0, parseInt(levelData[level - 1].skills[skillIdx], 10) || 0);
                 let baseRankValue = Math.max(0, parseInt(skillInput.value) || 0);
 
                 if (baseRankValue < previousLevelRank) {
@@ -2926,9 +2975,18 @@ function updateSkillGrid() {
                 }
 
                 levelData[level - 1].skills[skillIdx] = baseRankValue;
-                // Carry skills down to future levels (supports both increase and decrease)
+                const rankDelta = baseRankValue - previousCurrentLevelRank;
+                // Shift future cumulative ranks by the edited delta while preserving monotonic floors.
+                let runningFloor = baseRankValue;
                 for (let nextLevel = level; nextLevel < 30; nextLevel++) {
-                    levelData[nextLevel].skills[skillIdx] = baseRankValue;
+                    const existingFutureRank = Math.max(0, parseInt(levelData[nextLevel].skills[skillIdx], 10) || 0);
+                    const shiftedFutureRank = existingFutureRank + rankDelta;
+                    const futureLevel = nextLevel + 1;
+                    const futureCap = getSkillRankCapAtLevel(futureLevel, skillKey);
+                    const futureMaxAllowedRank = runningFloor > futureCap ? runningFloor : futureCap;
+                    const adjustedFutureRank = Math.max(runningFloor, Math.min(shiftedFutureRank, futureMaxAllowedRank));
+                    levelData[nextLevel].skills[skillIdx] = adjustedFutureRank;
+                    runningFloor = adjustedFutureRank;
                 }
                 refreshSkillColumnInPlace(skillIdx, level);
                 scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
@@ -4113,10 +4171,12 @@ function openShareModal(mode, text = '') {
     const isExport = mode === 'export';
     title.textContent = isExport ? 'Export Build Code' : 'Import Build Code';
     note.textContent = isExport
-        ? 'Copy this compact build code to share, or save it as a file. Import accepts both compact codes and legacy JSON.'
+        ? (shareModalExportFormat === 'json'
+            ? 'Raw JSON export mode. Import accepts both raw JSON and compact share codes.'
+            : 'Compact share code mode. Import accepts both compact share codes and raw JSON.')
         : 'Paste a build code or JSON here, or load a code/JSON file, then click Import.';
 
-    textarea.value = text || '';
+    textarea.value = isExport ? getCurrentShareExportText() : (text || '');
     textarea.readOnly = isExport;
     exportActions.style.display = isExport ? 'flex' : 'none';
     importActions.style.display = isExport ? 'none' : 'flex';
@@ -4140,6 +4200,36 @@ function openShareModal(mode, text = '') {
 const SHARE_FORMAT_PREFIX_COMPRESSED = 'CPZ1:';
 const SHARE_FORMAT_PREFIX_BASE64 = 'CPB1:';
 let shareModalLastFocusedElement = null;
+let shareModalExportCode = '';
+let shareModalExportJson = '';
+let shareModalExportFormat = 'code';
+
+function getCurrentShareExportText() {
+    return shareModalExportFormat === 'json'
+        ? (shareModalExportJson || '')
+        : (shareModalExportCode || '');
+}
+
+function updateShareExportTextarea() {
+    const modal = document.getElementById('shareModal');
+    const note = document.getElementById('shareModalNote');
+    const textarea = document.getElementById('shareModalText');
+    if (!modal || !note || !textarea) return;
+    if (!modal.classList.contains('open')) return;
+
+    textarea.value = getCurrentShareExportText();
+    note.textContent = shareModalExportFormat === 'json'
+        ? 'Raw JSON export mode. Import accepts both raw JSON and compact share codes.'
+        : 'Compact share code mode. Import accepts both compact share codes and raw JSON.';
+    textarea.focus();
+    textarea.select();
+}
+
+function setExportShareFormat(format) {
+    const normalized = String(format || '').trim().toLowerCase();
+    shareModalExportFormat = normalized === 'json' ? 'json' : 'code';
+    updateShareExportTextarea();
+}
 
 function bytesToBase64Url(bytes) {
     const data = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || 0);
@@ -4161,18 +4251,38 @@ function bytesToBase64Url(bytes) {
 function base64UrlToBytes(text) {
     const normalized = String(text || '')
         .trim()
+        .replace(/^['"`]+|['"`]+$/g, '')
+        .replace(/[\r\n\t\s]+/g, '')
         .replace(/-/g, '+')
         .replace(/_/g, '/');
 
     if (!normalized) return new Uint8Array();
 
-    const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
-    const binary = atob(padded);
+    const cleaned = normalized.replace(/[^A-Za-z0-9+/=]/g, '');
+    if (!cleaned) {
+        throw new Error('Share payload is empty after cleanup');
+    }
+
+    const padded = cleaned + '='.repeat((4 - (cleaned.length % 4)) % 4);
+
+    let binary;
+    try {
+        binary = atob(padded);
+    } catch {
+        throw new Error('Share payload is not valid base64/base64url');
+    }
+
     const bytes = new Uint8Array(binary.length);
     for (let index = 0; index < binary.length; index++) {
         bytes[index] = binary.charCodeAt(index);
     }
     return bytes;
+}
+
+function extractEmbeddedShareCode(text) {
+    const source = String(text || '');
+    const match = source.match(/(CP(?:Z1|Z0|Z|B1|B0|B):[A-Za-z0-9_\-+/=\s]+)/i);
+    return match ? match[1].trim() : '';
 }
 
 async function gzipBytes(bytes) {
@@ -4197,6 +4307,22 @@ async function gunzipBytes(bytes) {
     return new Uint8Array(decompressed);
 }
 
+async function inflateBytes(bytes) {
+    if (typeof DecompressionStream !== 'function') {
+        throw new Error('DecompressionStream unsupported');
+    }
+
+    const source = new Blob([bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || 0)]).stream();
+    const inflatedStream = source.pipeThrough(new DecompressionStream('deflate'));
+    const inflated = await new Response(inflatedStream).arrayBuffer();
+    return new Uint8Array(inflated);
+}
+
+function parseJsonFromUtf8Bytes(bytes) {
+    const jsonText = new TextDecoder().decode(bytes);
+    return JSON.parse(jsonText);
+}
+
 async function encodeCharacterForShare(character) {
     const compactJson = JSON.stringify(character);
     const utf8 = new TextEncoder().encode(compactJson);
@@ -4215,26 +4341,68 @@ async function decodeCharacterFromShareText(inputText) {
         throw new Error('No build data provided');
     }
 
+    const normalizedText = text
+        .replace(/[\r\n\t ]+/g, '')
+        .replace(/^#?build=/i, '');
+
+    const embeddedShareCode = extractEmbeddedShareCode(text);
+    const shareCandidate = embeddedShareCode
+        ? embeddedShareCode.replace(/[\r\n\t ]+/g, '')
+        : normalizedText;
+
     if (text.startsWith('{') || text.startsWith('[')) {
         return JSON.parse(text);
     }
 
-    if (text.startsWith(SHARE_FORMAT_PREFIX_COMPRESSED)) {
-        const payload = text.slice(SHARE_FORMAT_PREFIX_COMPRESSED.length);
-        const compressedBytes = base64UrlToBytes(payload);
-        const decompressed = await gunzipBytes(compressedBytes);
-        const json = new TextDecoder().decode(decompressed);
-        return JSON.parse(json);
+    if (normalizedText.startsWith('{') || normalizedText.startsWith('[')) {
+        return JSON.parse(normalizedText);
     }
 
-    if (text.startsWith(SHARE_FORMAT_PREFIX_BASE64)) {
-        const payload = text.slice(SHARE_FORMAT_PREFIX_BASE64.length);
-        const bytes = base64UrlToBytes(payload);
-        const json = new TextDecoder().decode(bytes);
-        return JSON.parse(json);
+    if (shareCandidate.startsWith(SHARE_FORMAT_PREFIX_COMPRESSED) || shareCandidate.startsWith('CPZ:') || shareCandidate.startsWith('CPZ0:')) {
+        const payload = shareCandidate.slice(shareCandidate.indexOf(':') + 1);
+
+        let compressedBytes;
+        try {
+            compressedBytes = base64UrlToBytes(payload);
+        } catch {
+            throw new Error('Compressed share code payload is malformed');
+        }
+
+        try {
+            const decompressed = await gunzipBytes(compressedBytes);
+            return parseJsonFromUtf8Bytes(decompressed);
+        } catch (gzipError) {
+            try {
+                const inflated = await inflateBytes(compressedBytes);
+                return parseJsonFromUtf8Bytes(inflated);
+            } catch (inflateError) {
+                try {
+                    return parseJsonFromUtf8Bytes(compressedBytes);
+                } catch (plainError) {
+                    throw new Error('Compressed share code could not be decoded on this browser');
+                }
+            }
+        }
     }
 
-    throw new Error('Unsupported share format');
+    if (shareCandidate.startsWith(SHARE_FORMAT_PREFIX_BASE64) || shareCandidate.startsWith('CPB:') || shareCandidate.startsWith('CPB0:')) {
+        const payload = shareCandidate.slice(shareCandidate.indexOf(':') + 1);
+
+        let bytes;
+        try {
+            bytes = base64UrlToBytes(payload);
+        } catch {
+            throw new Error('Base64 share code payload is malformed');
+        }
+
+        return parseJsonFromUtf8Bytes(bytes);
+    }
+
+    try {
+        return JSON.parse(normalizedText);
+    } catch {
+        throw new Error('Unsupported share format');
+    }
 }
 
 function closeShareModal() {
@@ -4269,12 +4437,12 @@ function copyShareText() {
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(textarea.value)
-            .then(() => alert('Build code copied to clipboard.'))
+            .then(() => alert(shareModalExportFormat === 'json' ? 'Build JSON copied to clipboard.' : 'Build code copied to clipboard.'))
             .catch(() => {
                 textarea.focus();
                 textarea.select();
                 document.execCommand('copy');
-                alert('Build code copied to clipboard.');
+                alert(shareModalExportFormat === 'json' ? 'Build JSON copied to clipboard.' : 'Build code copied to clipboard.');
             });
         return;
     }
@@ -4282,7 +4450,7 @@ function copyShareText() {
     textarea.focus();
     textarea.select();
     document.execCommand('copy');
-    alert('Build code copied to clipboard.');
+    alert(shareModalExportFormat === 'json' ? 'Build JSON copied to clipboard.' : 'Build code copied to clipboard.');
 }
 
 function saveShareTextToFile() {
@@ -4291,7 +4459,8 @@ function saveShareTextToFile() {
         if (!textarea) return;
 
         const payload = textarea.value || '';
-        const blob = new Blob([payload], { type: 'text/plain' });
+        const saveAsJson = shareModalExportFormat === 'json';
+        const blob = new Blob([payload], { type: saveAsJson ? 'application/json' : 'text/plain' });
         const url = URL.createObjectURL(blob);
 
         const characterName = (document.getElementById('charName').value || 'character')
@@ -4301,7 +4470,7 @@ function saveShareTextToFile() {
 
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${characterName}_build.txt`;
+        link.download = saveAsJson ? `${characterName}_build.json` : `${characterName}_build.txt`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -4337,15 +4506,17 @@ async function applyImportedShareText() {
         alert('Character build imported!');
     } catch (error) {
         console.error('Error importing character:', error);
-        alert('Invalid build code/JSON.');
+        const message = error && error.message ? error.message : 'Invalid build code/JSON.';
+        alert(`Import failed: ${message}`);
     }
 }
 
 async function exportCharacter() {
     try {
         const character = getCharacterSnapshot();
-        const payload = await encodeCharacterForShare(character);
-        openShareModal('export', payload);
+        shareModalExportCode = await encodeCharacterForShare(character);
+        shareModalExportJson = JSON.stringify(character, null, 2);
+        openShareModal('export');
     } catch (error) {
         console.error('Error exporting character:', error);
         alert('Failed to export character build.');
