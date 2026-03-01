@@ -19580,17 +19580,38 @@
       "stats": {},
       "ac": {},
       "skills": {},
+      "conditionalSkills": [
+        {
+          "when": "class:cleric>=18",
+          "skills": {
+            "spot": 2,
+            "hide": 2,
+            "move silently": 2,
+            "open lock": 4,
+            "disarm trap": 4,
+            "search": 4
+          }
+        }
+      ],
       "hp": null,
       "grantedFeats": [
         { "feat": "Weapon proficiency (rogue)", "when": "always" },
         { "feat": "Armor proficiency (light)", "when": "always" },
         { "feat": "Shield proficiency", "when": "always" },
-        { "feat": "Uncanny Dodge I", "when": "class:cleric>=12" }
+        { "feat": "Uncanny Dodge I", "when": "class:cleric>=12" },
+        { "feat": "Sneak attack", "when": "class:cleric>=6" },
+        { "feat": "Sneak attack", "when": "class:cleric>=9" },
+        { "feat": "Sneak attack", "when": "class:cleric>=12" },
+        { "feat": "Sneak attack", "when": "class:cleric>=15" },
+        { "feat": "Sneak attack", "when": "class:cleric>=18" },
+        { "feat": "Sneak attack", "when": "class:cleric>=21" },
+        { "feat": "Sneak attack", "when": "class:cleric>=24" },
+        { "feat": "Sneak attack", "when": "class:cleric>=27" },
+        { "feat": "Sneak attack", "when": "class:cleric>=30" }
       ],
       "other": [
         "future:swashbucklerSynergyUsesTwoThirdsClericLevels",
-        "future:sneakAttackEveryThreeClericLevels",
-        "future:grantSeekerSoftSkillBonusesAtCleric18"
+        "future:sneakAttackEveryThreeClericLevels"
       ]
     },
     "source": {

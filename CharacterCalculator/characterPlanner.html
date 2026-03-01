@@ -386,6 +386,76 @@
             margin-top: 10px;
         }
 
+        .gear-subtabs {
+            display: flex;
+            gap: 6px;
+            margin: 0 0 10px;
+            border-bottom: 1px solid #c5dcfa;
+            padding-bottom: 6px;
+        }
+
+        .gear-subtab-btn {
+            padding: 7px 10px;
+            background: #eef5ff;
+            color: #0f467f;
+            border: 1px solid #c5dcfa;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .gear-subtab-btn.active {
+            background: #0066cc;
+            border-color: #0052a3;
+            color: #fff;
+        }
+
+        .gear-subtab-panel {
+            display: none;
+        }
+
+        .gear-subtab-panel.active {
+            display: block;
+        }
+
+        .damage-sim-panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+            padding: 10px;
+        }
+
+        .damage-sim-canvas-wrap {
+            border: 1px solid #d5d5d5;
+            background: #fff;
+            border-radius: 4px;
+            padding: 8px;
+        }
+
+        #damageSimCanvas {
+            width: 100%;
+            height: 430px;
+            display: block;
+        }
+
+        .damage-sim-trace {
+            margin-top: 10px;
+            border: 1px solid #d5d5d5;
+            background: #fff;
+            border-radius: 4px;
+            padding: 8px;
+        }
+
+        #damageSimTraceOutput {
+            margin: 6px 0 0;
+            max-height: 240px;
+            overflow: auto;
+            white-space: pre-wrap;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.35;
+            color: #222;
+        }
+
         .muted-note {
             color: #666;
             font-size: 11px;
@@ -614,63 +684,95 @@
         </div>
 
         <div id="damageGear" class="tab-content">
-            <div class="gear-layout">
-                <div class="gear-panel">
-                    <h3 style="margin-top:0;">Paper Doll</h3>
-                    <div id="gearPaperDoll" class="paper-doll-grid"></div>
-                    <p class="muted-note">Click a slot to edit item properties and mote costs.</p>
+            <div class="gear-subtabs">
+                <button type="button" id="damageGearSubtabPlanner" class="gear-subtab-btn active">Gear Planner</button>
+                <button type="button" id="damageGearSubtabGraph" class="gear-subtab-btn">Damage Graph</button>
+            </div>
+
+            <div id="damageGearPlannerPanel" class="gear-subtab-panel active">
+                <div class="gear-layout">
+                    <div class="gear-panel">
+                        <h3 style="margin-top:0;">Paper Doll</h3>
+                        <div id="gearPaperDoll" class="paper-doll-grid"></div>
+                        <p class="muted-note">Click a slot to edit item properties and mote costs.</p>
+                    </div>
+
+                    <div class="gear-panel">
+                        <h3 id="gearEditorTitle" style="margin-top:0;">Slot Editor</h3>
+
+                        <div class="gear-field-row">
+                            <label for="gearItemName" style="min-width:90px; font-weight:bold;">Item Name</label>
+                            <input type="text" id="gearItemName" placeholder="Custom item name">
+                        </div>
+
+                        <div class="gear-field-row" id="offHandTypeRow" style="display:none;">
+                            <label for="offHandType" style="min-width:90px; font-weight:bold;">Off-hand Type</label>
+                            <select id="offHandType">
+                                <option value="shield">Shield</option>
+                                <option value="weapon">Weapon</option>
+                            </select>
+                        </div>
+
+                        <div id="gearItemMeta"></div>
+
+                        <div class="gear-field-row">
+                            <button type="button" id="addGearPropertyBtn">Add Property</button>
+                            <span id="selectedSlotMoteTotal" class="feat-label">Slot Motes: 0</span>
+                        </div>
+
+                        <table class="gear-prop-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 200px;">Property</th>
+                                    <th>Parameters</th>
+                                    <th style="width: 90px;">Motes</th>
+                                    <th style="width: 70px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gearPropertyRows"></tbody>
+                        </table>
+
+                        <div class="gear-summary-grid">
+                            <div>
+                                <h4 style="margin: 10px 0 6px;">Character Pass-through</h4>
+                                <div id="baseDerivedSummary"></div>
+                            </div>
+                            <div>
+                                <h4 style="margin: 10px 0 6px;">Gear-adjusted Summary</h4>
+                                <div id="gearDerivedSummary"></div>
+                            </div>
+                        </div>
+                        <div class="gear-field-row" style="margin-top:10px;">
+                            <span id="gearMoteTotal" class="feat-label">Total Motes: 0</span>
+                            <span id="gearFlags" class="feat-label">Flags: none</span>
+                        </div>
+                        <p class="muted-note">Touch-attack and flat-footed handling are flagged for future use; not applied yet.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="gear-panel">
-                    <h3 id="gearEditorTitle" style="margin-top:0;">Slot Editor</h3>
-
+            <div id="damageGearGraphPanel" class="gear-subtab-panel">
+                <div class="damage-sim-panel">
+                    <h3 style="margin-top:0;">AC vs Average Damage per Round</h3>
                     <div class="gear-field-row">
-                        <label for="gearItemName" style="min-width:90px; font-weight:bold;">Item Name</label>
-                        <input type="text" id="gearItemName" placeholder="Custom item name">
+                        <button type="button" id="runDamageSimulationBtn">Run 500000-round Simulation</button>
+                        <span class="feat-label">X Axis: AC 20-80</span>
+                        <span class="feat-label">Y Axis: Average Damage/Round</span>
                     </div>
-
-                    <div class="gear-field-row" id="offHandTypeRow" style="display:none;">
-                        <label for="offHandType" style="min-width:90px; font-weight:bold;">Off-hand Type</label>
-                        <select id="offHandType">
-                            <option value="shield">Shield</option>
-                            <option value="weapon">Weapon</option>
-                        </select>
-                    </div>
-
-                    <div id="gearItemMeta"></div>
-
                     <div class="gear-field-row">
-                        <button type="button" id="addGearPropertyBtn">Add Property</button>
-                        <span id="selectedSlotMoteTotal" class="feat-label">Slot Motes: 0</span>
+                        <span id="damageSimBuildSummary" class="feat-label">Build snapshot pending</span>
+                        <span id="damageSimStatus" class="feat-label">Ready</span>
                     </div>
-
-                    <table class="gear-prop-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 200px;">Property</th>
-                                <th>Parameters</th>
-                                <th style="width: 90px;">Motes</th>
-                                <th style="width: 70px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gearPropertyRows"></tbody>
-                    </table>
-
-                    <div class="gear-summary-grid">
-                        <div>
-                            <h4 style="margin: 10px 0 6px;">Character Pass-through</h4>
-                            <div id="baseDerivedSummary"></div>
+                    <div class="damage-sim-canvas-wrap">
+                        <canvas id="damageSimCanvas" width="1100" height="430"></canvas>
+                    </div>
+                    <div class="damage-sim-trace">
+                        <div class="gear-field-row" style="margin-bottom:0;">
+                            <strong>Sample Attack Trace (first 5 attacks)</strong>
+                            <span class="muted-note">Shows each die roll, modifiers, and summed damage.</span>
                         </div>
-                        <div>
-                            <h4 style="margin: 10px 0 6px;">Gear-adjusted Summary</h4>
-                            <div id="gearDerivedSummary"></div>
-                        </div>
+                        <pre id="damageSimTraceOutput">Run simulation to generate trace output.</pre>
                     </div>
-                    <div class="gear-field-row" style="margin-top:10px;">
-                        <span id="gearMoteTotal" class="feat-label">Total Motes: 0</span>
-                        <span id="gearFlags" class="feat-label">Flags: none</span>
-                    </div>
-                    <p class="muted-note">Touch-attack and flat-footed handling are flagged for future use; not applied yet.</p>
                 </div>
             </div>
         </div>

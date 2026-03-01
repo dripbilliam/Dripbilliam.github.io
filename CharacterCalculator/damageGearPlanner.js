@@ -241,6 +241,22 @@
         return 'slashing';
     }
 
+    function isDebugLogsEnabled() {
+        try {
+            if (typeof debugLogsEnabled === 'boolean') {
+                return debugLogsEnabled;
+            }
+        } catch (error) {
+            // no-op
+        }
+
+        try {
+            return localStorage.getItem('planner_debug_logs') === '1';
+        } catch (error) {
+            return false;
+        }
+    }
+
     function getFocusGroupFromWeaponFlags(weapon) {
         if (!weapon || typeof weapon !== 'object') return '';
         if (weapon.concussion) return 'Concussion';
@@ -278,7 +294,8 @@
             restrictionDrawerOpen: false,
             specialDrawerOpen: false,
             weaponOptionsDrawerOpen: true,
-            wearableOptionsDrawerOpen: true
+            wearableOptionsDrawerOpen: true,
+            damageSubtab: 'planner'
         },
         slots: {}
     };
@@ -592,6 +609,10 @@
     function init() {
         rootEls = {
             damageGear: document.getElementById('damageGear'),
+            damageSubtabPlannerBtn: document.getElementById('damageGearSubtabPlanner'),
+            damageSubtabGraphBtn: document.getElementById('damageGearSubtabGraph'),
+            damageSubtabPlannerPanel: document.getElementById('damageGearPlannerPanel'),
+            damageSubtabGraphPanel: document.getElementById('damageGearGraphPanel'),
             paperDoll: document.getElementById('gearPaperDoll'),
             editorTitle: document.getElementById('gearEditorTitle'),
             itemName: document.getElementById('gearItemName'),
@@ -604,7 +625,12 @@
             totalMotes: document.getElementById('gearMoteTotal'),
             flags: document.getElementById('gearFlags'),
             baseSummary: document.getElementById('baseDerivedSummary'),
-            gearSummary: document.getElementById('gearDerivedSummary')
+            gearSummary: document.getElementById('gearDerivedSummary'),
+            damageSimRunBtn: document.getElementById('runDamageSimulationBtn'),
+            damageSimStatus: document.getElementById('damageSimStatus'),
+            damageSimBuildSummary: document.getElementById('damageSimBuildSummary'),
+            damageSimCanvas: document.getElementById('damageSimCanvas'),
+            damageSimTraceOutput: document.getElementById('damageSimTraceOutput')
         };
 
         if (!rootEls.paperDoll) return;
@@ -614,6 +640,7 @@
         renderPaperDoll();
         bindEditorEvents();
         renderEditor();
+        switchDamageSubtab(state.ui.damageSubtab || 'planner');
         renderSummaries();
         patchPlannerHooks();
 
@@ -627,6 +654,24 @@
                 renderEditor();
                 renderSummaries();
             });
+        }
+
+        if (rootEls.damageSubtabPlannerBtn) {
+            rootEls.damageSubtabPlannerBtn.addEventListener('click', () => switchDamageSubtab('planner'));
+        }
+
+        if (rootEls.damageSubtabGraphBtn) {
+            rootEls.damageSubtabGraphBtn.addEventListener('click', () => switchDamageSubtab('graph'));
+        }
+
+        if (rootEls.damageSimRunBtn) {
+            rootEls.damageSimRunBtn.addEventListener('click', () => {
+                runDamageSimulationGraph();
+            });
+        }
+
+        if (rootEls.damageSimTraceOutput && !String(rootEls.damageSimTraceOutput.textContent || '').trim()) {
+            rootEls.damageSimTraceOutput.textContent = 'Run simulation to generate trace output.';
         }
     }
 
@@ -722,6 +767,11 @@
             innateToggle.disabled = innateOnly;
             innateToggle.addEventListener('change', () => {
                 property.innate = Boolean(innateToggle.checked);
+                if (!property.innate && property.type === 'Attack Bonus') {
+                    const params = property.params || {};
+                    params.value = Math.min(1, Math.max(0, Number(params.value) || 0));
+                    property.params = params;
+                }
                 renderEditor();
                 renderSummaries();
             });
@@ -854,6 +904,135 @@
             container.appendChild(wrapper);
         };
 
+        const addDamageAddTypeEditor = () => {
+            const parseDiceLabel = (rawLabel) => {
+                const text = String(rawLabel || '').trim().toLowerCase();
+                const match = text.match(/^(\d+)d(\d+)$/i);
+                if (!match) return null;
+                const count = Math.max(1, parseInt(match[1], 10) || 1);
+                const size = Math.max(2, parseInt(match[2], 10) || 2);
+                return { count, size };
+            };
+
+            const parsedDice = parseDiceLabel(p.diceLabel);
+            if (!p.damageAddType) {
+                p.damageAddType = parsedDice ? 'dice' : 'flat';
+            }
+
+            if (p.damageAddType !== 'flat' && p.damageAddType !== 'dice') {
+                p.damageAddType = 'flat';
+            }
+
+            if (p.damageAddType === 'flat') {
+                const defaultFlat = Number(p.flatAdd);
+                if (!Number.isFinite(defaultFlat)) {
+                    const fromAvg = Number(p.avgDamage);
+                    p.flatAdd = Number.isFinite(fromAvg) ? Math.max(0, Math.round(fromAvg)) : 2;
+                }
+            } else {
+                if (!Number.isFinite(Number(p.diceCount)) || Number(p.diceCount) <= 0) {
+                    p.diceCount = parsedDice ? parsedDice.count : 1;
+                }
+                if (!Number.isFinite(Number(p.diceSize)) || Number(p.diceSize) < 2) {
+                    p.diceSize = parsedDice ? parsedDice.size : 4;
+                }
+            }
+
+            const syncDerivedDamageFields = () => {
+                if (p.damageAddType === 'flat') {
+                    const flat = Math.max(0, parseFloat(p.flatAdd) || 0);
+                    p.flatAdd = flat;
+                    p.avgDamage = flat;
+                    p.diceLabel = `+${flat}`;
+                    p.mode = 'flat2';
+                    return;
+                }
+
+                const count = Math.max(1, Math.floor(parseFloat(p.diceCount) || 1));
+                const size = Math.max(2, Math.floor(parseFloat(p.diceSize) || 4));
+                p.diceCount = count;
+                p.diceSize = size;
+                p.avgDamage = count * ((size + 1) / 2);
+                p.diceLabel = `${count}d${size}`;
+                p.mode = 'd4';
+            };
+
+            addSelect('damageAddType', 'Add Type', [
+                { value: 'flat', label: 'Flat Add' },
+                { value: 'dice', label: 'Dice Add' }
+            ]);
+
+            if (p.damageAddType === 'flat') {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gear-field-row';
+
+                const labelEl = document.createElement('label');
+                labelEl.textContent = 'Flat Add';
+                labelEl.style.minWidth = '68px';
+
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.min = '0';
+                input.step = '1';
+                input.value = String(Number.isFinite(Number(p.flatAdd)) ? p.flatAdd : 2);
+                input.addEventListener('input', () => {
+                    p.flatAdd = Math.max(0, parseFloat(input.value) || 0);
+                    syncDerivedDamageFields();
+                    onChange();
+                });
+
+                wrapper.appendChild(labelEl);
+                wrapper.appendChild(input);
+                container.appendChild(wrapper);
+            } else {
+                const countWrap = document.createElement('div');
+                countWrap.className = 'gear-field-row';
+
+                const countLabel = document.createElement('label');
+                countLabel.textContent = 'Dice #';
+                countLabel.style.minWidth = '68px';
+
+                const countInput = document.createElement('input');
+                countInput.type = 'number';
+                countInput.min = '1';
+                countInput.step = '1';
+                countInput.value = String(Number.isFinite(Number(p.diceCount)) ? Math.max(1, Math.floor(Number(p.diceCount))) : 1);
+                countInput.addEventListener('input', () => {
+                    p.diceCount = Math.max(1, Math.floor(parseFloat(countInput.value) || 1));
+                    syncDerivedDamageFields();
+                    onChange();
+                });
+
+                countWrap.appendChild(countLabel);
+                countWrap.appendChild(countInput);
+                container.appendChild(countWrap);
+
+                const sizeWrap = document.createElement('div');
+                sizeWrap.className = 'gear-field-row';
+
+                const sizeLabel = document.createElement('label');
+                sizeLabel.textContent = 'Die Size';
+                sizeLabel.style.minWidth = '68px';
+
+                const sizeInput = document.createElement('input');
+                sizeInput.type = 'number';
+                sizeInput.min = '2';
+                sizeInput.step = '1';
+                sizeInput.value = String(Number.isFinite(Number(p.diceSize)) ? Math.max(2, Math.floor(Number(p.diceSize))) : 4);
+                sizeInput.addEventListener('input', () => {
+                    p.diceSize = Math.max(2, Math.floor(parseFloat(sizeInput.value) || 4));
+                    syncDerivedDamageFields();
+                    onChange();
+                });
+
+                sizeWrap.appendChild(sizeLabel);
+                sizeWrap.appendChild(sizeInput);
+                container.appendChild(sizeWrap);
+            }
+
+            syncDerivedDamageFields();
+        };
+
         switch (property.type) {
             case 'Ability':
                 addSelect('stat', 'Stat', [
@@ -932,8 +1111,7 @@
             case 'Damage vs Alignment/Race/Alignment':
                 addSelect('damageType', 'Type', DAMAGE_TYPES);
                 if (removeCaps) {
-                    addNumber('avgDamage', 'Avg Dmg', { min: 0, step: 0.25, defaultValue: 2 });
-                    addText('diceLabel', 'Label', 'e.g. 1d12');
+                    addDamageAddTypeEditor();
                 } else {
                     addSelect('mode', 'Add', DAMAGE_ADD_MODES);
                 }
@@ -1147,6 +1325,16 @@
         const p = params || {};
         const direct = Number(p.avgDamage);
         if (Number.isFinite(direct) && direct > 0) return direct;
+
+        const flatAdd = Number(p.flatAdd);
+        if (Number.isFinite(flatAdd) && flatAdd > 0) return flatAdd;
+
+        const diceCount = Number(p.diceCount);
+        const diceSize = Number(p.diceSize);
+        if (Number.isFinite(diceCount) && Number.isFinite(diceSize) && diceCount > 0 && diceSize > 1) {
+            return diceCount * ((diceSize + 1) / 2);
+        }
+
         return getAverageDamageFromMode(p.mode);
     }
 
@@ -1444,8 +1632,27 @@
     function addDamageAddToSummary(damageAdds, params) {
         if (!damageAdds || !params) return;
 
+        const damageAddType = String(params.damageAddType || '').trim().toLowerCase();
         const mode = String(params.mode || '').toLowerCase();
         const damageType = String(params.damageType || '').trim().toLowerCase() || 'untyped';
+
+        if (damageAddType === 'flat') {
+            const flatValue = Math.max(0, Number(params.flatAdd) || 0);
+            if (flatValue > 0) {
+                damageAdds.flat += flatValue;
+                return;
+            }
+        }
+
+        if (damageAddType === 'dice') {
+            const count = Math.max(1, Math.floor(Number(params.diceCount) || 0));
+            const dieSize = Math.max(0, Math.floor(Number(params.diceSize) || 0));
+            if (count > 0 && dieSize > 1) {
+                const key = `${damageType}|d${dieSize}`;
+                damageAdds.diceByType.set(key, (damageAdds.diceByType.get(key) || 0) + count);
+                return;
+            }
+        }
 
         if (mode === 'flat2') {
             damageAdds.flat += 2;
@@ -1517,6 +1724,1102 @@
         return 1;
     }
 
+    function getIterativeAttackCountFromBab(babValue) {
+        const bab = Math.max(0, Math.floor(Number(babValue) || 0));
+        let attacks = 1;
+        if (bab >= 6) attacks += 1;
+        if (bab >= 11) attacks += 1;
+        if (bab >= 16) attacks += 1;
+        return Math.min(4, attacks);
+    }
+
+    function getAttackBonusSequence(totalAttackBonus, babValue) {
+        const attacks = getIterativeAttackCountFromBab(babValue);
+        const firstAttackBonus = Number(totalAttackBonus) || 0;
+        const sequence = [];
+
+        for (let index = 0; index < attacks; index++) {
+            sequence.push(firstAttackBonus - (index * 5));
+        }
+
+        return sequence;
+    }
+
+    function formatAttackBonusSequence(sequence) {
+        if (!Array.isArray(sequence) || sequence.length === 0) return '+0';
+        return sequence
+            .map(value => {
+                const rounded = round2(value);
+                return rounded >= 0 ? `+${rounded}` : `${rounded}`;
+            })
+            .join('/');
+    }
+
+    function getAverageDamageAddsValue(damageAdds) {
+        if (!damageAdds || !(damageAdds.diceByType instanceof Map)) return 0;
+
+        let total = Number(damageAdds.flat) || 0;
+        damageAdds.diceByType.forEach((amount, key) => {
+            const numericAmount = Number(amount) || 0;
+            if (numericAmount <= 0) return;
+
+            const [, die] = String(key || '').split('|');
+            if (die === 'avg') {
+                total += numericAmount;
+                return;
+            }
+
+            const dieMatch = String(die || '').match(/^d(\d+)$/i);
+            if (!dieMatch) return;
+            const dieSize = parseInt(dieMatch[1], 10) || 0;
+            if (dieSize <= 0) return;
+            total += numericAmount * ((dieSize + 1) / 2);
+        });
+
+        return total;
+    }
+
+    function parseCritProfile(rawCritText) {
+        const text = String(rawCritText || '').trim().toLowerCase();
+
+        let threatMin = 20;
+        let multiplier = 2;
+
+        const rangeMatch = text.match(/(\d+)\s*-\s*20/);
+        if (rangeMatch) {
+            const parsedThreatMin = parseInt(rangeMatch[1], 10);
+            if (Number.isFinite(parsedThreatMin)) {
+                threatMin = Math.max(2, Math.min(20, parsedThreatMin));
+            }
+        }
+
+        const multiplierMatch = text.match(/x\s*(\d+)/);
+        if (multiplierMatch) {
+            const parsedMultiplier = parseInt(multiplierMatch[1], 10);
+            if (Number.isFinite(parsedMultiplier) && parsedMultiplier > 0) {
+                multiplier = parsedMultiplier;
+            }
+        }
+
+        if (!rangeMatch && /\b20\b/.test(text)) {
+            threatMin = 20;
+        }
+
+        return {
+            threatMin,
+            multiplier,
+            label: threatMin < 20 ? `${threatMin}-20/x${multiplier}` : `20/x${multiplier}`
+        };
+    }
+
+    function normalizeFocusGroupName(rawGroup) {
+        const normalized = String(rawGroup || '').trim().toLowerCase().replace(/[\s_]+/g, ' ');
+        const aliases = {
+            'missle': 'missile',
+            'one handed edge': 'one-handed edge',
+            'two handed': 'two-handed'
+        };
+        return aliases[normalized] || normalized;
+    }
+
+    function getMainHandFocusGroup() {
+        const mainHandState = ensureSlotState('mainHand');
+        const meta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
+        const explicit = normalizeFocusGroupName(meta.focusGroup || '');
+        if (explicit) return explicit;
+
+        if (meta.concussion) return 'concussion';
+        if (meta.twoHanded) return 'two-handed';
+        if (meta.polearm) return 'polearm';
+        if (meta.oneHandEdged) return 'one-handed edge';
+        if (meta.unarmed) return 'unarmed';
+        if (meta.missile) return 'missile';
+        if (meta.thrown) return 'thrown';
+        return '';
+    }
+
+    function getAbilityModifiersFromStats(stats) {
+        if (typeof getAbilityModifiers === 'function') {
+            try {
+                const computed = getAbilityModifiers(stats);
+                if (computed && typeof computed === 'object') {
+                    return computed;
+                }
+            } catch {
+                // no-op
+            }
+        }
+
+        const read = (key) => Number(stats && stats[key]) || 10;
+        return {
+            str: Math.floor((read('str') - 10) / 2),
+            dex: Math.floor((read('dex') - 10) / 2),
+            con: Math.floor((read('con') - 10) / 2),
+            int: Math.floor((read('int') - 10) / 2),
+            wis: Math.floor((read('wis') - 10) / 2),
+            cha: Math.floor((read('cha') - 10) / 2)
+        };
+    }
+
+    function normalizeWeaponNameForRules(rawName) {
+        return String(rawName || '')
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, '');
+    }
+
+    function isFinesseBaseWeapon(mainHandMeta) {
+        const nameFromChart = normalizeWeaponNameForRules(mainHandMeta && mainHandMeta.baseWeaponChart);
+        const nameFromType = normalizeWeaponNameForRules(mainHandMeta && mainHandMeta.baseWeaponType);
+        const candidates = [nameFromChart, nameFromType].filter(Boolean);
+
+        const exactAllowed = new Set([
+            'dagger',
+            'handaxe',
+            'kama',
+            'kukri',
+            'lighthammer',
+            'mace',
+            'rapier',
+            'shortsword',
+            'sickle',
+            'whip',
+            'mace(lightmace)'.replace(/[^a-z0-9]/g, ''),
+            'lightmace'
+        ]);
+
+        return candidates.some(candidate => {
+            if (exactAllowed.has(candidate)) return true;
+            if (candidate.includes('shortsword')) return true;
+            if (candidate.includes('lighthammer')) return true;
+            if (candidate.includes('lightmace')) return true;
+            return false;
+        });
+    }
+
+    function getWeaponAbilityModifiers(level) {
+        const numericLevel = Math.max(1, parseInt(level, 10) || 1);
+        const stats = getCharacterStatsAtLevel(numericLevel);
+        const mods = getAbilityModifiersFromStats(stats);
+        const strMod = Number(mods.str) || 0;
+        const dexMod = Number(mods.dex) || 0;
+
+        const featSet = getOwnedFeatNameSetAtLevel(numericLevel);
+        const hasWeaponFinesse = featSet.has('weapon finesse');
+
+        const mainHandState = ensureSlotState('mainHand');
+        const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
+        const finesseWeapon = isFinesseBaseWeapon(mainHandMeta);
+
+        const dexCanReplaceAttack = (hasWeaponFinesse || finesseWeapon) && dexMod > strMod;
+        const attackAbility = dexCanReplaceAttack ? 'dex' : 'str';
+
+        return {
+            strMod,
+            dexMod,
+            attackAbility,
+            attackAbilityMod: attackAbility === 'dex' ? dexMod : strMod,
+            damageAbilityMod: strMod,
+            hasWeaponFinesse,
+            finesseWeapon,
+            weaponName: String(mainHandMeta.baseWeaponChart || mainHandMeta.baseWeaponType || '').trim()
+        };
+    }
+
+    function getOwnedFeatNameSetAtLevel(level) {
+        const names = new Set();
+        if (typeof getEffectiveOwnedFeatDetailsAtLevel !== 'function') {
+            return names;
+        }
+
+        const ownedDetails = getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: true });
+        if (!ownedDetails || typeof ownedDetails.forEach !== 'function') {
+            return names;
+        }
+
+        ownedDetails.forEach((detail, key) => {
+            const byKey = String(key || '').trim();
+            if (byKey) {
+                names.add(byKey.toLowerCase());
+            }
+
+            if (detail && detail.name) {
+                const resolved = typeof resolveFeatName === 'function'
+                    ? resolveFeatName(detail.name)
+                    : detail.name;
+                if (resolved) {
+                    names.add(String(resolved).trim().toLowerCase());
+                }
+            }
+        });
+
+        return names;
+    }
+
+    function parseFeatFocusGroup(featNameLower) {
+        const match = String(featNameLower || '').match(/\(([^)]+)\)\s*$/);
+        if (!match) return '';
+        return normalizeFocusGroupName(match[1]);
+    }
+
+    function hasFeatPrefix(featNameLower, prefixLower) {
+        const text = String(featNameLower || '').trim();
+        const prefix = String(prefixLower || '').trim();
+        return text === prefix || text.startsWith(`${prefix} (`);
+    }
+
+    function doesWeaponFeatApply(featNameLower, focusGroup, hasWeaponOfChoice) {
+        const featGroup = parseFeatFocusGroup(featNameLower);
+        if (!featGroup) return true;
+        if (featGroup === 'chosen weapon') return hasWeaponOfChoice;
+        if (!focusGroup) return false;
+        return featGroup === focusGroup;
+    }
+
+    function getWeaponFeatCombatModifiers(level, effects, baseCritProfile) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const focusGroup = getMainHandFocusGroup();
+        const hasWeaponOfChoice = featSet.has('weapon of choice');
+
+        let attackBonus = 0;
+        let damageBonus = 0;
+        let improvedCriticalCount = 0;
+        let increasedMultiplierCount = 0;
+        let hasKiCritical = false;
+        let hasOverwhelmingCritical = false;
+
+        featSet.forEach(featNameLower => {
+            const featName = String(featNameLower || '').trim();
+            if (!featName) return;
+
+            if (hasFeatPrefix(featName, 'weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                attackBonus += 1;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'epic weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                attackBonus += 2;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                damageBonus += 2;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'epic weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                damageBonus += 4;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                improvedCriticalCount += 1;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'epic improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                improvedCriticalCount += 1;
+                return;
+            }
+
+            if (hasFeatPrefix(featName, 'overwhelming critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+                hasOverwhelmingCritical = true;
+                return;
+            }
+
+            if (featName === 'superior weapon focus' && hasWeaponOfChoice) {
+                attackBonus += 1;
+                return;
+            }
+
+            if (featName === 'epic prowess') {
+                attackBonus += 1;
+                return;
+            }
+
+            if (featName === 'small stature') {
+                attackBonus += 1;
+                return;
+            }
+
+            if (featName === 'method: signature weapon') {
+                attackBonus += 1;
+                return;
+            }
+
+            if (featName === 'improved method: signature weapon mastery') {
+                attackBonus += 2;
+                return;
+            }
+
+            if (featName === 'increased multiplier' && hasWeaponOfChoice) {
+                increasedMultiplierCount += 1;
+                return;
+            }
+
+            if (featName === 'ki critical' && hasWeaponOfChoice) {
+                hasKiCritical = true;
+            }
+        });
+
+        const baseThreatMin = Math.max(2, Math.min(20, Math.floor(Number(baseCritProfile && baseCritProfile.threatMin) || 20)));
+        const baseMultiplier = Math.max(1, Math.floor(Number(baseCritProfile && baseCritProfile.multiplier) || 2));
+        const baseThreatSpan = Math.max(1, 21 - baseThreatMin);
+
+        const hasKeen = effects && effects.flags instanceof Set
+            ? Array.from(effects.flags).some(flag => String(flag || '').trim().toLowerCase().startsWith('keen'))
+            : false;
+
+        const threatRangeIncreases = improvedCriticalCount + (hasKeen ? 1 : 0);
+        let threatMin = baseThreatMin - (baseThreatSpan * threatRangeIncreases);
+        if (hasKiCritical) threatMin -= 2;
+        threatMin = Math.max(2, Math.min(20, threatMin));
+
+        const multiplierBonus = Math.max(0, increasedMultiplierCount);
+        const multiplier = Math.max(1, baseMultiplier + multiplierBonus);
+        const overwhelmingCritDice = hasOverwhelmingCritical ? Math.max(0, multiplier - 1) : 0;
+        const overwhelmingCritAverage = overwhelmingCritDice * 3.5;
+
+        return {
+            focusGroup,
+            attackBonus,
+            damageBonus,
+            hasKeen,
+            improvedCriticalCount,
+            hasKiCritical,
+            multiplierBonus,
+            overwhelmingCritDice,
+            overwhelmingCritAverage,
+            threatMin,
+            multiplier,
+            critLabel: threatMin < 20 ? `${threatMin}-20/x${multiplier}` : `20/x${multiplier}`
+        };
+    }
+
+    function getCritProfileForSimulation(effects, featCombatMods = null) {
+        const mainHandState = ensureSlotState('mainHand');
+        const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
+        const parsed = parseCritProfile(mainHandMeta.critRange || '');
+
+        if (featCombatMods && typeof featCombatMods === 'object') {
+            const threatMin = Math.max(2, Math.min(20, Math.floor(Number(featCombatMods.threatMin) || parsed.threatMin)));
+            const multiplier = Math.max(1, Math.floor(Number(featCombatMods.multiplier) || parsed.multiplier));
+            return {
+                threatMin,
+                multiplier,
+                label: threatMin < 20 ? `${threatMin}-20/x${multiplier}` : `20/x${multiplier}`
+            };
+        }
+
+        return {
+            threatMin: parsed.threatMin,
+            multiplier: parsed.multiplier,
+            label: parsed.threatMin < 20 ? `${parsed.threatMin}-20/x${parsed.multiplier}` : `20/x${parsed.multiplier}`
+        };
+    }
+
+    function getCombatSnapshot() {
+        const base = getBaseDerivedSummary();
+        const effects = buildGearEffects();
+        const ac = computeStackedAc(effects);
+        const abilityCombatMods = getWeaponAbilityModifiers(base.level);
+        const derived = {
+            attackBonus: base.bab + effects.attackBonus,
+            fort: base.fort + effects.saveBonus.fort,
+            ref: base.ref + effects.saveBonus.ref,
+            will: base.will + effects.saveBonus.will,
+            hp: base.hp,
+            bab: base.bab,
+            damageBonus: effects.damageBonus,
+            critDamageBonus: effects.critDamageBonus,
+            spellResistance: effects.maxSpellResistance,
+            ac
+        };
+
+        const baseCritProfile = getCritProfileForSimulation(effects);
+        const featCombatMods = getWeaponFeatCombatModifiers(base.level, effects, baseCritProfile);
+        const critProfile = getCritProfileForSimulation(effects, featCombatMods);
+
+        derived.attackBonus += featCombatMods.attackBonus;
+        derived.damageBonus += featCombatMods.damageBonus;
+        derived.critDamageBonus += featCombatMods.overwhelmingCritAverage;
+        derived.attackBonus += abilityCombatMods.attackAbilityMod;
+        derived.damageBonus += abilityCombatMods.damageAbilityMod;
+
+        const attackBonusSequence = getAttackBonusSequence(derived.attackBonus, base.bab);
+        const sneakAttackDice = getSneakAttackDiceAtLevel(base.level, effects);
+        const sneakAttackAverage = sneakAttackDice * 3.5;
+        const extraDamageAverage = getAverageDamageAddsValue(effects.damageAdds);
+        const multipliableHitDamage = Math.max(0, Number(derived.damageBonus) - Number(extraDamageAverage));
+        const nonMultipliableHitDamage = Math.max(0, Number(sneakAttackAverage) + Number(extraDamageAverage));
+        const averageHitDamage = multipliableHitDamage + nonMultipliableHitDamage;
+        const averageCritOnlyBonus = Math.max(
+            0,
+            Number(derived.critDamageBonus)
+        );
+        const averageCritHitDamage = Math.max(
+            0,
+            (multipliableHitDamage * Number(critProfile.multiplier || 2))
+            + nonMultipliableHitDamage
+            + averageCritOnlyBonus
+        );
+
+        return {
+            base,
+            effects,
+            derived,
+            baseCritProfile,
+            featCombatMods,
+            abilityCombatMods,
+            attackBonusSequence,
+            sneakAttackDice,
+            sneakAttackAverage,
+            extraDamageAverage,
+            multipliableHitDamage,
+            nonMultipliableHitDamage,
+            averageHitDamage,
+            averageCritHitDamage,
+            averageCritOnlyBonus,
+            critProfile
+        };
+    }
+
+    function simulateAverageDamageCurve(snapshot, rounds = 500000, acMin = 20, acMax = 80) {
+        const attackBonuses = Array.isArray(snapshot && snapshot.attackBonusSequence)
+            ? snapshot.attackBonusSequence
+            : [];
+        const normalHitDamage = Math.max(0, Number(snapshot && snapshot.averageHitDamage) || 0);
+        const critHitDamage = Math.max(0, Number(snapshot && snapshot.averageCritHitDamage) || 0);
+        const critProfile = (snapshot && snapshot.critProfile) ? snapshot.critProfile : { threatMin: 20, multiplier: 2 };
+        const critThreatMin = Math.max(2, Math.min(20, Math.floor(Number(critProfile.threatMin) || 20)));
+
+        const minAc = Math.max(1, Math.floor(Number(acMin) || 20));
+        const maxAc = Math.max(minAc, Math.floor(Number(acMax) || 80));
+        const totalRounds = Math.max(1, Math.floor(Number(rounds) || 500000));
+        const pointCount = maxAc - minAc + 1;
+
+        const addRange = (diffArray, startAc, endAc, value) => {
+            if (!diffArray || !Number.isFinite(value) || value === 0) return;
+            const clampedStart = Math.max(minAc, Math.min(maxAc, Math.floor(startAc)));
+            const clampedEnd = Math.max(minAc, Math.min(maxAc, Math.floor(endAc)));
+            if (clampedEnd < clampedStart) return;
+
+            const startIndex = clampedStart - minAc;
+            const endIndexExclusive = (clampedEnd - minAc) + 1;
+            diffArray[startIndex] += value;
+            if (endIndexExclusive < diffArray.length) {
+                diffArray[endIndexExclusive] -= value;
+            }
+        };
+
+        const diff = new Float64Array(pointCount + 1);
+        if (attackBonuses.length === 0 || (normalHitDamage <= 0 && critHitDamage <= 0)) {
+            return Array.from({ length: pointCount }, (_, index) => ({ ac: minAc + index, damage: 0 }));
+        }
+
+        for (let round = 0; round < totalRounds; round++) {
+            for (let attackIndex = 0; attackIndex < attackBonuses.length; attackIndex++) {
+                const attackBonus = Number(attackBonuses[attackIndex]) || 0;
+                const roll = 1 + Math.floor(Math.random() * 20);
+                if (roll === 1) continue;
+
+                let maxHitAc = roll === 20 ? maxAc : Math.floor(attackBonus + roll);
+                if (maxHitAc < minAc) continue;
+                if (maxHitAc > maxAc) maxHitAc = maxAc;
+
+                const isCritThreat = roll >= critThreatMin;
+                if (!isCritThreat || critHitDamage <= normalHitDamage) {
+                    addRange(diff, minAc, maxHitAc, normalHitDamage);
+                    continue;
+                }
+
+                const threatRoll = 1 + Math.floor(Math.random() * 20);
+                const maxConfirmAc = Math.floor(attackBonus + threatRoll);
+                const maxCritAc = Math.min(maxHitAc, maxConfirmAc);
+
+                if (maxCritAc < minAc) {
+                    addRange(diff, minAc, maxHitAc, normalHitDamage);
+                    continue;
+                }
+
+                addRange(diff, minAc, maxCritAc, critHitDamage);
+                if (maxHitAc > maxCritAc) {
+                    addRange(diff, maxCritAc + 1, maxHitAc, normalHitDamage);
+                }
+            }
+        }
+
+        const points = [];
+        let cumulativeDamage = 0;
+        for (let index = 0; index < pointCount; index++) {
+            cumulativeDamage += diff[index];
+            const averageDamage = cumulativeDamage / totalRounds;
+            points.push({ ac: minAc + index, damage: averageDamage });
+        }
+
+        return points;
+    }
+
+    function rollDie(sides) {
+        const dieSides = Math.max(2, Math.floor(Number(sides) || 2));
+        return 1 + Math.floor(Math.random() * dieSides);
+    }
+
+    function rollDicePool(count, sides) {
+        const rolls = [];
+        const diceCount = Math.max(0, Math.floor(Number(count) || 0));
+        const dieSides = Math.max(2, Math.floor(Number(sides) || 2));
+
+        for (let index = 0; index < diceCount; index++) {
+            rolls.push(rollDie(dieSides));
+        }
+
+        return {
+            rolls,
+            sum: rolls.reduce((total, value) => total + value, 0)
+        };
+    }
+
+    function getTraceDamageDiceComponents(damageAdds) {
+        const result = {
+            flat: Math.max(0, Number(damageAdds && damageAdds.flat) || 0),
+            diceTerms: []
+        };
+
+        if (!damageAdds || !(damageAdds.diceByType instanceof Map)) {
+            return result;
+        }
+
+        damageAdds.diceByType.forEach((amount, key) => {
+            const numericAmount = Number(amount) || 0;
+            if (numericAmount <= 0) return;
+
+            const [rawType, rawDie] = String(key || '').split('|');
+            const typeName = String(rawType || 'untyped').trim().toLowerCase() || 'untyped';
+            const dieText = String(rawDie || '').trim().toLowerCase();
+
+            if (dieText === 'avg') {
+                result.flat += numericAmount;
+                return;
+            }
+
+            const dieMatch = dieText.match(/^d(\d+)$/i);
+            if (!dieMatch) {
+                result.flat += numericAmount;
+                return;
+            }
+
+            const dieSize = Math.max(2, parseInt(dieMatch[1], 10) || 0);
+            const integerCount = Math.floor(numericAmount);
+            const fractionalCount = numericAmount - integerCount;
+
+            if (integerCount > 0) {
+                result.diceTerms.push({
+                    count: integerCount,
+                    size: dieSize,
+                    type: typeName
+                });
+            }
+
+            if (fractionalCount > 0) {
+                result.flat += fractionalCount * ((dieSize + 1) / 2);
+            }
+        });
+
+        return result;
+    }
+
+    function formatSignedForTrace(value) {
+        const numeric = round2(Number(value) || 0);
+        return numeric >= 0 ? `+${numeric}` : `${numeric}`;
+    }
+
+    function buildDetailedAttackTraces(snapshot, options = {}) {
+        const traceCount = Math.max(1, Math.floor(Number(options.traceCount) || 5));
+        const traceAc = Math.max(1, Math.floor(Number(options.traceAc) || 50));
+        const attackBonuses = Array.isArray(snapshot && snapshot.attackBonusSequence)
+            ? snapshot.attackBonusSequence
+            : [];
+
+        if (attackBonuses.length === 0) {
+            return [];
+        }
+
+        const critThreatMin = Math.max(2, Math.min(20, Math.floor(Number(snapshot && snapshot.critProfile && snapshot.critProfile.threatMin) || 20)));
+        const critMultiplier = Math.max(1, Math.floor(Number(snapshot && snapshot.critProfile && snapshot.critProfile.multiplier) || 2));
+        const multipliableStatic = Math.max(0, Number(snapshot && snapshot.multipliableHitDamage) || 0);
+        const sneakAttackDice = Math.max(0, Math.floor(Number(snapshot && snapshot.sneakAttackDice) || 0));
+
+        const damageAdds = getTraceDamageDiceComponents(snapshot && snapshot.effects ? snapshot.effects.damageAdds : null);
+        const extraFlatDamage = Math.max(0, Number(damageAdds.flat) || 0);
+        const extraDiceTerms = Array.isArray(damageAdds.diceTerms) ? damageAdds.diceTerms : [];
+
+        const overwhelmingDice = Math.max(0, Math.floor(Number(snapshot && snapshot.featCombatMods && snapshot.featCombatMods.overwhelmingCritDice) || 0));
+        const overwhelmingAverage = overwhelmingDice * 3.5;
+        const critOnlyFlat = Math.max(0, (Number(snapshot && snapshot.averageCritOnlyBonus) || 0) - overwhelmingAverage);
+
+        const traces = [];
+        let round = 1;
+        const maxRounds = Math.max(40, traceCount * 10);
+
+        while (traces.length < traceCount && round <= maxRounds) {
+            for (let attackIndex = 0; attackIndex < attackBonuses.length; attackIndex++) {
+                if (traces.length >= traceCount) break;
+
+                const attackBonus = Number(attackBonuses[attackIndex]) || 0;
+                const attackRoll = rollDie(20);
+                const attackTotal = attackBonus + attackRoll;
+                const traceLines = [];
+                const traceNumber = traces.length + 1;
+
+                traceLines.push(`#${traceNumber} Round ${round}, Attack ${attackIndex + 1} (AB ${formatSignedForTrace(attackBonus)} vs AC ${traceAc})`);
+
+                if (attackRoll === 1) {
+                    traceLines.push(`Attack roll: d20[1] ${formatSignedForTrace(attackBonus)} = ${round2(attackTotal)} -> AUTO MISS`);
+                    traceLines.push('Damage total: 0');
+                    traces.push(traceLines.join('\n'));
+                    continue;
+                }
+
+                const autoHit = attackRoll === 20;
+                const hit = autoHit || attackTotal >= traceAc;
+                traceLines.push(
+                    autoHit
+                        ? `Attack roll: d20[20] ${formatSignedForTrace(attackBonus)} = ${round2(attackTotal)} -> HIT (nat 20 auto-hit)`
+                        : `Attack roll: d20[${attackRoll}] ${formatSignedForTrace(attackBonus)} = ${round2(attackTotal)} -> ${hit ? 'HIT' : 'MISS'}`
+                );
+
+                if (!hit) {
+                    traceLines.push('Damage total: 0');
+                    traces.push(traceLines.join('\n'));
+                    continue;
+                }
+
+                let isThreat = attackRoll >= critThreatMin;
+                let confirmedCrit = false;
+
+                if (isThreat && critMultiplier > 1) {
+                    const confirmRoll = rollDie(20);
+                    const confirmTotal = attackBonus + confirmRoll;
+                    confirmedCrit = confirmTotal >= traceAc;
+                    traceLines.push(
+                        `Critical check: threat on ${attackRoll} (range ${critThreatMin}-20), confirm d20[${confirmRoll}] ${formatSignedForTrace(attackBonus)} = ${round2(confirmTotal)} -> ${confirmedCrit ? 'CRIT CONFIRMED' : 'normal hit'}`
+                    );
+                } else if (isThreat) {
+                    traceLines.push(`Critical check: threat on ${attackRoll}, but crit multiplier is x1 -> normal hit`);
+                    isThreat = false;
+                } else {
+                    traceLines.push(`Critical check: no threat (need ${critThreatMin}-20)`);
+                }
+
+                const componentValues = [];
+
+                if (multipliableStatic > 0) {
+                    if (confirmedCrit) {
+                        const multiplied = multipliableStatic * critMultiplier;
+                        traceLines.push(`Multipliable damage: (${round2(multipliableStatic)} x ${critMultiplier}) = ${round2(multiplied)}`);
+                        componentValues.push(multiplied);
+                    } else {
+                        traceLines.push(`Multipliable damage: ${round2(multipliableStatic)}`);
+                        componentValues.push(multipliableStatic);
+                    }
+                }
+
+                extraDiceTerms.forEach(term => {
+                    const rolled = rollDicePool(term.count, term.size);
+                    const typeSuffix = term.type && term.type !== 'untyped' ? ` ${term.type}` : '';
+                    traceLines.push(`Damage add${typeSuffix}: ${term.count}d${term.size} [${rolled.rolls.join(', ')}] = ${rolled.sum}`);
+                    componentValues.push(rolled.sum);
+                });
+
+                if (extraFlatDamage > 0) {
+                    traceLines.push(`Flat damage adds: ${round2(extraFlatDamage)}`);
+                    componentValues.push(extraFlatDamage);
+                }
+
+                if (sneakAttackDice > 0) {
+                    const sneakRoll = rollDicePool(sneakAttackDice, 6);
+                    traceLines.push(`Sneak attack: ${sneakAttackDice}d6 [${sneakRoll.rolls.join(', ')}] = ${sneakRoll.sum}`);
+                    componentValues.push(sneakRoll.sum);
+                }
+
+                if (confirmedCrit && overwhelmingDice > 0) {
+                    const overwhelmingRoll = rollDicePool(overwhelmingDice, 6);
+                    traceLines.push(`Overwhelming critical: ${overwhelmingDice}d6 [${overwhelmingRoll.rolls.join(', ')}] = ${overwhelmingRoll.sum}`);
+                    componentValues.push(overwhelmingRoll.sum);
+                }
+
+                if (confirmedCrit && critOnlyFlat > 0) {
+                    traceLines.push(`Other crit-only bonus: ${round2(critOnlyFlat)}`);
+                    componentValues.push(critOnlyFlat);
+                }
+
+                const totalDamage = componentValues.reduce((sum, value) => sum + (Number(value) || 0), 0);
+                const sumExpr = componentValues.length > 0
+                    ? componentValues.map(value => round2(value)).join(' + ')
+                    : '0';
+                traceLines.push(`Damage total: ${sumExpr} = ${round2(totalDamage)}`);
+
+                traces.push(traceLines.join('\n'));
+            }
+
+            round += 1;
+        }
+
+        return traces;
+    }
+
+    function renderDamageSimulationTrace(traceBlocks, traceAc) {
+        if (!rootEls || !rootEls.damageSimTraceOutput) return;
+
+        const blocks = Array.isArray(traceBlocks) ? traceBlocks : [];
+        if (blocks.length === 0) {
+            rootEls.damageSimTraceOutput.textContent = 'No attack trace available for this build.';
+            return;
+        }
+
+        const header = `Trace target AC: ${traceAc}`;
+        rootEls.damageSimTraceOutput.textContent = `${header}\n\n${blocks.join('\n\n')}`;
+
+        if (isDebugLogsEnabled()) {
+            console.groupCollapsed(`[Damage Sim] Detailed attack traces (${blocks.length})`);
+            console.log(header);
+            blocks.forEach(block => console.log(block));
+            console.groupEnd();
+        }
+    }
+
+    function drawDamageSimulationChart(points, options = {}) {
+        const canvas = rootEls && rootEls.damageSimCanvas;
+        if (!canvas) return;
+
+        const rounds = Math.max(1, Math.floor(Number(options.rounds) || 500000));
+        const context = canvas.getContext('2d');
+        if (!context) return;
+
+        const dpr = window.devicePixelRatio || 1;
+        const cssWidth = canvas.clientWidth || 1100;
+        const cssHeight = canvas.clientHeight || 430;
+        const width = Math.max(1, Math.floor(cssWidth * dpr));
+        const height = Math.max(1, Math.floor(cssHeight * dpr));
+
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        context.clearRect(0, 0, cssWidth, cssHeight);
+
+        const margin = { left: 64, right: 24, top: 40, bottom: 56 };
+        const plotWidth = Math.max(10, cssWidth - margin.left - margin.right);
+        const plotHeight = Math.max(10, cssHeight - margin.top - margin.bottom);
+
+        const acValues = (Array.isArray(points) ? points : []).map(point => point.ac);
+        const dmgValues = (Array.isArray(points) ? points : []).map(point => point.damage);
+
+        const minAc = acValues.length > 0 ? Math.min(...acValues) : 20;
+        const maxAc = acValues.length > 0 ? Math.max(...acValues) : 80;
+        const maxDamageRaw = dmgValues.length > 0 ? Math.max(...dmgValues) : 0;
+        const maxDamage = maxDamageRaw <= 0 ? 1 : Math.ceil(maxDamageRaw / 5) * 5;
+
+        const xForAc = (ac) => {
+            if (maxAc === minAc) return margin.left;
+            return margin.left + ((ac - minAc) / (maxAc - minAc)) * plotWidth;
+        };
+
+        const yForDamage = (damage) => {
+            const ratio = Math.max(0, Math.min(1, damage / maxDamage));
+            return margin.top + (1 - ratio) * plotHeight;
+        };
+
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, cssWidth, cssHeight);
+
+        context.strokeStyle = '#cfd8e3';
+        context.lineWidth = 1;
+
+        for (let acTick = minAc; acTick <= maxAc; acTick += 5) {
+            const x = xForAc(acTick);
+            context.beginPath();
+            context.moveTo(x, margin.top);
+            context.lineTo(x, margin.top + plotHeight);
+            context.stroke();
+        }
+
+        const yTickCount = 6;
+        for (let tick = 0; tick <= yTickCount; tick++) {
+            const value = (maxDamage / yTickCount) * tick;
+            const y = yForDamage(value);
+            context.beginPath();
+            context.moveTo(margin.left, y);
+            context.lineTo(margin.left + plotWidth, y);
+            context.stroke();
+        }
+
+        context.strokeStyle = '#2b3e57';
+        context.lineWidth = 1.4;
+        context.beginPath();
+        context.moveTo(margin.left, margin.top);
+        context.lineTo(margin.left, margin.top + plotHeight);
+        context.lineTo(margin.left + plotWidth, margin.top + plotHeight);
+        context.stroke();
+
+        context.fillStyle = '#111';
+        context.font = '12px Arial';
+        context.textAlign = 'center';
+        context.fillText(`Simulation of ${rounds} Rounds`, cssWidth / 2, 20);
+
+        context.font = '11px Arial';
+        for (let acTick = minAc; acTick <= maxAc; acTick += 5) {
+            const x = xForAc(acTick);
+            context.fillStyle = '#445';
+            context.fillText(String(acTick), x, margin.top + plotHeight + 18);
+        }
+
+        context.textAlign = 'right';
+        for (let tick = 0; tick <= yTickCount; tick++) {
+            const value = (maxDamage / yTickCount) * tick;
+            const y = yForDamage(value);
+            context.fillStyle = '#445';
+            context.fillText(String(round2(value)), margin.left - 8, y + 4);
+        }
+
+        context.textAlign = 'center';
+        context.fillStyle = '#223';
+        context.fillText('Target AC', margin.left + (plotWidth / 2), cssHeight - 12);
+
+        context.save();
+        context.translate(16, margin.top + (plotHeight / 2));
+        context.rotate(-Math.PI / 2);
+        context.fillStyle = '#223';
+        context.fillText('Average Damage per Round', 0, 0);
+        context.restore();
+
+        if (!Array.isArray(points) || points.length === 0) return;
+
+        context.strokeStyle = '#4f78d3';
+        context.lineWidth = 2;
+        context.beginPath();
+        points.forEach((point, index) => {
+            const x = xForAc(point.ac);
+            const y = yForDamage(point.damage);
+            if (index === 0) {
+                context.moveTo(x, y);
+            } else {
+                context.lineTo(x, y);
+            }
+        });
+        context.stroke();
+
+        context.fillStyle = '#4f78d3';
+        points.forEach((point, index) => {
+            if (index % 5 !== 0 && index !== points.length - 1) return;
+            const x = xForAc(point.ac);
+            const y = yForDamage(point.damage);
+            context.beginPath();
+            context.arc(x, y, 2.5, 0, Math.PI * 2);
+            context.fill();
+        });
+    }
+
+    function switchDamageSubtab(tabName) {
+        const targetTab = tabName === 'graph' ? 'graph' : 'planner';
+        state.ui.damageSubtab = targetTab;
+
+        if (rootEls.damageSubtabPlannerBtn) {
+            rootEls.damageSubtabPlannerBtn.classList.toggle('active', targetTab === 'planner');
+        }
+        if (rootEls.damageSubtabGraphBtn) {
+            rootEls.damageSubtabGraphBtn.classList.toggle('active', targetTab === 'graph');
+        }
+        if (rootEls.damageSubtabPlannerPanel) {
+            rootEls.damageSubtabPlannerPanel.classList.toggle('active', targetTab === 'planner');
+        }
+        if (rootEls.damageSubtabGraphPanel) {
+            rootEls.damageSubtabGraphPanel.classList.toggle('active', targetTab === 'graph');
+        }
+    }
+
+    async function runDamageSimulationGraph() {
+        if (!rootEls || !rootEls.damageSimCanvas) return;
+
+        const rounds = 500000;
+        const acMin = 20;
+        const acMax = 80;
+
+        const snapshot = getCombatSnapshot();
+        const attackText = formatAttackBonusSequence(snapshot.attackBonusSequence);
+        if (rootEls.damageSimBuildSummary) {
+            rootEls.damageSimBuildSummary.textContent = `AB ${attackText} (gear AB = max(enh ${round2(snapshot.effects.enhancementAttackBonus)}, direct ${round2(snapshot.effects.directAttackBonus)}) = ${round2(snapshot.effects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${snapshot.sneakAttackDice}d6`;
+        }
+
+        if (rootEls.damageSimStatus) {
+            rootEls.damageSimStatus.textContent = 'Running simulation...';
+        }
+        if (rootEls.damageSimRunBtn) {
+            rootEls.damageSimRunBtn.disabled = true;
+        }
+        if (rootEls.damageSimTraceOutput) {
+            rootEls.damageSimTraceOutput.textContent = 'Generating trace output...';
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 10));
+
+        const startedAt = performance.now();
+        const points = simulateAverageDamageCurve(snapshot, rounds, acMin, acMax);
+        const traceAc = Math.floor((acMin + acMax) / 2);
+        const traceBlocks = buildDetailedAttackTraces(snapshot, { traceCount: 5, traceAc });
+        renderDamageSimulationTrace(traceBlocks, traceAc);
+        drawDamageSimulationChart(points, { rounds });
+        const elapsedMs = round2(performance.now() - startedAt);
+
+        if (rootEls.damageSimStatus) {
+            rootEls.damageSimStatus.textContent = `Done (${elapsedMs} ms)`;
+        }
+        if (rootEls.damageSimRunBtn) {
+            rootEls.damageSimRunBtn.disabled = false;
+        }
+    }
+
+    function isSneakAttackFeatName(rawFeatName) {
+        if (!rawFeatName || typeof rawFeatName !== 'string') return false;
+        const resolved = typeof resolveFeatName === 'function'
+            ? resolveFeatName(rawFeatName)
+            : rawFeatName;
+        const normalized = String(resolved || '').trim().toLowerCase();
+        return normalized.includes('sneak attack') || normalized.includes('sneak attach');
+    }
+
+    function getSneakAttackDiceAtLevel(level, effects) {
+        const cappedLevel = Math.max(1, parseInt(level, 10) || 1);
+        let totalDice = 0;
+
+        const countIfSneakAttack = (featName) => {
+            if (isSneakAttackFeatName(featName)) {
+                totalDice += 1;
+            }
+        };
+
+        if (typeof getRaceFeatNames === 'function') {
+            try {
+                const raceFeats = getRaceFeatNames();
+                if (Array.isArray(raceFeats)) {
+                    raceFeats.forEach(countIfSneakAttack);
+                }
+            } catch {
+                // no-op
+            }
+        }
+
+        const levels = getPlannerLevelData();
+        if (Array.isArray(levels)) {
+            for (let lv = 1; lv <= Math.min(cappedLevel, levels.length); lv++) {
+                const className = levels[lv - 1] && levels[lv - 1].class;
+                if (className && typeof getClassFeatureParts === 'function') {
+                    try {
+                        const classFeatures = getClassFeatureParts(className, lv);
+                        if (Array.isArray(classFeatures)) {
+                            classFeatures.forEach(countIfSneakAttack);
+                        }
+                    } catch {
+                        // no-op
+                    }
+                }
+
+                if (typeof getSelectedFeatsAtLevel === 'function') {
+                    try {
+                        const selectedFeats = getSelectedFeatsAtLevel(lv);
+                        if (Array.isArray(selectedFeats)) {
+                            selectedFeats.forEach(countIfSneakAttack);
+                        }
+                    } catch {
+                        // no-op
+                    }
+                }
+            }
+        }
+
+        if (typeof getEffectiveOwnedFeatDetailsAtLevel === 'function'
+            && typeof parseGrantedFeatEntry === 'function'
+            && typeof doesGrantedFeatConditionMatch === 'function'
+            && featData
+            && typeof featData === 'object') {
+            try {
+                const ownedDetails = getEffectiveOwnedFeatDetailsAtLevel(cappedLevel, { includeSelectedCurrentLevel: true });
+                const ownedFeatSet = new Set();
+
+                if (ownedDetails && typeof ownedDetails.forEach === 'function') {
+                    ownedDetails.forEach((detail, key) => {
+                        const byKey = String(key || '').trim();
+                        if (byKey) {
+                            ownedFeatSet.add(byKey.toLowerCase());
+                        }
+
+                        if (detail && detail.name) {
+                            const resolved = typeof resolveFeatName === 'function'
+                                ? resolveFeatName(detail.name)
+                                : detail.name;
+                            if (resolved) {
+                                ownedFeatSet.add(String(resolved).toLowerCase());
+                            }
+                        }
+                    });
+                }
+
+                const processedGrantors = new Set();
+                let expanded = true;
+
+                while (expanded) {
+                    expanded = false;
+
+                    Array.from(ownedFeatSet).forEach(grantorKey => {
+                        if (!grantorKey || processedGrantors.has(grantorKey)) return;
+                        processedGrantors.add(grantorKey);
+
+                        const grantorName = typeof resolveFeatName === 'function'
+                            ? resolveFeatName(grantorKey)
+                            : grantorKey;
+                        const featInfo = featData[grantorName] || featData[String(grantorName || '').toLowerCase()];
+                        const grantedFeats = featInfo && featInfo.effects ? featInfo.effects.grantedFeats : null;
+                        if (!Array.isArray(grantedFeats)) return;
+
+                        grantedFeats.forEach(rawGrant => {
+                            const parsed = parseGrantedFeatEntry(rawGrant);
+                            if (!parsed || !parsed.feat) return;
+                            if (!doesGrantedFeatConditionMatch(parsed.when, cappedLevel, ownedFeatSet)) return;
+
+                            if (isSneakAttackFeatName(parsed.feat)) {
+                                totalDice += 1;
+                            }
+
+                            const resolvedGranted = typeof resolveFeatName === 'function'
+                                ? resolveFeatName(parsed.feat)
+                                : parsed.feat;
+                            const grantedKey = String(resolvedGranted || '').trim().toLowerCase();
+                            if (grantedKey && !ownedFeatSet.has(grantedKey)) {
+                                ownedFeatSet.add(grantedKey);
+                                expanded = true;
+                            }
+                        });
+                    });
+                }
+            } catch {
+                // no-op
+            }
+        }
+
+        if (effects && effects.itemGrantedFeats instanceof Map) {
+            effects.itemGrantedFeats.forEach(detail => {
+                if (detail && isSneakAttackFeatName(detail.name)) {
+                    totalDice += 1;
+                }
+            });
+        }
+
+        return Math.max(0, totalDice);
+    }
+
     function getBaseDerivedSummary() {
         const level = getCurrentCharacterLevel();
         const levels = getPlannerLevelData();
@@ -1542,26 +2845,24 @@
     function renderSummaries() {
         if (!rootEls || !rootEls.baseSummary || !rootEls.gearSummary) return;
 
-        const base = getBaseDerivedSummary();
-        const effects = buildGearEffects();
-        const ac = computeStackedAc(effects);
+        const snapshot = getCombatSnapshot();
+        const { base, effects, derived, baseCritProfile, featCombatMods, abilityCombatMods, attackBonusSequence, sneakAttackDice, sneakAttackAverage, critProfile } = snapshot;
 
         const totalMotes = SLOT_CONFIG.reduce((sum, slot) => {
             const slotState = ensureSlotState(slot.key);
             return sum + slotState.properties.reduce((inner, p) => inner + calcPropertyMotes(p), 0);
         }, 0);
 
-        const derived = {
-            attackBonus: base.bab + effects.attackBonus,
-            fort: base.fort + effects.saveBonus.fort,
-            ref: base.ref + effects.saveBonus.ref,
-            will: base.will + effects.saveBonus.will,
-            hp: base.hp,
-            bab: base.bab,
-            damageBonus: effects.damageBonus,
-            critDamageBonus: effects.critDamageBonus,
-            spellResistance: effects.maxSpellResistance,
-            ac
+        const sneakAttackAverageRounded = round2(sneakAttackAverage);
+        const formatSigned = (value) => {
+            const numeric = round2(Number(value) || 0);
+            return numeric >= 0 ? `+${numeric}` : `${numeric}`;
+        };
+        const buildChipWithSources = (label, valueText, sourceText) => {
+            const sourceHtml = sourceText
+                ? `<div class="muted-note">${escapeHtml(sourceText)}</div>`
+                : '';
+            return `<div class="gear-chip"><div>${escapeHtml(label)}: ${escapeHtml(valueText)}</div>${sourceHtml}</div>`;
         };
 
         const damageAddSummary = formatDamageAddSummary(effects.damageAdds);
@@ -1592,18 +2893,65 @@
         ].join('');
 
         rootEls.gearSummary.innerHTML = [
-            `<div class="gear-chip">Attack Bonus: +${derived.attackBonus}</div>`,
-            `<div class="gear-chip">Damage Bonus (avg): +${round2(derived.damageBonus)}</div>`,
-            `<div class="gear-chip">Damage Adds: ${damageAddSummary}</div>`,
-            `<div class="gear-chip">Massive Criticals (avg): +${round2(derived.critDamageBonus)}</div>`,
-            `<div class="gear-chip">Fort: +${derived.fort}</div>`,
-            `<div class="gear-chip">Ref: +${derived.ref}</div>`,
-            `<div class="gear-chip">Will: +${derived.will}</div>`,
-            `<div class="gear-chip">HP: ${derived.hp}</div>`,
-            `<div class="gear-chip">AC bonus total: +${round2(derived.ac.total)}</div>`,
-            `<div class="gear-chip">Armor ${round2(derived.ac.armor)} | Shield ${round2(derived.ac.shield)} | Natural ${round2(derived.ac.natural)} | Deflection ${round2(derived.ac.deflection)} | Dodge ${round2(derived.ac.dodge)}</div>`,
-            `<div class="gear-chip">Spell Resistance: ${derived.spellResistance || 0}</div>`
+            buildChipWithSources(
+                'Attack Bonus',
+                formatAttackBonusSequence(attackBonusSequence),
+                `Base BAB ${formatSigned(base.bab)}; Gear AB max(enh ${formatSigned(effects.enhancementAttackBonus)}, direct ${formatSigned(effects.directAttackBonus)}) = ${formatSigned(effects.attackBonus)}; Feats ${formatSigned(featCombatMods.attackBonus)} (focus: ${featCombatMods.focusGroup || 'none'}); ${abilityCombatMods.attackAbility.toUpperCase()} mod ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})${abilityCombatMods.attackAbility === 'dex' ? ` via ${abilityCombatMods.hasWeaponFinesse ? 'Weapon Finesse' : 'finesse base weapon'}${abilityCombatMods.weaponName ? ` (${abilityCombatMods.weaponName})` : ''}` : ''}`
+            ),
+            buildChipWithSources(
+                'Attacks per Round',
+                String(attackBonusSequence.length),
+                `From BAB ${base.bab}; extra attacks at BAB 6/11/16 (max 4)`
+            ),
+            buildChipWithSources(
+                'Damage Bonus (avg)',
+                formatSigned(derived.damageBonus),
+                `Base +0; Gear ${formatSigned(effects.damageBonus)}; Feats ${formatSigned(featCombatMods.damageBonus)}; STR mod ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+            ),
+            buildChipWithSources(
+                'Damage Adds',
+                damageAddSummary,
+                `Base none; Gear adds ${damageAddSummary}`
+            ),
+            buildChipWithSources(
+                'Sneak Attack',
+                `${sneakAttackDice}d6${sneakAttackDice > 0 ? ` (avg +${sneakAttackAverageRounded} on qualifying hit)` : ''}`,
+                `From feat/granted/item sources at build level ${base.level}`
+            ),
+            buildChipWithSources(
+                'Crit Profile',
+                critProfile.label,
+                `Base ${baseCritProfile.label}; IC ${featCombatMods.improvedCriticalCount}${featCombatMods.hasKeen ? ' + Keen' : ''}${featCombatMods.hasKiCritical ? ' + Ki Critical' : ''}; Multiplier +${featCombatMods.multiplierBonus}`
+            ),
+            buildChipWithSources(
+                'Weapon Feat Mods',
+                `AB ${formatSigned(featCombatMods.attackBonus)} | DMG ${formatSigned(featCombatMods.damageBonus)} | IC ${featCombatMods.improvedCriticalCount}${featCombatMods.hasKeen ? ' + Keen' : ''}`,
+                `Active focus group: ${featCombatMods.focusGroup || 'none'}; ${featCombatMods.hasKiCritical ? 'Ki Critical +2 range; ' : ''}${featCombatMods.multiplierBonus > 0 ? `Increased Multiplier +${featCombatMods.multiplierBonus}; ` : ''}${featCombatMods.overwhelmingCritDice > 0 ? `Overwhelming Crit +${featCombatMods.overwhelmingCritDice}d6 on crit` : 'No additional crit-only feat damage'}`
+            ),
+            buildChipWithSources(
+                'Massive Criticals (avg)',
+                formatSigned(derived.critDamageBonus),
+                `Gear massive crit ${formatSigned(effects.critDamageBonus)}; Overwhelming crit ${formatSigned(featCombatMods.overwhelmingCritAverage)}`
+            ),
+            buildChipWithSources('Fort', formatSigned(derived.fort), `Base ${formatSigned(base.fort)}; Gear ${formatSigned(effects.saveBonus.fort)}`),
+            buildChipWithSources('Ref', formatSigned(derived.ref), `Base ${formatSigned(base.ref)}; Gear ${formatSigned(effects.saveBonus.ref)}`),
+            buildChipWithSources('Will', formatSigned(derived.will), `Base ${formatSigned(base.will)}; Gear ${formatSigned(effects.saveBonus.will)}`),
+            buildChipWithSources('HP', `${derived.hp}`, `Base ${base.hp}; Gear +0`),
+            buildChipWithSources(
+                'AC bonus total',
+                formatSigned(derived.ac.total),
+                `Base +0; Armor ${formatSigned(derived.ac.armor)} | Shield ${formatSigned(derived.ac.shield)} | Natural ${formatSigned(derived.ac.natural)} | Deflection ${formatSigned(derived.ac.deflection)} | Dodge ${formatSigned(derived.ac.dodge)}`
+            ),
+            buildChipWithSources(
+                'Spell Resistance',
+                `${derived.spellResistance || 0}`,
+                `Base 0; Gear ${derived.spellResistance || 0}`
+            )
         ].join('');
+
+        if (rootEls.damageSimBuildSummary) {
+            rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (gear AB = max(enh ${round2(effects.enhancementAttackBonus)}, direct ${round2(effects.directAttackBonus)}) = ${round2(effects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
+        }
 
         rootEls.totalMotes.textContent = `Total Motes: ${formatMote(totalMotes)}`;
 

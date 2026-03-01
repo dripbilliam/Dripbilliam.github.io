@@ -24,7 +24,8 @@ const STAT_LABELS = {
 const SKILL_ALIAS_MAP = {
     'sleight hand': 'sleight of hand',
     'use magic': 'use magic device',
-    'disable traps': 'disable trap'
+    'disable traps': 'disable trap',
+    'disarm trap': 'disable trap'
 };
 
 const SKILL_ABILITY_MAP = {
@@ -103,6 +104,13 @@ let levelStatData = Array(30).fill(null).map(() => ({
 }));
 
 const GENERAL_FEAT_LEVELS = [1, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30];
+const SKILL_POINT_FEAT_BONUS_RULES = [
+    {
+        feat: 'Path of the Seeker',
+        appliesToClass: 'cleric',
+        bonusPerLevel: 2
+    }
+];
 const UI_REFRESH_DEBOUNCE_MS = 80;
 const SKILL_STAT_VALIDATION_DEBOUNCE_MS = 2500;
 let refreshTimer = null;
@@ -187,8 +195,12 @@ async function loadData() {
         raceData = racesJson;
         classData = classJson;
         featData = featsJson;
+        const genericFeatCount = ensureReferencedGrantedFeatsExist();
 
         console.log(`Loaded: ${Object.keys(raceData).length} races, ${Object.keys(classData).length} classes, ${Object.keys(featData).length} feats`);
+        if (genericFeatCount > 0) {
+            console.warn(`Added ${genericFeatCount} generic feat definition(s) for missing granted-feat references.`);
+        }
 
         populateRaceSelect();
         updateGrid();
@@ -199,6 +211,72 @@ async function loadData() {
         console.error('Error loading data:', error);
         document.getElementById('validationOutput').textContent = 'ERROR: Could not load data files';
     }
+}
+
+function createGenericFeatDefinition(featName) {
+    return {
+        name: featName,
+        requirements: {
+            level: null,
+            feats: [],
+            skills: {},
+            stats: {},
+            bab: null,
+            class: [],
+            race: [],
+            alignment: null,
+            spells: {},
+            other: [],
+            repeatable: false,
+            repeatableCount: 0,
+            levelGate: null
+        },
+        effects: {
+            stats: {},
+            ac: {},
+            skills: {},
+            hp: null,
+            grantedFeats: [],
+            other: []
+        },
+        source: {
+            type: 'generated',
+            desc: 'Auto-generated placeholder for missing granted feat reference.'
+        }
+    };
+}
+
+function ensureFeatDefinitionExists(rawFeatName) {
+    if (!rawFeatName || typeof rawFeatName !== 'string') return false;
+    const trimmedFeatName = rawFeatName.trim();
+    if (!trimmedFeatName) return false;
+
+    const resolvedName = resolveFeatName(trimmedFeatName);
+    if (resolvedName && featData[resolvedName]) return false;
+
+    featData[trimmedFeatName] = createGenericFeatDefinition(trimmedFeatName);
+    return true;
+}
+
+function ensureReferencedGrantedFeatsExist() {
+    if (!featData || typeof featData !== 'object') return 0;
+
+    let createdCount = 0;
+
+    Object.values(featData).forEach(featInfo => {
+        const grantedFeats = featInfo && featInfo.effects ? featInfo.effects.grantedFeats : null;
+        if (!Array.isArray(grantedFeats)) return;
+
+        grantedFeats.forEach(rawGrant => {
+            const parsedGrant = parseGrantedFeatEntry(rawGrant);
+            if (!parsedGrant || !parsedGrant.feat) return;
+            if (ensureFeatDefinitionExists(parsedGrant.feat)) {
+                createdCount += 1;
+            }
+        });
+    });
+
+    return createdCount;
 }
 
 function switchTab(tabName) {
@@ -1035,21 +1113,88 @@ function getFeatSkillBonusAtLevel(level, skillKey) {
     const normalizedSkill = normalizeSkillKey(skillKey);
     if (!normalizedSkill) return 0;
 
-    let totalBonus = 0;
+    const featSources = getFeatSkillBonusSourcesAtLevel(level, normalizedSkill);
+    return featSources.reduce((sum, source) => sum + source.bonus, 0);
+}
+
+function parseConditionalSkillEntry(entry) {
+    if (!entry || typeof entry !== 'object') return null;
+
+    if (entry.skills && typeof entry.skills === 'object' && !Array.isArray(entry.skills)) {
+        return {
+            skills: entry.skills,
+            when: entry.when ?? 'always'
+        };
+    }
+
+    if (typeof entry.skill === 'string') {
+        const bonus = entry.bonus;
+        if (bonus === null || bonus === undefined) return null;
+        return {
+            skills: {
+                [entry.skill]: bonus
+            },
+            when: entry.when ?? 'always'
+        };
+    }
+
+    return null;
+}
+
+function getFeatSkillBonusSourcesAtLevel(level, normalizedSkillKey) {
+    const normalizedSkill = normalizeSkillKey(normalizedSkillKey);
+    if (!normalizedSkill) return [];
+
+    const sourceBonuses = new Map();
+    const addSourceBonus = (sourceName, bonusValue) => {
+        const parsedBonus = Number(bonusValue) || 0;
+        if (!sourceName || parsedBonus === 0) return;
+        sourceBonuses.set(sourceName, (sourceBonuses.get(sourceName) || 0) + parsedBonus);
+    };
+
     const ownedFeats = getEffectiveOwnedFeatDetailsAtLevel(level);
+    const ownedFeatSet = new Set();
+
     ownedFeats.forEach(detail => {
         const featName = resolveFeatName(detail.name);
+        if (!featName) return;
+        ownedFeatSet.add(String(featName).toLowerCase());
+
         const featInfo = featData[featName];
         if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
 
+        let sourceBonus = 0;
         Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
             const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
             if (normalizedEffectSkill !== normalizedSkill) return;
-            totalBonus += parseStatBonusValue(rawBonus);
+            sourceBonus += parseStatBonusValue(rawBonus);
+        });
+
+        addSourceBonus(featName, sourceBonus);
+
+        const conditionalSkillEntries = featInfo && featInfo.effects && Array.isArray(featInfo.effects.conditionalSkills)
+            ? featInfo.effects.conditionalSkills
+            : [];
+
+        conditionalSkillEntries.forEach(rawEntry => {
+            const parsedEntry = parseConditionalSkillEntry(rawEntry);
+            if (!parsedEntry) return;
+            if (!doesGrantedFeatConditionMatch(parsedEntry.when, level, ownedFeatSet)) return;
+
+            let conditionalSourceBonus = 0;
+            Object.entries(parsedEntry.skills).forEach(([rawSkillKey, rawBonus]) => {
+                const normalizedRuleSkill = normalizeSkillKey(rawSkillKey);
+                if (normalizedRuleSkill !== normalizedSkill) return;
+                conditionalSourceBonus += parseStatBonusValue(rawBonus);
+            });
+
+            addSourceBonus(featName, conditionalSourceBonus);
         });
     });
 
-    return totalBonus;
+    return Array.from(sourceBonuses.entries())
+        .map(([name, bonus]) => ({ name, bonus }))
+        .sort((left, right) => left.name.localeCompare(right.name));
 }
 
 function getClassSkillBonusAtLevel(level, skillKey) {
@@ -1187,6 +1332,57 @@ function parseSkillPointMultiplier(rawExpression, fallback = 1) {
     return fallback;
 }
 
+function getOwnedFeatNameSetAtLevel(level) {
+    const ownedFeatSet = new Set();
+    if (typeof getEffectiveOwnedFeatDetailsAtLevel !== 'function') return ownedFeatSet;
+
+    const ownedDetails = getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: true });
+    if (!ownedDetails || typeof ownedDetails.forEach !== 'function') return ownedFeatSet;
+
+    ownedDetails.forEach((detail, key) => {
+        if (key) {
+            ownedFeatSet.add(String(key).toLowerCase());
+        }
+
+        if (detail && detail.name) {
+            const resolvedName = resolveFeatName(String(detail.name));
+            if (resolvedName) {
+                ownedFeatSet.add(String(resolvedName).toLowerCase());
+            }
+        }
+    });
+
+    return ownedFeatSet;
+}
+
+function getFeatBasedSkillPointBonusAtLevel(level, className) {
+    const normalizedClassName = String(className || '').trim().toLowerCase();
+    if (!normalizedClassName) return 0;
+    if (!Array.isArray(SKILL_POINT_FEAT_BONUS_RULES) || SKILL_POINT_FEAT_BONUS_RULES.length === 0) return 0;
+
+    const ownedFeatSet = getOwnedFeatNameSetAtLevel(level);
+    if (ownedFeatSet.size === 0) return 0;
+
+    let totalBonus = 0;
+
+    SKILL_POINT_FEAT_BONUS_RULES.forEach(rule => {
+        if (!rule || typeof rule !== 'object') return;
+
+        const requiredFeat = resolveFeatName(String(rule.feat || '').trim());
+        if (!requiredFeat) return;
+
+        const requiredClass = String(rule.appliesToClass || '').trim().toLowerCase();
+        if (requiredClass && requiredClass !== normalizedClassName) return;
+
+        if (!ownedFeatSet.has(String(requiredFeat).toLowerCase())) return;
+
+        const bonus = Number(rule.bonusPerLevel) || 0;
+        totalBonus += bonus;
+    });
+
+    return totalBonus;
+}
+
 function getSkillPointsBudgetAtLevel(level) {
     const className = levelData[level - 1] && levelData[level - 1].class;
     if (!className || !classData[className]) return 0;
@@ -1195,6 +1391,7 @@ function getSkillPointsBudgetAtLevel(level) {
     const levelStats = getStatsAtLevel(level);
     const mods = getAbilityModifiers(levelStats);
     const intMod = mods.int || 0;
+    const featBasedBonus = getFeatBasedSkillPointBonusAtLevel(level, className);
 
     const perLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsPerLevel);
     const perLevelBase = perLevelBaseRaw === null ? 0 : perLevelBaseRaw;
@@ -1203,10 +1400,104 @@ function getSkillPointsBudgetAtLevel(level) {
         const firstLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsAtFirstLevel);
         const firstLevelBase = firstLevelBaseRaw === null ? perLevelBase : firstLevelBaseRaw;
         const firstLevelMultiplier = parseSkillPointMultiplier(classInfo.skillPointsAtFirstLevel, 4);
-        return Math.max(0, Math.floor((firstLevelBase + intMod) * firstLevelMultiplier));
+        return Math.max(0, Math.floor((firstLevelBase + intMod) * firstLevelMultiplier) + featBasedBonus);
     }
 
-    return Math.max(0, Math.floor(perLevelBase + intMod));
+    return Math.max(0, Math.floor(perLevelBase + intMod) + featBasedBonus);
+}
+
+function getSkillPointFeatBonusDetailsAtLevel(level, className) {
+    const details = [];
+    const normalizedClassName = String(className || '').trim().toLowerCase();
+    if (!normalizedClassName) {
+        return { total: 0, details };
+    }
+
+    if (!Array.isArray(SKILL_POINT_FEAT_BONUS_RULES) || SKILL_POINT_FEAT_BONUS_RULES.length === 0) {
+        return { total: 0, details };
+    }
+
+    const ownedFeatSet = getOwnedFeatNameSetAtLevel(level);
+    if (ownedFeatSet.size === 0) {
+        return { total: 0, details };
+    }
+
+    let total = 0;
+
+    SKILL_POINT_FEAT_BONUS_RULES.forEach(rule => {
+        if (!rule || typeof rule !== 'object') return;
+
+        const requiredFeat = resolveFeatName(String(rule.feat || '').trim());
+        if (!requiredFeat) return;
+
+        const requiredClass = String(rule.appliesToClass || '').trim().toLowerCase();
+        if (requiredClass && requiredClass !== normalizedClassName) return;
+
+        if (!ownedFeatSet.has(String(requiredFeat).toLowerCase())) return;
+
+        const bonus = Number(rule.bonusPerLevel) || 0;
+        if (bonus === 0) return;
+
+        total += bonus;
+        details.push({
+            feat: requiredFeat,
+            bonus
+        });
+    });
+
+    return { total, details };
+}
+
+function getSkillPointBudgetTooltipAtLevel(level) {
+    const className = levelData[level - 1] && levelData[level - 1].class;
+    if (!className || !classData[className]) return '';
+
+    const classInfo = classData[className];
+    const levelStats = getStatsAtLevel(level);
+    const mods = getAbilityModifiers(levelStats);
+    const intMod = mods.int || 0;
+    const featBonusData = getSkillPointFeatBonusDetailsAtLevel(level, className);
+
+    const perLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsPerLevel);
+    const perLevelBase = perLevelBaseRaw === null ? 0 : perLevelBaseRaw;
+
+    let subtotal = 0;
+    const lines = [
+        `Skill Points @ Lvl ${level}`,
+        `Class: ${className}`
+    ];
+
+    if (level === 1) {
+        const firstLevelBaseRaw = parseSkillPointBaseValue(classInfo.skillPointsAtFirstLevel);
+        const firstLevelBase = firstLevelBaseRaw === null ? perLevelBase : firstLevelBaseRaw;
+        const firstLevelMultiplier = parseSkillPointMultiplier(classInfo.skillPointsAtFirstLevel, 4);
+        subtotal = Math.floor((firstLevelBase + intMod) * firstLevelMultiplier);
+
+        lines.push(`Base (first level): ${firstLevelBase}`);
+        lines.push(`INT modifier: ${formatSignedValue(intMod)}`);
+        lines.push(`Multiplier: x${firstLevelMultiplier}`);
+    } else {
+        subtotal = Math.floor(perLevelBase + intMod);
+        lines.push(`Base (per level): ${perLevelBase}`);
+        lines.push(`INT modifier: ${formatSignedValue(intMod)}`);
+    }
+
+    lines.push(`Subtotal: ${subtotal}`);
+    lines.push(`Feat bonuses: ${formatSignedValue(featBonusData.total)}`);
+
+    featBonusData.details.forEach(entry => {
+        lines.push(`  - ${entry.feat}: ${formatSignedValue(entry.bonus)}`);
+    });
+
+    const totalBudget = Math.max(0, subtotal + featBonusData.total);
+    const usage = getSkillPointUsageAtLevel(level);
+    const remaining = usage.budget - usage.spent;
+
+    lines.push(`Total budget: ${totalBudget}`);
+    lines.push(`Spent: ${usage.spent}`);
+    lines.push(`Remaining: ${remaining}`);
+
+    return lines.join('\n');
 }
 
 function getSkillPointUsageAtLevel(level, overrideSkillIdx = null, overrideRankValue = null) {
@@ -1313,26 +1604,7 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
 
     const raceBonus = getRaceSkillBonus(normalizedSkill);
 
-    const featSources = [];
-    const ownedFeats = getEffectiveOwnedFeatDetailsAtLevel(level);
-    ownedFeats.forEach(detail => {
-        const featName = resolveFeatName(detail.name);
-        const featInfo = featData[featName];
-        if (!featInfo || !featInfo.effects || !featInfo.effects.skills) return;
-
-        let sourceBonus = 0;
-        Object.entries(featInfo.effects.skills).forEach(([rawSkillKey, rawBonus]) => {
-            const normalizedEffectSkill = normalizeSkillKey(rawSkillKey);
-            if (normalizedEffectSkill !== normalizedSkill) return;
-            sourceBonus += parseStatBonusValue(rawBonus);
-        });
-
-        if (sourceBonus !== 0) {
-            featSources.push({ name: featName, bonus: sourceBonus });
-        }
-    });
-
-    featSources.sort((left, right) => left.name.localeCompare(right.name));
+    const featSources = getFeatSkillBonusSourcesAtLevel(level, normalizedSkill);
     const featBonus = featSources.reduce((sum, entry) => sum + entry.bonus, 0);
 
     const classSources = [];
@@ -1472,6 +1744,7 @@ function refreshSkillColumnInPlace(skillIdx, startLevel = 1) {
         total.textContent = `/ ${totalValue}`;
         if (pointsCell) {
             pointsCell.textContent = getSkillPointSummaryText(level);
+            pointsCell.title = getSkillPointBudgetTooltipAtLevel(level);
         }
 
         const skillCell = input.closest('td');
@@ -2595,6 +2868,7 @@ function updateSkillGrid() {
         const pointsCell = document.createElement('td');
         pointsCell.id = `skillPoints_${level}`;
         pointsCell.textContent = getSkillPointSummaryText(level);
+        pointsCell.title = getSkillPointBudgetTooltipAtLevel(level);
         row.appendChild(pointsCell);
 
         // Skills
