@@ -1990,10 +1990,17 @@
         });
     }
 
-    function getWeaponAbilityModifiers(level) {
+    function getWeaponAbilityModifiers(level, options = {}) {
         const numericLevel = Math.max(1, parseInt(level, 10) || 1);
         const stats = getCharacterStatsAtLevel(numericLevel);
-        const mods = getAbilityModifiersFromStats(stats);
+        const minStrength = Math.max(0, Number(options.strOverrideMin) || 0);
+        const normalizedStats = {
+            ...(stats || {})
+        };
+        if (minStrength > 0) {
+            normalizedStats.str = Math.max(minStrength, Number(normalizedStats.str) || 0);
+        }
+        const mods = getAbilityModifiersFromStats(normalizedStats);
         const strMod = Number(mods.str) || 0;
         const dexMod = Number(mods.dex) || 0;
 
@@ -2628,19 +2635,36 @@
     function getCombatSnapshot() {
         const base = getBaseDerivedSummary();
         const effects = buildGearEffects();
+        const cappedAttack = getCappedAttackBonusComponents(base, effects, base.level);
+        const buffEffects = cappedAttack.buffEffects;
+        const songEffects = getActiveSongEffects(base.level);
+
+        if (Number(buffEffects.dodgeAcBonus) !== 0) {
+            effects.acBuckets.dodge.push(Number(buffEffects.dodgeAcBonus));
+        }
+        if (Number(songEffects.dodgeAcBonus) !== 0) {
+            effects.acBuckets.dodge.push(Number(songEffects.dodgeAcBonus));
+        }
+
         const ac = computeStackedAc(effects);
-        const abilityCombatMods = getWeaponAbilityModifiers(base.level);
+        const abilityCombatMods = getWeaponAbilityModifiers(base.level, {
+            strOverrideMin: buffEffects.strOverrideMin
+        });
+        const effectiveBab = Number.isFinite(Number(buffEffects.overrideBab))
+            ? Number(buffEffects.overrideBab)
+            : base.bab;
         const derived = {
-            attackBonus: base.bab + effects.attackBonus,
-            fort: base.fort + effects.saveBonus.fort,
-            ref: base.ref + effects.saveBonus.ref,
-            will: base.will + effects.saveBonus.will,
-            hp: base.hp,
-            bab: base.bab,
-            damageBonus: effects.damageBonus,
+            attackBonus: effectiveBab + cappedAttack.cappedBonus,
+            fort: base.fort + effects.saveBonus.fort + (Number(buffEffects.saveBonus.fort) || 0) + (Number(songEffects.saveBonus.fort) || 0),
+            ref: base.ref + effects.saveBonus.ref + (Number(buffEffects.saveBonus.ref) || 0) + (Number(songEffects.saveBonus.ref) || 0),
+            will: base.will + effects.saveBonus.will + (Number(buffEffects.saveBonus.will) || 0) + (Number(songEffects.saveBonus.will) || 0),
+            hp: base.hp + (Number(buffEffects.hpBonus) || 0),
+            bab: effectiveBab,
+            damageBonus: effects.damageBonus + (Number(buffEffects.damageBonus) || 0) + (Number(songEffects.damageBonus) || 0),
             critDamageBonus: effects.critDamageBonus,
             spellResistance: effects.maxSpellResistance,
-            ac
+            ac,
+            cappedAttack
         };
 
         const baseCritProfile = getCritProfileForSimulation(effects);
@@ -2648,12 +2672,13 @@
         const critProfile = getCritProfileForSimulation(effects, featCombatMods);
 
         derived.attackBonus += featCombatMods.attackBonus;
+        derived.attackBonus += Number(songEffects.attackBonus) || 0;
         derived.damageBonus += featCombatMods.damageBonus;
         derived.critDamageBonus += featCombatMods.overwhelmingCritAverage;
         derived.attackBonus += abilityCombatMods.attackAbilityMod;
         derived.damageBonus += abilityCombatMods.damageAbilityMod;
 
-        const attackBonusSequence = getAttackBonusSequence(derived.attackBonus, base.bab);
+        const attackBonusSequence = getAttackBonusSequence(derived.attackBonus, effectiveBab);
         const sneakAttackDice = getSneakAttackDiceAtLevel(base.level, effects);
         const sneakAttackAverage = sneakAttackDice * 3.5;
         const extraDamageAverage = getAverageDamageAddsValue(effects.damageAdds);
@@ -2679,6 +2704,9 @@
             featCombatMods,
             abilityCombatMods,
             attackBonusSequence,
+            buffEffects,
+            songEffects,
+            cappedAttack,
             sneakAttackDice,
             sneakAttackAverage,
             extraDamageAverage,
