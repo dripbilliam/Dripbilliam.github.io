@@ -1,0 +1,4062 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.11/ http://www.mediawiki.org/xml/export-0.11.xsd" version="0.11" xml:lang="en">
+  <siteinfo>
+    <sitename>Arelith Wiki</sitename>
+    <dbname>arelith_wiki</dbname>
+    <base>https://wiki.nwnarelith.com/Main_Page</base>
+    <generator>MediaWiki 1.43.0</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Special</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Talk</namespace>
+      <namespace key="2" case="first-letter">User</namespace>
+      <namespace key="3" case="first-letter">User talk</namespace>
+      <namespace key="4" case="first-letter">Arelith Wiki</namespace>
+      <namespace key="5" case="first-letter">Arelith Wiki talk</namespace>
+      <namespace key="6" case="first-letter">File</namespace>
+      <namespace key="7" case="first-letter">File talk</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki talk</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template talk</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help talk</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Template:Crafting: Amulet/Necklace</title>
+    <ns>10</ns>
+    <id>2838</id>
+    <revision>
+      <id>38286</id>
+      <parentid>34264</parentid>
+      <timestamp>2026-02-17T05:15:52Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Removed the runecraft property from the amulets. Fixed an html code.</comment>
+      <origin>38286</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="6283" sha1="apottfv8n20fcs9zl0r11on30devbtk" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value        
+! Level  
+! Materials       
+! Properties
+
+|- id=Amulet
+| Amulet
+| 174 
+| 3 
+| 1 
+| 25 gold
+| 
+| 1 Coal&lt;br&gt;1 [[Forging#Ingot_copper|Ingot (Copper)]]
+| (none)
+
+|- id=Lesser_Holy_Symbol
+| Lesser Holy Symbol
+| 167 
+| 22 
+| 22 
+| 20213 gold 
+| 
+|
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;
+1 Holy Water 
+|
+Enhancement Bonus: Constitution +1&lt;br&gt;
+Skill bonus: Concentration +2&lt;br&gt;
+Bonus Spell Slot: Cleric Level 2&lt;br&gt;
+Bonus Spell Slot: Cleric Level 3&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 2&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 3&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br&gt;
+Only Useable By: Cleric '''OR''' Favored Soul &lt;br&gt;
+'''UMD Requirement: 20'''
+
+|- id=Warrior_Brave_Torc
+| Warrior Brave Torc
+| 161 
+| 22 
+| 27 
+| 18732 gold 
+|
+|
+4 Skeleton's Knuckles&lt;br&gt;
+2 Orc's Tooth 
+| 
+Armor Bonus: +2 (AC Natural Modifier)&lt;br&gt; 
+Enhancement Bonus: Constitution +1&lt;br&gt;
+Skill Bonus: Discipline +1&lt;br&gt; 
+Skill Bonus: Intimidate +2&lt;br&gt; 
+Skill Bonus: Taunt +2&lt;br&gt;
+Decreased Skill Modifier: Lore -2&lt;br&gt;
+Improved Saving Throws: Fear +2&lt;br&gt;
+Weight Increase: 5 lbs&lt;br&gt;
+Only Useable By: Barbarian&lt;br&gt; 
+[[Dweomercraft#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br&gt;
+'''UMD Requirement: 15'''
+ 
+|- id=Sapphire_Choker
+| Sapphire Choker
+| 164 
+| 22 
+| 29 
+| 9735 gold 
+| 12
+| 
+2 Spider Silk&lt;br&gt;
+2 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;
+1 Sapphire 
+| 
+Enhancement Bonus: Charisma +2&lt;br&gt;
+Skill Bonus: Leadership +3&lt;br&gt;
+Skill Bonus: Perform +3&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br&gt;
+
+|- id=Holy_Symbol
+| Holy Symbol
+| 168 
+| 24 
+| 62 
+| 32876 gold 
+| 12
+| 
+2 [[Forging#Ingot_brass|Ingot (Brass)]]&lt;br&gt;
+1 Holy Water 
+| 
+Enhancement Bonus: Constitution +1&lt;br&gt;
+Skill Bonus: Concentration +2&lt;br&gt;
+Bonus Spell Slot: Cleric Level 3&lt;br&gt;
+Bonus Spell Slot: Cleric Level 4&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 3&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 4&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br&gt;
+Only Useable by: Cleric '''OR''' Favored Soul&lt;br&gt;
+'''UMD Requirement: 20'''
+
+|- id=Lesser_Shaman_Fetish
+| Lesser Shaman Fetish 
+| 163 
+| 24 
+| 73 
+| 9143 gold 
+|
+|
+2 Ogre's Tooth&lt;br&gt;
+4 Skeleton's Knuckle 
+| 
+Enhancement Bonus: Wisdom +1&lt;br&gt;
+Skill Bonus: Concentration +2&lt;br&gt;
+Bonus Spell Slot: Shaman Level 2&lt;br&gt;
+Bonus Spell Slot: Shaman Level 3&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br&gt;
+Only Useable By: Shaman&lt;br&gt;
+'''UMD Requirement: 15'''
+
+|- id=Druidic_Torc
+| Druidic Torc
+| 170 
+| 25 
+| 83 
+| 15905 gold 
+| 2
+|
+2 Ogre's Tooth&lt;br&gt;
+2 Spider Silk&lt;br&gt;
+1 Granite&lt;br&gt;
+2 Softwood 
+| 
+Enhancement Bonus: Wisdom +1&lt;br&gt;
+Bonus Spell Slot: Druid Level 3&lt;br&gt;
+Bonus Spell Slot: Druid Level 4&lt;br&gt;
+Skill Bonus: Animal Empathy +3&lt;br&gt;
+Skill Bonus: Concentration +2&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Druidic)]]&lt;br&gt;
+Only Useable By: Druid&lt;br&gt;
+'''UMD Requirement: 15'''
+
+|- id=Ruby_Necklet
+| Ruby Necklet
+| 165 
+| 26 
+| 103 
+| 9735 gold 
+| 12
+| 
+2 Spider silk&lt;br&gt;
+2 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br&gt;
+1 Ruby&lt;br&gt;
+| 
+Enhancement Bonus: Charisma +2&lt;br&gt;
+Skill Bonus: Bluff +3&lt;br&gt;
+Skill Bonus: Leadership +3&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br&gt;
+
+|- id=Warrior_Chief_Torc
+| Warrior Chief Torc
+| 162 
+| 26 
+| 105 
+| 31080 gold 
+| 21
+| 
+2 Ogre's Tooth&lt;br&gt;
+4 Skeleton's Knuckle 
+| 
+Armor Bonus: +3 (AC Natural Modifier)&lt;br&gt; 
+Enhancement Bonus: Constitution +1&lt;br&gt;
+Improved Saving Throws: Fear +2&lt;br&gt;
+Decreased Skill Modifier: Lore -3&lt;br&gt;
+Skill Bonus: Discipline +2&lt;br&gt; 
+Skill Bonus: Intimidate +3&lt;br&gt; 
+Skill Bonus: Taunt +3&lt;br&gt;
+Weight Increase: 5 lbs&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br&gt;
+Only Useable By: Barbarian&lt;br&gt; 
+'''UMD Requirement: 20'''
+
+|- id=Shaman_Fetish
+| Shaman Fetish
+| 166 
+| 27 
+| 125 
+| 13209 gold 
+| 12
+| 
+2 Giant's Tooth&lt;br&gt;
+4 Skeleton's Knuckle 
+| 
+Enhancement Bonus: Wisdom +1&lt;br&gt;
+Skill Bonus: Concentration +2&lt;br&gt;
+Bonus Spell Slot: Shaman Level 3&lt;br&gt;
+Bonus Spell Slot: Shaman Level 4&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br&gt;
+Only Useable By: Shaman&lt;br&gt;
+'''UMD Requirement: 15'''
+
+|- id=Greater_Druidic_Torc
+| Greater Druidic Torc
+| 171 
+| 29 
+| 150 
+| 37832 gold 
+| 21
+| 
+2 Giant's Tooth&lt;br&gt;
+2 Spider silk&lt;br&gt;
+1 Granite&lt;br&gt;
+2 Softwood&lt;br&gt;
+1 Fire Opal
+| 
+Enhancement Bonus: Wisdom +2&lt;br&gt;
+Bonus Spell Slot: Druid Level 4&lt;br&gt;
+Bonus Spell Slot: Druid Level 5&lt;br&gt;
+Skill Bonus: Animal Empathy +5&lt;br&gt;
+Skill Bonus: Concentration +3&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Druidic)]]&lt;br&gt;
+Only Useable By: Druid&lt;br&gt;
+'''UMD Requirement: 20'''
+
+|- id=Greater_Holy_Symbol
+| Greater Holy Symbol
+| 169 
+| 30 
+| 167 
+| 30860 gold 
+| 21
+|
+2 Holy water&lt;br&gt;
+2 [[Forging#Ingot_gold|Ingot (Gold)]] 
+| 
+Enhancement Bonus: Wisdom +2&lt;br&gt;
+Skill Bonus: Concentration +3&lt;br&gt;
+Bonus Spell Slot: Cleric Level 4&lt;br&gt;
+Bonus Spell Slot: Cleric Level 5&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br&gt;
+Only Useable by: Cleric&lt;br&gt;
+'''UMD Requirement: 20'''
+
+|- id=Shark Tooth Necklace
+| Shark Tooth Necklace
+| 1717 
+| 13
+| 10
+| 1 gold 
+| 
+| 
+1 Leather(Small)&lt;br&gt;
+10 Shark Tooth 
+| 10 charge item: Gives a chance to avoid fishing enemies, when it activates it uses a charge
+
+|- id=Glimshell Pendant
+| Glimshell Pendant
+| 1721 
+| 15
+| 40
+| 41 gold 
+| 
+|
+1 Leather (Small)&lt;br&gt;
+1 Ingot (Gold)&lt;br&gt;
+2 Glimshell Shard 
+| 
+
+|- id=Communion Chain
+| Communion Chain
+| 1558
+| 30
+| 160
+| 30361 gold 
+| 21
+|
+2 Coal&lt;br&gt;
+1 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br&gt;
+2 [[Forging#Ingot_brass|Ingot (Brass)]]&lt;br&gt;
+1 Sapphire&lt;br&gt;
+1 Divine Favor (scroll)
+| 
+Enhancement Bonus: Charisma +2&lt;br&gt;
+Skill Bonus: Concentration +3&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 4&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 5&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br&gt;
+Only Usable By: Favored Soul&lt;br&gt;
+'''UMD Requirement: 20'''
+
+|- id=Shaman Beads
+| Shaman Beads
+| 1550
+| 32
+| 80
+| 36121 gold 
+| 21
+| 
+2 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br&gt;
+2 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;
+1 Giant Bone&lt;br&gt;
+3 Horn of a Magical Creature&lt;br&gt;
+1 Rare Hardwood
+| 
+Enhancement Bonus: Wisdom +2&lt;br&gt;
+Skill Bonus: Concentration +3&lt;br&gt;
+Bonus Spell Slot: Shaman Level 5&lt;br&gt;
+Bonus Spell Slot: Shaman Level 6&lt;br&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br&gt;
+Only Usable By: Shaman&lt;br&gt;
+'''UMD Requirement: 20'''
+|}</text>
+      <sha1>apottfv8n20fcs9zl0r11on30devbtk</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Belt: Tailoring</title>
+    <ns>10</ns>
+    <id>2473</id>
+    <revision>
+      <id>29630</id>
+      <parentid>29629</parentid>
+      <timestamp>2023-03-05T00:23:00Z</timestamp>
+      <contributor>
+        <username>EdensFall</username>
+        <id>438</id>
+      </contributor>
+      <origin>29630</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1553" sha1="lu4l2mr0kyubhahyrzqddl0axngwt3j" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Materials 
+! Product
+! Properties 
+
+|- id=Belt
+|Belt
+|685
+|1
+|1
+|10 gold
+|2 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Small)
+|1 Belt
+|Material: Weight: 1.0 lbs
+ 
+|- id=Medics_belt
+|Medic's Belt
+|789
+|26
+|98
+|12318 gold
+|10 Mintspear Leaves&lt;br&gt;10 Lady's Tears&lt;br&gt;3 Bandage Rolls&lt;br&gt;1 Flask of Oil&lt;br&gt;10 Yarrow Leaves
+|1 Medic's Belt
+|
++4 Heal&lt;br/&gt;
+50 Charges&lt;br/&gt;
+[https://nwn.fandom.com/wiki/Cure_light_wounds Cure Light Wound] (2) 1 Charge/use&lt;br/&gt;[https://nwn.fandom.com/wiki/Cure_moderate_wounds Cure Moderate Wounds] (3) 2 Charges/use&lt;br/&gt;[https://nwn.fandom.com/wiki/Cure_serious_wounds Cure Serious Wounds] (5) 4 Charges/use&lt;br/&gt;[https://nwn.fandom.com/wiki/Neutralize_poison Neutralize Poison] (5) 5 Charges/use&lt;br/&gt;[https://nwn.fandom.com/wiki/Remove_blindness/deafness Remove Blindness/Deafness] (5) 5 Charges/use&lt;br/&gt;[https://nwn.fandom.com/wiki/Remove_disease Remove Disease] (5) 5 Charges/use&lt;br/&gt;
+Additional Property: [[Misc_Changes#Mundane_Items|Mundane Item]]&lt;br/&gt;
+'''Cannot be Repaired'''
+
+|- id=Infiltrator's Belt
+|Infiltrator's Belt
+|1570
+|30
+|130
+|5566 gold
+|2 Displacer Beast Hide&lt;br/&gt;
+6 Spider Silk&lt;br/&gt;
+1 [[Ingot (Silver)]]&lt;br/&gt;
+[[Herbalism##Mundane_Consumeables|5 Pot of Dirt]]
+|1 Infiltration Belt
+|
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Skill Bonus: Bluff +4&lt;br/&gt;
+Skill Bonus: Perform +4&lt;br/&gt;
+Skill Bonus: Discipline +2&lt;br/&gt;
+Use: Serene Visage 1 Use/Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Rune (Thorass)]]
+
+|}</text>
+      <sha1>lu4l2mr0kyubhahyrzqddl0axngwt3j</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Boots: Tailoring</title>
+    <ns>10</ns>
+    <id>2475</id>
+    <revision>
+      <id>35184</id>
+      <parentid>23849</parentid>
+      <timestamp>2025-09-16T19:59:00Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Removed a couple of red links</comment>
+      <origin>35184</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="4334" sha1="8edcszj1c6rvby3zwc4g3hw3kihmbp9" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value  
+! Level        
+! Materials 
+! Properties 
+
+|- id=Boots
+|Boots
+|684
+|1
+|1
+|10 gold
+|
+|
+1 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br/&gt;
+1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)
+|(none)
+
+|- id=Boots_of_the_Coward_1
+|Boots of the Coward
+|672
+|21
+|12
+|1557 gold
+|
+|
+1 [[Blood of a Magic Creature]]&lt;br/&gt;
+1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br/&gt;
+1 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)&lt;br/&gt;
+1 [http://nwn.wikia.com/wiki/Expeditious_retreat Expeditious Retreat] (scroll)
+|
+Armor Bonus: +1 (AC Dodge Modifier)&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Dodge&lt;br/&gt;
+Skill Bonus: Bluff +1 &lt;br/&gt;
+Skill Bonus: Climb +2 &lt;br/&gt;
+Skill Bonus: Hide +1 &lt;br/&gt;
+Skill Bonus: Move Silently +1 &lt;br/&gt;
+Reduced Saving Throws: Fear -2&lt;br/&gt;
+Reduced Saving Throws: Mind Affecting -2&lt;br/&gt;
+Reduced Saving Throws: Will -1&lt;br/&gt;
+Spell: [http://nwn.wikia.com/wiki/Expeditious_retreat Expeditious Retreat] (5) 2/Use Per Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]
+
+|- id=Boots_of_the_Coward_2
+|Boots of the Coward
+|677
+|21
+|12
+|1557 gold
+|
+|
+1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br/&gt;
+1 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)&lt;br/&gt;
+2 Seagull feather
+|
+Armor Bonus: +1 (AC Dodge Modifier)&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Dodge&lt;br/&gt;
+Skill Bonus: Bluff +1 &lt;br/&gt;
+Skill Bonus: Climb +2 &lt;br/&gt;
+Skill Bonus: Hide +1 &lt;br/&gt;
+Skill Bonus: Move Silently +1 &lt;br/&gt;
+Reduced Saving Throws: Fear -2&lt;br/&gt;
+Reduced Saving Throws: Mind Affecting -2&lt;br/&gt;
+Reduced Saving Throws: Will -1&lt;br/&gt;
+Spell: [http://nwn.wikia.com/wiki/Expeditious_retreat Expeditious Retreat] (5) 2/Use Per Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]
+
+|- id=Boots_of_Trap_Finding
+|Boots of Trap Finding
+|653
+|22
+|24
+|3000 gold
+|
+|
+2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br/&gt;
+1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;
+2 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)&lt;br/&gt;
+10 Potion of Cat's Grace
+|
+Armor Bonus: +1 (AC Dodge Modifier)&lt;br/&gt;
+Ability Bonus: Constitution +1&lt;br/&gt;
+Skill Bonus: Disable trap +2&lt;br/&gt;
+Skill Bonus: Listen +2&lt;br/&gt;
+Skill Bonus: Search +2&lt;br/&gt;
+Skill Bonus: Spot +2&lt;br/&gt;
+Improved Saving Throws: Reflex +1&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]
+
+|- id=Slippers_of_the_Acrobat
+|Slippers of the Acrobat
+|654
+|22
+|24
+|3000 gold
+|
+|
+2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br/&gt;
+1 [[Herbalism#Tanning_acid|Tanning Acid]]&lt;br/&gt;
+2 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)&lt;br/&gt;
+10 Potion of Cat's Grace
+|
+Armor Bonus: +1 (AC Dodge Modifier)&lt;br/&gt;
+Ability Bonus: Constitution +1&lt;br/&gt;
+Ability Bonus: Dexterity +1&lt;br/&gt;
+Skill Bonus: Climb +3&lt;br/&gt;
+Skill Bonus: Discipline +1&lt;br/&gt;
+Skill Bonus: Perform +2&lt;br/&gt;
+Skill Bonus: Tumble +5&lt;br/&gt;
+Improved Saving Throws: Reflex +1
+
+|- id=Boots_of_the_Reveler
+|Boots of the Reveler
+|671
+|22
+|25
+|3240 gold
+|
+|
+2 [[Spider silk]]&lt;br/&gt;
+1 [[Sapphire|Gem Dust (Sapphire)]]&lt;br/&gt;
+1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br/&gt;
+1 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)
+|
+Armor Bonus: +1 (AC Dodge Modifier)&lt;br/&gt;
+Ability Bonus: Charisma +1&lt;br/&gt;
+Ability Bonus: Constitution +1&lt;br/&gt;
+Skill Bonus: Climb +2&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Skill Bonus: Perform +2&lt;br/&gt;
+Skill Bonus: Tumble +3&lt;br/&gt;
+Bonus Spell Slot: Bard Level 1&lt;br/&gt;
+Bonus Spell Slot: Bard Level 2&lt;br/&gt;
+Only Useable By: Bard
+
+|- id=Lesser_Slippers_of_Soft_Movement
+|Lesser Slippers of Soft Movement
+|655
+|23
+|40
+|5005 gold
+|
+|
+2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br/&gt;
+1 [[Herbalism#Tanning_acid|Tanning Acid]]&lt;br/&gt;
+2 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)&lt;br/&gt;
+10 Potion of Cat's Grace
+|
+Enhancement Bonus: Dexterity +1&lt;br/&gt;
+Skill Bonus: Hide +2&lt;br/&gt;
+Skill Bonus: Move Silently +2&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]
+
+|- id=Slippers_of_Soft_Movement
+|Slippers of Soft Movement
+|656
+|35 
+|250
+|31285 gold
+|16th
+|
+1 [[Alchemy#Alchemistic Catalyst (Standard)|Alchemistic Catalyst (Standard)]]&lt;br/&gt;
+1 Lesser Slippers of Soft Movement&lt;br/&gt;
+3 Potions of Invisibility
+|
+Enhancement Bonus: Dexterity +2&lt;br/&gt;
+Skill Bonus: Hide +3&lt;br/&gt;
+Skill Bonus: Move Silently +3&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 2 Rune (Thorass)]]
+
+|}</text>
+      <sha1>8edcszj1c6rvby3zwc4g3hw3kihmbp9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Bracer: Art Crafting</title>
+    <ns>10</ns>
+    <id>2839</id>
+    <revision>
+      <id>23541</id>
+      <timestamp>2022-01-08T00:12:17Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <comment>added art crafting bracer</comment>
+      <origin>23541</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="228" sha1="9y8e2dbb96znc2bq5ykb8ev20har5de" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value   
+! Level       
+! Materials 
+! Product
+
+|- id=bracer
+|Bracer
+|1127
+|2
+|1
+|15 gold pieces
+|
+|1 [[Ingot (Tin)]]
+|1 Bracer
+|}</text>
+      <sha1>9y8e2dbb96znc2bq5ykb8ev20har5de</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Bracer: Carpentry</title>
+    <ns>10</ns>
+    <id>2477</id>
+    <revision>
+      <id>23540</id>
+      <parentid>17711</parentid>
+      <timestamp>2022-01-08T00:10:03Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <origin>23540</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="226" sha1="i792da7oloj53rqzy5w0oba8yjaaavn" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value   
+! Level       
+! Materials 
+! Product
+
+|- id=bracer
+|Bracer
+|1126
+|2
+|1
+|15 gold pieces
+|
+|1 [[Softwood]] 
+|1 Bracer
+|}</text>
+      <sha1>i792da7oloj53rqzy5w0oba8yjaaavn</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Bracer: Smithing</title>
+    <ns>10</ns>
+    <id>2454</id>
+    <revision>
+      <id>34437</id>
+      <parentid>34017</parentid>
+      <timestamp>2025-07-04T20:17:20Z</timestamp>
+      <contributor>
+        <username>CaptainCaramelBottom</username>
+        <id>463</id>
+      </contributor>
+      <origin>34437</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7123" sha1="1fc2m88d0b4vemgdlvi9pi7wahnstns" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Bracer
+|1128
+|1
+|2
+|15 gold
+|1st
+|1 [[Ingot (Copper)]]
+|
+
+|- id=
+|Greensteel Bracer
+|1129
+|10
+|35
+|6251 gold
+|1st
+|4 [[Coal]]&lt;br&gt;1 [[Ingot (Steel)]]&lt;br&gt;2 Rock chunk(Arjale)
+|Damage Reduction: 5/+1&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Greensteel Bracer of Aggression
+|1130
+|15
+|80
+|18373 gold
+|1st
+|1 Greensteel Bracer&lt;br&gt;1 Alchemistic Catalyst(Lesser)&lt;br&gt;1 Hardwood Resins&lt;br&gt;2 Sapphire
+|Damage Reduction: 5/+1&lt;br&gt;Enhancement Bonus: +1 Strength&lt;br&gt;Skill Bonus: +2 Intimidate&lt;br&gt;Skill Bonus: +2 Taunt&lt;br&gt;[https://nwn.fandom.com/wiki/Expeditious_retreat Expeditious Retreat] (5) 1 use/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Greensteel Bracer of Avoidance
+|1131
+|15
+|80
+|17384 gold
+|1st
+|1 Greensteel Bracer&lt;br&gt;1 Alchemistic Catalyst(Lesser)&lt;br&gt;1 Hardwood Resins&lt;br&gt;2 Sapphire
+|Damage Reduction: 5/+1&lt;br&gt;Enhancement Bonus: +1 Dexterity&lt;br&gt;Skill Bonus: +3 Parry&lt;br&gt;[https://nwn.fandom.com/wiki/Shield_(spell) Shield] (5)1 use per/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Greensteel Bracer of Knowing
+|1132
+|15
+|80
+|22237 gold
+|1st
+|1 Greensteel Bracer&lt;br&gt;1 Alchemistic Catalyst(Lesser)&lt;br&gt;1 Hardwood Resins&lt;br&gt;2 Sapphire
+|Damage Reduction: 5/+1&lt;br&gt;Enhancement Bonus: +1 Intelligence&lt;br&gt;Skill Bonus: +3 Lore&lt;br&gt;Skill Bonus: +3 Search&lt;br&gt;[https://nwn.fandom.com/wiki/Identify Identify] (3) 1 use/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Greensteel Bracer of Persuasion
+|1133
+|15
+|80
+|5799 gold
+|1st
+|1 Greensteel Bracer&lt;br&gt;1 Alchemistic Catalyst(Lesser)&lt;br&gt;1 Hardwood Resins&lt;br&gt;2 Sapphire
+|Damage Reduction: 5/+1&lt;br&gt;Enhancement Bonus: +1 Charisma&lt;br&gt;Skill Bonus: +3 Bluff&lt;br&gt;Skill Bonus: +3 Leadership&lt;br&gt;Skill Bonus: +3 Perform&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Charm_person Charm Person](10) 1 use/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Greensteel Bracer of Preservation
+|1134
+|15
+|80
+|19184 gold
+|1st
+|1 Greensteel Bracer&lt;br&gt;1 Alchemistic Catalyst(Lesser)&lt;br&gt;1 Hardwood Resins&lt;br&gt;2 Sapphire
+|Damage Reduction: 5/+1&lt;br&gt;Enhancement Bonus: +1 Wisdom&lt;br&gt;Skill Bonus: +3 Heal&lt;br&gt;[https://nwn.fandom.com/wiki/Lesser_restoration Lesser Restoration] (3) 1 use/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=
+|Mithral Bracer
+|1135
+|20
+|45
+|23281 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Mithral)]]
+|Damage Reduction: 5/+2&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Mithral Bracer of Aggression
+|1136
+|30
+|90
+|43666 gold
+|1st
+|1 Mithral Bracer&lt;br&gt;1 Alchemistic Catalyst(Standard)&lt;br&gt;1 Natural Gums&lt;br&gt;2 Fire Opal
+|Damage Reduction: 5/+2&lt;br&gt;Enhancement Bonus: +1 Strength&lt;br&gt;Skill Bonus: +2 Intimidate&lt;br&gt;Skill Bonus: +2 Taunt&lt;br&gt;[https://nwn.fandom.com/wiki/Expeditious_retreat Expeditious Retreat] (5) 2 uses/day&lt;br&gt;Improved Saving Throw: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Mithral Bracer of Avoidance
+|1137
+|30
+|90
+|42119 gold
+|1st
+|1 Mithral Bracer&lt;br&gt;1 Alchemistic Catalyst(Standard)&lt;br&gt;1 Natural Gums&lt;br&gt;2 Fire Opal
+|Damage Reduction: 5/+2&lt;br&gt;Enhancement Bonus: +1 Dexterity&lt;br&gt;Skill Bonus: +3 Parry&lt;br&gt;[https://nwn.fandom.com/wiki/Shield_(spell) Shield] (5) 2 uses/day&lt;br&gt;Improved Saving Throw: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Mithral Bracer of Knowing
+|1138
+|30
+|90
+|49546 gold
+|1st
+|1 Mithral Bracer&lt;br&gt;1 Alchemistic Catalyst(Standard)&lt;br&gt;1 Natural Gums&lt;br&gt;2 Fire Opal
+|Damage Reduction: 5/+2&lt;br&gt;Enhancement Bonus: +1 Intelligence&lt;br&gt;Skill Bonus: +3 Lore&lt;br&gt;Skill Bonus: +3 Search&lt;br&gt;[https://nwn.fandom.com/wiki/Identify Identify] (3) 2 uses/day&lt;br&gt;Improved Saving Throw: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Mithral Bracer of Persuasion
+|1139
+|30
+|90
+|49546 gold
+|1st
+|1 Mithral Bracer&lt;br&gt;1 Alchemistic Catalyst(Standard)&lt;br&gt;1 Natural Gums&lt;br&gt;2 Fire Opal
+|Damage Reduction: 5/+2&lt;br&gt;Enhancement Bonus: +1 Charisma&lt;br&gt;Skill Bonus: +3 Bluff&lt;br&gt;Skill Bonus: +3 Leadership&lt;br&gt;Skill Bonus: +3 Perform&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Charm_person Charm Person] (10) 2 uses/day&lt;br&gt;Improved Saving Throw: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Mithral Bracer of Preservation
+|1140
+|30
+|90
+|43552 gold
+|1st
+|1 Mithral Bracer&lt;br&gt;1 Alchemistic Catalyst(Standard)&lt;br&gt;1 Natural Gums&lt;br&gt;2 Fire Opal
+|Damage Reduction: 5/+2&lt;br&gt;Enhancement Bonus: +1 Wisdom&lt;br&gt;Skill Bonus: +3 Heal&lt;br&gt;[https://nwn.fandom.com/wiki/Lesser_restoration Lesser Restoration] (3) 2 uses/day&lt;br&gt;Improved Saving Throw: Universal +1&lt;br&gt;Weight Reduction: 60% of Weight (0.6 lbs)
+
+|- id=
+|Adamantine Bracer
+|1141
+|35
+|80
+|20251 gold
+|1st
+|4 [[Coal]]&lt;br&gt;1 [[Ingot (Adamantine)]]&lt;br&gt;1 [[Ingot (Steel)]]
+|Damage Reduction: 5/+3
+
+|- id=
+|Adamantine Bracer of Aggression
+|1142
+|45
+|200
+|67560 gold
+|1st
+|1 Adamantine Bracer&lt;br&gt;1 Alchemistic Catalyst(Greater)&lt;br&gt;1 [[Alchemy#Materials|Emulsified Oil]]&lt;br&gt;2 Diamond
+|Damage Reduction: 5/+3&lt;br&gt;Enhancement Bonus: +2 Strength&lt;br&gt;Skill Bonus: +5 Intimidate&lt;br&gt;Skill Bonus: +5 Taunt&lt;br&gt;[https://nwn.fandom.com/wiki/Expeditious_retreat Expeditious Retreat] (5) 4 uses/day
+
+|- id=
+|Adamantine Bracer of Avoidance
+|1143
+|45
+|200
+|60014 gold
+|1st
+|1 Adamantine Bracer&lt;br&gt;1 Alchemistic Catalyst(Greater)&lt;br&gt;1 [[Alchemy#Materials|Emulsified Oil]]&lt;br&gt;2 Diamond
+|Damage Reduction: 5/+3&lt;br&gt;Enhancement Bonus: +2 Dexterity&lt;br&gt;Skill Bonus: +6 Parry&lt;br&gt;[https://nwn.fandom.com/wiki/Shield_(spell) Shield] (5) 4 uses/day
+
+|- id=
+|Adamantine Bracer of Knowing
+|1144
+|45
+|200
+|75406 gold
+|1st
+|1 Adamantine Bracer&lt;br&gt;1 Alchemistic Catalyst(Greater)&lt;br&gt;1 [[Alchemy#Materials|Emulsified Oil]]&lt;br&gt;2 Diamond
+|Damage Reduction: 5/+3&lt;br&gt;Enhancement Bonus: +2 Intelligence&lt;br&gt;Skill Bonus: +6 Lore&lt;br&gt;Skill Bonus: +6 Search&lt;br&gt;[https://nwn.fandom.com/wiki/Identify Identify] (3) 4 uses/day
+
+|- id=
+|Adamantine Bracer of Persuasion
+|1145
+|45
+|200
+|83234 gold
+|1st
+|1 Adamantine Bracer&lt;br&gt;1 Alchemistic Catalyst(Greater)&lt;br&gt;1 [[Alchemy#Materials|Emulsified Oil]]&lt;br&gt;2 Diamond
+|Damage Reduction: 5/+3&lt;br&gt;Enhancement Bonus: +2 Charisma&lt;br&gt;Skill Bonus: +6 Bluff&lt;br&gt;Skill Bonus: +6 Perform&lt;br&gt;Skill Bonus: +6 Leadership&lt;br&gt; [https://nwn.fandom.com/wiki/Charm_person Charm Person] (10) 3 uses/day
+
+|- id=
+|Adamantine Bracer of Preservation
+|1146
+|45
+|200
+|63915 gold
+|1st
+|1 Adamantine Bracer&lt;br&gt;1 Alchemistic Catalyst(Greater)&lt;br&gt;1 [[Alchemy#Materials|Emulsified Oil]]&lt;br&gt;2 Diamond
+|Damage Reduction: 5/+3&lt;br&gt;Enhancement Bonus: +2 Wisdom&lt;br&gt;Skill Bonus: +6 Heal&lt;br&gt;[https://nwn.fandom.com/wiki/Lesser_restoration Lesser Restoration] (3) 4 uses/day
+
+|- id=Imperceptors_Grasp
+|Imperceptors Grasp (Gauntlet)
+|2158
+|46
+|540
+|92261 gold
+|21st
+|2 [[Ingot (Adamantine)]]&lt;br&gt;1 Leather (Medium&lt;br&gt;1 Uvarovite&lt;br&gt;2 Dragonhide&lt;br&gt;2 Bane (scroll)
+|Attack Bonus +4&lt;br&gt;Damage Bonus: 4 Bludgeoning&lt;br&gt;Damage Bonus vs Chaotic: 1d4 Slashing&lt;br&gt;Damage Bonus vs Good: 1d4 Piercing&lt;br&gt;Damage Bonus: 1d6 Negative&lt;br&gt;Damage Bonus: 1d6 Divine&lt;br&gt;Skill Bonus: +4 Intimidate&lt;br&gt;Bonus Feat: Cleave&lt;br&gt;'''Only Useable by: Evil, Lawful Neutral, True Neutral'''&lt;br&gt;'''UMD Requirement: 50'''
+
+|}</text>
+      <sha1>1fc2m88d0b4vemgdlvi9pi7wahnstns</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Cloak: Tailoring</title>
+    <ns>10</ns>
+    <id>2474</id>
+    <revision>
+      <id>38287</id>
+      <parentid>35785</parentid>
+      <timestamp>2026-02-17T05:19:40Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Removed the "Can be runed" property of the Yeti Fur Cloak</comment>
+      <origin>38287</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="4388" sha1="qjpc38d5ye7b2zsetipmafhdegs9swm" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value      
+! Level    
+! Materials 
+! Product
+! Properties 
+
+|- id=Cloak
+|Cloak
+|683
+|1
+|1
+|10 gold
+|
+|2 [[Tailoring#Materials|Cloth]] (Medium)
+|1 Cloak
+|Weight: 3.0 lbs
+
+
+|- id=Cloak_of_the_sight
+|Cloak of the sight
+|660
+|25
+|82
+|10360 gold
+|
+|2 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;3 Potion of clarity&lt;br&gt;2 [[Tailoring#Materials|Cloth]] (Small)
+|1 Cloak of the Sight
+|Skill Bonus: Spot +5&lt;br&gt;Weight: 3.0 lbs
+
+
+|- id=Cloak_of_the_stalker
+|Cloak of the stalker
+|661
+|25
+|82
+|10360 gold
+|
+|2 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;3 Potion of invisiblity&lt;br&gt;2 [[Tailoring#Materials|Cloth]] (Small)
+|1 Cloak of the Stalker
+|Skill Bonus: Hide +5&lt;br&gt;Weight: 3.0 lbs
+
+
+|- id=Cloak_of_the_caster
+|Cloak of the caster
+|662
+|26
+|111
+|1422 gold
+|
+|2 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;3 Potion of clarity&lt;br&gt;5 Potion of cat's grace&lt;br&gt;2 [[Tailoring#Materials|Cloth]] (Small)
+|1 Cloak of the Caster
+|Skill Bonus: Concentration +5&lt;br&gt;Skill Bonus: Spellcraft +3&lt;br&gt;Weight: 3.0 lbs
+
+
+|- id=Cloak_of_natures_blessing
+|Cloak of nature's blessing
+|663
+|26
+|109
+|13706 gold
+|
+|2 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;3 Potion of clarity&lt;br&gt;5 Potion of cat's grace&lt;br&gt;2 [[Tailoring#Materials|Cloth]] (Small)
+|1 Cloak of Nature's Blessing
+|Skill Bonus: Animal Empathy +4&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Weight: 3.0 lbs
+
+
+|- id=Yeti_Fur_cloak
+|Yeti Fur Cloak
+|678
+|22
+|25
+|3241 gold
+|
+|1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;2 [[Animal sinew]]&lt;br&gt;2 Pelt of a yeti
+|1 Yeti Fur Cloak
+|Ability Bonus: Constitution +1&lt;br&gt;Damage Resistance: Cold (Resist 10/-)&lt;br&gt;Immunity: Damage Type: Cold (25% Immunity Bonus)&lt;br&gt;Saving Throw Bonus: Cold +5&lt;br&gt;Saving Throw Bonus: Specific: Fortitude +3
+
+|- id=Thaumaturgists_cloak
+|Thaumaturgist's Cloak
+|904
+|24
+|120
+|18687 gold
+|
+|1 [[Alchemy#Materials|Alchemistic Catalyst (Standard)]]&lt;br&gt;1 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;3 Sapphires
+|1 Thaumaturgist's Cloak
+|Enhancement Bonus: Constitution +1&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Skill Bonus: Spellcraft +3&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+
+|- id=Sargeant's Cloak
+|Sargeant's Cloak
+|905
+|32
+|250
+|31267 gold
+|12th
+|1 [[Alchemy#Materials|Alchemistic Catalyst (Standard)]]&lt;br&gt;1 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;1 [[Forging#Ingot_brass|Ingot (brass)]]&lt;br&gt; 1 Remove Fear (scroll)
+|1 Sargeant's Cloak
+|Enhancement Bonus: Constitution +1&lt;br&gt;Enhancement Bonus: Strength +1&lt;br&gt;Improved Saving Throws: Fear +3&lt;br&gt;Skill Bonus: Discipline +3&lt;br&gt;[https://nwn.fandom.com/wiki/Remove_fear Remove Fear] (2) 1 use/day&lt;br&gt;[[Misc_Changes#Mundane_Items|Mundane Item]]
+
+
+|- id=Displacer_beast_cloak
+|Displacer Beast Cloak
+|906
+|35
+|280
+|42195 gold
+|2nd
+|1 Displacer Beast Hide&lt;br&gt;3 [[Tailoring#Materials|Cloth]] (Small)&lt;br&gt;5 Improved Invisibility (Scrolls)
+|Displacer Beast Cloak
+|Enhancement Bonus: Dexterity +2&lt;br&gt;Skill Bonus: Hide +4&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Improved_invisibility Improved Invisibility] (7) 2 uses/day &lt;br&gt;[[Misc_Changes#Mundane_Items|Mundane Item]]
+
+
+|- id=Dungeon-delvers_cloak
+|Dungeon-Delver's Cloak
+|907
+|42
+|358
+|44806 gold
+|13th
+|1 [[Alchemy#Materials|Alchemistic Catalyst (Standard)]]&lt;br&gt;16 Spider Silk&lt;br&gt;10 Gem Dust (Topaz)&lt;br&gt; 3 Fire Opals
+|Dungeon-Delver's Cloak
+|Enhancement Bonus: Constitution +1&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Improved Saving Throws: Reflex +2&lt;br&gt;Skill Bonus: Disable Trap +4&lt;br&gt;Skill Bonus: Open Lock +4&lt;br&gt;Skill Bonus: Search +4&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Find_traps Find Traps] (3) 2 uses/day
+
+
+|- id=Duelists_cape
+|Duelist's Cape
+|908
+|26
+|112
+|14000 gold
+|
+|1 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;10 Spider Silk&lt;br&gt;1 [[Forging#Ingot_lead|Ingot (Lead)]]&lt;br&gt;1 [[Forging#Ingot_brass|Ingot (Brass)]]
+|Duelist's Cape
+|Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus: Discipline +2&lt;br&gt;Skill Bonus: Parry +4
+
+
+|- id=Witchhunters_cloak
+|Witchhunter's Cloak
+|912
+|44
+|380
+|83761 gold
+|13th
+|1 [[Alchemy#Materials|Alchemistic Catalyst (Greater)]]&lt;br&gt;1 [[Tailoring#Materials|Cloth]] (Large)&lt;br&gt;10 Mojo&lt;br&gt;1 Banishment (scroll)
+|Witchhunter's Cloak
+|Enhancement Bonus:Constitution +1&lt;br&gt;Armor Bonus: +5 AC vs Outsiders (AC Deflection Modifier)&lt;br&gt;Skill Bonus: Lore +5&lt;br&gt;Skill Bonus: Spellcraft +2&lt;br&gt;[https://nwn.fandom.com/wiki/Dismissal Dismissal] (18) 2 uses/day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|}</text>
+      <sha1>qjpc38d5ye7b2zsetipmafhdegs9swm</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Cloth Clothing Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2470</id>
+    <revision>
+      <id>35383</id>
+      <parentid>35260</parentid>
+      <timestamp>2025-10-11T18:40:06Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Fixed a typo</comment>
+      <origin>35383</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="10183" sha1="jn2e0aen259ufye0395z9x4yr4lva85" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value     
+! Level     
+! Materials   
+! Properties
+
+|- id=Vesture
+|Vesture
+|630
+|1
+|1
+|1 gold
+|1st
+|2 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)
+|
+
+
+|- id=Courtiers_outfit
+|Courtier's outfit
+|666
+|14
+|2
+|360 gold
+|1st
+|2 [[Spider silk]]&lt;br&gt;1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)
+|Skill Bonus: Leadership +5
+
+
+|- id=Nobles_outfit
+|Noble's outfit
+|667
+|22
+|25
+|3240 gold
+|1st
+|2 [[Garnet]]&lt;br&gt;2 [[Spider silk]]&lt;br&gt;1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)
+|Skill Bonus: Leadership +3&lt;br&gt;Enhancement Bonus: Charisma +1
+
+
+|- id=Royal_outfit
+|Royal outfit
+|668
+|24
+|72
+|9001 gold
+|1st
+|4 [[Spider silk]]&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;2 [[Art_crafting#Individual_Gems|Fire opal]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Skill Bonus: Leadership +5&lt;br&gt;Enhancement Bonus: Charisma +2
+
+
+|- id=Silk_shirt
+|Silk shirt
+|648
+|22
+|25
+|3153 gold
+|1st
+|10 [[Spider silk]]&lt;br&gt;5 Potion of cat's grace&lt;br&gt;1 Potion of invisibility&lt;br&gt;1 [[Forging#Ingot_brass|Ingot (Brass)]]&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Skill Bonus: Move Silently +3&lt;br&gt;Skill Bonus: Perform +2&lt;br&gt;Skill Bonus: Tumble +3
+
+
+|- id=Fine_silk_shirt
+|Fine silk shirt
+|647
+|30
+|160
+|20001 gold
+|1st
+|10 [[Spider silk]]&lt;br&gt;10 Potion of cat's grace&lt;br&gt;2 Potion of invisibility&lt;br&gt;1 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus: Move Silently +3&lt;br&gt;Skill Bonus: Perform +2&lt;br&gt;Skill Bonus: Tumble +3
+
+
+|- id=Enchanted_fine_silk_shirt
+|Enchanted Fine Silk Shirt
+|720
+|36
+|268
+|33541 gold
+|21st
+|10 [[Spider silk]]&lt;br&gt;10 Potion of cat's grace&lt;br&gt;5 Potion of invisibility&lt;br&gt;1 [[Forging#Ingot_adamantine|Ingot (Adamantine)]]&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus: Move Silently +3&lt;br&gt;Skill Bonus: Hide +3&lt;br&gt;Skill Bonus: Perform +2&lt;br&gt;Skill Bonus : Discipline +2&lt;br&gt;Skill Bonus : Bluff +2
+
+
+|- id=Acolytes_garb
+|Acolyte's Garb
+|895
+|28
+|130
+|16363 gold
+|1st
+|1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;6 Spider Silk&lt;br&gt;1 [[Forging#Ingot_silver|Ingot (Silver)]]
+|Bonus Spell Slot: Cleric Level 3&lt;br&gt;Bonus Spell Slot: Cleric Level 4&lt;br&gt;Enhancement Bonus: Wisdom +1&lt;br&gt;Skill Bonus: Heal +4&lt;br&gt;Skill Bonus: Spellcraft +2&lt;br&gt;Only Useable By: Cleric
+
+
+|- id=Hierophants_mantle
+|Hierophant's Mantle
+|896
+|38
+|315
+|65610 gold
+|15th
+|1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br&gt;10 Spider Silk&lt;br&gt;10 Potions of Heal
+|Bonus Spell Slot: Cleric Level 6&lt;br&gt;Bonus Spell Slot: Cleric Level 7&lt;br&gt;Enhancement Bonus: Wisdom +1&lt;br&gt;Improved Saving Throw: Disease +4&lt;br&gt;Bonus Skill: Heal +6&lt;br&gt;Bonus Skill: Spellcraft +4&lt;br&gt;Only Useable By: Cleric
+
+
+|- id=Initiates_vest
+|Initiate's Vest
+|897
+|22
+|95
+|33757 gold
+|1st
+|1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;4 Spider Silk&lt;br&gt;1 [[Alchemy#Alchemistic Catalyst (Lesser)|Alchemistic Catalyst (Lesser)]]
+|Bonus Spell Slot: Wizard Level 3&lt;br&gt;Bonus Spell Slot: Wizard Level 4&lt;br&gt;Bonus Spell Slot: Spellsword Level 3&lt;br&gt;Bonus Spell Slot: Spellsword Level 4&lt;br&gt;Enhancement Bonus: Intelligence +1&lt;br&gt;Skill Bonus: Spellcraft +3
+
+
+|- id=Murders_rainment
+|Murder's Rainment
+|898
+|34
+|240
+|59445 gold
+|21st
+|1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;10 Spider Silk&lt;br&gt;1 [[Forging#Ingot_mithral|Ingot (mithral)]]&lt;br&gt;2 Skull Emblems
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Enchantment Bonus: Intelligence +2&lt;br&gt;Skill Bonus: Bluff +3&lt;br&gt;Skill Bonus: Perform +3&lt;br&gt;Skill Bonus: Spot +3&lt;br&gt;Skill Bonus: Move Silently +3&lt;br&gt;Skill Bonus: Hide +3&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic (Thorass)]]&lt;br&gt;Only Useable By: Assassin&lt;br&gt;'''Increased UMD Requirement (40)'''
+
+
+|- id=Penumbral_vestment
+|Penumbral Vestment
+|899
+|44
+|335
+|108622 gold
+|21st
+|16 Spider Silk&lt;br&gt;1 [[Alchemy#Alchemistic_Catalysts (Greater)|Alchemistic Catalyst (Greater)]]&lt;br&gt;1 [[Forging#Ingot_adamantine|Ingot (Adamantine)]]&lt;br&gt;1 Shadow Shield (Scroll)
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Enchantment Bonus: Constitution +2&lt;br&gt;Skill Bonus: Move Silently +4&lt;br&gt;Skill Bonus: Hide +4&lt;br&gt;[https://nwn.fandom.com/wiki/Shadow_shield Shadow Shield] (13) 2 uses/day&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic (Thorass)]]&lt;br&gt;Only Useable By: Shadowdancer&lt;br&gt;'''Increased UMD Requirement (45)'''
+
+
+|- id=Rangers_runic_vestment
+|Ranger's runic vestment
+|979
+|56
+|582
+|58837 gold
+|21st
+|1 mithral Dust&lt;br&gt;1 Bolt of Silk&lt;br&gt;2 Cloth (Large)&lt;br&gt;2 Leather (Large)&lt;br&gt;1 Potion of Barkskin
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Enhancement Bonus: Strength +2&lt;br&gt;Arcane Spell Failure: 25% increased&lt;br&gt;Use: [[Barkskin]] (12) 1 Use/Day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;Only Useable By: Ranger&lt;br&gt;'''Increased UMD Requirement (55)''' 
+
+|- id=Disciples_garb
+|Disciple's Garb
+|1151
+|45
+|350
+|30141 gold
+|21st
+|1 Bolt of Cloth&lt;br&gt;1 Bolt of Silk&lt;br&gt;1 Dragon Oil&lt;br&gt;2 Ingot(Adamantine)
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Enchantment Bonus: Wisdom +1&lt;br&gt;Discipline +2&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic (Thorass)]]&lt;br&gt;Only Useable By: Monk&lt;br&gt;'''Increased UMD Requirement (45)'''
+
+|- id=Arch-priests_duty
+|Arch-Priest's Duty
+|1385
+|39
+|317
+|39692 gold
+|21st
+|1 Royal Tourmaline&lt;br&gt;1 Mithral Dust&lt;br&gt;1 Bolt of Silk&lt;br&gt;1 Ingot (Adamantine)&lt;br&gt;1 Greater Restoration Scroll
+|Bonus Spell Slot: Cleric Level 6&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Skill Bonus: Leadership +3&lt;br&gt;Use: Remove Blindness/Deafness (5) 1 Use/Day&lt;br&gt;Use: Restoration (7) 1 Use/Day&lt;br&gt;Wisdom +2&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br/&gt;Only Useable By: Cleric&lt;br&gt;'''Increased UMD Requirement (60)'''
+
+|- id=Grand_magis_robes
+|Grand Magi's Robes
+|1382
+|41
+|350
+|102415 gold
+|21st
+|1 Moonstone&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;1 Bolt of Silk&lt;br&gt;1 Dragon Oil
+|Bonus Spell Slot: Wizard Level 6&lt;br&gt;Bonus Spell Slot: Wizard Level 6&lt;br&gt;Bonus Spell Slot: Spellsword Level 6&lt;br&gt;Bonus Spell Slot: Spellsword Level 6&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Intelligence +2&lt;br&gt;[[Dweomercrafting|Runic]]&lt;br&gt;Only Useable By: Wizard '''OR''' Spellsword&lt;br&gt;'''Increased UMD Requirement (50)'''
+
+|- id=Inception_of_nightmares
+|Inception of Nightmares
+|1384
+|43
+|462
+|86728 gold
+|21st
+|1 Seer's Stone&lt;br&gt;10 Potion of Warding&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;5 Quartz Crystal&lt;br&gt;1 Camouflage Scroll
+|Bonus Spell Slot: Sorcerer Level 5&lt;br&gt;Bonus Spell Slot: Wizard Level 5&lt;br&gt;Bonus Spell Slot: Spellsword Level 5&lt;br&gt;Decreased Skill Modifier: Listen -4&lt;br&gt;Charisma +2&lt;br&gt;Intelligence +2&lt;br&gt;Skill Bonus: Bluff +4&lt;br&gt;Skill Bonus: Hide +4&lt;br&gt;Skill Bonus: Move Silently +4&lt;br&gt;Use: Camouflage (5) 2 Uses/Day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;Only Useable By: Evil&lt;br&gt;Only Useable By: Sorcerer '''OR''' Wizard '''OR''' Spellsword&lt;br&gt;'''Increased UMD Requirement (55)'''
+
+|- id=Jesters_jubilant_attire
+|Jester's Jubilant Attire
+|1383
+|44
+|430
+|92737 gold
+|21st
+|2 Rainbow Agate&lt;br&gt;1 Bolt of Cloth&lt;br&gt;10 Spider Silk&lt;br&gt;2 Gem Dust (Ruby)&lt;br&gt;2 Gem Dust (Emerald)
+|Bonus Spell Slot: Bard Level 4&lt;br&gt;Bonus Spell Slot: Bard Level 7&lt;br&gt;Damage Immunity: Sonic 10% Bonus&lt;br&gt;Enhancement Bonus: Charisma +2&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus: Perform +4&lt;br&gt;Only Useable by:  Bard&lt;br&gt;'''Increased UMD Requirement (60)'''
+
+|- id=Spellbinder's_Garb
+|Spellbinder's Garb
+|1666
+|45
+|490
+|54317 gold
+|21st
+|'''Harbinger OR Warlock Tailor'''&lt;br/&gt;1 Beljuril Gem&lt;br/&gt;1 Royal Outfit&lt;br/&gt;1 Flask of Djinn Uther&lt;br/&gt;8 Spider Silk&lt;br/&gt;2 Ruby
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Bonus Spell Slot: Warlock Level 7&lt;br/&gt;Bonus Spell Slot: Warlock Level 8&lt;br/&gt;Enhancement Bonus: Charisma +2&lt;br/&gt;Skill Bonus: Bluff +4&lt;br/&gt;Skill Bonus: Concentration +2&lt;br/&gt;Cast Spell: Spell Clutch (1/day) - only affects Warlock spells.&lt;br/&gt;[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;Only Useable by:  Warlock&lt;br/&gt;'''Increased UMD Requirement (45)'''&lt;br/&gt;
+
+|- id=Desperados_Raiment
+|Desperado's Raiment
+|1547
+|46
+|380
+|55103 gold
+|21st
+|1 Dragonhide&lt;br&gt;8 Spider Silk&lt;br&gt;1 Fine Silk Shirt&lt;br&gt;3 Emerald&lt;br&gt;1 Rose Quartz
+|Armor Bonus: +4&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Enhancement Bonus: Intelligence +1&lt;br&gt;Skill Bonus: Bluff +4&lt;br&gt;Skill Bonus: Leadership +4&lt;br&gt; Skill Bonus: Intimidate +4&lt;br&gt;Use: [[Fox's Cunning]] (10) 2 Uses/Day&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic (Thorass)]]&lt;br&gt;Only Useable by:  Swashbuckler&lt;br&gt;'''Increased UMD Requirement (45)'''
+
+|- id=Berserkers_waistcloth
+|Berserker's Waistcloth
+|1779
+|50
+|600
+|246020 gold
+|21st
+|1 Pelt of a Yeti&lt;br&gt;1 Cloth(Large)&lt;br&gt;1 Animal Hide(Large)&lt;br&gt;5 Animal Blood&lt;br&gt;1 Blood Frenzy
+|Ability Bonus: Constitution +2&lt;br&gt;Ability Bonus: Strenght +1&lt;br&gt;Ability Bonus: Dexterity +1&lt;br&gt;Damage Vulnerability: 25% Cold&lt;br&gt;
+Decreased AC: AC Armor -1&lt;br&gt;Decreased AC: AC Dodge -1&lt;br&gt;Decreased Saving Throw: Cold -1&lt;br&gt;Immunity Damage Type: Physical 10%&lt;br&gt;
+Regeneration +1&lt;br&gt;Saving Throw Bonus: Fear +2&lt;br&gt;
+Saving Throw Bonus: Mind-Affecting +2&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic (Thorass)]]&lt;br&gt;
+Usable by Chaotic and Barbarian&lt;br&gt;
+'''Increased UMD Requirement 40'''
+
+|- id=Invoker's_Bindings
+|Invoker's Bindings
+|1877
+|44
+|450
+|78677 gold
+|21st
+|1 Mithral Dust&lt;br&gt;1 Rainbow Agate&lt;br&gt;2 Bolt of Silk&lt;br&gt;4 Diamond
+|Ability Bonus: Charisma +2&lt;br&gt;Additional Property: Use Magic Device 45&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Skill Bonus: Leadership +2&lt;br&gt;Skill Bonus: Spellcraft +3&lt;br&gt;Cast Spell: [Globe of Invulnerability]] (15) Uses/Day&lt;br&gt;Immunity Damage Type: Fire, Cold, Acid, Electricity [5%]&lt;br&gt;
+Only Useable by: Hemomancer '''OR''' Elementalist
+&lt;br&gt;'''Rune T3 - Thorass'''
+
+|- id=Displacer Beast Raiment
+|Displacer Beast Raiment
+|1984
+|38
+|300
+|23805 gold
+|13th
+|1 Displacer Beast Hide&lt;br&gt;6 Spider Silk&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;5 Improved Invisibility (Scroll)
+|AC Bonus +3&lt;br&gt;Cast Spell: [[Invisibility]] (3) Unlimited Uses/Day&lt;br&gt;Passive Concealment 30%&lt;br&gt;Skill Bonus: Hide +5&lt;br&gt;18+ Hard Dexterity Requirement&lt;br&gt;'''Mundane'''
+
+|}</text>
+      <sha1>jn2e0aen259ufye0395z9x4yr4lva85</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Crown/Circlet/Diadem</title>
+    <ns>10</ns>
+    <id>2411</id>
+    <revision>
+      <id>35264</id>
+      <parentid>35251</parentid>
+      <timestamp>2025-10-02T18:31:06Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35264</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="12942" sha1="7vlphhctqpa7h82zvd4d36louhx0wdn" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value    
+! Level      
+! Materials
+! Properties
+
+|- id=Golden_Crown
+|Golden Crown
+|867
+|22
+|60
+|46471 gold
+|12th
+|1 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br&gt;1 Diamond
+|
+Enhancement Bonus: Charisma +2&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Animal Empathy +3&lt;br/&gt;
+Skill Bonus: Appraise +3&lt;br/&gt;
+Skill Bonus: Bluff +3&lt;br/&gt;
+Skill Bonus: Concentration +3&lt;br/&gt;
+Skill Bonus: Intimidate +3&lt;br/&gt;
+Skill Bonus: Leadership +3&lt;br/&gt;
+Skill Bonus: Perform +3&lt;br/&gt;
+Skill Bonus: Taunt +3&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br/&gt;
+
+|- id=Divine_Diadem
+|Divine Diadem
+|869
+|29
+|152
+|41079 gold
+|21st
+|
+1 [[Alchemy#Alchemistic Catalyst (Standard)|Alchemistic Catalyst (Standard)]]&lt;br/&gt;
+1 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br/&gt;
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+1 Diamond&lt;br/&gt;
+3 Sapphire
+|
+Enhancement Bonus: Wisdom +2&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Bonus Spell Slot: Cleric Level 6&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Useable by: Cleric&lt;br/&gt;
+'''Increased UMD Requirement: 20'''
+
+|- id=Fiendish_Crown
+|Fiendish Crown
+|993
+|44
+|387
+|48444 gold
+|21st
+|
+1 Alchemy Catalyst (Greater)&lt;br/&gt;
+1 Royal Tourmaline&lt;br/&gt;
+2 [[Forging#Ingot_Mithral|Ingot (Mithral)]]&lt;br/&gt;
+1 Greater Planar Binding (scroll)
+|
+Armor Bonus Vs Good +4 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus +3 (AC Deflection Modifier)&lt;br/&gt;
+Bonus Feat: Spell Focus (Conjuration)&lt;br/&gt;
+Bonus Feat: Spell Focus (Necromancy)&lt;br/&gt;
+Bonus Spell Slot: Harbinger Level 1&lt;br/&gt;
+Bonus Spell Slot: Harbinger Level 2&lt;br/&gt;
+Bonus Spell Slot: Harbinger Level 3&lt;br/&gt;
+Bonus Feat: Darkvision&lt;br/&gt;
+Enhancement Bonus: Charisma +1&lt;br/&gt;
+Skill Bonus: Bluff +1&lt;br/&gt;
+Skill Bonus: Intimidate +2&lt;br/&gt;
+Skill Bonus: Leadership +2&lt;br/&gt;
+Skill Bonus: Taunt +2&lt;br/&gt;
+Use: [[Doom]] (5) Unlimited Uses/Day + 25&lt;br/&gt;
+Use: [[Lesser Planar Binding]] (9) 2 Uses/Day + 11&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Fiendish)]]&lt;br/&gt;
+Only Useable by: Evil&lt;br/&gt;
+Only Useable by: Blackguard '''OR''' Divine Champion '''OR''' Evil '''OR''' Harbinger '''OR''' Zhentarim Enforcer&lt;br/&gt;
+'''Increased UMD Requirement: 50'''
+
+|- id=Brass_Crown
+|Brass Crown
+|860
+|12
+|21
+|22147 gold
+|
+|1 [[Forging#Ingot_brass|Ingot (Brass)]]
+|
+Enhancement Bonus: Charisma +1&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Animal Empathy +2&lt;br/&gt;
+Skill Bonus: Appraise +2&lt;br/&gt;
+Skill Bonus: Bluff +2&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Skill Bonus: Intimidate +2&lt;br/&gt;
+Skill Bonus: Leadership +2&lt;br/&gt;
+Skill Bonus: Perform +2&lt;br/&gt;
+Skill Bonus: Taunt +2&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br/&gt;
+
+|- id=Arcane_Headband
+|Arcane Headband
+|858
+|24
+|105
+|51699 gold
+|
+|
+1 [[Alchemy#Alchemistic Catalyst (Lesser)|Alchemistic Catalyst (Lesser)]]&lt;br/&gt;
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+1 Alexandrite
+|
+Enhancement Bonus: Intelligence +1&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Bonus Spell Slot: [[Spellsword]] Level 3&lt;br/&gt;
+Bonus Spell Slot: [[Spellsword]] Level 4&lt;br/&gt;
+Bonus Spell Slot: [[Wizard]] Level 3&lt;br/&gt;
+Bonus Spell Slot: [[Wizard]] Level 4&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 2 Rune (Thorass)]]&lt;br/&gt;
+Only Usable By: Spellsword '''OR''' Wizard&lt;br/&gt;
+'''Increased UMD Requirement: 20'''
+
+|- id=Blessed_Visor
+|Blessed Visor
+|1557
+|38
+|370
+|23719 gold
+|21st
+|
+2 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+1 Golden Crown&lt;br/&gt;
+1 Sunstone&lt;br/&gt;
+1 Rosenstone&lt;br/&gt;
+5 Holy Water
+|
+Enhancement Bonus: Charisma +2&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Bonus Spell Slot: Favored Soul Level 6&lt;br/&gt;
+Skill Bonus: Animal Empathy +1&lt;br/&gt;
+Skill Bonus: Appraise +1&lt;br/&gt;
+Skill Bonus: Bluff +1&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Skill Bonus: Intimidate +1&lt;br/&gt;
+Skill Bonus: Leadership +1&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Perform +1&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Skill Bonus: Taunt +1&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Usable By: Favored Soul&lt;br/&gt;
+'''Increased UMD Requirement: 20'''
+
+|- id=Beguilers_Crown
+|Beguiler's Crown
+|862
+|38
+|340
+|256515 gold
+|21st
+|
+1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br/&gt;
+1 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br/&gt;
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+10 Topaz&lt;br/&gt;
+1 Dominate Person (Scroll)
+|
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Spell Focus (Enchantment)&lt;br/&gt;
+Bonus Spell Slot: Bard Level 5&lt;br/&gt;
+Bonus Spell Slot: Sorcerer Level 5&lt;br/&gt;
+Bonus Spell Slot: Spellsword Level 5&lt;br/&gt;
+Bonus Spell Slot: Warlock Level 6&lt;br/&gt;
+Bonus Spell Slot: Wizard Level 5&lt;br/&gt;
+Skill Bonus: Animal Empathy +3&lt;br/&gt;
+Skill Bonus: Appraise +3&lt;br/&gt;
+Skill Bonus: Bluff +3&lt;br/&gt;
+Skill Bonus: Concentration +3&lt;br/&gt;
+Skill Bonus: Hide +1&lt;br/&gt;
+Skill Bonus: Intimidate +3&lt;br/&gt;
+Skill Bonus: Leadership +3&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Move Silently +1&lt;br/&gt;
+Skill Bonus: Perform +3&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Skill Bonus: Taunt +3&lt;br/&gt;
+Use: [[Charm Monster]] (10) Unlimited Uses/Day &lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Useable By: Bard '''OR''' Sorcerer '''OR''' Spellsword '''OR''' Warlock '''OR''' Wizard '''OR''' Invoker&lt;br&gt;
+'''Increased UMD Requirement: 30'''
+
+|- id=Circlet_of_Heroic_Might
+|Circlet of Heroic Might
+|861
+|38
+|318
+|39815 gold
+|21st
+|
+1 Mithral Dust&lt;br/&gt;
+1 Fossil Amber&lt;br/&gt;
+1 [[Forging#Ingot_iron|Ingot (Iron)]]&lt;br/&gt;
+3 Dragon Blood&lt;br/&gt;
+3 Ruby
+|
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Enhancement Bonus: Strength +2&lt;br/&gt;
+Skill Bonus: Intimidate +3&lt;br/&gt;
+Skill Bonus: Taunt +2&lt;br/&gt;
+Decreased Skill Modifier: Lore -2&lt;br/&gt;
+Decreased Skill Modifier: Use Magic Device -1&lt;br/&gt;
+Improved Saving Throws: Fear +3&lt;br/&gt;
+Weight Increase: 5 lbs&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Useable By: Barbarian&lt;br/&gt;
+'''Increased UMD Requirement: 40'''
+
+|- id=Circlet_of_Logic
+|Circlet of Logic
+|868
+|42
+|280
+|95760 gold
+|21st
+|
+1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br/&gt;
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+1 Diamond&lt;br/&gt;
+3 Sapphire&lt;br/&gt;
+1 Clarity (Scroll)
+|
+Enhancement Bonus: Intelligence +2&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Concentration +3&lt;br/&gt;
+Bonus Spell Slot: [[Spellsword]] Level 4&lt;br/&gt;
+Bonus Spell Slot: [[Spellsword]] Level 5&lt;br/&gt;
+Bonus Spell Slot: [[Wizard]] Level 4&lt;br/&gt;
+Bonus Spell Slot: [[Wizard]] Level 5&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Usable By: Spellsword '''OR''' Wizard&lt;br/&gt;
+'''Increased UMD Requirement: 20'''
+
+|- id=Celebrants_Mask
+|Celebrant's Mask
+|1549
+|42
+|380
+|123324 gold
+|21st
+|
+3 Lady's Tear&lt;br/&gt;
+1 Helmet (Mithral)&lt;br/&gt;
+1 Rare Hardwood&lt;br/&gt;
+5 Potion of Owl's Wisdom
+|
+Armor Bonus: +2 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Wisdom +2&lt;br/&gt;
+Bonus Feat: Combat Casting&lt;br/&gt;
+Skill Bonus: Concentration +2&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Bonus Spell Slot: Shaman Level 4&lt;br/&gt;
+Improved Saving Throws: Universal +1&lt;br/&gt;
+Weight Reduction: 80% of Weight&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Usable By: Shaman&lt;br/&gt;
+'''Increased UMD Requirement (25)'''&lt;br/&gt;
+'''NOTE: Item is Repaired via Carpentry Kits''' 
+
+|- id=Greenseers_Masque
+|Greenseer's Masque
+|865
+|42
+|360
+|57156 gold
+|21st
+|
+'''Druid Art Crafter'''&lt;br&gt;
+1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br/&gt;
+5 Lady's Tear&lt;br/&gt;
+2 King's Crown&lt;br/&gt;
+1 Softwood&lt;br/&gt;
+3 Emerald&lt;br/&gt;
+|
+Armor Bonus: +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Aberration: +4 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Construct: +4 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Undead: +4 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus: AC Natural Modifier +3 (AC Natural Modifier)&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Spell focus (Divination)&lt;br/&gt;
+Skill Bonus: Animal Empathy +5&lt;br/&gt;
+Skill Bonus: Concentration +3&lt;br/&gt;
+Skill Bonus: Hide +1&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Move Silently +1&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Bonus Spell Slot: Cleric Level 6&lt;br/&gt;
+Bonus Spell Slot: Druid Level 6&lt;br/&gt;
+Bonus Spell Slot: Favored Soul Level 6&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 4&lt;br/&gt;
+Bonus Spell Slot: Ranger Level 3&lt;br/&gt;
+Bonus Spell Slot: Shaman Level 6&lt;br/&gt;
+Regeneration: +1&lt;br/&gt;
+Use: [[One_With_the_Land|One With The Land]] 1 Use/Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Espruar)]]&lt;br/&gt;
+Only Useable By: Chaotic Neutral '''OR''' Lawful Neutral '''OR''' Neutral Evil '''OR''' Neutral Good '''OR''' 
+True Neutral&lt;br/&gt;
+Only Useable By: Cleric '''OR''' Druid '''OR''' Favored Soul '''OR''' Ranger '''OR''' Shaman&lt;br/&gt;
+'''Increased UMD Requirement: 40'''
+
+|- id=Duergan_Coronet
+|Duergan Coronet
+|866
+|44
+|415
+|190393 gold
+|21st
+|
+'''Duergar Art Crafter'''&lt;br/&gt;
+1 Dwarven Incantation&lt;br/&gt;
+1 Mithral Dust&lt;br/&gt;
+2 [[Ingot (Iron)]]&lt;br/&gt;
+3 Ruby&lt;br/&gt;
+|
+Armor Bonus: +3 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Aberration +5 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Skill Bonus: Concentration +5&lt;br/&gt;
+Skill Bonus: Discipline +2&lt;br/&gt;
+Decreased Skill Modifer: Animal Empathy -5&lt;br/&gt;
+Decreased Skill Modifer: Bluff -2&lt;br/&gt;
+Decreased Skill Modifer: Climb -2&lt;br/&gt;
+Decreased Skill Modifer: Disable Traps -2&lt;br/&gt;
+Decreased Skill Modifer: Hide -2&lt;br/&gt;
+Decreased Skill Modifer: Leadership -2&lt;br/&gt;
+Decreased Skill Modifer: Listen -2&lt;br/&gt;
+Decreased Skill Modifer: Move Silently -2&lt;br/&gt;
+Decreased Skill Modifer: Open Locks -2&lt;br/&gt;
+Decreased Skill Modifer: Parry -2&lt;br/&gt;
+Decreased Skill Modifer: Perform -2&lt;br/&gt;
+Decreased Skill Modifer: Ride -2&lt;br/&gt;
+Decreased Skill Modifer: Search -2&lt;br/&gt;
+Decreased Skill Modifer: Sleight of Hand -2&lt;br/&gt;
+Decreased Skill Modifer: Spot -2&lt;br/&gt;
+Decreased Skill Modifer: Tumble -2&lt;br/&gt;
+Decreased Skill Modifer: Use Magic Device -2&lt;br/&gt;
+Decreased Skill Modifer: Use Traps -2&lt;br/&gt;
+Spell Resistance: 18&lt;br/&gt;
+Cast Spell: [[Clarity]] (3) 1 Use/Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Dethrek)]]&lt;br/&gt;
+Weight Increase: 10 lbs&lt;br/&gt;
+Base ([[Hard]]) Strength 20+ Requirement&lt;br/&gt;
+
+|- id=Carrion-Eaters_Shroud
+|Carrion-Eaters Shroud
+|863
+|44
+|395
+|509762 gold
+|21st
+|
+'''Assassin OR Blackguard OR Palemaster OR Warlock OR Wizard Art Crafter'''&lt;br/&gt;
+1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br/&gt;
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+3 Blood of a Magic Creature&lt;br/&gt;
+1 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br/&gt;
+3 Bone&lt;br/&gt;
+|
+Armor Bonus vs.: Undead +5 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Darkvision&lt;br/&gt;
+Bonus Feat: Spell Focus: Necromancy&lt;br/&gt;
+Skill Bonus: Bluff +2&lt;br/&gt;
+Skill Bonus: Concentration +1&lt;br/&gt;
+Skill Bonus: Hide +1&lt;br/&gt;
+Skill Bonus: Intimidate +2&lt;br/&gt;
+Skill Bonus: Lore +2&lt;br/&gt;
+Skill Bonus: Move Silently +1&lt;br/&gt;
+Skill Bonus: Spellcraft +2&lt;br/&gt;
+Bonus Spell Slot: Cleric Level 6&lt;br/&gt;
+Bonus Spell Slot: Favored Soul Level 6&lt;br/&gt;
+Bonus Spell Slot: Shaman Level 6&lt;br/&gt;
+Bonus Spell Slot: Sorcerer Level 6&lt;br/&gt;
+Bonus Spell Slot: Wizard Level 6&lt;br/&gt;
+Use: [[Circle_of_Doom|Circle of Doom]] (20) Unlimited Uses/Day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Fiendish)]]&lt;br/&gt;
+Only Useable By: Evil&lt;br/&gt;
+Only Useable By: Cleric '''OR''' Favored Soul '''OR''' Shaman '''OR''' Sorcerer '''OR''' Wizard&lt;br/&gt;
+'''Increased UMD Requirement: 40'''
+
+|- id=Celestial_Crown
+|Celestial Crown
+|877
+|44
+|378
+|121223 gold
+|21st
+|
+1 Royal Tourmaline&lt;br/&gt;
+2 [[Forging#Ingot_gold|Ingot (Gold)]]&lt;br/&gt;
+1 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br/&gt;
+1 Ruby&lt;br/&gt;
+1 Word of Faith (Scroll)
+|
+Armor Bonus: +3 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus Vs: Evil +4 (AC Deflection Modifier)&lt;br/&gt;
+Enhancement Bonus: Charisma +1&lt;br/&gt;
+Skill Bonus: Intimidate +2&lt;br/&gt;
+Skill Bonus: Leadership +2&lt;br/&gt;
+Skill Bonus: Listen +1&lt;br/&gt;
+Skill Bonus: Spot +1&lt;br/&gt;
+Skill Bonus: Taunt +2&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 1&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 2&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 3&lt;br/&gt;
+Use: [[Dismissal]] (18) 2 Uses/Day&lt;br/&gt;
+Darkvision&lt;br/&gt;
+Only Useable By: Good&lt;br/&gt;
+Only Useable By: Divine Champion '''OR''' Harper Paragon '''OR''' Paladin '''OR''' Liberator&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Celestial)]]&lt;br/&gt;
+'''Increased UMD Requirement: 50'''
+
+|- id=Headband_of_Protection
+|Headband of Protection
+|864
+|46
+|480
+|187967 gold
+|21st
+|
+1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br/&gt;
+1 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br/&gt;
+1 Diamond&lt;br/&gt;
+1 Ruby&lt;br/&gt;
+1 Emerald&lt;br/&gt;
+|
+Armor Bonus: +2 (AC Deflection Modifier)&lt;br/&gt;
+Spell Resistance: 26&lt;br/&gt;
+Immunity: Damage Type : Force 5%&lt;br&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]
+
+|}</text>
+      <sha1>7vlphhctqpa7h82zvd4d36louhx0wdn</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Full Plate Armor: Smithing</title>
+    <ns>10</ns>
+    <id>2469</id>
+    <revision>
+      <id>35252</id>
+      <parentid>32085</parentid>
+      <timestamp>2025-10-02T18:13:39Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35252</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="4037" sha1="4lvowulr07tgjljogq4afr6zc1mqc5f" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Full Plate Armor (Bronze)
+|421
+|21
+|12
+|1500 gold
+|1st
+|4 [[Coal]]&lt;br&gt;4 [[Ingot (Bronze)]]
+|
+
+|- id=
+|Full Plate Armor (Iron)
+|438
+|23
+|54
+|6789 gold
+|1st
+|8 [[Coal]]&lt;br&gt;4 [[Ingot (Iron)]]
+|Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Full Plate Armor (Steel)
+|439
+|25
+|89
+|11172 gold
+|1st
+|8 [[Coal]]&lt;br&gt;4 [[Ingot (Steel)]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Full Plate Armor (Mithral)
+|762
+|34
+|231
+|28905 gold
+|1st
+|2 [[Coal]]&lt;br&gt;4 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (40 lbs)
+
+|- id=
+|Full Plate Armor (Adamantine)
+|456
+|46
+|204
+|25608 gold
+|21st
+|8 [[Coal]]&lt;br&gt;4 [[Ingot (Adamantine)]]
+|Armor Bonus +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=Orog_battle_armor
+|Orog Battle Armor
+|940 
+|47
+|439
+|54936 gold 
+|21st
+|16 [[Coal]]&lt;br&gt;4 [[Ingot (Steel)]]&lt;br&gt;4 [[Ingot (Mithral)]]&lt;br&gt;6 [[Ingot (Adamantine)]]
+| Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Enhancement Bonus: Strength +2&lt;br&gt;'''''Special: Can only be worn by Orogs&lt;br&gt;The racial restriction cannot be bypassed with UMD'''''
+
+|- id=Sanctified_plate
+|Sanctified Plate
+|1543
+|48
+|540
+|63901 gold
+|21st
+|1 Mithral Dust&lt;br&gt;2 Dragon oil &lt;br&gt;8 [[Coal]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;8 [[Ingot (Silver)]]
+|Armor Bonus +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Skill Bonus: Leadership +4 &lt;br&gt;Use: Aid (3) 3 Uses/Day &lt;br&gt;Use: Raise Dead (9) 1 Uses/Day &lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]] &lt;br&gt;Only Usable By: Divine Champion &lt;br&gt;'''Increased UMD Requirement (45)'''
+
+|- id=Jousting_plate
+|Jousting Plate
+|1542
+|48
+|400
+|94574 gold
+|21st
+|1 Dragon oil &lt;br&gt;2 [[Ingot (Gold)]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;2 [[Ingot (Silver)]]&lt;br&gt;1 Rose Quartz
+|Armor Bonus +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Skill Bonus: Ride +5&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]] &lt;br&gt;Only Usable By: Cavalier &lt;br&gt;'''Increased UMD Requirement (45)'''
+
+|- id=Dragonbone_plate
+|Dragonbone Plate
+|1545
+|48
+|306
+|94574 gold
+|21st
+|1 Sunstone&lt;br&gt;4 Dragonhide&lt;br&gt;8 [[Coal]]&lt;br&gt;4 [[Ingot (Mithral)]]&lt;br&gt;1 Full Plate Armor (Adamantine)
+|Ability Score Penalty: Charisma -3 &lt;br&gt;Armor Bonus +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Fear +4&lt;br/&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=Bulwark_plate
+|Bulwark Plate
+|1544
+|48
+|440
+|136292 gold
+|21st
+|'''Earthkin Smith'''&lt;br&gt; 2 Dragonhide&lt;br&gt;8 [[Coal]]&lt;br&gt;4 [[Ingot (Adamantine)]]&lt;br&gt;4 [[Ingot (Mithral)]]&lt;br&gt;5 Ruby
+|Armor Bonus +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Enhancement Bonus: Constitution +1&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]] &lt;br&gt;Only Usable By: [[Earthkin Defender]]&lt;br&gt;'''Increased UMD Requirement (70)'''
+
+|- id=Spellbinder's_Cuirass
+|Spellbinder's Cuirass
+|1668
+|50
+|525
+|67596 gold
+|21st
+|'''Hexblade OR Warlock Smith''' &lt;br&gt;1 Full Plate (Adamantine)&lt;br/&gt;8 [[Coal]]&lt;br/&gt;2 [[Ingot (Greensteel)]]&lt;br/&gt;1 Chardalyn Stone&lt;br/&gt;1 Beljuril Gem&lt;br/&gt;
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br/&gt;Damage Immunity: 5% Bludgeoning Immunity Bonus&lt;br/&gt;Damage Immunity: 5% Piercing Immunity Bonus&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br/&gt;Skill Bonus: Bluff +4&lt;br/&gt;Skill Bonus: Concentration +2&lt;br/&gt;Cast Spell: Spell Clutch (1/day) - only affects Warlock spells.&lt;br/&gt;Weight Reduction: 60% (30 lbs)&lt;br/&gt;[[Enchantment_basin#Runic Items|Runic]]&lt;br/&gt;Only Useable By: [[Warlock]]&lt;br/&gt;'''Increased UMD Requirement (45)'''
+
+|}</text>
+      <sha1>4lvowulr07tgjljogq4afr6zc1mqc5f</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Gloves/Gauntlets/Knuckles/Wraps: Tailoring</title>
+    <ns>10</ns>
+    <id>2476</id>
+    <revision>
+      <id>35386</id>
+      <parentid>35268</parentid>
+      <timestamp>2025-10-11T18:41:53Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Fixed a typo</comment>
+      <origin>35386</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="3914" sha1="gc24epfu6e6koda536dyvp3fp2foxwh" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value
+! Level        
+! Materials
+! Properties 
+
+|- id=Gauntlet
+|Gauntlet
+|686
+|1
+|1
+|5 gold
+|1st
+|2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)
+|Weight: 1 lbs
+
+|- id=Gloves_of_skill
+|Gloves of Skill
+|658
+|27
+|120
+|4240 gold
+|1st
+|3 Potion of Cat's Grace&lt;br&gt;1 [[Herbalism#Tanning_Acid|Tanning Acid]]&lt;br&gt;2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br&gt;1 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)
+|Skill Bonus: Disable Trap +3&lt;br&gt;Skill Bonus: Open Lock +3&lt;br&gt;Skill Bonus: Perform +3&lt;br&gt;Skill Bonus: Sleight of Hand +3&lt;br&gt;Skill Bonus: Use Traps +3 &lt;br&gt;Weight: 1 lbs
+
+|- id=Enchanted_gloves_of_skill
+|Enchanted Gloves of Skill
+|659
+|29
+|159
+|9500 gold
+|1st
+|7 Potion of Cat's Grace&lt;br&gt;1 [[Tailoring#Gloves_of_Skill|Gloves of Skill]]&lt;br&gt;1 [[Herbalism#Tanning+Acid|Tanning Acid]]&lt;br&gt;2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)&lt;br&gt;1 [[Tailoring#Leather_.28Medium.29|Leather]] (Medium)
+|Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus: Disable Trap +3&lt;br&gt;Skill Bonus: Open Lock +3 &lt;br&gt;Skill Bonus: Perform +3&lt;br&gt;Skill Bonus: Sleight of Hand +3 &lt;br&gt;Skill Bonus: Use Traps +3&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;Weight: 1 lbs
+
+|- id=Gloves_of_the_singer
+|Gloves of the singer
+|664
+|27
+|115
+|14440 gold
+|1st
+|3 Potion of clarity&lt;br&gt;5 Potion of Cat's Grace&lt;br&gt;2 [[Tailoring#Cloth_.28Small.29_1|Cloth]] (Small)
+|Skill Bonus: Concentration +5&lt;br&gt;Skill Bonus: Perform +3&lt;br&gt;Skill Bonus: Bluff +3 &lt;br&gt;Weight: 1 lbs
+
+|- id=Bone_knuckles
+|Bone knuckles
+|669
+|18
+|6
+|766 gold
+|1st
+|1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br&gt;8 [[Skeleton's knuckle]]
+| +2 Negative Energy Damage&lt;br&gt;Weight: 1 lbs
+
+|- id=Masterly_bone_knuckles
+|Masterly bone knuckles
+|670
+|22
+|38
+|4841 gold
+|1st
+|1 [[Blood of a magic creature]]&lt;br&gt;1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br&gt;8 [[Skeleton's knuckle]]
+| +1 Attack Bonus&lt;br&gt;+3 Negative Energy Damage &lt;br&gt;Weight: 1 lbs
+
+|- id=Masterly_brass_knuckles
+|Masterly brass knuckles
+|675
+|24
+|75
+|9456 gold
+|1st
+|1 [[Blood of a magic creature]]&lt;br&gt;1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br&gt;2 [[Forging#Ingot_brass|Ingot (Brass)]]
+| +1 Attack Bonus&lt;br&gt;+4 Bludgeoning Damage &lt;br&gt;Weight: 1 lbs
+
+|- id=Brass_knuckles
+|Brass knuckles
+|676
+|22
+|24
+|3063 gold
+|1st
+|1 [[Tailoring#Cloth_.28Medium.29_1|Cloth]] (Medium)&lt;br&gt;2 [[Forging#Ingot_brass|Ingot (Brass)]]
+|Bludgeoning Damage +3&lt;br&gt;Weight: 1 lbs
+
+|- id=Adamantine_knuckles
+|Adamantine Knuckles
+|781
+|28
+|132
+|16606 gold
+|1st
+|2 Leather (Small)&lt;br&gt;2 Animal Sinew&lt;br&gt;1 [[Forging#Ingot_adamantine|Adamantine Ingot]]
+| +3 AB&lt;br&gt;+4 Bludgeoning Damage&lt;br&gt;Weight: 1 lbs
+
+|- id=Chirurgeons_gloves
+|Chirurgeon's gloves
+|786
+|18
+|6
+|807 gold
+|1st
+|2 Mintspear Leaves&lt;br&gt;2 Lady's Tears&lt;br&gt;1 Flask of Oil&lt;br&gt;1 Leather (Medium)&lt;br&gt;2 Yarrow Leaves
+| +3 Heal&lt;br&gt;+1 Fortitude Saves vs Disease&lt;br&gt;
+
+|- id=Ankheg_gauntlets
+|Ankheg Gauntlets
+|891
+|24
+|63
+|7981
+|13th
+|1 Leather (Medium)&lt;br&gt;4 Sapphire&lt;br&gt;1 Ankheg Shell
+|Damage Immunity: Acid 10%&lt;br&gt;Damage Resist: Acid 10/-
+
+|- id=Disciples_wraps
+|Disciple's Wraps
+|1150
+|35
+|400
+|67651 gold
+|21st
+|3 Alchemistic Catalyst (Greater)&lt;br&gt;1 Bolt of Silk&lt;br&gt;1 Dragon Oil&lt;br&gt;1 Adamantine Knuckles
+|Attack Bonus: +4&lt;br&gt;Damage Bonus: Bludgeoning 6 Damage&lt;br&gt;Enchantment Bonus: Wisdom +1&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;ILR: 16&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]
+
+|- id=Tavern_Brawler's_Wraps
+|Tavern Brawler's Wraps
+|2157
+|50
+|500
+|88459 gold
+|21st
+|2 [[Forging#Ingot_adamantine|Adamantine Ingot]]&lt;br&gt;4 Glass Bottle&lt;br&gt;2 Bolt of Silk&lt;br&gt;1 Dragon Oil&lt;br&gt;1 Rogue Stone
+|Attack Bonus: +4&lt;br&gt;Damage Bonus: Piercing 5 Damage&lt;br&gt;Damage Bonus: 1d8 Bleed Damage&lt;br&gt;Enchantment Bonus: Strength +1&lt;br&gt;Bonus Skill: Heal +4&lt;br&gt;ILR: 21&lt;br&gt;'''[[Enchantment_basin#Runic_Items|Runic (Thorass)]]'''&lt;br&gt;Only Useable by Vigilante, Liberator'''&lt;br&gt;UMD Requirement: 50'''
+
+|}</text>
+      <sha1>gc24epfu6e6koda536dyvp3fp2foxwh</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Half Plate Armor: Smithing</title>
+    <ns>10</ns>
+    <id>2468</id>
+    <revision>
+      <id>35253</id>
+      <parentid>34827</parentid>
+      <timestamp>2025-10-02T18:14:07Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35253</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2536" sha1="hrp3wcd56qbkk9316vxu9w2wghp81x9" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Half-plate armour (Bronze)
+|423
+|16
+|4
+|600 gold
+|1st
+|4 [[Coal]]&lt;br&gt;3 [[Ingot (Bronze)]]
+|
+
+|- id=
+|Half-plate armour (Iron)
+|428
+|23
+|47
+|5889 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Iron)]]&lt;br&gt;1 [[Leather torso]]
+|Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Half-plate armour (Steel)
+|432
+|25
+|82
+|10272 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Steel)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Half-plate armour (Mithral)
+|763
+|34
+|224
+|28005 gold
+|1st
+|2 [[Coal]]&lt;br&gt;4 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (40 lbs)
+
+|- id=
+|Half-plate armour (Adamantine)
+|433
+|32
+|197
+|24708 gold
+|1st
+|&lt;br&gt;4 [[Coal]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Adventurer Armor
+|894
+|44
+|313
+|56028 gold 
+|11th
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Steel)]]&lt;br&gt;2 [[Ingot (Mithral)]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Increased Saving Throw: Reflex +4
+
+|- id=
+|Guardman's Armor
+|902 
+|38
+|303
+|37932 gold 
+|13th
+|4 [[Coal]]&lt;br&gt;1 [[Ingot (Brass)]]&lt;br&gt;1 [[Ingot (Mithral)]]&lt;br&gt;2 [[Ingot (Steel)]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Skill Bonus: Concentration +2&lt;br&gt;Skill Bonus: Discipline +2&lt;br&gt;Skill Bonus: Listen +3&lt;br&gt;Skill Bonus: Spot +3
+
+|- id=
+|Templar Armor
+|901
+|46
+|384
+|73020 gold 
+|14th
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Gold)]]&lt;br&gt;1 [[Ingot (Mithral)]]&lt;br&gt;1 Gem Dust (Ruby)&lt;br&gt;1 Word of Faith (Scroll)
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Enhancement Bonus: Charisma +3&lt;br/&gt;
+
+|- id=Commanding_Brigandine
+|Commanding Brigandine
+|1540
+|48
+|400
+|120612 gold 
+|21st
+|1 Rose Quartz&lt;br&gt;1 Dragon Oil&lt;br&gt;6 [[Coal]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;2 [[Ingot (Mithral)]]
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 5% Bludgeoning Immunity Bonus&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Improved Saving Throw: Will +3&lt;br&gt;Skill Bonus: Intimidate +4&lt;br&gt;Skill Bonus: Leadership +4&lt;br&gt; Cooldown Reduction : Knight Ability [Oath of Wrath] -1 Turn &lt;br&gt;Only Usable By: Knight&lt;br&gt;'''Increased UMD Requirement: 45'''&lt;br&gt;'''Runic: Thorass'''
+
+|}</text>
+      <sha1>hrp3wcd56qbkk9316vxu9w2wghp81x9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Heavy Banded/Splint Armor: Smithing</title>
+    <ns>10</ns>
+    <id>2467</id>
+    <revision>
+      <id>29672</id>
+      <parentid>20131</parentid>
+      <timestamp>2023-03-11T01:31:12Z</timestamp>
+      <contributor>
+        <username>Mattamue</username>
+        <id>425</id>
+      </contributor>
+      <comment>ctrl+f</comment>
+      <origin>29672</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1579" sha1="f3kzs2vm0pnuhpun999rm9469yux4s9" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Banded Armor (Bronze)
+|422
+|11
+|1
+|200 gold
+|1st
+|4 [[Coal]]&lt;br&gt;3 [[Ingot (Bronze)]]
+|
+
+|- id=
+|Banded Armor (Iron)
+|427
+|23
+|43
+|5489 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Iron)]]&lt;br&gt;1 [[Leather torso]]
+|Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Banded Armor (Steel)
+|431
+|24
+|78
+|9872 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Steel)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Banded Armor (Mithral)
+|766
+|33
+|220
+|27605 gold
+|1st
+|2 [[Coal]]&lt;br&gt;3 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (36 lbs)
+
+|- id=
+|Greensteel Splint Mail
+|771
+|42
+|361
+|45224 gold
+|1st
+|2 [[Coal]]&lt;br&gt;4 [[Ingot (Greensteel)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Arcane spell Failure: -35%
+
+|- id=
+|Banded Armor (Adamantine)
+|211
+|32
+|194
+|24308 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Northman's Armor
+|900 
+|38
+|360
+|63482 gold 
+|11th
+|4 Coal&lt;br&gt;3 Ingots (Brass)&lt;br&gt;2 Ingots (Steel)&lt;br&gt;1 Ingot (Mithral)&lt;br&gt;1 Leather Torso
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br&gt;Enhancement Bonus: Constitution +1&lt;br&gt;Increased Saving Throw: Fortitude +1&lt;br&gt;Skill Bonus: Discipline +3
+
+|}</text>
+      <sha1>f3kzs2vm0pnuhpun999rm9469yux4s9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Helmet: Smithing</title>
+    <ns>10</ns>
+    <id>2453</id>
+    <revision>
+      <id>30911</id>
+      <parentid>30896</parentid>
+      <timestamp>2024-04-17T23:54:01Z</timestamp>
+      <contributor>
+        <username>EdensFall</username>
+        <id>438</id>
+      </contributor>
+      <origin>30911</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="3846" sha1="9q3qnnxqz7cyfax5znqcevot9ya8eig" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Helmet (Bronze)
+|447
+|21
+|10
+|1337 gold
+|1st
+|2 [[Coal]]&lt;br&gt;1 [[Ingot (Bronze)]]
+|
+
+|- id=
+|Helmet (Iron)
+|446
+|23
+|42
+|5304 gold
+|1st
+|2 [[Coal]]&lt;br&gt;1 [[Ingot (Iron)]]
+|Damage Immunity: Bludgeoning 10% Immunity Bonus
+
+|- id=
+|Helmet (Steel)
+|448
+|24
+|77
+|9687 gold
+|1st
+|2 [[Coal]]&lt;br&gt;1 [[Ingot (Steel)]]
+|Armor Bonus: +1 (AC Deflection Modifier)&lt;br&gt;Damage Immunity: Bludgeoning 10% Immunity Bonus
+
+|- id=
+|Helmet (Mithral)
+|776
+|33
+|219
+|27420 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Deflection Modifier)&lt;br&gt;Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (1.6 lbs)
+
+|- id=
+|Helmet (Adamantine)
+|468
+|32
+|192
+|24123 gold
+|1st
+|2 [[Coal]]&lt;br&gt;1 [[Ingot (Adamantine)]]
+|Armor Bonus: +3 (AC Deflection Modifier)&lt;br&gt;Damage Immunity: Bludgeoning 10% Immunity Bonus
+
+|- id=Helm_of_the_Villain
+|Helm of the Villain
+|513
+|24
+|85
+|8520 gold
+|1st
+|
+2 [[Ingot (Greensteel)]]&lt;br/&gt;
+1 Helmet (Steel)
+|
+Armor Bonus: +1 (AC Deflection Modifier&lt;br/&gt;
+Armor Bonus vs.: Good +2 (AC Deflection Modifier&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Charisma +1&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Skill Bonus: Bluff +2&lt;br/&gt;
+Skill Bonus: Intimidate +1&lt;br/&gt;
+Skill Bonus: Leadership +1&lt;br/&gt;
+Skill Bonus: Perform +2&lt;br/&gt;
+Skill Bonus: Taunt +1&lt;br/&gt;
+Only Useable by: Evil
+
+|- id=Helmet_of_the_Warrior
+|Helmet of the Warrior
+|516
+|24
+|85
+|8823 gold
+|1st
+|
+2 [[Ingot (Brass)]]&lt;br/&gt;
+1 Helmet (Steel)
+|
+Armor Bonus: +1 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Darkvision&lt;br/&gt;
+Skill Bonus: Discipline +2&lt;br/&gt;
+Spell Resistance: 16&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br/&gt;
+
+|- id=
+|Helm of Keen Senses
+|512
+|24
+|85
+|9925 gold
+|1st
+|
+2 [[Ingot (Silver)]]&lt;br/&gt;
+1 Helmet (Steel)
+|
+Armor Bonus: +1 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Fey +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Outsider +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Shapechanger +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Undead +2 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Bonus Feat: Darkvision&lt;br/&gt;
+Skill Bonus: Listen +2&lt;br/&gt;
+Skill Bonus: Search +2&lt;br/&gt;
+Skill Bonus: Spot +2&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 1 Rune (Thorass)]]&lt;br/&gt;
+
+|- id=Helm_of_the_Hero
+|Helm of the Hero
+|515
+|24
+|85
+|59292 gold
+|1st
+|
+2 [[Ingot (Gold)]]&lt;br/&gt;
+1 Helmet (Steel)
+|
+Armor Bonus: +1 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Evil +2 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Charisma +1&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Skill Bonus: Bluff +2&lt;br/&gt;
+Skill Bonus: Intimidate +1&lt;br/&gt;
+Skill Bonus: Leadership +1&lt;br/&gt;
+Skill Bonus: Perform +2&lt;br/&gt;
+Skill Bonus: Taunt +1&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 1
+
+|- id=Helm_of_the_Stag
+|Helm of the Stag
+|514
+|24
+|85
+|120784 gold
+|1st
+|
+2 [[Ingot (Bronze)]]&lt;br/&gt;
+1 Helmet (Steel)
+|
+Armor Bonus: +1 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Animal +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Beast +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Magical Beast +2 (AC Deflection Modifier)&lt;br/&gt;
+Armor Bonus vs.: Vermin +2 (AC Deflection Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Constitution +1&lt;br/&gt;
+Enhancement Bonus: Dexterity +1&lt;br/&gt;
+Skill Bonus: Animal Empathy +3&lt;br/&gt;
+Skill Bonus: Discipline +1&lt;br/&gt;
+Skill Bonus: Intimidate +2&lt;br/&gt;
+Bonus Spell Slot: Ranger Level 1&lt;br/&gt;
+Additional Property: [[Misc_Changes#Mundane_Items|Mundane Item]]
+
+|}</text>
+      <sha1>9q3qnnxqz7cyfax5znqcevot9ya8eig</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Helmet: Tailoring</title>
+    <ns>10</ns>
+    <id>2455</id>
+    <revision>
+      <id>29674</id>
+      <parentid>17584</parentid>
+      <timestamp>2023-03-11T01:32:33Z</timestamp>
+      <contributor>
+        <username>Mattamue</username>
+        <id>425</id>
+      </contributor>
+      <comment>ctrl+f</comment>
+      <origin>29674</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="544" sha1="szq68174u5dpkk7mcbnrrdcfglq29m8" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Materials 
+! Product
+! Properties 
+
+|- id=Ankheg_chitin_helmet
+|Ankheg Chitin Helmet
+|893
+|42
+|326
+|50555 Gold
+|2 Flask of Oil&lt;br&gt;1 [[Forging#Ingot_steel|Ingot (Steel)]]&lt;br&gt;1 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br&gt;1 Ankheg Shell
+|1 Ankheg Chitin Helmet
+|Armor Bonus Vs: Slashing +4 (AC Deflection Modifier)&lt;br&gt;Armor Bonus: +2 (AC Deflection Modifier)&lt;br&gt;Damage Immunity: Acid 5%&lt;br&gt;Damage Immunity: Bludgeoning 10%&lt;br&gt;
+
+|}</text>
+      <sha1>szq68174u5dpkk7mcbnrrdcfglq29m8</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Large Shield: Carpentry</title>
+    <ns>10</ns>
+    <id>2458</id>
+    <revision>
+      <id>35262</id>
+      <parentid>32456</parentid>
+      <timestamp>2025-10-02T18:25:06Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35262</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="900" sha1="pdgn2pykmgff4f6afuewuna730xxkbu" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Large shield (Wood)
+|1
+|5
+|1
+|50 gold
+|1st
+|2 [[Hardwood]]
+|
+
+|- id=Sturdy_wood_shield
+|Sturdy Wood Shield
+|1029
+|15
+|26
+|3326 gold
+|1st
+|1 [[Emulsified Oil]]&lt;br&gt;1 Large Shield (Wood)&lt;br&gt;1 Leather (Large)
+|Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Weight Reduction: 80% of Weight (12.0 lbs)
+
+|- id=Hardened_shield
+|Hardened Shield
+|1030
+|30
+|59
+|7394 gold
+|1st
+|1 [[Emulsified Oil]]&lt;br&gt;1 [[Hardening Finish]]&lt;br&gt;1 Sturdy Wood Shield
+|Armor Bonus: +3 (AC Shield Modifier)&lt;br&gt;Weight Reduction: 80% of Weight (12.0 lbs)
+
+|- id=Enchanted_shield
+|Enchanted Shield
+|1031
+|45
+|250
+|13082 gold
+|21st
+|2 [[Ashwood Stabilizer]]&lt;br&gt;1 [[Dragon Oil]]&lt;br&gt;2 [[Hardening Finish]]&lt;br&gt;4 Rare Hardwood
+|Armor Bonus: +4 (AC Shield Modifier)&lt;br&gt;Weight Reduction: 80% of Weight (12.0 lbs)
+
+|}</text>
+      <sha1>pdgn2pykmgff4f6afuewuna730xxkbu</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Large Shield: Smithing</title>
+    <ns>10</ns>
+    <id>2461</id>
+    <revision>
+      <id>30389</id>
+      <parentid>29675</parentid>
+      <timestamp>2023-10-28T21:26:00Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <comment>adjusted large shield weight reduction note to 12 lbs</comment>
+      <origin>30389</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2315" sha1="ac2o76r55yp8v9m1ua2p3w3uznom5fq" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Large shield (Bronze)
+|449
+|21
+|10
+|1372 gold
+|1st
+|1 [[Armor#Large Shield (Carpentry)|Large Shield (Wood)]]&lt;br&gt;1 [[Ingot (Bronze)]]
+|Damage Immunity: Piercing 5% Immunity Bonus
+
+|- id=
+|Large shield (Iron)
+|454
+|23
+|42
+|5339 gold
+|1st
+|1 [[Armor#Large Shield (Carpentry)|Large Shield (Wood)]]&lt;br&gt;1 [[Ingot (Iron)]]
+|Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Large shield (Steel)
+|455
+|24
+|77
+|9722 gold
+|1st
+|1 [[Armor#Large Shield (Carpentry)|Large Shield (Wood)]]&lt;br&gt;1 [[Ingot (Steel)]]
+|Armor Bonus: +1 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Large shield (Mithral)
+|778
+|33
+|219
+|27455 gold
+|1st
+|4 [[Resources|Coal]]&lt;br&gt;2 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (12 lbs)
+
+|- id=
+|Large shield (Greensteel)
+|773
+|51
+|500
+|62618 gold
+|1st
+|4 [[Ingot (Greensteel)]]&lt;br&gt;2 [[Coal]]
+|Armor Bonus: +3 AC (Shield Modifier)&lt;br&gt;Arcane Spell Failure: -10%&lt;br&gt;Damage Immunity: Positive Energy 10% Immunity Bonus
+
+|- id=
+|Large shield (Adamantine)
+|476
+|32
+|193
+|24158 gold
+|1st
+|1 [[Armor#Large Shield (Carpentry)|Large Shield (Wood)]]&lt;br&gt;1 [[Ingot (Adamantine)]]
+|Armor Bonus: +3 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Spellbane Shield
+|909 
+|37
+|224
+|28000 gold 
+|12th
+|4 [[Coal]]&lt;br&gt;1 [[Ingot (Zinc)]]&lt;br&gt;1 [[Ingot (Mithral)]]&lt;br&gt;1 [[Ingot (Steel)]]&lt;br&gt;Greater Spell Breach (Scroll)
+|Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Arcane Spell Failure: +50%&lt;br&gt;Spell Resistance: 22&lt;br&gt;Use:[https://nwn.fandom.com/wiki/Lesser_spell_breach Lesser Spell Breach] (7) 2 Uses/Day
+
+|- id=
+|Dwarven Rune Wall
+|806 
+|38
+|318
+|26675 gold
+|1st
+|'''Dwarven Smith''' &lt;br&gt;1 Dwarven Incantation&lt;br&gt;4 [[Coal]]&lt;br&gt;1 [[Ingot (Silver)]]&lt;br&gt;2 [[Ingot (Steel)]]&lt;br&gt;1 Cone of Cold (scroll)
+| Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Slashing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br&gt;[[Enchantment_basin#Runic Items|Runic]]&lt;br&gt;Only Useable By: Dwarf&lt;br&gt;'''Increased UMD Requirement (25)'''
+
+|}</text>
+      <sha1>ac2o76r55yp8v9m1ua2p3w3uznom5fq</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Large Shield: Tailoring</title>
+    <ns>10</ns>
+    <id>2456</id>
+    <revision>
+      <id>29676</id>
+      <parentid>17587</parentid>
+      <timestamp>2023-03-11T01:37:31Z</timestamp>
+      <contributor>
+        <username>Mattamue</username>
+        <id>425</id>
+      </contributor>
+      <comment>ctrl+f</comment>
+      <origin>29676</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="533" sha1="rcmw6ok41luugl5hzskdohxb8rxkdqp" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Materials 
+! Product
+! Properties 
+
+|- id=Ankheg_chitin_shield
+|Ankheg Chitin Shield
+|892
+|42
+|326
+|76787 Gold
+|2 Flask of Oil&lt;br&gt;1 [[Forging#Ingot_steel|Ingot (Steel)]]&lt;br&gt;1 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br&gt;1 Ankheg Shell
+|1 Ankheg Chitin Shield
+|Armor Bonus Vs: Slashing +5 (AC Shield Modifier)&lt;br&gt;Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Acid 5%&lt;br&gt;Damage Immunity: Piercing 10%&lt;br&gt;
+
+|}</text>
+      <sha1>rcmw6ok41luugl5hzskdohxb8rxkdqp</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Light Hide/Studded Leather Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2480</id>
+    <revision>
+      <id>37238</id>
+      <parentid>35796</parentid>
+      <timestamp>2026-01-27T00:01:41Z</timestamp>
+      <contributor>
+        <username>MasterSplinter</username>
+        <id>466</id>
+      </contributor>
+      <comment>ichoret needs level 21</comment>
+      <origin>37238</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="5145" sha1="n7f9yrvqfdcnw17rzixqo4azdk0i4bs" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value
+! Level          
+! Materials   
+! Properties
+
+|- id=Studded_leather_armor
+|Studded leather armor
+|638
+|2
+|1
+|15 gold
+|1st
+|2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)
+|
+
+|- id=Fine_studded_leather
+|Fine studded leather
+|649
+|29
+|155
+|19439 gold
+|1st
+|1 [[Tailoring#Studded_leather_armor|Studded leather armor]]&lt;br&gt;1 [[Forging#Ingot_iron|Ingot (Iron)]]&lt;br&gt;2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)&lt;br&gt;10 Potion of cat's grace
+|Armor Bonus: +2 (AC Armor Modifier)
+
+|- id=Lesser_rangers_studded_leather
+|Lesser Ranger's Studded Leather
+|975
+|35
+|300
+|45034 gold
+|13th
+|2 Leather (Large)&lt;br&gt;1 Tanning Acid&lt;br&gt;1 Leather Torso&lt;br&gt;1 Potion of Barkskin
+|Armor Bonus: +5  (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Arcane Spell Failure 20% increased&lt;br&gt;Only Useable By: Ranger&lt;br&gt;'''Increased UMD Requirement (20)'''
+
+|- id=Rangers_runic_studded_leather
+|Ranger's runic studded leather
+|850
+|45
+|750
+|157937 gold
+|21st
+|1 Mithral Dust&lt;br&gt;2 Leather (Large)&lt;br&gt;1 Tanning Acid&lt;br&gt;1 Leather Torso&lt;br&gt;1 Potion of Barkskin&lt;br&gt;'''Crafter must be Ranger'''
+|Armor Bonus: +6  (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Enhancement Bonus: Dexterity +2&lt;br&gt;Arcane Spell Failure: 20% increased&lt;br&gt;Use: [[Barkskin]] (12) 1 Use/Day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br/&gt;Only Useable By: Ranger&lt;br&gt;'''Increased UMD Requirement (55)'''
+
+|- id=Rangers_runic_studded_leather
+|Ranger's runic studded leather
+|976
+|45
+|550
+|157937 gold
+|21st
+|1 Mithral Dust&lt;br&gt;Lesser Ranger's Studded Leather&lt;br&gt;'''Crafter must be Ranger'''
+|Armor Bonus: +6  (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Enhancement Bonus: Dexterity +2&lt;br&gt;Arcane Spell Failure: 20% increased&lt;br&gt;Use: [[Barkskin]] (12) 1 Use/Day&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br/&gt;Only Useable By: Ranger&lt;br&gt;'''Increased UMD Requirement (55)
+
+|- id=Reaver_armor
+|Reaver Armor
+|882
+|36
+|240
+|42070 Gold
+|1st
+|3 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;1 [[Forging#Ingot_steel|Ingot (Steel)]]&lt;br&gt;5 Potion Of Bull's Strength&lt;br&gt;1 Leather Torso
+|Arcane Spell Failure: 50% increased&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Enhancement Bonus: Strength +2&lt;br&gt;Improved Saving Throws: Death +2&lt;br&gt;Skill Bonus: Discipline +3
+
+|- id=Spellthiefs_armor
+|Spellthief's Armor
+|885
+|36
+|330
+|48595 Gold
+|1st
+|1 [[Forging#Ingot_greensteel|Ingot (Greensteel)]]&lt;br&gt;1 [[Alchemy#Alchemistic Catalyst (Standard)|Alchemistic Catalyst (Standard)]]&lt;br&gt;3 Mage Armor (Scroll)&lt;br&gt;1 Leather Torso
+|Arcane Spell Failure: 20% reduced&lt;br&gt;Armor Bonus: +3&lt;br&gt;Skill Bonus: Spellcraft +3
+
+|- id=Draconic_armor
+|Draconic Armor
+|888
+|48
+|514
+|129747 Gold
+|21st
+|2 [[Forging#Ingot_mithral|Ingot (Mithral)]]&lt;br&gt;5 Magic Vestment (Scroll)&lt;br&gt;8 Blood of a Magic Creature&lt;br&gt;1 Leather Torso&lt;br&gt;1 Star Ruby&lt;br&gt;'''Crafter must be Kobold'''
+|Armor Bonus: +5&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Enhancement Bonus: Strength +1&lt;br&gt;Skill Bonus: Discipline +2&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;'''Level Requirement: 21
+
+|- id=Battlemedic_armor
+|Battlemedic Armor
+|883
+|32
+|218
+|30759 Gold
+|1st
+|10 Strideleaf&lt;br&gt;10 Yarrow Leaves&lt;br&gt;10 Cloth (Small)&lt;br&gt;1 Leather Torso
+|Armor Bonus: +3&lt;br&gt;Skill Bonus: Heal +8&lt;br&gt;Use: [[Monstrous Regeneration]] (9) 2 Uses/Day
+
+|- id=Ichoret
+|Ichoret
+|1878
+|47
+|485
+|153775 Gold
+|21st
+|1 [[Forging#Ingot_adamantine|Ingot (Adamantine)]]&lt;br&gt;5 Blood of a Magic Creature&lt;br&gt;4 Dragonhide&lt;br&gt;5 Shaped Obsidian (Superior)&lt;br&gt;1 Alchemistic Catalyst (Greater)
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Ability Bonus: Charisma +1&lt;br&gt;Ability Bonus: Constitution +1&lt;br&gt;Immunity Damage Type: Bleeding [10%]&lt;br&gt;Immunity Damage Type: Slashing [5%]&lt;br&gt;Additional Property: Use Magic Device 40&lt;br&gt;Skill Bonus: Spellcraft +2&lt;br&gt;Skill Bonus: Concentration +2&lt;br&gt;Skill Bonus: Intimidate +3&lt;br&gt;Arcane Spell Failure [-20%]&lt;br&gt;'''Only Useable by: Hemomancer'''&lt;br&gt;'''Only Useable by: Elementalist'''&lt;br&gt;'''Rune T3 - Fiendish'''&lt;br&gt;'''Divine Shield is ineffective while wearing this armour.'''&lt;br&gt;'''Level Requirement: 21'''
+
+|- id=Spirit_hide
+|Spirit Hide
+|1548
+|48
+|366
+|150936 Gold
+|21st
+|2 Seer's Stone&lt;br&gt;3 Dragonhide&lt;br&gt;2 [[Smithing#Materials|Ingot (silver)]]&lt;br&gt;5 Dragon Blood&lt;br&gt;1 Pine Tar
+|Armor Bonus: +5&lt;br&gt;Bonus Spell Slot: Shaman Level 3&lt;br&gt;Bonus Spell Slot: Shaman Level 4&lt;br&gt;Use: Ghostly Visage (9) 3 uses/day&lt;br&gt;Damage Immunity: Negative Energy 5% Immunity Bonus&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Positive 5% Immunity Bonus&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br&gt;Only Usable By: Shaman&lt;br&gt;'''Increased UMD Requirement (55)'''
+
+|- id=Sharkskin_Armor
+|Sharkskin Armor
+|1986
+|53
+|350
+|66051 Gold
+|21st
+|1 Juvenile Megalodon&lt;br&gt;10 Shark Teeth&lt;br&gt;10 Tough Shell&lt;br&gt;1 Azurite&lt;br&gt;3 Tanning Acid
+|Armor Bonus: +5&lt;br&gt;Cast Spell: Freedom of Movement 1 Use / Day&lt;br&gt;Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Damage Shield: Piercing 1 Damage&lt;br&gt;Skill Bonus: Taunt +5&lt;br&gt;Only Useable By: Elf&lt;br&gt;Only craftable by : Aquatic Elf&lt;br&gt;'''Increased UMD Requirement (35)'''
+
+|}</text>
+      <sha1>n7f9yrvqfdcnw17rzixqo4azdk0i4bs</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Light Leather Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2479</id>
+    <revision>
+      <id>35384</id>
+      <parentid>35257</parentid>
+      <timestamp>2025-10-11T18:40:46Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Fixed a typo</comment>
+      <origin>35384</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="3551" sha1="ibz836xm33quokmozne9llba666jn0p" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value
+! Level          
+! Materials   
+! Properties
+
+|- id=Leather_armor
+|Leather armor
+|631
+|1
+|1
+|10 gold
+|1st
+|2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)
+|
+
+|- id=Fine_leather_armor
+|Fine leather armor
+|650
+|29
+|159
+|19934 gold
+|1st
+|1 [[Tailoring#Leather_armor|Leather armor]]&lt;br&gt;1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)&lt;br&gt;10 Potion of cat's grace
+|Armor Bonus: +2 (AC Armor Modifier)
+
+|- id=Enchanted_fine_leather_armor
+|Enchanted fine leather armor
+|646
+|35
+|249
+|31212 gold
+|1st
+|1 [[Tailoring#Fine_leather_armor|Fine leather armor]]&lt;br&gt;1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;3 Potion of invisibility&lt;br&gt;2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Enhancement Bonus: Dexterity +1
+
+|- id=Flexible_leather_suit
+|Flexible leather suit
+|651
+|30
+|166
+|20780 gold
+|1st
+|5 [[Spider silk]]&lt;br&gt;3 Potion of invisibility&lt;br&gt;1 [[Tailoring#Fine_leather_armor|Fine leather armor]]&lt;br&gt;1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Improved Saving Throw: Reflex +1&lt;br&gt;Skill Bonus: Hide +5&lt;br&gt;Skill Bonus: Move Silently +5&lt;br&gt;Skill Bonus: Tumble +5
+
+|- id=Enchanted_flexible_leather_suit
+|Enchanted flexible leather suit
+|652
+|35
+|251
+|31412 gold
+|1st
+|1 [[Forging#Ingot_silver|Ingot (Silver)]]&lt;br&gt;3 Potion of invisibility&lt;br&gt;1 [[Tailoring#Flexible_leather_suit|Flexible leather suit]]&lt;br&gt;1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;2 [[Tailoring#Leather_.28Large.29|Leather]] (Large)
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Improved Saving Throw: Reflex +1&lt;br&gt;Skill Bonus: Hide +5&lt;br&gt;Skill Bonus: Move Silently +5&lt;br&gt;Skill Bonus: Tumble +5
+
+|- id=Displacer_beast_hide_armor
+|Displacer Beast Hide Armor
+|886
+|34
+|246
+|19602 Gold
+|13th
+|5 Improved Invisibility (Scroll)&lt;br&gt;1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br&gt;1 Displacer Beast Hide&lt;br&gt;1 Leather Torso
+|Armor Bonus: +4  (AC Armor Modifier)&lt;br&gt;Skill Bonus: Hide +5&lt;br&gt;Passive Concealment: 30%&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Invisibility_(spell) Invisibility] (3) Unlimited uses/day
+
+|- id=Armor_of_the_wilds
+|Armor of the Wilds
+|889
+|48
+|440
+|62578 Gold
+|21st
+|1 Bolt of Silk&lt;br&gt;5 Flask of Oil&lt;br&gt;2 Rock Chunk (Adamantine)&lt;br&gt;1 Leather Torso&lt;br&gt;1 Bluestone&lt;br&gt;'''Crafter must be Wild Elf/Wood Elf/Wild Dwarf/Forest Gnome'''
+|Armor Bonus: +5  (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Only Useable By: Dwarf '''OR''' Elf '''OR''' Gnome&lt;br&gt;Skill Bonus: Hide +5&lt;br&gt;Skill Bonus: Move Silently +5&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;'''Increased UMD Requirements (35)'''
+
+|- id=Mourners_raiment
+|Mourner's Raiment
+|1818
+|42
+|450
+|152123 Gold
+|21st
+|1 [[Forging#Ingot_adamantine|Ingot (Adamantine)]]&lt;br&gt;1 Seer's Stone&lt;br&gt;1 Bolt of Silk&lt;br&gt;1 Skull Emblem&lt;br&gt;1 Onyx
+|Armor Bonus: +2  (AC Armor Modifier)&lt;br&gt;Armor Bonus: +3 vs. Undead (AC Armor Modifier)&lt;br&gt;Enhancement Bonus: Charisma  +2&lt;br&gt;Bonus Spell Slot: Bard Level 4&lt;br&gt;Use: Control Undead (20) 1 use/day&lt;br&gt;Base Item Weight Reduction: 60%&lt;br&gt;Improved Saving Throw: Death +1&lt;br&gt;Improved Saving Throw: Negative +1&lt;br&gt;Skill Bonus: Intimidate +3&lt;br&gt;Skill Bonus: Perform +3&lt;br&gt;Skill Bonus: Bluff +3&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic]]&lt;br&gt;Only Useable By: Bard&lt;br&gt;Only Useable By: Dirgesinger&lt;br&gt;'''Increased UMD Requirement (60)'''
+
+|}</text>
+      <sha1>ibz836xm33quokmozne9llba666jn0p</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Light Padded Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2478</id>
+    <revision>
+      <id>35686</id>
+      <parentid>35259</parentid>
+      <timestamp>2025-11-19T20:41:02Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Second Skin requires level 21</comment>
+      <origin>35686</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="4492" sha1="7a9umin0rpmwc47zxv8imzakyow0vw3" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value
+! Level          
+! Materials   
+! Properties
+
+|- id=Padded_armor
+|Padded armor
+|632
+|1
+|1
+|5 gold
+|1st
+|1 [[Tailoring#Leather_.28Large.29|Leather]] (Large)&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)
+|
+
+|- id=Padded_armor_1
+|Padded armor +1
+|691
+|17
+|5
+|661 gold
+|1st
+|1 [[Tailoring#Leather_.28Large.29|Leather]] (Large)&lt;br&gt;1 [[Tailoring#Padded_armor|Padded Armor]]&lt;br&gt;1 [[Dwarven incantation]]
+|Armor Bonus: +1 (AC Armor Modifier)
+
+|- id=Padded_armor_2
+|Padded armor +2
+|692
+|22
+|23
+|2929 gold
+|1st
+|1 [[Tailoring#Leather_.28Large.29|Leather]] (Large)&lt;br&gt;1 [[Tailoring#Cloth_.28Large.29_1|Cloth]] (Large)&lt;br&gt;1 [[Tailoring#Padded_armor|Padded Armor]]&lt;br&gt;1 [[Dwarven incantation]]&lt;br&gt;3 [[Spider silk]]
+|Armor Bonus: +2 (AC Armor Modifier)
+
+|- id=Padded_armor_3
+|Padded armor +3
+|693
+|23
+|54
+|6817 gold
+|1st
+|1 [[Tailoring#Padded_armor_.2b2|Padded armor +2]]&lt;br&gt;1 [[Dwarven incantation]]
+|Armor Bonus: +3 (AC Armor Modifier)
+
+|- id=Warded_leather_suit
+|Warded leather suit
+|645
+|27
+|116
+|14532 gold
+|1st
+|1 [[Herbalism#Tanning_acid|Tanning acid]]&lt;br&gt;10 [[Potion of clarity]]&lt;br&gt;2 [[Diamond|Gem Dust (Diamond)]]&lt;br&gt;1 [[Tailoring#Leather_torso|Leather torso]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Improved Saving Throws: Death +2&lt;br&gt;Improved Saving Throws:  Fear +2&lt;br&gt;Improved Saving Throws:  Mind Affecting +2&lt;br&gt;Improved Saving Throws: Will +3&lt;br&gt;Spell Resistance: 16
+
+|- id=Gambeson_of_the_Holy_Squire
+|Gambeson of the Holy Squire
+|840
+|32
+|320
+|40000 gold
+|21st
+|
+1 Rosenstone&lt;br/&gt;
+2 Cloth (large)&lt;br/&gt;
+4 Spider silk&lt;br/&gt;
+1 Leather Torso&lt;br/&gt;
+1 Resurrection (scroll)&lt;br/&gt;
+'''Crafter must be a Paladin'''
+|
+Armor Bonus: +4 (AC Armor Modifier)&lt;br/&gt;
+Armor Bonus vs.: Evil +5 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Dexterity +2&lt;br/&gt;
+Skill Bonus: Heal +5&lt;br/&gt;
+Skill Bonus: Listen +2&lt;br/&gt;
+Skill Bonus: Ride +5&lt;br/&gt;
+Skill Bonus: Spot +2&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 1&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 1&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 2&lt;br/&gt;
+Bonus Spell Slot: Paladin Level 2&lt;br/&gt;
+Use: [https://nwn.fandom.com/wiki/Raise_dead Raise Dead] (9) 2 Uses/day&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Celestial)]]&lt;br/&gt;
+Only Useable By: Good&lt;br/&gt;
+Only Useable By: Cavalier '''OR''' Divine Champion '''OR''' Harper Paragon '''OR''' Knight '''OR''' Paladin '''OR''' Liberator&lt;br/&gt;
+'''Increased UMD Requirement (50)'''
+
+|- id=Armor_of_immolation
+|Armor of Immolation
+|887
+|46
+|462
+|147269 Gold
+|21st
+|3 Dragon Blood&lt;br&gt;1 [[Alchemy#Alchemistic Catalyst (Greater)|Alchemistic Catalyst (Greater)]]&lt;br&gt;2 Cloth (Medium)&lt;br&gt;10 Fire Opal&lt;br&gt;1 Orange Topaz
+|Arcane Spell Failure: -05%&lt;br&gt;Armor Bonus: +4  (AC Armor Modifier)&lt;br&gt;Damage Resist: Fire 10/-&lt;br&gt;Enhancement Bonus: Charisma +2&lt;br&gt;Improved Saving Throws: Fire +3&lt;br&gt;Skill Bonus: Discipline +2&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Elemental_shield Elemental Shield] (12) unlimited uses
+
+|- id=Lesser_second_skin
+|Lesser Second Skin
+|903
+|28
+|195
+|35407 gold
+|1st
+|1 Leather (Large)&lt;br&gt;6 Lady's Tear&lt;br&gt;2 Rock Chunks (Silver)&lt;br&gt;1 Leather Torso
+|Damage Immunity: 5% Slashing&lt;br&gt;Enhancement Bonus: Dexterity +2&lt;br&gt;Enhancement Bonus: Strength +2&lt;br&gt;Only Useable by: Druid '''OR''' Shifter &lt;br&gt;''' Increased UMD Requirement (20)'''
+
+|- id=Second_skin
+|Second Skin
+|884
+|48
+|440
+|142807 Gold
+|21st
+|4 Rock Chunk (Mithral)&lt;br&gt;6 Lady's Tear&lt;br&gt;6 King's Crown&lt;br&gt;2 Animal Hide (Medium)&lt;br&gt;1 Rosenstone
+|Damage Immunity: Slashing 5%&lt;br&gt;Enhancement Bonus: Constitution +3&lt;br&gt;Enhancement Bonus: Strength +3&lt;br&gt;Enhancement Bonus: Dexterity +3&lt;br&gt;Only Useable By: Druid '''OR''' Shifter&lt;br&gt;'''Increased UMD Requirement (40)'''
+
+|- id=Rogue_leathers
+|Rogue Leathers
+|992
+|45
+|300
+|30996 Gold
+|21st
+|1 [[Forging#Ingot_adamantine|Ingot (Adamantine)]]&lt;br&gt;1 Rogue Stone&lt;br&gt;1 Enchanted Flexible Leather Suit
+|Armor Bonus: +4  (AC Armor Modifier)&lt;br&gt;Enhancement Bonus: Dexterity +1&lt;br&gt;Skill Bonus : Disable Trap +2&lt;br&gt;Skill Bonus : Hide +2&lt;br&gt;Skill Bonus : Move Silently +2&lt;br&gt;Skill Bonus : Open Lock +2&lt;br&gt;Skill Bonus : Search +2&lt;br&gt;Skill Bonus : Sleight of Hand +2&lt;br&gt;Skill Bonus : Use Traps +2&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Rogue%27s_cunning Rogue's Cunning] (3) 2 uses/day&lt;br&gt;Spell Resistance: 26&lt;br&gt;[[Enchantment_basin#Runic_Items|Runic: Thorass]]&lt;br&gt;Only Useable By: Rogue&lt;br&gt;'''Increased UMD Requirement (55)'''
+
+|}</text>
+      <sha1>7a9umin0rpmwc47zxv8imzakyow0vw3</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Medium Chain Armor: Smithing</title>
+    <ns>10</ns>
+    <id>2463</id>
+    <revision>
+      <id>35256</id>
+      <parentid>35255</parentid>
+      <timestamp>2025-10-02T18:18:16Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35256</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="4714" sha1="16qfxqotgj1jp4ei2xntqbwc5teikt0" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=Chainshirt_Armor_Bronze
+|Chainshirt Armor (Bronze)
+|424
+|9
+|1
+|150 gold
+|
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Bronze)]]
+|
+
+|- id=Chainshirt_Armor_Iron
+|Chainshirt Armor(Iron)
+|425
+|23
+|43
+|5439 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Iron)]]&lt;br&gt;1 [[Leather torso]]
+|Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=Chainshirt_Armor_Steel
+|Chainshirt Armor (Steel)
+|429
+|24
+|78
+|9822 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Steel)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Chainshirt Armor (Mithral)
+|767
+|33
+|220
+|27505 gold
+|1st
+|2 [[Coal]]&lt;br&gt;3 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (24 lbs)
+
+|- id=
+|Greensteel Chain Shirt
+|772
+|33
+|217
+|27244 gold
+|1st
+|2 [[Coal]]&lt;br&gt;4 [[Ingot (Greensteel)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Arcane spell Failure: -15%
+
+|- id=Chainshirt_Armor_Adamantine
+|Chainshirt Armor (Adamantine)
+|435
+|32
+|194
+|24258 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Adamantine)]]&lt;br&gt;1 [[Leather torso]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus
+
+
+|- id=Spellbinder's_Chain
+|Spellbinder's Chain
+|1667 
+|48
+|500
+|133040 gold
+|21st
+|'''Harbinger OR Warlock Smith''' &lt;br&gt;1 Chain Shirt (Adamantine)&lt;br/&gt;8 Coal&lt;br/&gt;2 Bolt of Silk&lt;br/&gt;1 Chardalyn Stone&lt;br/&gt;1 Beljuril Gem&lt;br/&gt;
+|Armor Bonus: +4 (AC Armor Modifier)&lt;br/&gt;Damage Immunity: 5% Bludgeoning Immunity Bonus&lt;br/&gt;Damage Immunity: 5% Piercing Immunity Bonus&lt;br&gt;Damage Immunity: 10% Slashing Immunity Bonus&lt;br/&gt;Enhancement Bonus: Constitution +2&lt;br/&gt;Skill Bonus: Bluff +4&lt;br/&gt;Skill Bonus: Concentration +2&lt;br/&gt;Cast Spell: Spell Clutch (1/day) - only affects Warlock spells.&lt;br/&gt;Weight Reduction: 40% (12 lbs)&lt;br/&gt;[[Enchantment_basin#Runic Items|Runic]]&lt;br/&gt;Only Useable By: Warlock&lt;br/&gt;'''Increased UMD Requirement (45)'''
+
+|- id=Songsword's Guard
+|Songsword's Guard
+|1579
+|49
+|360
+|157532 gold
+|21st
+|8 [[Coal]]&lt;br&gt;1 Rogue Stone&lt;br&gt;1 Rose Quartz&lt;br&gt;2 Dragon Oil&lt;br&gt;6 [[Ingot (Mithral)]]
+|Armor Bonus: +4&lt;br&gt;Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br&gt;Damage Immunity: Piercing 5% Immunity Bonus&lt;br&gt;Damage Immunity: Slashing 10% Immunity Bonus&lt;br&gt;Enhancement Bonus: Dexterity +2&lt;br&gt;Bonus Skill: +4 Concentration&lt;br&gt;Bonus Skill: +4 Perform&lt;br&gt;Use: [https://nwn.fandom.com/wiki/Restoration Restoration] (7) 2 Use/Day&lt;br&gt;Weight Reduction: 40% (12 lbs) &lt;br&gt;[[Enchantment_basin#Runic Items|Runic]]&lt;br&gt;Only Useable By: Bard&lt;br&gt;'''Increased UMD Requirement (60)'''
+
+|- id=Elven_Chainmail
+|Elven Chainmail
+|849 
+|53
+|350
+|83005 gold
+|21st
+|
+'''Elf (Non-Drow Non-Aquatic)'''&lt;br/&gt;
+'''OR Half-Elf Smith'''&lt;br/&gt;
+2 Mithral Dust&lt;br/&gt;
+2 [[Ingot (Silver)]]&lt;br/&gt;
+1 [[Leather Torso]]&lt;br/&gt;
+1 Uvarovite Gem
+|
+Armor Bonus: +4 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: 5% Bludgeoning&lt;br/&gt;
+Damage Immunity: 5% Piercing&lt;br/&gt;
+Damage Immunity: 10% Slashing&lt;br/&gt;
+Enhancement Bonus: Dexterity +1&lt;br/&gt;
+Bonus Skill: +5 Hide&lt;br/&gt;
+Bonus Skill: +5 Move Silently&lt;br/&gt;
+Weight Reduction: 40% (12 lbs)&lt;br/&gt;
+Arcane Spell Failure: -15%&lt;br/&gt;
+'''Special''': Counts as Light Armor for purposes of the [[Spellsword]] [[Spellsword#Bladesinger|Bladesinger Path]] and for [[Swashbuckler]] light armor requirements&lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Espruar)]]&lt;br/&gt;
+'''DEV Note''': Elven chain counts as light armor for most interactions with an exception for base game behavior like ranger dual wield.
+
+|- id=Mail_of_the_Holy Knight
+|Mail of the Holy Knight
+|848
+|56
+|750
+|210310 gold
+|21st
+|
+'''Paladin Smith'''&lt;br/&gt;
+1 Mithral Dust&lt;br/&gt;
+4 [[Ingot (Steel)]]&lt;br/&gt;
+1 [[Leather Torso]]&lt;br/&gt;
+1 Word of Faith (scroll)&lt;br&gt;
+1 Sunstone
+| 
+Armor Bonus: +4 (AC Armor Modifier)&lt;br/&gt;
+Armor Bonus vs.: Evil +5 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Piercing 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Dexterity +2&lt;br/&gt;
+Skill Bonus: Intimidate +3&lt;br/&gt;
+Skill Bonus: Leadership +3&lt;br/&gt;
+Skill Bonus: Ride +5&lt;br/&gt;
+Skill Bonus: Taunt +3&lt;br/&gt;
+Improved Saving Throws: Fear +3&lt;br/&gt;
+Use: [https://nwn.fandom.com/wiki/Remove_fear Remove Fear] (2) 2 Use/Day &lt;br/&gt;
+Use: [https://nwn.fandom.com/wiki/Word_of_faith Word of Faith] (13) 1 Use/Day &lt;br/&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Celestial)]]&lt;br/&gt;
+Only Useable By: Good&lt;br/&gt;
+Only Useable By: Cavalier '''OR''' Divine Champion '''OR''' Harper Paragon '''OR''' Knight '''OR''' Paladin '''OR''' Liberator&lt;br/&gt;
+'''Increased UMD Requirement (50)'''&lt;br/&gt;
+
+|}</text>
+      <sha1>16qfxqotgj1jp4ei2xntqbwc5teikt0</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Medium Chain Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2464</id>
+    <revision>
+      <id>33585</id>
+      <parentid>33584</parentid>
+      <timestamp>2025-03-03T06:00:20Z</timestamp>
+      <contributor>
+        <username>CaptainCaramelBottom</username>
+        <id>463</id>
+      </contributor>
+      <origin>33585</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="394" sha1="9wkwauaczr6jvr7ddp0hj3kfi7f215n" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Level
+! Materials
+! Properties
+
+|- id=Ankheg_breastplate
+|Ankheg Breastplate
+|825
+|34
+|340
+|30000 gold
+|1st
+|2 Ankheg Shells&lt;br&gt;1 Leather torso&lt;br&gt;1 cloth (medium)
+|Armor Bonus +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: 50% Acid Immunity&lt;br&gt;Improved Saving Throws: Poison +5
+
+|}</text>
+      <sha1>9wkwauaczr6jvr7ddp0hj3kfi7f215n</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Medium Scale/Breastplate Armor: Smithing</title>
+    <ns>10</ns>
+    <id>2466</id>
+    <revision>
+      <id>36253</id>
+      <parentid>35254</parentid>
+      <timestamp>2026-01-08T22:43:19Z</timestamp>
+      <contributor>
+        <username>CaptainCaramelBottom</username>
+        <id>463</id>
+      </contributor>
+      <origin>36253</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="3139" sha1="fpm382601npksvmufdzhh2egg6qu9ei" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br/&gt;
+Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Scale Armor (Bronze)
+|437
+|8
+|1
+|100 gold
+|
+|4 [[Coal]]&lt;br/&gt;
+2 [[Ingot (Bronze)]]
+|
+
+|- id=
+|Scale Armor (Iron)
+|426
+|23
+|43
+|5389 gold
+|
+|4 [[Coal]]&lt;br/&gt;
+2 [[Ingot (Iron)]]&lt;br/&gt;
+1 [[Leather torso]]
+|Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=Scale_armor_steel
+|Scale Armor (Steel)
+|430
+|24
+|78
+|9772 gold
+|
+|4 [[Coal]]&lt;br/&gt;
+2 [[Ingot (Steel)]]&lt;br/&gt;
+1 [[Leather torso]]
+|Armor Bonus: +1 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=
+|Scale Armor (Mithral)
+|768
+|33
+|220
+|27555 gold
+|
+|2 [[Coal]]&lt;br/&gt;
+3 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus&lt;br/&gt;
+Improved Saving Throws: Universal +1&lt;br/&gt;
+Weight Reduction: 80% of Weight (32 lbs)
+
+|- id=
+|Greensteel Breastplate
+|770
+|39
+|309
+|38714 gold
+|
+|2 [[Coal]]&lt;br/&gt;
+4 [[Ingot (Greensteel)]]
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br/&gt;
+Arcane Spell Failure: -25%
+
+|- id=
+|Scale Armor (Adamantine)
+|434
+|32
+|193
+|24208 gold
+|
+|4 [[Coal]]&lt;br/&gt;
+2 [[Ingot (Adamantine)]]&lt;br/&gt;
+1 [[Leather torso]]
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus
+
+|- id=Battlebard_Tabard
+|Battlebard Tabard
+|1746
+|45
+|340
+|247966 gold
+|21st
+|8 [[Coal]]&lt;br/&gt;
+6 [[Ingot (Mithral)]]&lt;br/&gt;
+2 [[Ingot (Adamantine)]]&lt;br/&gt;
+2 [[Dragon Oil]]&lt;br/&gt;
+1 Star Sapphire
+|Armor Bonus: +5 (AC Armor Modifier)&lt;br/&gt;
+Enhancement Bonus: Strength +2&lt;br/&gt;
+Damage Immunity: Slashing: 10%&lt;br/&gt;
+Damage Immunity: Bludgeoning 5%&lt;br/&gt;
+Damage Immunity: Piercing: 5%&lt;br/&gt;
+Arcane Spell Failure: -10%&lt;br/&gt;
+Perform: +3&lt;br/&gt;
+Concentration: +3&lt;br/&gt;
+Use: [[Restoration]] (7) 2 Uses/Day&lt;br/&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Only Usable By: [[Bard]]&lt;br/&gt;
+'''UMD Requirement: 50'''
+
+
+|- id=Accursed_Chains
+|Accursed Chains
+|1546
+|42
+|130
+|416259 gold
+|21st
+|4 Horn of a Magical Creature&lt;br/&gt;
+6 [[Coal]]&lt;br/&gt;
+1 [[Mail of the Holy Knight]]&lt;br/&gt;
+4 Ruby&lt;br/&gt;
+10 Dragon Blood
+|Armor Bonus: +7 (AC Armor Modifier)&lt;br/&gt;
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Piercing 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Slashing 10% Immunity Bonus&lt;br/&gt;
+Enhancement Bonus: Charisma +2&lt;br/&gt;
+Arcane Spell Failure: -15%&lt;br/&gt;
+Only Usable By: [[Harbinger]]&lt;br/&gt;
+'''Cannot use Divine Shield whilst wearing this Armour'''&lt;br/&gt;
+'''UMD Requirement: 90'''
+
+
+|- id=Impermissicon's_Shard
+|Impermissicon's Shard
+|1879
+|54
+|550
+|190038 gold
+|21st
+|2 [[Ingot (Adamantine)]]&lt;br/&gt;
+4 [[Ingot (Greensteel)]]&lt;br/&gt;
+1 Leather Torso&lt;br/&gt;
+1 Rainbow Agate&lt;br/&gt;
+1 Amethrine&lt;br/&gt;
+|Armor Bonus: +3 (AC Armor Modifier)&lt;br/&gt;
+Ability Bonus: Constitution +2&lt;br/&gt;
+Immunity Damage Type: Slashing 5%&lt;br/&gt;
+Immunity Damage Type: Entropy 10%&lt;br/&gt;
+Skill Bonus: Spellcraft +3&lt;br/&gt;
+Skill Bonus: Concentration +3&lt;br/&gt;
+Arcane Spell Failure: -30%&lt;br/&gt;
+Weight Reduction 20%&lt;br/&gt;
+Only Useable by: [[Elementalist]] '''OR''' [[Hemomancer]]&lt;br/&gt;
+[[Dweomercraft#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+'''Divine Shield is ineffective while wearing this armour.'''&lt;br/&gt;
+'''UMD Requirement: 45'''
+
+
+|}</text>
+      <sha1>fpm382601npksvmufdzhh2egg6qu9ei</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Medium Scale/Breastplate Armor: Tailoring</title>
+    <ns>10</ns>
+    <id>2465</id>
+    <revision>
+      <id>37794</id>
+      <parentid>33586</parentid>
+      <timestamp>2026-02-07T19:16:36Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Added the Sacred Drakescale</comment>
+      <origin>37794</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1055" sha1="9fkq0a72xano936sx562bjwecmqis16" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Level
+! Materials   
+! Properties
+
+|- id=Warded_ankheg_armor
+|Warded Ankheg Armor
+|890
+|46
+|410
+|108726 Gold
+|16th
+|1 Leather Torso&lt;br&gt;1 Ankheg Shell&lt;br&gt;2 [[Forging#Ingot_steel|Ingot (Steel)]]&lt;br&gt;1 Bluestone
+|Armor Bonus: +2 (AC Armor Modifier)&lt;br&gt;Damage Immunity: Acid 50% Immunity&lt;br&gt;Improved Saving Throws: Acid +3&lt;br&gt;Improved Saving Throws: Universal +2
+
+|- id=Sacred_Drakescale
+|Sacred Drakescale
+|2385
+|40
+|350
+|232712 Gold
+|21th
+|2 Ruby&lt;br&gt;1 Ingot (Adamantine)&lt;br&gt;1 Dragon Oil&lt;br&gt;1 Mithral Dust&lt;br&gt;4 Dragonhide
+|Ability Bonus: Constitution +1&lt;br&gt;AC Bonus: +4&lt;br&gt;AC Bonus vs. Racial Group: Dragon +6&lt;br&gt;Arcane Spell Failure +15%&lt;br&gt;Damage Immunity: Bludgeoning 5%&lt;br&gt;Damage Immunity: Piercing 5%&lt;br&gt;Damage Immunity: Slashing 10%&lt;br&gt;Saving Throw Bonus: Fire +3&lt;br&gt;Skill Bonus: +2 Intimidate&lt;br&gt;Class Requirement: Barbarian, Dragon Disciple, Druid, Ranger, Shaman&lt;br&gt;'''Increased UMD Requirement (50)'''&lt;br&gt;'''Rune T3 (Iokharic)'''
+
+|}</text>
+      <sha1>9fkq0a72xano936sx562bjwecmqis16</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Ring</title>
+    <ns>10</ns>
+    <id>2837</id>
+    <revision>
+      <id>23368</id>
+      <parentid>23367</parentid>
+      <timestamp>2022-01-03T02:18:23Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <origin>23368</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1080" sha1="dald3sw8msivalmwmtjjwa6fn1cv6kp" xml:space="preserve">{| class="wikitable sortable"
+|-
+! Name    
+! ID     
+! DC           
+! Craft&lt;br&gt;Points        
+! Value          
+! Materials 
+! Product
+! Properties
+
+|- id=Ring
+| Ring
+| 173
+| 2
+| 1
+| 15 gold
+| 1 Coal&lt;br&gt; 1 [[Forging#Ingot_copper|Ingot (Copper)]]
+| 1 Ring
+|(none)
+
+|- id=Ring
+| Ring of the Favourable
+| 1559
+| 20
+| 53
+| 10805 gold
+| 1 [[Forging#Ingot_copper|Ingot (Brass)]]&lt;br&gt;3 Topaz&lt;br&gt;1 Eagle's Splendor&lt;br&gt;1 Bless
+| 1 Ring of the Favourable
+| Enhancement Bonus: Charisma +1&lt;br&gt;
+Skill Bonus: +2 Spellcraft&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 2&lt;br&gt;
+Bonus Spell Slot: Favored Soul Level 3&lt;br&gt;
+Only Usable By: Favored Soul&lt;br&gt;'''Increased UMD Requirement (20)''' 
+
+|- id=Ring
+| Ghostwalker Ring
+| 1551
+| 20
+| 53
+| 30285 gold
+| 1 [[Forging#Ingot_copper|Ingot (Silver)]]&lt;br&gt;2 Blood of a Magic Creature&lt;br&gt;1 Rare Hardwood&lt;br&gt;3 Ghostly Visage
+| 1 Ghostwalker Ring
+| Enhancement Bonus: Wisdom+1&lt;br&gt;
+Bonus Spell Slot: Shaman Level 3&lt;br&gt;
+Bonus Spell Slot: Shaman Level 3&lt;br&gt;
+Use: Ghostly Visage (9) 3 Uses/Day&lt;br&gt;
+Only Usable By: Shaman&lt;br&gt;'''Increased UMD Requirement (25)''' 
+
+|}</text>
+      <sha1>dald3sw8msivalmwmtjjwa6fn1cv6kp</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Small Shield: Carpentry</title>
+    <ns>10</ns>
+    <id>2459</id>
+    <revision>
+      <id>20126</id>
+      <parentid>17598</parentid>
+      <timestamp>2021-06-13T00:05:28Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <comment>standardized formatting</comment>
+      <origin>20126</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="195" sha1="ljz2tpd7hd4s25c8kcyz7t4c5abu3pu" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Small shield (Wood)
+|3
+|1
+|1
+|9 gold
+|1st
+|1 [[Hardwood]]
+|
+
+|}</text>
+      <sha1>ljz2tpd7hd4s25c8kcyz7t4c5abu3pu</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Small Shield: Smithing</title>
+    <ns>10</ns>
+    <id>2460</id>
+    <revision>
+      <id>35261</id>
+      <parentid>29681</parentid>
+      <timestamp>2025-10-02T18:24:47Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated level requirements</comment>
+      <origin>35261</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="1649" sha1="da3oejscixm08wqduy4dac20ujua3wp" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Small shield (Bronze)
+|450
+|21
+|10
+|1331 gold
+|1st
+|1 [[Ingot (Bronze)]]&lt;br&gt;1 [[Armor#Small Shield (Carpentry)|Small shield (Wood)]]
+|Damage Immunity: Piercing 5% Immunity Bonus
+
+|- id=
+|Small shield (Iron)
+|451
+|23
+|42
+|5298 gold
+|1st
+|1 [[Ingot (Iron)]]&lt;br&gt;1 [[Armor#Small Shield (Carpentry)|Small shield (Wood)]]
+|Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Small shield (Steel)
+|452
+|24
+|77
+|9681 gold
+|1st
+|1 [[Ingot (Steel)]]&lt;br&gt;1 [[Armor#Small Shield (Carpentry)|Small shield (Wood)]]
+|Armor Bonus: +1 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Small shield (Greensteel)
+|774
+|29
+|159
+|19000 gold
+|1st
+|3 [[Ingot (Greensteel)]]&lt;br&gt;2 [[Coal]]
+|Armor Bonus: +1 AC (Shield Modifier)&lt;br&gt;Arcane Spell Failure: -5%&lt;br&gt;Damage Immunity: Positive Energy 5% Immunity Bonus
+
+|- id=
+|Small shield (Mithral)
+|769
+|33
+|219
+|27414 gold
+|1st
+|3 [[Ingot (Mithral)]]&lt;br&gt;2 [[Resources|Coal]]
+|Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (4.8 lbs)
+
+|- id=
+|Small shield (Adamantine)
+|477
+|32
+|192
+|24117 gold
+|1st
+|1 [[Ingot (Adamantine)]]&lt;br&gt;1 [[Armor#Small Shield (Carpentry)|Small shield (Wood)]]
+|Armor Bonus: +3 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Fencing Buckler
+|910
+|37
+|280
+|14985 gold
+|21st
+|1 [[Ingot (Brass)]]&lt;br&gt;1 [[Ingot (Mithral)]]&lt;br&gt;4 [[Coal]]
+|Armor Bonus: +4 (AC Shield Modifier)&lt;br&gt;Skill Bonus: +3 Parry
+
+|}</text>
+      <sha1>da3oejscixm08wqduy4dac20ujua3wp</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Tower Shield: Carpentry</title>
+    <ns>10</ns>
+    <id>2457</id>
+    <revision>
+      <id>20127</id>
+      <parentid>17590</parentid>
+      <timestamp>2021-06-13T00:05:47Z</timestamp>
+      <contributor>
+        <username>Zanithar</username>
+        <id>415</id>
+      </contributor>
+      <comment>standardized formatting</comment>
+      <origin>20127</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="214" sha1="9joubl0zt142qjzfbs9b3q2wwf25l38" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Tower shield (Wood)
+|52
+|8
+|1
+|100 gold
+|1st
+|3 [[Hardwood]]&lt;br&gt;1 [[Garnet]]
+|
+
+|}</text>
+      <sha1>9joubl0zt142qjzfbs9b3q2wwf25l38</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Template:Crafting: Tower Shield: Smithing</title>
+    <ns>10</ns>
+    <id>2462</id>
+    <revision>
+      <id>33225</id>
+      <parentid>33153</parentid>
+      <timestamp>2025-01-30T21:27:17Z</timestamp>
+      <contributor>
+        <username>ElevenOne</username>
+        <id>450</id>
+      </contributor>
+      <comment>Updated Serpent woe aegis recipe</comment>
+      <origin>33225</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="2036" sha1="bj0rox3vlabgg7357d335j9qf0g3see" xml:space="preserve">{| wikitable class="wikitable sortable mw-collapsible"
+!Name
+!ID
+!DC
+!Craft&lt;br&gt;Points
+!Value
+!Level
+!Materials
+!Properties
+
+|- id=
+|Tower shield (Bronze)
+|441
+|21
+|11
+|1422 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Bronze)]]
+|Damage Immunity: Piercing 5% Immunity Bonus
+
+|- id=
+|Tower shield (Iron)
+|442
+|8
+|43
+|5389 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Iron)]]
+|Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Tower shield (Steel)
+|443
+|15
+|78
+|9772 gold
+|1st
+|4 [[Coal]]&lt;br&gt;2 [[Ingot (Steel)]]
+|Armor Bonus: +1 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Tower shield (Mithral)
+|777
+|33
+|220
+|27505 gold
+|1st
+|4 [[Coal]]&lt;br&gt;4 [[Ingot (Mithral)]]
+|Armor Bonus: +2 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus&lt;br&gt;Improved Saving Throws: Universal +1&lt;br&gt;Weight Reduction: 80% of Weight (36.0 lbs)
+
+|- id=
+|Tower shield (Adamantine)
+|480
+|46
+|193
+|24208 gold
+|1st
+|6 [[Coal]]&lt;br&gt;3 [[Ingot (Adamantine)]]
+|Armor Bonus: +3 (AC Shield Modifier)&lt;br&gt;Damage Immunity: Piercing 10% Immunity Bonus
+
+|- id=
+|Serpent's Woe Aegis
+|1670
+|50
+|450
+|143141 gold
+|21st
+|5 [[Ingot (Iron)]]&lt;br&gt;4 [[Ingot (Adamantine)]]&lt;br/&gt;4 [[Ingot (Steel)]]&lt;br/&gt;3 [[Ingot (Mithral)]]&lt;br/&gt;1 [[True Seeing]] (scroll)
+| Armor Bonus: +3 (AC Shield Modifier)&lt;br/&gt;
+Bonus Feat: Alertness&lt;br/&gt;
+Damage Immunity: Bludgeoning 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Piercing 5% Immunity Bonus&lt;br/&gt;
+Damage Immunity: Slashing 5% Immunity Bonus&lt;br/&gt;
+Ability Score Penalty: Charisma -1&lt;br/&gt;
+Arcane Spell Failure: +50%&lt;br/&gt;
+Improved Saving Throws: Will +2&lt;br&gt;
+Reduced Saving Throws: Reflex -1&lt;br&gt;
+Material: Adamantine, Iron, Mithral, Steel&lt;br&gt;
+Only Useable By: [[Blackguard]] '''OR''' [[Divine Champion]] '''OR''' [[Fighter]] '''OR''' [[Knight]] '''OR''' [[Paladin]] &lt;br/&gt;
+Quality: Masterwork&lt;br&gt;
+Runic Properties -1&lt;br&gt;
+[[Enchantment_basin#Runic_Items|Tier 3 Rune (Thorass)]]&lt;br/&gt;
+Weight Increase: 555 lbs&lt;br/&gt;
+'''Base strength 16+ Requirement'''&lt;br&gt;
+'''Level Requirement (21)'''&lt;br/&gt;
+'''Increased UMD Requirement (30)'''&lt;br&gt;
+
+|}</text>
+      <sha1>bj0rox3vlabgg7357d335j9qf0g3see</sha1>
+    </revision>
+  </page>
+</mediawiki>

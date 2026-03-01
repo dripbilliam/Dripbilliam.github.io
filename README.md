@@ -1,6 +1,6 @@
 # Arelith Spell Tools - Setup & Usage Guide
 
-Spell Queue Builder and Spell Search & Filter utility with shared data parsing.
+Spell Search & Filter utility with shared data parsing. The Spell Sequencer has moved to Astrolabe: https://astrolabe.nwnarelith.com/sequencer
 
 ## License
 
@@ -67,7 +67,7 @@ Outputs: `SpellSearch/enhancedSpellData.json` (356 spells)
 node SpellSearch/buildStandalone.js
 node parsing/buildStandalone.js
 ```
-Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standalone.html`
+Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standalone.html` (redirect route to Astrolabe)
 
 ---
 
@@ -77,8 +77,8 @@ Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standal
 .
 ├── index.html                          # Landing page with tool navigation
 ├── SequenceBuilder/
-│   ├── sequenceBuilder_standalone.html # Spell Queue Builder (standalone)
-│   └── sequenceBuilder.html            # Spell Queue Builder (source)
+│   ├── sequenceBuilder_standalone.html # Legacy Spell Queue route (redirects to Astrolabe)
+│   └── sequenceBuilder.html            # Spell Queue Builder source (now redirects to Astrolabe)
 ├── rebuild.js                          # Master build script (run this!)
 ├── _config.yml                         # Jekyll config for GitHub Pages
 ├── .nojekyll                           # Tells GitHub Pages to skip Jekyll
@@ -198,11 +198,11 @@ node rebuild.js
 **Required files to push:**
 - `index.html`, `_config.yml`, `.nojekyll`
 - `SpellSearch/spellSearch_standalone.html` + `enhancedSpellData.json`
-- `SequenceBuilder/sequenceBuilder_standalone.html`
 - `Parsed/combinedSpellFeatData.json`
 
 **Access:**
 - https://yourusername.github.io/repository-name/
+- https://astrolabe.nwnarelith.com/sequencer (Spell Sequencer)
 
 ---
 

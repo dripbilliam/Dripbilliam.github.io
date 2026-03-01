@@ -1083,10 +1083,31 @@ function getClassSkillBonusAtLevel(level, skillKey) {
     return totalBonus;
 }
 
+function getItemSkillBonusAtLevel(level, skillKey) {
+    if ((parseInt(level, 10) || 0) < 30) return 0;
+    if (typeof window.getItemSkillBonusForSkill !== 'function') return 0;
+
+    const normalizedSkill = normalizeSkillKey(skillKey);
+    if (!normalizedSkill) return 0;
+
+    return parseStatBonusValue(window.getItemSkillBonusForSkill(level, normalizedSkill));
+}
+
+function getItemStatBonusAtLevel(level, statKey) {
+    if ((parseInt(level, 10) || 0) < 30) return 0;
+    if (typeof window.getItemStatBonusForStat !== 'function') return 0;
+
+    const normalizedStat = normalizeStatKey(statKey);
+    if (!normalizedStat) return 0;
+
+    return parseStatBonusValue(window.getItemStatBonusForStat(level, normalizedStat));
+}
+
 function getTotalSkillBonusAtLevel(level, skillKey) {
     return getRaceSkillBonus(skillKey)
         + getFeatSkillBonusAtLevel(level, skillKey)
-        + getClassSkillBonusAtLevel(level, skillKey);
+        + getClassSkillBonusAtLevel(level, skillKey)
+        + getItemSkillBonusAtLevel(level, skillKey);
 }
 
 function getSkillAbilityBonusAtLevel(level, skillName) {
@@ -1347,6 +1368,11 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
     classSources.sort((left, right) => left.name.localeCompare(right.name));
     const classBonus = classSources.reduce((sum, entry) => sum + entry.bonus, 0);
 
+    const itemBonus = getItemSkillBonusAtLevel(level, normalizedSkill);
+    const itemSources = itemBonus !== 0
+        ? [{ name: 'Equipped items', bonus: itemBonus }]
+        : [];
+
     const levelStats = getStatsAtLevel(level);
     const mods = getAbilityModifiers(levelStats);
     const abilityKeys = Array.isArray(SKILL_ABILITY_MAP[normalizedSkill])
@@ -1359,7 +1385,7 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
     }));
     const abilityBonus = abilitySources.reduce((sum, entry) => sum + entry.bonus, 0);
 
-    const total = raw + raceBonus + featBonus + classBonus + abilityBonus;
+    const total = raw + raceBonus + featBonus + classBonus + itemBonus + abilityBonus;
 
     return {
         skill: normalizedSkill,
@@ -1369,6 +1395,8 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
         featSources,
         classBonus,
         classSources,
+        itemBonus,
+        itemSources,
         abilityBonus,
         abilitySources,
         total
@@ -1392,6 +1420,11 @@ function getSkillIncreaseTooltipAtLevel(level, skillName) {
 
     lines.push(`Class Extras: ${formatSignedValue(breakdown.classBonus)}`);
     breakdown.classSources.forEach(source => {
+        lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Item Bonuses: ${formatSignedValue(breakdown.itemBonus)}`);
+    breakdown.itemSources.forEach(source => {
         lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
     });
 
@@ -1653,6 +1686,13 @@ function calculateStatProgression() {
             }
         });
 
+        STAT_KEYS.forEach(statKey => {
+            const itemSoftBonus = getItemStatBonusAtLevel(level, statKey);
+            if (itemSoftBonus === 0) return;
+            currentSoftBonusTotals[statKey] += itemSoftBonus;
+            softAppliedBonuses.push(`Gear ${itemSoftBonus > 0 ? '+' : ''}${itemSoftBonus} ${STAT_LABELS[statKey]} (soft)`);
+        });
+
         const softStats = {
             str: current.str + (currentSoftBonusTotals.str || 0),
             dex: current.dex + (currentSoftBonusTotals.dex || 0),
@@ -1827,6 +1867,9 @@ function updateGrid() {
 
         // Class select
         const classCell = document.createElement('td');
+        classCell.className = 'class-select-cell';
+        const classCellWrap = document.createElement('div');
+        classCellWrap.className = 'class-select-wrap';
         const classSelect = document.createElement('select');
         classSelect.id = `class_${level}`;
         classSelect.onchange = () => {
@@ -1924,7 +1967,29 @@ function updateGrid() {
             if (levelData[level - 1].class === cls) option.selected = true;
             classSelect.appendChild(option);
         });
-        classCell.appendChild(classSelect);
+        const classFillButton = document.createElement('button');
+        classFillButton.type = 'button';
+        classFillButton.className = 'class-fill-btn';
+        classFillButton.textContent = 'Fill';
+        classFillButton.title = 'Fill remaining levels with this class (up to class max or level 30)';
+
+        const selectedClassForLevel = levelData[level - 1].class || '';
+        classFillButton.disabled = !selectedClassForLevel;
+        if (!selectedClassForLevel) {
+            classFillButton.title = 'Select a class first to use fill';
+        }
+
+        classFillButton.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const classToFill = levelData[level - 1].class || classSelect.value;
+            if (!classToFill) return;
+            autoFillClassSelectionFromLevel(level, classToFill);
+        };
+
+        classCellWrap.appendChild(classSelect);
+        classCellWrap.appendChild(classFillButton);
+        classCell.appendChild(classCellWrap);
         row.appendChild(classCell);
 
         // BAB
@@ -2068,6 +2133,29 @@ function updateGrid() {
             label.title = `Granted by: ${Array.from(detail.grantedBy).join(', ')}`;
             classFeatsCell.appendChild(label);
         });
+
+        if (level === 30 && typeof window.getItemGrantedFeatDetails === 'function') {
+            const itemGrantedFeats = window.getItemGrantedFeatDetails(level);
+            itemGrantedFeats.forEach(detail => {
+                if (!detail || !detail.name) return;
+
+                const label = document.createElement('span');
+                label.className = 'feat-label item-based-feat';
+                label.textContent = detail.alreadyOwned
+                    ? `${detail.name} (item, no stack)`
+                    : `${detail.name} (item)`;
+
+                const sourceText = Array.isArray(detail.sources) && detail.sources.length > 0
+                    ? detail.sources.join(', ')
+                    : 'equipped item';
+
+                label.title = detail.alreadyOwned
+                    ? `Item-based feat at level 30. Source: ${sourceText}. Already owned by build; does not stack and does not count for requirements.`
+                    : `Item-based feat at level 30. Source: ${sourceText}. Does not count for requirements.`;
+
+                classFeatsCell.appendChild(label);
+            });
+        }
 
         const removedClassFeatDetails = removedFeatDetails.filter(detail => !detail.sources.has('race'));
         removedClassFeatDetails.forEach(detail => {
@@ -2458,6 +2546,38 @@ function updateGrid() {
     }
 
     updateStatGrid();
+}
+
+function autoFillClassSelectionFromLevel(startLevel, className) {
+    const normalizedStartLevel = Math.max(1, Math.min(levelData.length, parseInt(startLevel, 10) || 1));
+    const selectedClass = typeof className === 'string' ? className.trim() : '';
+    if (!selectedClass) return;
+
+    const classInfo = classData[selectedClass] || {};
+    const parsedClassMax = parseInt(classInfo.maxLevel, 10);
+    const classCap = Number.isFinite(parsedClassMax) && parsedClassMax > 0
+        ? parsedClassMax
+        : levelData.length;
+
+    let classLevelsBeforeStart = 0;
+    for (let i = 0; i < normalizedStartLevel - 1; i++) {
+        if ((levelData[i].class || '').toLowerCase() === selectedClass.toLowerCase()) {
+            classLevelsBeforeStart++;
+        }
+    }
+
+    let remainingLevelsForClass = Math.max(0, classCap - classLevelsBeforeStart);
+    if (remainingLevelsForClass <= 0) {
+        return;
+    }
+
+    for (let i = normalizedStartLevel - 1; i < levelData.length && remainingLevelsForClass > 0; i++) {
+        levelData[i].class = selectedClass;
+        remainingLevelsForClass--;
+    }
+
+    calculateMulticlassProgression();
+    schedulePlannerRefresh({ includeSkills: true });
 }
 
 function updateSkillGrid() {
@@ -3240,6 +3360,7 @@ function validateFeatRequirements(level, featName, stats, mods) {
             }
 
             if (Array.isArray(requirement)) {
+                //cylic potential, should not allow infinites.
                 requirement.forEach(processRequirement);
                 return;
             }
@@ -3570,7 +3691,7 @@ function validateCharacterRealtime() {
         }
     }
 
-    // Duplicate feat warnings disabled by user request
+    // Duplicate feat warnings
     // const duplicateFeatWarnings = getDuplicateOwnedFeatWarningsAtLevel(levelData.length);
     // issues.push(...duplicateFeatWarnings);
 

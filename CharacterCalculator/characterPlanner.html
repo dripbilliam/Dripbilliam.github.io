@@ -137,6 +137,29 @@
             font-family: Arial;
             font-size: 12px;
         }
+
+        #levelGrid td.class-select-cell .class-select-wrap {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        #levelGrid td.class-select-cell .class-select-wrap select {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        #levelGrid td.class-select-cell .class-fill-btn {
+            display: none;
+            padding: 4px 7px;
+            font-size: 11px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        #levelGrid td.class-select-cell:hover .class-fill-btn {
+            display: inline-block;
+        }
         
         .feat-label {
             display: inline-block;
@@ -172,6 +195,12 @@
             color: #495057;
             text-decoration: line-through;
             text-decoration-thickness: 1.5px;
+        }
+
+        .feat-label.item-based-feat {
+            background: #e8fff5;
+            border-color: #2f9f72;
+            color: #1f6d4f;
         }
         
         .validation-section {
@@ -268,6 +297,176 @@
             color: #555;
             font-size: 12px;
         }
+
+        .gear-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .gear-panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+            padding: 10px;
+        }
+
+        .paper-doll-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .gear-slot-btn {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #b7d2f0;
+            border-radius: 4px;
+            background: #e9f3ff;
+            color: #0f467f;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .gear-slot-btn.active {
+            background: #0066cc;
+            color: #fff;
+            border-color: #0052a3;
+        }
+
+        .gear-slot-btn.soft-error {
+            background: #ffcccc;
+            color: #8b0000;
+            border-color: #cc0000;
+        }
+
+        .gear-slot-btn.soft-error.active {
+            background: #cc0000;
+            color: #fff;
+            border-color: #8b0000;
+        }
+
+        #gearFlags {
+            display: block;
+            white-space: normal;
+        }
+
+        .gear-soft-error-line {
+            margin-left: 10px;
+        }
+
+        .gear-field-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+
+        .gear-prop-table th,
+        .gear-prop-table td {
+            vertical-align: top;
+        }
+
+        .gear-chip {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: #eef5ff;
+            border: 1px solid #c5dcfa;
+            margin: 2px;
+            font-size: 11px;
+        }
+
+        .gear-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .muted-note {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .gear-drawer {
+            border: 1px solid #d7e6f7;
+            border-radius: 4px;
+            margin: 8px 0;
+            background: #fdfefe;
+        }
+
+        .gear-drawer-header {
+            width: 100%;
+            text-align: left;
+            background: #eef5ff;
+            color: #0f467f;
+            border: none;
+            padding: 8px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .gear-drawer-body {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-2px);
+            transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
+            padding: 0 10px;
+        }
+
+        .gear-drawer.open .gear-drawer-body {
+            max-height: min(70vh, 1200px);
+            overflow: auto;
+            opacity: 1;
+            transform: translateY(0);
+            padding: 8px 10px 10px;
+        }
+
+        .gear-special-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+        }
+
+        .gear-special-table th,
+        .gear-special-table td {
+            border-bottom: 1px solid #e5edf7;
+            padding: 6px 8px;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .gear-special-key-col {
+            width: 220px;
+            font-weight: bold;
+        }
+
+        .gear-special-action-col {
+            width: 90px;
+            text-align: right;
+        }
+
+        .gear-special-row-action {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 120ms ease;
+        }
+
+        .gear-special-row:hover .gear-special-row-action {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gear-special-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -327,6 +526,7 @@
             <button class="tab-button active" onclick="switchTab('classes')">Classes & Feats</button>
             <button class="tab-button" onclick="switchTab('skills')">Skills</button>
             <button class="tab-button" onclick="switchTab('stats')">Stats</button>
+            <button class="tab-button" onclick="switchTab('damageGear')">Damage Calcs & Gear Planner</button>
         </div>
 
         <!-- Classes & Feats Tab -->
@@ -413,6 +613,68 @@
             </table>
         </div>
 
+        <div id="damageGear" class="tab-content">
+            <div class="gear-layout">
+                <div class="gear-panel">
+                    <h3 style="margin-top:0;">Paper Doll</h3>
+                    <div id="gearPaperDoll" class="paper-doll-grid"></div>
+                    <p class="muted-note">Click a slot to edit item properties and mote costs.</p>
+                </div>
+
+                <div class="gear-panel">
+                    <h3 id="gearEditorTitle" style="margin-top:0;">Slot Editor</h3>
+
+                    <div class="gear-field-row">
+                        <label for="gearItemName" style="min-width:90px; font-weight:bold;">Item Name</label>
+                        <input type="text" id="gearItemName" placeholder="Custom item name">
+                    </div>
+
+                    <div class="gear-field-row" id="offHandTypeRow" style="display:none;">
+                        <label for="offHandType" style="min-width:90px; font-weight:bold;">Off-hand Type</label>
+                        <select id="offHandType">
+                            <option value="shield">Shield</option>
+                            <option value="weapon">Weapon</option>
+                        </select>
+                    </div>
+
+                    <div id="gearItemMeta"></div>
+
+                    <div class="gear-field-row">
+                        <button type="button" id="addGearPropertyBtn">Add Property</button>
+                        <span id="selectedSlotMoteTotal" class="feat-label">Slot Motes: 0</span>
+                    </div>
+
+                    <table class="gear-prop-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 200px;">Property</th>
+                                <th>Parameters</th>
+                                <th style="width: 90px;">Motes</th>
+                                <th style="width: 70px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gearPropertyRows"></tbody>
+                    </table>
+
+                    <div class="gear-summary-grid">
+                        <div>
+                            <h4 style="margin: 10px 0 6px;">Character Pass-through</h4>
+                            <div id="baseDerivedSummary"></div>
+                        </div>
+                        <div>
+                            <h4 style="margin: 10px 0 6px;">Gear-adjusted Summary</h4>
+                            <div id="gearDerivedSummary"></div>
+                        </div>
+                    </div>
+                    <div class="gear-field-row" style="margin-top:10px;">
+                        <span id="gearMoteTotal" class="feat-label">Total Motes: 0</span>
+                        <span id="gearFlags" class="feat-label">Flags: none</span>
+                    </div>
+                    <p class="muted-note">Touch-attack and flat-footed handling are flagged for future use; not applied yet.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="validation-section">
             <h3>Validation & Status</h3>
             <div id="validationOutput">Character loaded. Ready to build.</div>
@@ -442,5 +704,6 @@
     </div>
 
     <script src="characterPlanner.js"></script>
+    <script src="damageGearPlanner.js"></script>
 </body>
 </html>

@@ -1,0 +1,208 @@
+<mediawiki>
+  <page>
+    <title>Melee Weapons</title>
+    <revision>
+      <text xml:space="preserve">{| class="wikitable"
+! Name !! ID !! DC !! Craft Points !! Value !! Level !! Materials !! Properties
+|- id=Staff_plain_22
+|Staff (plain)
+|22
+|19
+|8
+|1000 Gold
+|2nd
+|Carpentry&lt;br&gt;1 Topaz&lt;br&gt;3 Hardwood
+|
+|- id=Staff_plain_23
+|Staff (plain)
+|23
+|19
+|8
+|1000 Gold
+|2nd
+|Carpentry&lt;br&gt;1 Topaz&lt;br&gt;3 Hardwood
+|
+|- id=Staff_plain_24
+|Staff (plain)
+|24
+|19
+|8
+|1000 Gold
+|2nd
+|Carpentry&lt;br&gt;1 Topaz&lt;br&gt;3 Hardwood
+|
+|- id=Druidic_Branch_staff
+|Druidic Branch-staff
+|875
+|44
+|345
+|74251 Gold
+|21st
+|1 Bluestone&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;3 King's Crown&lt;br&gt;3 Softwood (Ancient Yew)&lt;br&gt;1 Rare Hardwood&lt;br&gt;Druid Crafter
+|Ability Bonus: Wisdom +2&lt;br&gt;Druid Spell Slot: 3 x2, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Damage Resistance: Fire Resist 10 / -&lt;br&gt;Immunity: Damage Type: Fire 10% Immunity Bonus&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +5&lt;br&gt;Concentration +5&lt;br&gt;Heal +3&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Druidic Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;ILR: 21&lt;br&gt;WISDOM REQUIREMENT 18+&lt;br&gt;Druid
+|- id=Initiates_Conduit_Wizard
+|Initiate's Conduit (Wizard)
+|36
+|22
+|26
+|3267 Gold
+|1st
+|1 Alchemistic Catalyst (Standard)&lt;br&gt;3 Hardwood&lt;br&gt;1 Sapphire
+|Ability Bonus: Intelligence +1&lt;br&gt;AC Bonus +1&lt;br&gt;Bonus Feat: Combat Casting&lt;br&gt;Spellsword &amp; Wizard Spell Slot: 1, 2, 3&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +4&lt;br&gt;Lore +4&lt;br&gt;Spellcraft +4&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Wizard, Spellsword
+|- id=Arcane_Focus_Wizard
+|Arcane Focus (Wizard)
+|870
+|37
+|228
+|28623 Gold
+|21st
+|1 Beljuril Gem&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;2 Ingot (Gold)&lt;br&gt;2 Softwood (Ancient Yew)&lt;br&gt;1 Initiate's Conduit (Wizard)
+|Ability Bonus: Intelligence +2&lt;br&gt;AC Bonus +3&lt;br&gt;Spellsword &amp; Wizard Spell Slot: 3 x2, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +5&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +5&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Wizard, Spellsword&lt;br&gt;ILR: 21&lt;br&gt;INTELLIGENCE REQUIREMENT 18+
+|- id=Initiates_Conduit_Sorcerer
+|Initiate's Conduit (Sorcerer)
+|35
+|22
+|26
+|3266 Gold
+|1st
+|1 Alchemistic Catalyst (Standard)&lt;br&gt;3 Hardwood&lt;br&gt;1 Sapphire
+|Ability Bonus: Charisma +1&lt;br&gt;AC Bonus +1&lt;br&gt;Bonus Feat: Combat Casting&lt;br&gt;Sorcerer Spell Slot: 1, 2, 3&lt;br&gt;Bonus Spell Slot of Level: Sorcerer Level 3&lt;br&gt;Skill Bonus:&lt;br&gt;Bluff +1&lt;br&gt;Concentration +4&lt;br&gt;Leadership +2&lt;br&gt;Lore +4&lt;br&gt;Spellcraft +2&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Sorcerer
+|- id=Arcane_Focus_Sorcerer
+|Arcane Focus (Sorcerer)
+|871
+|37
+|278
+|34810 Gold
+|21st
+|1 Beljuril Gem&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;2 Ingot (Silver)&lt;br&gt;2 Softwood (Ancient Yew)&lt;br&gt;1 Initiate's Conduit (Sorcerer)
+|Ability Bonus: Charisma +2&lt;br&gt;AC Bonus +3&lt;br&gt;Sorcerer Spell Slot: 3, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Bluff +2&lt;br&gt;Concentration +5&lt;br&gt;Leadership +3&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Sorcerer&lt;br&gt;ILR: 21&lt;br&gt;CHARISMA REQUIREMENT 18+
+|- id=Gleemans_Travel_staff
+|Gleeman's Travel-staff
+|37
+|23
+|56
+|7002 Gold
+|1st
+|1 Alchemistic Catalyst (Standard)&lt;br&gt;3 Hardwood&lt;br&gt;1 Fire Opal
+|Ability Bonus: Charisma +1&lt;br&gt;AC Bonus +1&lt;br&gt;Attack Bonus +1&lt;br&gt;Bard Spell Slot: 1, 2, 3&lt;br&gt;Skill Bonus:&lt;br&gt;All except Craft Mastery +1&lt;br&gt;Concentration +4&lt;br&gt;Lore +4&lt;br&gt;Perform +2&lt;br&gt;Sleight-of-hand +2&lt;br&gt;Tumble +4&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +30&lt;br&gt;Bard
+|- id=Minstrels_Shillelagh
+|Minstrel's Shillelagh
+|38
+|37
+|274
+|34340 Gold
+|21st
+|1 Alchemistic Catalyst (Greater)&lt;br&gt;3 Softwood (Ancient Yew)&lt;br&gt;1 Diamond&lt;br&gt;1 Ruby&lt;br&gt;1 Emerald
+|Ability Bonus: Charisma +2&lt;br&gt;AC Bonus +3&lt;br&gt;Attack Bonus +3&lt;br&gt;Bard Spell Slot: 3, 4, 5, 6&lt;br&gt;Regeneration +1&lt;br&gt;Skill Bonus:&lt;br&gt;All except Craft Mastery +1&lt;br&gt;Climb +2&lt;br&gt;Concentration +5&lt;br&gt;Hide +2&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Move Silently +2&lt;br&gt;Open Lock +1&lt;br&gt;Perform +3&lt;br&gt;Ride +2&lt;br&gt;Sail +2&lt;br&gt;Sleight-of-hand +3&lt;br&gt;Spellcraft +2&lt;br&gt;Tumble +5&lt;br&gt;Use Magic Device +2&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Bard&lt;br&gt;ILR: 21
+|- id=Clerics_Staff
+|Cleric's Staff
+|39
+|25
+|85
+|10726 Gold
+|1st
+|1 Alchemistic Catalyst (Standard)&lt;br&gt;3 Hardwood&lt;br&gt;1 Diamond&lt;br&gt;1 Holy Water
+|Ability Bonus: Wisdom +1&lt;br&gt;Bonus Feat: Combat Casting&lt;br&gt;Cleric Spell Slot: 1, 2, 3&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +4&lt;br&gt;Heal +4&lt;br&gt;Intimidate +1&lt;br&gt;Leadership +1&lt;br&gt;Lore +4&lt;br&gt;Spellcraft +2&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Cleric
+|- id=Hierophants_Crozier_Purist
+|Hierophant's Crozier (Purist)
+|872
+|44
+|200
+|52240 Gold
+|21st
+|1 Royal Tourmaline&lt;br&gt;1 Emulsified Oil&lt;br&gt;1 Hardening Finish&lt;br&gt;2 Softwood (Ancient Yew)
+|Ability Bonus: Wisdom +2&lt;br&gt;AC Bonus vs. Alignment Group: Evil +5&lt;br&gt;AC Bonus vs. Alignment Group: Neutral +3&lt;br&gt;Cleric Spell Slot: 3 x2, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +5&lt;br&gt;Heal +5&lt;br&gt;Intimidate +2&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Cleric&lt;br&gt;Good, CN, TN, LN&lt;br&gt;ILR: 21&lt;br&gt;WISDOM REQUIREMENT 18+
+|- id=Hierophants_Crozier_Zealot
+|Hierophant's Crozier (Zealot)
+|873
+|44
+|395
+|75331 Gold
+|21st
+|1 Royal Tourmaline&lt;br&gt;2 Ingot (Silver)&lt;br&gt;2 Softwood (Ancient Yew)&lt;br&gt;1 Skull Emblem&lt;br&gt;6 Skeleton's Knuckle
+|Ability Bonus: Wisdom +2&lt;br&gt;AC Bonus vs. Alignment Group: Good +5&lt;br&gt;AC Bonus vs. Alignment Group: Neutral +3&lt;br&gt;Cleric Spell Slot: 3 x2, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +5&lt;br&gt;Heal +5&lt;br&gt;Intimidate +2&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Cleric&lt;br&gt;Evil, CN, TN, LN&lt;br&gt;ILR: 21&lt;br&gt;WISDOM REQUIREMENT 18+
+|- id=Favoreds_Rod
+|Favored's Rod
+|1555
+|32
+|160
+|28953 Gold
+|1st
+|2 Ingot (Gold)&lt;br&gt;3 Hardwood&lt;br&gt;1 Lesser Planar Binding&lt;br&gt;5 Holy Water
+|Ability Bonus: Charisma +1&lt;br&gt;AC Bonus vs. Racial Group: Outsider +3&lt;br&gt;Attack Bonus vs. Racial Group: Outsider +3&lt;br&gt;Bonus Feat: Combat Casting&lt;br&gt;Favored Soul Spell Slot: 1, 2, 3&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +4&lt;br&gt;Heal +1&lt;br&gt;Intimidate +2&lt;br&gt;Leadership +2&lt;br&gt;Lore +4&lt;br&gt;Spellcraft +2&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Favored Soul
+|- id=Chosens_Staff
+|Chosen's Staff
+|1556
+|44
+|421
+|61623 Gold
+|21st
+|1 Seer's Stone&lt;br&gt;1 Favored's Rod&lt;br&gt;2 Ingot (Mithral)&lt;br&gt;3 Rare Hardwood&lt;br&gt;1 Planar Binding
+|Ability Bonus: Charisma +2&lt;br&gt;AC Bonus vs. Racial Group: Outsider +5&lt;br&gt;Attack Bonus vs. Racial Group: Outsider +5&lt;br&gt;Favored Soul Spell Slot: 3, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Concentration +5&lt;br&gt;Heal +2&lt;br&gt;Intimidate +3&lt;br&gt;Leadership +3&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Favored Soul&lt;br&gt;ILR: 21&lt;br&gt;CHARISMA REQUIREMENT 18+
+|- id=Hermetic_Totem
+|Hermetic Totem
+|1552
+|22
+|36
+|10957 Gold
+|1st
+|1 Alchemistic Catalyst (Standard)&lt;br&gt;3 Hardwood&lt;br&gt;3 Amethyst
+|Ability Bonus: Wisdom +1&lt;br&gt;AC Bonus vs. Elemental, Fey, Outsider, Undead +2&lt;br&gt;Shaman Spell Slot: 1, 2, 3&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +1&lt;br&gt;Concentration +4&lt;br&gt;Heal +2&lt;br&gt;Leadership +1&lt;br&gt;Lore +4&lt;br&gt;Spellcraft +2&lt;br&gt;Tier 2 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Shaman
+|- id=Mystic_Focus_Benign
+|Mystic Focus (Benign)
+|1553
+|46
+|314
+|82938 Gold
+|21st
+|1 Ametrine&lt;br&gt;2 Horn of a Magical Creature&lt;br&gt;1 Rare Hardwood&lt;br&gt;1 Resurrection&lt;br&gt;1 Hermetic Totem
+|Ability Bonus: Wisdom +2&lt;br&gt;AC Bonus vs. Elemental, Fey, Outsider, Undead +4&lt;br&gt;Bonus Feat: Spell Focus (Conjuration)&lt;br&gt;Shaman Spell Slot: 3, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +2&lt;br&gt;Concentration +5&lt;br&gt;Heal +3&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Shaman&lt;br&gt;Good, CN, TN, LN&lt;br&gt;ILR: 21&lt;br&gt;WISDOM REQUIREMENT 18+
+|- id=Mystic_Focus_Malign
+|Mystic Focus (Malign)
+|1554
+|46
+|464
+|120704 Gold
+|21st
+|1 Ametrine&lt;br&gt;1 Alchemistic Catalyst (Greater)&lt;br&gt;3 Rare Hardwood&lt;br&gt;2 Wail of the Banshee&lt;br&gt;1 Hermetic Totem
+|Ability Bonus: Wisdom +2&lt;br&gt;AC Bonus vs. Elemental, Fey, Outsider, Undead +4&lt;br&gt;Bonus Feat: Spell Focus (Necromancy)&lt;br&gt;Shaman Spell Slot: 3, 4, 5, 6&lt;br&gt;Cast Spell: Sequencer (1 spell) 1 Use/Day&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +2&lt;br&gt;Concentration +5&lt;br&gt;Heal +3&lt;br&gt;Leadership +2&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +50&lt;br&gt;Shaman&lt;br&gt;Evil, CN, TN, LN&lt;br&gt;ILR: 21&lt;br&gt;WISDOM REQUIREMENT 18+
+|- id=Icon_of_the_Hunt
+|Icon of the Hunt
+|876
+|46
+|414
+|114351 Gold
+|21st
+|1 Ametrine&lt;br&gt;10 Flameberry&lt;br&gt;10 Iceberry&lt;br&gt;2 Rock Chunk (Gold)&lt;br&gt;2 Softwood (Ancient Yew)&lt;br&gt;Crafter must be Druid or Ranger
+|Ability Bonus: Constitution +1&lt;br&gt;Attack Bonus +5&lt;br&gt;Bonus Feat: Alertness&lt;br&gt;Spell Slot: Cleric 5, Druid 7, Favored Soul 5, Ranger 3 x2, Shaman 7&lt;br&gt;Damage Bonus: Cold 2d4 Damage&lt;br&gt;Damage Bonus: Fire 2d4 Damage&lt;br&gt;Darkvision&lt;br&gt;Extra Melee Damage Type: Piercing&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +3&lt;br&gt;Concentration +3&lt;br&gt;Hide +2&lt;br&gt;Lore +2&lt;br&gt;Move Silently +2&lt;br&gt;Search +5&lt;br&gt;Spellcraft +2&lt;br&gt;Use Traps +1&lt;br&gt;Tier 3 Espruar Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +40&lt;br&gt;Cleric, Druid, Favored Soul, Ranger, Shaman&lt;br&gt;Neutral, CG, CE&lt;br&gt;ILR: 21
+|- id=Branch_of_Disruption
+|Branch of Disruption
+|874
+|49
+|512
+|170956 Gold
+|21st
+|1 Ametrine&lt;br&gt;2 Softwood (Ancient Yew)&lt;br&gt;4 Garnet&lt;br&gt;1 Emerald&lt;br&gt;1 Resurrection
+|AC Bonus vs. Racial Group: Undead +5&lt;br&gt;Bonus Feat: Spell Focus (Conjuration)&lt;br&gt;Bonus Feat: Spell Focus (Necromancy)&lt;br&gt;Spell Slot: Cleric 6, Druid 7, Favored Soul 6, Paladin 1, Ranger 4, Shaman 3, Sorcerer 6, Spellsword 3, Wizard 6&lt;br&gt;Damage Bonus vs. Racial Type: Undead 2d8 Damage Positive Energy&lt;br&gt;Damage Resistance: Negative Energy Resist 10 / -&lt;br&gt;Enhancement Bonus vs. Racial Group: Undead +5&lt;br&gt;Immunity: Damage Type: Negative Energy 10% Immunity Bonus&lt;br&gt;Saving Throw Bonus: Negative Energy +3&lt;br&gt;Skill Bonus:&lt;br&gt;Animal Empathy +3&lt;br&gt;Concentration +5&lt;br&gt;Discipline +1&lt;br&gt;Lore +5&lt;br&gt;Spellcraft +3&lt;br&gt;Tier 3 Espruar Rune&lt;br&gt;Restricted:&lt;br&gt;Use Magic Device - +30&lt;br&gt;Cleric, Druid, Favored Soul, Ranger, Shaman, Sorcerer, Spellsword, Wizard&lt;br&gt;Neutral&lt;br&gt;ILR: 21
+|- id=Eldritch_Focus
+|Eldritch Focus
+|1669
+|49
+|550
+|76712
+|21st
+|Harbinger OR Warlock Carpenter&lt;br&gt;3 Ioun Stone (Deep Red)&lt;br&gt;2 Rare Hardwood&lt;br&gt;1 Ashwood Stabilizer&lt;br&gt;1 Beljuril Gem&lt;br&gt;1 Planar Binding (scroll)
+|Ability Bonus: Charisma +2&lt;br&gt;AC Bonus vs. Alignment Group: Good +5&lt;br&gt;Attack Bonus vs. Aberration, Elemental, Fey, Outsider, Undead +3&lt;br&gt;Bonus Spell Slot: Warlock 7&lt;br&gt;Bonus Spell Slot: Warlock 8&lt;br&gt;Bonus Spell Slot: Harbinger 1&lt;br&gt;Bonus Spell Slot: Harbinger 1&lt;br&gt;Bonus Spell Slot: Harbinger 2&lt;br&gt;Bonus Spell Slot: Harbinger 2&lt;br&gt;Bonus Spell Slot: Harbinger 3&lt;br&gt;Bonus Spell Slot: Harbinger 4&lt;br&gt;Cast Spell: Ioun Stone, Deep Red (3/day)&lt;br&gt;Skill Bonus: Bluff +2&lt;br&gt;Skill Bonus: Concentration +5&lt;br&gt;Skill Bonus: Lore +5&lt;br&gt;Skill Bonus: Perform +2&lt;br&gt;Skill Bonus: Spellcraft +3&lt;br&gt;Skill Bonus: Use Magic Device +2&lt;br&gt;Tier 3 Thorass Rune&lt;br&gt;Increased UMD requirement: 50&lt;br&gt;Restricted:&lt;br&gt;Warlock OR Harbinger&lt;br&gt;Evil, CN, TN, LN&lt;br&gt;CHARISMA REQUIREMENT 18+
+|- id=Runestaff_of_Elements
+|Runestaff of Elements
+|1876
+|52
+|470
+|92377
+|21st
+|2 Rare Hardwood&lt;br&gt;2 Gold Ingot&lt;br&gt;1 Rainbow Agate&lt;br&gt;5 Scroll: Isaac's Lesser Missle Storm&lt;br&gt;4 Emerald
+|Ability Bonus: Charisma +2&lt;br&gt;Additional Property: Use Magic Device 50&lt;br&gt;Cast Spell: Isaac's Lesser Missle Storm [20] [unlimited] +2CL&lt;br&gt;Saving Throw: Universal +1&lt;br&gt;Immunity Damage Type: Entropy [5%]&lt;br&gt;Skill Bonus: Concentration +3&lt;br&gt;Skill Bonus: Leadership +2&lt;br&gt;Skill Bonus: Spellcraft +3&lt;br&gt;Thorass Rune, Tier 3&lt;br&gt;Only Useable by: Elementalist&lt;br&gt;Sequencer: No
+|}</text>
+    </revision>
+  </page>
+</mediawiki>
