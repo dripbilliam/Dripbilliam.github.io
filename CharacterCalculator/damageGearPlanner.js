@@ -4605,9 +4605,3 @@
 
     document.addEventListener('DOMContentLoaded', init);
 })();
-    window.getItemSkillBonusForSkill = getItemSkillBonusForSkill;
-    window.getItemStatBonusForStat = getItemStatBonusForStat;
-    window.getExternalSaveBonusForType = getExternalSaveBonusForType;
-
-    document.addEventListener('DOMContentLoaded', init);
-})();
