@@ -217,6 +217,31 @@
         'Granted Feat'
     ]);
 
+    const BUFF_DEFINITIONS = [
+        { name: 'aid', label: 'Aid', modifies: ['attackBonus'], mode: 'flat', value: 1 },
+        { name: 'bless', label: 'Bless', modifies: ['attackBonus'], mode: 'flat', value: 1 },
+        { name: 'unholy_accuracy', label: 'Unholy Accuracy (feat)', modifies: ['attackBonus'], mode: 'flat', value: 1, requiresFeat: 'unholy accuracy' },
+        { name: 'corrupt_weapon', label: 'Corrupt Weapon (Blackguard)', modifies: ['weaponEnhancementBonus'], mode: 'flat', value: 0, requiresFeat: 'corrupt weapon', classScaled: 'Blackguard' },
+        { name: 'divine_favor', label: 'Divine Favor', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 1, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
+        { name: 'divine_power', label: 'Divine Power', modifies: ['fighterBabOverride', 'damageAbilityOverride', 'hpBonus'], mode: 'flat', value: 0, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
+        { name: 'blood_frenzy', label: 'Blood Frenzy', modifies: ['attackBonus', 'damageBonus', 'willSave', 'refSave', 'dodgeAc'], mode: 'flat', value: 0 },
+        { name: 'battletide', label: 'Battletide', modifies: ['attackBonus', 'damageBonus', 'fortSave', 'refSave', 'willSave'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['war_cry'] },
+        { name: 'war_cry', label: 'War Cry', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['battletide'] }
+    ];
+
+    const SONG_SKILL_LABEL_ALIASES = {
+        'perf & bluff': ['perform', 'bluff'],
+        'spot+listen': ['spot', 'listen'],
+        'appraise & lore': ['appraise', 'lore'],
+        'hide & ms': ['hide', 'move silently'],
+        'open lock disarm trap slght of hand listen search hide & ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
+        'open lock disarm trap slght of hand listen search hide and ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
+        'concen+lisn': ['concentration', 'listen'],
+        'esf perform search bonus': ['search'],
+        'esf perform riding': ['ride'],
+        'open lock disarm trap slght of hand listen search hide & ms ': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently']
+    };
+
     function normalizeBaseDamageType(rawType) {
         const raw = String(rawType || '').trim().toLowerCase();
         if (!raw) return 'slashing';
@@ -297,6 +322,15 @@
             wearableOptionsDrawerOpen: true,
             damageSubtab: 'planner'
         },
+        buffs: {},
+        song: {
+            enabled: false,
+            name: 'bardic rhythm',
+            level: 30,
+            useSoth: false,
+            propagateToPlanner: false
+        },
+        songData: null,
         slots: {}
     };
 
@@ -526,6 +560,30 @@
         setCraftedTemplates([]);
     }
 
+    async function loadBardSongTables() {
+        const candidates = [
+            '../Parsed/bardSongTables.json',
+            '/Parsed/bardSongTables.json',
+            './Parsed/bardSongTables.json'
+        ];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) continue;
+                const json = await response.json();
+                if (json && json.bardSongTable && json.bardSongTable.songsByName) {
+                    state.songData = json;
+                    return;
+                }
+            } catch {
+                continue;
+            }
+        }
+
+        state.songData = null;
+    }
+
     function applyCraftedTemplateToSlot(slotState, templateEntry) {
         if (!slotState || !templateEntry || !templateEntry.template) return;
         const template = templateEntry.template;
@@ -607,11 +665,22 @@
     }
 
     function init() {
+        BUFF_DEFINITIONS.forEach(def => {
+            state.buffs[def.name] = {
+                enabled: false,
+                casterLevel: 30
+            };
+        });
+
         rootEls = {
             damageGear: document.getElementById('damageGear'),
             damageSubtabPlannerBtn: document.getElementById('damageGearSubtabPlanner'),
+            damageSubtabBuffsBtn: document.getElementById('damageGearSubtabBuffs'),
+            damageSubtabSongsBtn: document.getElementById('damageGearSubtabSongs'),
             damageSubtabGraphBtn: document.getElementById('damageGearSubtabGraph'),
             damageSubtabPlannerPanel: document.getElementById('damageGearPlannerPanel'),
+            damageSubtabBuffsPanel: document.getElementById('damageGearBuffsPanel'),
+            damageSubtabSongsPanel: document.getElementById('damageGearSongsPanel'),
             damageSubtabGraphPanel: document.getElementById('damageGearGraphPanel'),
             paperDoll: document.getElementById('gearPaperDoll'),
             editorTitle: document.getElementById('gearEditorTitle'),
@@ -630,7 +699,15 @@
             damageSimStatus: document.getElementById('damageSimStatus'),
             damageSimBuildSummary: document.getElementById('damageSimBuildSummary'),
             damageSimCanvas: document.getElementById('damageSimCanvas'),
-            damageSimTraceOutput: document.getElementById('damageSimTraceOutput')
+            damageSimTraceOutput: document.getElementById('damageSimTraceOutput'),
+            buffList: document.getElementById('damageBuffList'),
+            songEnabledToggle: document.getElementById('songEnabledToggle'),
+            songNameSelect: document.getElementById('songNameSelect'),
+            songLevelSelect: document.getElementById('songLevelSelect'),
+            songUseSothToggle: document.getElementById('songUseSothToggle'),
+            songPropagateToggle: document.getElementById('songPropagateToggle'),
+            songEffectSummary: document.getElementById('songEffectSummary'),
+            songUnmappedSummary: document.getElementById('songUnmappedSummary')
         };
 
         if (!rootEls.paperDoll) return;
@@ -648,6 +725,11 @@
             renderEditor();
         });
 
+        loadBardSongTables().then(() => {
+            renderSongsEditor();
+            renderSummaries();
+        });
+
         const knowWhatImDoingToggle = document.getElementById('knowWhatImDoingToggle');
         if (knowWhatImDoingToggle) {
             knowWhatImDoingToggle.addEventListener('change', () => {
@@ -658,6 +740,14 @@
 
         if (rootEls.damageSubtabPlannerBtn) {
             rootEls.damageSubtabPlannerBtn.addEventListener('click', () => switchDamageSubtab('planner'));
+        }
+
+        if (rootEls.damageSubtabBuffsBtn) {
+            rootEls.damageSubtabBuffsBtn.addEventListener('click', () => switchDamageSubtab('buffs'));
+        }
+
+        if (rootEls.damageSubtabSongsBtn) {
+            rootEls.damageSubtabSongsBtn.addEventListener('click', () => switchDamageSubtab('songs'));
         }
 
         if (rootEls.damageSubtabGraphBtn) {
@@ -673,6 +763,9 @@
         if (rootEls.damageSimTraceOutput && !String(rootEls.damageSimTraceOutput.textContent || '').trim()) {
             rootEls.damageSimTraceOutput.textContent = 'Run simulation to generate trace output.';
         }
+
+        renderBuffsEditor();
+        renderSongsEditor();
     }
 
     function bindEditorEvents() {
@@ -2118,6 +2211,420 @@
         };
     }
 
+    function normalizeSongNameKey(rawName) {
+        return String(rawName || '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
+    }
+
+    function parseSongNumeric(rawValue) {
+        const text = String(rawValue || '').trim();
+        if (!text || text === '-' || /^n\/?a$/i.test(text)) return null;
+
+        const direct = text.match(/^[-+]?\d+(?:\.\d+)?$/);
+        if (direct) return Number(direct[0]);
+
+        const dice = text.match(/^(\d+)d(\d+)$/i);
+        if (dice) {
+            const count = Number(dice[1]) || 0;
+            const size = Number(dice[2]) || 0;
+            if (count > 0 && size > 1) return count * ((size + 1) / 2);
+        }
+
+        const percent = text.match(/^([-+]?\d+(?:\.\d+)?)%$/);
+        if (percent) return Number(percent[1]);
+
+        const firstNumber = text.match(/[-+]?\d+(?:\.\d+)?/);
+        if (firstNumber) return Number(firstNumber[0]);
+
+        return null;
+    }
+
+    function getFighterBabAtLevel(level) {
+        const numericLevel = Math.max(1, Math.floor(Number(level) || 1));
+        return numericLevel;
+    }
+
+    function computeBuffEffects(level, effects) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const out = {
+            cappedAttackBonusFromBuffs: 0,
+            uncappedAttackBonus: 0,
+            damageBonus: 0,
+            saveBonus: { fort: 0, ref: 0, will: 0 },
+            dodgeAcBonus: 0,
+            hpBonus: 0,
+            overrideBab: null,
+            strOverrideMin: null,
+            notes: []
+        };
+
+        const isEnabled = (name) => Boolean(state.buffs && state.buffs[name] && state.buffs[name].enabled);
+        const casterLevelFor = (name) => Math.max(1, Math.floor(Number(state.buffs && state.buffs[name] ? state.buffs[name].casterLevel : 30) || 1));
+
+        if (isEnabled('aid')) out.cappedAttackBonusFromBuffs += 1;
+        if (isEnabled('bless')) out.cappedAttackBonusFromBuffs += 1;
+
+        if (isEnabled('unholy_accuracy') && featSet.has('unholy accuracy')) {
+            out.cappedAttackBonusFromBuffs += 1;
+        }
+
+        if (isEnabled('corrupt_weapon') && featSet.has('corrupt weapon')) {
+            const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
+            const corruptBonus = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
+            const weaponMax = Math.max(
+                Number(effects && effects.enhancementAttackBonus) || 0,
+                Number(effects && effects.directAttackBonus) || 0,
+                corruptBonus
+            );
+            out.notes.push(`Corrupt Weapon considered for capped weapon bonus (up to +${weaponMax})`);
+        }
+
+        if (isEnabled('divine_favor')) {
+            const cl = casterLevelFor('divine_favor');
+            const favorBonus = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
+            out.cappedAttackBonusFromBuffs += favorBonus;
+            out.damageBonus += favorBonus;
+        }
+
+        if (isEnabled('divine_power')) {
+            const cl = casterLevelFor('divine_power');
+            out.overrideBab = getFighterBabAtLevel(level);
+            out.strOverrideMin = 18;
+            out.hpBonus += cl;
+        }
+
+        if (isEnabled('blood_frenzy')) {
+            const hasSf = featSet.has('spell focus: transmutation');
+            const hasGsf = featSet.has('greater spell focus: transmutation');
+            const hasEsf = featSet.has('epic spell focus: transmutation');
+
+            let ab = 2;
+            let dmg = 2;
+            let will = 2;
+
+            if (hasSf || hasGsf || hasEsf) {
+                will = 3;
+            }
+            if (hasGsf || hasEsf) {
+                dmg = 3;
+            }
+            if (hasEsf) {
+                ab = 3;
+            }
+
+            out.cappedAttackBonusFromBuffs += ab;
+            out.damageBonus += dmg;
+            out.saveBonus.will += will;
+            out.saveBonus.ref -= 3;
+            out.dodgeAcBonus -= 2;
+        }
+
+        const battletideOn = isEnabled('battletide');
+        const warCryOn = isEnabled('war_cry');
+        const stackProtectedAb = (battletideOn || warCryOn) ? 2 : 0;
+        const stackProtectedDamage = (battletideOn || warCryOn) ? 2 : 0;
+        out.cappedAttackBonusFromBuffs += stackProtectedAb;
+        out.damageBonus += stackProtectedDamage;
+        if (battletideOn) {
+            out.saveBonus.fort += 2;
+            out.saveBonus.ref += 2;
+            out.saveBonus.will += 2;
+        }
+
+        return out;
+    }
+
+    function getSongEntryFromState() {
+        const bardTable = state.songData && state.songData.bardSongTable;
+        if (!bardTable || !bardTable.songsByName) return null;
+        const key = normalizeSongNameKey(state.song && state.song.name);
+        return bardTable.songsByName[key] || null;
+    }
+
+    function parseSongSkillTargets(effectLabel) {
+        const normalized = normalizeSongNameKey(effectLabel);
+        if (SONG_SKILL_LABEL_ALIASES[normalized]) return SONG_SKILL_LABEL_ALIASES[normalized];
+        if (normalized === 'all skills') return ['*all*'];
+
+        if (/^(perform|bluff|concentration|appraise|lore|listen|spot|search|ride|tumble|set trap|animal empathy|open lock|disarm trap|sleight of hand|hide|move silently|climb)$/.test(normalized)) {
+            return [normalized];
+        }
+
+        return [];
+    }
+
+    function getActiveSongEffects(level) {
+        const empty = {
+            attackBonus: 0,
+            damageBonus: 0,
+            dodgeAcBonus: 0,
+            saveBonus: { fort: 0, ref: 0, will: 0 },
+            skillBonuses: new Map(),
+            statBonuses: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+            featDetails: [],
+            unmapped: [],
+            summary: []
+        };
+
+        if (!state.song || !state.song.enabled) return empty;
+        const songEntry = getSongEntryFromState();
+        if (!songEntry || !songEntry.effects) return empty;
+
+        const songLevel = Math.max(1, Math.min(30, Math.floor(Number(state.song.level) || 30)));
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const canUseSoth = Boolean(state.song.useSoth)
+            && songLevel === 30
+            && featSet.has('song of the heart');
+
+        Object.values(songEntry.effects).forEach(effect => {
+            if (!effect || !effect.valuesByLevel) return;
+            const baseValue = effect.valuesByLevel[String(songLevel)];
+            if (baseValue === undefined) return;
+            const numeric = parseSongNumeric(baseValue);
+            const sothNumeric = canUseSoth ? parseSongNumeric(effect.sothBonus) : null;
+            const totalNumeric = numeric === null
+                ? null
+                : numeric + (Number.isFinite(sothNumeric) ? sothNumeric : 0);
+
+            const labelKey = normalizeSongNameKey(effect.label);
+
+            if (labelKey === 'ab') {
+                if (Number.isFinite(totalNumeric)) empty.attackBonus += totalNumeric;
+                empty.summary.push(`AB ${baseValue}${canUseSoth && effect.sothBonus ? ` (${effect.sothBonus} SOTH)` : ''}`);
+                return;
+            }
+
+            if (/dmg|damage/.test(labelKey) && !/vuln|immunity|resist|dr /.test(labelKey)) {
+                if (Number.isFinite(totalNumeric)) empty.damageBonus += totalNumeric;
+                return;
+            }
+
+            if (labelKey === 'uni saves' || labelKey === 'unisave' || labelKey === 'unisaves') {
+                if (Number.isFinite(totalNumeric)) {
+                    empty.saveBonus.fort += totalNumeric;
+                    empty.saveBonus.ref += totalNumeric;
+                    empty.saveBonus.will += totalNumeric;
+                }
+                return;
+            }
+
+            if (labelKey === 'fortitude') {
+                if (Number.isFinite(totalNumeric)) empty.saveBonus.fort += totalNumeric;
+                return;
+            }
+
+            if (labelKey === 'save vs trap' || labelKey === 'save vs poison' || labelKey === 'save vs cold' || labelKey === 'save vs elec' || labelKey === 'save vs acid' || labelKey === 'save vs death' || labelKey === 'save vs mind') {
+                if (Number.isFinite(totalNumeric)) {
+                    empty.saveBonus.fort += totalNumeric;
+                    empty.saveBonus.ref += totalNumeric;
+                    empty.saveBonus.will += totalNumeric;
+                }
+                return;
+            }
+
+            if (labelKey === 'ac dodge' || labelKey === 'dodge ac' || labelKey === 'ac') {
+                if (Number.isFinite(totalNumeric)) empty.dodgeAcBonus += totalNumeric;
+                return;
+            }
+
+            const skillTargets = parseSongSkillTargets(effect.label);
+            if (skillTargets.length > 0 && Number.isFinite(totalNumeric)) {
+                skillTargets.forEach(skillName => {
+                    if (skillName === '*all*') {
+                        try {
+                            if (Array.isArray(SKILL_LIST)) {
+                                SKILL_LIST.forEach(skill => {
+                                    const normalized = typeof normalizeSkillKey === 'function'
+                                        ? normalizeSkillKey(skill)
+                                        : String(skill || '').toLowerCase();
+                                    if (!normalized) return;
+                                    empty.skillBonuses.set(normalized, (empty.skillBonuses.get(normalized) || 0) + totalNumeric);
+                                });
+                            }
+                        } catch {
+                            // no-op
+                        }
+                        return;
+                    }
+
+                    const normalized = typeof normalizeSkillKey === 'function'
+                        ? normalizeSkillKey(skillName)
+                        : String(skillName || '').toLowerCase();
+                    if (!normalized) return;
+                    empty.skillBonuses.set(normalized, (empty.skillBonuses.get(normalized) || 0) + totalNumeric);
+                });
+                return;
+            }
+
+            if (!/perform req|effect|immunity|move speed|regen|dr|resist|vuln|bard only/.test(labelKey)) {
+                empty.unmapped.push(`${effect.label}: ${baseValue}${canUseSoth && effect.sothBonus ? ` (+ ${effect.sothBonus} SOTH)` : ''}`);
+            }
+        });
+
+        return empty;
+    }
+
+    function getCappedAttackBonusComponents(base, effects, level) {
+        const buffEffects = computeBuffEffects(level, effects);
+        const weaponBonus = Math.max(
+            Number(effects && effects.enhancementAttackBonus) || 0,
+            Number(effects && effects.directAttackBonus) || 0
+        );
+        const uncappedTotal = weaponBonus + (Number(buffEffects.cappedAttackBonusFromBuffs) || 0);
+        return {
+            weaponBonus,
+            buffCappedBonus: Number(buffEffects.cappedAttackBonusFromBuffs) || 0,
+            cappedBonus: Math.min(20, Math.max(0, uncappedTotal)),
+            uncappedTotal,
+            buffEffects
+        };
+    }
+
+    function renderBuffsEditor() {
+        if (!rootEls || !rootEls.buffList) return;
+
+        rootEls.buffList.innerHTML = '';
+        BUFF_DEFINITIONS.forEach(def => {
+            const row = document.createElement('div');
+            row.className = 'gear-field-row';
+
+            const toggle = document.createElement('input');
+            toggle.type = 'checkbox';
+            toggle.checked = Boolean(state.buffs[def.name] && state.buffs[def.name].enabled);
+            toggle.addEventListener('change', () => {
+                state.buffs[def.name].enabled = Boolean(toggle.checked);
+                renderSummaries();
+            });
+
+            const label = document.createElement('label');
+            label.style.minWidth = '220px';
+            label.style.fontWeight = 'bold';
+            label.textContent = def.label;
+
+            row.appendChild(toggle);
+            row.appendChild(label);
+
+            if (def.hasCasterLevel) {
+                const clLabel = document.createElement('label');
+                clLabel.textContent = 'Caster Lvl';
+                clLabel.style.minWidth = '80px';
+
+                const clInput = document.createElement('input');
+                clInput.type = 'number';
+                clInput.min = String(def.minCasterLevel || 1);
+                clInput.max = String(def.maxCasterLevel || 30);
+                clInput.step = '1';
+                clInput.value = String(state.buffs[def.name].casterLevel || 30);
+                clInput.addEventListener('input', () => {
+                    const min = Number(def.minCasterLevel || 1);
+                    const max = Number(def.maxCasterLevel || 30);
+                    const parsed = Math.max(min, Math.min(max, Math.floor(Number(clInput.value) || min)));
+                    state.buffs[def.name].casterLevel = parsed;
+                    clInput.value = String(parsed);
+                    renderSummaries();
+                });
+
+                row.appendChild(clLabel);
+                row.appendChild(clInput);
+            }
+
+            rootEls.buffList.appendChild(row);
+        });
+    }
+
+    function renderSongsEditor() {
+        if (!rootEls) return;
+
+        if (rootEls.songEnabledToggle) {
+            rootEls.songEnabledToggle.checked = Boolean(state.song.enabled);
+            rootEls.songEnabledToggle.onchange = () => {
+                state.song.enabled = Boolean(rootEls.songEnabledToggle.checked);
+                renderSummaries();
+            };
+        }
+
+        if (rootEls.songUseSothToggle) {
+            rootEls.songUseSothToggle.checked = Boolean(state.song.useSoth);
+            rootEls.songUseSothToggle.onchange = () => {
+                state.song.useSoth = Boolean(rootEls.songUseSothToggle.checked);
+                renderSummaries();
+            };
+        }
+
+        if (rootEls.songPropagateToggle) {
+            rootEls.songPropagateToggle.checked = Boolean(state.song.propagateToPlanner);
+            rootEls.songPropagateToggle.onchange = () => {
+                state.song.propagateToPlanner = Boolean(rootEls.songPropagateToggle.checked);
+                renderSummaries();
+                scheduleGearRefreshAndValidation();
+            };
+        }
+
+        if (rootEls.songLevelSelect) {
+            rootEls.songLevelSelect.innerHTML = Array.from({ length: 30 }, (_, index) => {
+                const level = index + 1;
+                return `<option value="${level}">${level}</option>`;
+            }).join('');
+            rootEls.songLevelSelect.value = String(Math.max(1, Math.min(30, Number(state.song.level) || 30)));
+            rootEls.songLevelSelect.onchange = () => {
+                state.song.level = Math.max(1, Math.min(30, Number(rootEls.songLevelSelect.value) || 30));
+                renderSummaries();
+            };
+        }
+
+        if (rootEls.songNameSelect) {
+            const songsByName = state.songData && state.songData.bardSongTable && state.songData.bardSongTable.songsByName
+                ? state.songData.bardSongTable.songsByName
+                : null;
+
+            if (!songsByName) {
+                rootEls.songNameSelect.innerHTML = '<option value="">No song table data loaded</option>';
+                return;
+            }
+
+            const options = Object.values(songsByName)
+                .map(entry => ({ key: normalizeSongNameKey(entry.name), label: entry.name }))
+                .sort((left, right) => left.label.localeCompare(right.label));
+
+            rootEls.songNameSelect.innerHTML = options
+                .map(option => `<option value="${escapeHtml(option.key)}">${escapeHtml(option.label)}</option>`)
+                .join('');
+
+            const selected = normalizeSongNameKey(state.song.name);
+            const hasSelected = options.some(option => option.key === selected);
+            rootEls.songNameSelect.value = hasSelected ? selected : (options[0] ? options[0].key : '');
+            state.song.name = rootEls.songNameSelect.value;
+
+            rootEls.songNameSelect.onchange = () => {
+                state.song.name = rootEls.songNameSelect.value;
+                renderSummaries();
+            };
+        }
+    }
+
+    function getSongPlannerPropagationBonuses(level) {
+        const empty = {
+            skills: new Map(),
+            stats: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+            saves: { fort: 0, ref: 0, will: 0 },
+            feats: []
+        };
+
+        const numericLevel = Math.max(1, Math.floor(Number(level) || 1));
+        if (numericLevel < 30) return empty;
+        if (!state.song || !state.song.enabled || !state.song.propagateToPlanner) return empty;
+
+        const songEffects = getActiveSongEffects(numericLevel);
+        return {
+            skills: songEffects.skillBonuses,
+            stats: songEffects.statBonuses,
+            saves: songEffects.saveBonus,
+            feats: songEffects.featDetails
+        };
+    }
+
     function getCombatSnapshot() {
         const base = getBaseDerivedSummary();
         const effects = buildGearEffects();
@@ -2624,17 +3131,32 @@
     }
 
     function switchDamageSubtab(tabName) {
-        const targetTab = tabName === 'graph' ? 'graph' : 'planner';
+        const allowed = new Set(['planner', 'buffs', 'songs', 'graph']);
+        const targetTab = allowed.has(String(tabName || '').toLowerCase())
+            ? String(tabName || '').toLowerCase()
+            : 'planner';
         state.ui.damageSubtab = targetTab;
 
         if (rootEls.damageSubtabPlannerBtn) {
             rootEls.damageSubtabPlannerBtn.classList.toggle('active', targetTab === 'planner');
+        }
+        if (rootEls.damageSubtabBuffsBtn) {
+            rootEls.damageSubtabBuffsBtn.classList.toggle('active', targetTab === 'buffs');
+        }
+        if (rootEls.damageSubtabSongsBtn) {
+            rootEls.damageSubtabSongsBtn.classList.toggle('active', targetTab === 'songs');
         }
         if (rootEls.damageSubtabGraphBtn) {
             rootEls.damageSubtabGraphBtn.classList.toggle('active', targetTab === 'graph');
         }
         if (rootEls.damageSubtabPlannerPanel) {
             rootEls.damageSubtabPlannerPanel.classList.toggle('active', targetTab === 'planner');
+        }
+        if (rootEls.damageSubtabBuffsPanel) {
+            rootEls.damageSubtabBuffsPanel.classList.toggle('active', targetTab === 'buffs');
+        }
+        if (rootEls.damageSubtabSongsPanel) {
+            rootEls.damageSubtabSongsPanel.classList.toggle('active', targetTab === 'songs');
         }
         if (rootEls.damageSubtabGraphPanel) {
             rootEls.damageSubtabGraphPanel.classList.toggle('active', targetTab === 'graph');
