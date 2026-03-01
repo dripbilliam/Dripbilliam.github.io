@@ -2258,6 +2258,7 @@
         const out = {
             cappedAttackBonusFromBuffs: 0,
             uncappedAttackBonus: 0,
+            weaponBonusFloor: 0,
             damageBonus: 0,
             saveBonus: { fort: 0, ref: 0, will: 0 },
             dodgeAcBonus: 0,
@@ -2280,12 +2281,8 @@
         if (isEnabled('corrupt_weapon') && featSet.has('corrupt weapon')) {
             const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
             const corruptBonus = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
-            const weaponMax = Math.max(
-                Number(effects && effects.enhancementAttackBonus) || 0,
-                Number(effects && effects.directAttackBonus) || 0,
-                corruptBonus
-            );
-            out.notes.push(`Corrupt Weapon considered for capped weapon bonus (up to +${weaponMax})`);
+            out.weaponBonusFloor = Math.max(out.weaponBonusFloor, corruptBonus);
+            out.notes.push(`Corrupt Weapon sets minimum weapon bonus +${corruptBonus}`);
         }
 
         if (isEnabled('divine_favor')) {
@@ -2341,6 +2338,57 @@
         }
 
         return out;
+    }
+
+    function getActiveBuffObjects(level, effects) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const output = [];
+
+        BUFF_DEFINITIONS.forEach(def => {
+            const config = state.buffs && state.buffs[def.name];
+            if (!config || !config.enabled) return;
+            if (def.requiresFeat && !featSet.has(String(def.requiresFeat).toLowerCase())) return;
+
+            let value = Number(def.value) || 0;
+
+            if (def.name === 'divine_favor') {
+                const cl = Math.max(1, Math.floor(Number(config.casterLevel) || 1));
+                value = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
+            } else if (def.name === 'corrupt_weapon') {
+                const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
+                value = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
+            } else if (def.name === 'blood_frenzy') {
+                const hasSf = featSet.has('spell focus: transmutation');
+                const hasGsf = featSet.has('greater spell focus: transmutation');
+                const hasEsf = featSet.has('epic spell focus: transmutation');
+                value = hasEsf ? 3 : 2;
+                output.push({ name: `${def.name}_damage`, label: `${def.label} (Damage)`, modifies: ['damageBonus'], mode: 'flat', value: hasGsf || hasEsf ? 3 : 2 });
+                output.push({ name: `${def.name}_will`, label: `${def.label} (Will)`, modifies: ['willSave'], mode: 'flat', value: (hasSf || hasGsf || hasEsf) ? 3 : 2 });
+                output.push({ name: `${def.name}_ref`, label: `${def.label} (Ref)`, modifies: ['refSave'], mode: 'flat', value: -3 });
+                output.push({ name: `${def.name}_ac`, label: `${def.label} (Dodge AC)`, modifies: ['dodgeAc'], mode: 'flat', value: -2 });
+            }
+
+            if (def.name === 'divine_power') {
+                const cl = Math.max(1, Math.floor(Number(config.casterLevel) || 1));
+                output.push({ name: `${def.name}_hp`, label: `${def.label} (HP)`, modifies: ['hitPoints'], mode: 'flat', value: cl });
+                output.push({ name: `${def.name}_str`, label: `${def.label} (STR floor)`, modifies: ['strengthMinimum'], mode: 'flat', value: 18 });
+                output.push({ name: `${def.name}_bab`, label: `${def.label} (BAB override)`, modifies: ['fighterBabOverride'], mode: 'flat', value: getFighterBabAtLevel(level) });
+            }
+
+            output.push({
+                name: def.name,
+                label: def.label,
+                modifies: Array.isArray(def.modifies) ? def.modifies : [],
+                mode: def.mode || 'flat',
+                value
+            });
+        });
+
+        if (state.buffs && state.buffs.battletide && state.buffs.battletide.enabled) {
+            output.push({ name: 'battletide_saves', label: 'Battletide (Saves)', modifies: ['fortSave', 'refSave', 'willSave'], mode: 'flat', value: 2 });
+        }
+
+        return output;
     }
 
     function getSongEntryFromState() {
@@ -2477,7 +2525,8 @@
         const buffEffects = computeBuffEffects(level, effects);
         const weaponBonus = Math.max(
             Number(effects && effects.enhancementAttackBonus) || 0,
-            Number(effects && effects.directAttackBonus) || 0
+            Number(effects && effects.directAttackBonus) || 0,
+            Number(buffEffects.weaponBonusFloor) || 0
         );
         const uncappedTotal = weaponBonus + (Number(buffEffects.cappedAttackBonusFromBuffs) || 0);
         return {
@@ -3201,7 +3250,7 @@
         const snapshot = getCombatSnapshot();
         const attackText = formatAttackBonusSequence(snapshot.attackBonusSequence);
         if (rootEls.damageSimBuildSummary) {
-            rootEls.damageSimBuildSummary.textContent = `AB ${attackText} (gear AB = max(enh ${round2(snapshot.effects.enhancementAttackBonus)}, direct ${round2(snapshot.effects.directAttackBonus)}) = ${round2(snapshot.effects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${snapshot.sneakAttackDice}d6`;
+            rootEls.damageSimBuildSummary.textContent = `AB ${attackText} (BAB ${round2(snapshot.derived.bab)} + ability ${round2(snapshot.abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(snapshot.featCombatMods.attackBonus)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${snapshot.sneakAttackDice}d6`;
         }
 
         if (rootEls.damageSimStatus) {
@@ -3446,7 +3495,7 @@
             buildChipWithSources(
                 'Attack Bonus',
                 formatAttackBonusSequence(attackBonusSequence),
-                `Base BAB ${formatSigned(base.bab)}; Gear AB max(enh ${formatSigned(effects.enhancementAttackBonus)}, direct ${formatSigned(effects.directAttackBonus)}) = ${formatSigned(effects.attackBonus)}; Feats ${formatSigned(featCombatMods.attackBonus)} (focus: ${featCombatMods.focusGroup || 'none'}); ${abilityCombatMods.attackAbility.toUpperCase()} mod ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})${abilityCombatMods.attackAbility === 'dex' ? ` via ${abilityCombatMods.hasWeaponFinesse ? 'Weapon Finesse' : 'finesse base weapon'}${abilityCombatMods.weaponName ? ` (${abilityCombatMods.weaponName})` : ''}` : ''}`
+                `Base BAB ${formatSigned(derived.bab)}; Capped bonus min(+20, weapon ${formatSigned(snapshot.cappedAttack.weaponBonus)} + buff/spell ${formatSigned(snapshot.cappedAttack.buffCappedBonus)}) = ${formatSigned(snapshot.cappedAttack.cappedBonus)}; Feats ${formatSigned(featCombatMods.attackBonus)} (focus: ${featCombatMods.focusGroup || 'none'}); Song ${formatSigned(snapshot.songEffects.attackBonus)}; ${abilityCombatMods.attackAbility.toUpperCase()} mod ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})${abilityCombatMods.attackAbility === 'dex' ? ` via ${abilityCombatMods.hasWeaponFinesse ? 'Weapon Finesse' : 'finesse base weapon'}${abilityCombatMods.weaponName ? ` (${abilityCombatMods.weaponName})` : ''}` : ''}`
             ),
             buildChipWithSources(
                 'Attacks per Round',
@@ -3456,7 +3505,7 @@
             buildChipWithSources(
                 'Damage Bonus (avg)',
                 formatSigned(derived.damageBonus),
-                `Base +0; Gear ${formatSigned(effects.damageBonus)}; Feats ${formatSigned(featCombatMods.damageBonus)}; STR mod ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+                `Base +0; Gear ${formatSigned(effects.damageBonus)}; Buffs ${formatSigned(snapshot.buffEffects.damageBonus)}; Song ${formatSigned(snapshot.songEffects.damageBonus)}; Feats ${formatSigned(featCombatMods.damageBonus)}; STR mod ${formatSigned(abilityCombatMods.damageAbilityMod)}`
             ),
             buildChipWithSources(
                 'Damage Adds',
@@ -3483,9 +3532,9 @@
                 formatSigned(derived.critDamageBonus),
                 `Gear massive crit ${formatSigned(effects.critDamageBonus)}; Overwhelming crit ${formatSigned(featCombatMods.overwhelmingCritAverage)}`
             ),
-            buildChipWithSources('Fort', formatSigned(derived.fort), `Base ${formatSigned(base.fort)}; Gear ${formatSigned(effects.saveBonus.fort)}`),
-            buildChipWithSources('Ref', formatSigned(derived.ref), `Base ${formatSigned(base.ref)}; Gear ${formatSigned(effects.saveBonus.ref)}`),
-            buildChipWithSources('Will', formatSigned(derived.will), `Base ${formatSigned(base.will)}; Gear ${formatSigned(effects.saveBonus.will)}`),
+            buildChipWithSources('Fort', formatSigned(derived.fort), `Base ${formatSigned(base.fort)}; Gear ${formatSigned(effects.saveBonus.fort)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.fort)}; Song ${formatSigned(snapshot.songEffects.saveBonus.fort)}`),
+            buildChipWithSources('Ref', formatSigned(derived.ref), `Base ${formatSigned(base.ref)}; Gear ${formatSigned(effects.saveBonus.ref)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.ref)}; Song ${formatSigned(snapshot.songEffects.saveBonus.ref)}`),
+            buildChipWithSources('Will', formatSigned(derived.will), `Base ${formatSigned(base.will)}; Gear ${formatSigned(effects.saveBonus.will)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.will)}; Song ${formatSigned(snapshot.songEffects.saveBonus.will)}`),
             buildChipWithSources('HP', `${derived.hp}`, `Base ${base.hp}; Gear +0`),
             buildChipWithSources(
                 'AC bonus total',
@@ -3500,7 +3549,7 @@
         ].join('');
 
         if (rootEls.damageSimBuildSummary) {
-            rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (gear AB = max(enh ${round2(effects.enhancementAttackBonus)}, direct ${round2(effects.directAttackBonus)}) = ${round2(effects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
+            rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (BAB ${round2(derived.bab)} + ability ${round2(abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(featCombatMods.attackBonus)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
         }
 
         rootEls.totalMotes.textContent = `Total Motes: ${formatMote(totalMotes)}`;
@@ -3524,6 +3573,22 @@
         }
 
         rootEls.flags.innerHTML = flagLines.join('');
+
+        if (rootEls.songEffectSummary) {
+            const activeSong = state.song && state.song.enabled ? (getSongEntryFromState() || { name: state.song.name }) : null;
+            if (!activeSong) {
+                rootEls.songEffectSummary.textContent = 'No active song effects.';
+            } else {
+                rootEls.songEffectSummary.textContent = `Active: ${activeSong.name || state.song.name} L${state.song.level}${state.song.useSoth ? ' + SOTH' : ''} | AB ${formatSigned(snapshot.songEffects.attackBonus)} | DMG ${formatSigned(snapshot.songEffects.damageBonus)} | Saves F/R/W ${formatSigned(snapshot.songEffects.saveBonus.fort)}/${formatSigned(snapshot.songEffects.saveBonus.ref)}/${formatSigned(snapshot.songEffects.saveBonus.will)} | Skills ${snapshot.songEffects.skillBonuses.size}`;
+            }
+        }
+
+        if (rootEls.songUnmappedSummary) {
+            const unmapped = Array.isArray(snapshot.songEffects.unmapped) ? snapshot.songEffects.unmapped : [];
+            rootEls.songUnmappedSummary.textContent = unmapped.length > 0
+                ? `Unmapped song fields: ${unmapped.slice(0, 8).join('; ')}${unmapped.length > 8 ? ' ...' : ''}`
+                : 'All selected song fields currently map to planner/combat modifiers.';
+        }
     }
 
     function renderItemMetaEditor(slotState) {
@@ -4436,6 +4501,8 @@
     function getGearPlannerSnapshot() {
         return {
             selectedSlot: state.selectedSlot,
+            buffs: JSON.parse(JSON.stringify(state.buffs || {})),
+            song: JSON.parse(JSON.stringify(state.song || {})),
             slots: JSON.parse(JSON.stringify(state.slots))
         };
     }
@@ -4447,6 +4514,24 @@
         }
 
         state.selectedSlot = snapshot.selectedSlot || 'mainHand';
+        state.buffs = {};
+        BUFF_DEFINITIONS.forEach(def => {
+            const incoming = snapshot.buffs && snapshot.buffs[def.name] ? snapshot.buffs[def.name] : null;
+            state.buffs[def.name] = {
+                enabled: Boolean(incoming && incoming.enabled),
+                casterLevel: Math.max(1, Math.min(30, Math.floor(Number(incoming && incoming.casterLevel) || 30)))
+            };
+        });
+
+        const incomingSong = snapshot.song && typeof snapshot.song === 'object' ? snapshot.song : null;
+        state.song = {
+            enabled: Boolean(incomingSong && incomingSong.enabled),
+            name: normalizeSongNameKey(incomingSong && incomingSong.name ? incomingSong.name : 'bardic rhythm'),
+            level: Math.max(1, Math.min(30, Math.floor(Number(incomingSong && incomingSong.level) || 30))),
+            useSoth: Boolean(incomingSong && incomingSong.useSoth),
+            propagateToPlanner: Boolean(incomingSong && incomingSong.propagateToPlanner)
+        };
+
         state.slots = {};
 
         SLOT_CONFIG.forEach(slot => {
@@ -4481,15 +4566,30 @@
 
         renderPaperDoll();
         renderEditor();
+        renderBuffsEditor();
+        renderSongsEditor();
         scheduleGearRefreshAndValidation();
     }
 
     function resetGearPlannerState() {
         state.selectedSlot = 'mainHand';
+        state.buffs = {};
+        BUFF_DEFINITIONS.forEach(def => {
+            state.buffs[def.name] = { enabled: false, casterLevel: 30 };
+        });
+        state.song = {
+            enabled: false,
+            name: 'bardic rhythm',
+            level: 30,
+            useSoth: false,
+            propagateToPlanner: false
+        };
         state.slots = {};
         SLOT_CONFIG.forEach(slot => ensureSlotState(slot.key));
         renderPaperDoll();
         renderEditor();
+        renderBuffsEditor();
+        renderSongsEditor();
         scheduleGearRefreshAndValidation();
     }
 
@@ -4500,6 +4600,14 @@
     window.getItemGrantedFeatDetails = getItemGrantedFeatDetails;
     window.getItemSkillBonusForSkill = getItemSkillBonusForSkill;
     window.getItemStatBonusForStat = getItemStatBonusForStat;
+    window.getExternalSaveBonusForType = getExternalSaveBonusForType;
+    window.getActiveBuffObjects = () => getActiveBuffObjects(getCurrentCharacterLevel(), buildGearEffects());
+
+    document.addEventListener('DOMContentLoaded', init);
+})();
+    window.getItemSkillBonusForSkill = getItemSkillBonusForSkill;
+    window.getItemStatBonusForStat = getItemStatBonusForStat;
+    window.getExternalSaveBonusForType = getExternalSaveBonusForType;
 
     document.addEventListener('DOMContentLoaded', init);
 })();

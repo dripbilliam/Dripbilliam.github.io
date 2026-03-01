@@ -2148,9 +2148,19 @@ function calculateMulticlassProgression() {
             // This would be custom logic per game
         }
 
-        const finalFort = totalFort + fortBonus;
-        const finalRef = totalRef + refBonus;
-        const finalWill = totalWill + willBonus;
+        const externalFortBonus = typeof window.getExternalSaveBonusForType === 'function'
+            ? parseStatBonusValue(window.getExternalSaveBonusForType(level, 'fort'))
+            : 0;
+        const externalRefBonus = typeof window.getExternalSaveBonusForType === 'function'
+            ? parseStatBonusValue(window.getExternalSaveBonusForType(level, 'ref'))
+            : 0;
+        const externalWillBonus = typeof window.getExternalSaveBonusForType === 'function'
+            ? parseStatBonusValue(window.getExternalSaveBonusForType(level, 'will'))
+            : 0;
+
+        const finalFort = totalFort + fortBonus + externalFortBonus;
+        const finalRef = totalRef + refBonus + externalRefBonus;
+        const finalWill = totalWill + willBonus + externalWillBonus;
 
         levelData[level - 1].bab = totalBAB;
         levelData[level - 1].fort = finalFort;
@@ -2160,9 +2170,9 @@ function calculateMulticlassProgression() {
 
         debugLog(`  Final values (with ability bonuses):`);
         debugLog(`    BAB: ${totalBAB} (sum of all classes)`);
-        debugLog(`    Fort: ${finalFort} (sum ${totalFort} + ability ${fortBonus})`);
-        debugLog(`    Ref: ${finalRef} (sum ${totalRef} + ability ${refBonus})`);
-        debugLog(`    Will: ${finalWill} (sum ${totalWill} + ability ${willBonus})`);
+        debugLog(`    Fort: ${finalFort} (sum ${totalFort} + ability ${fortBonus} + external ${externalFortBonus})`);
+        debugLog(`    Ref: ${finalRef} (sum ${totalRef} + ability ${refBonus} + external ${externalRefBonus})`);
+        debugLog(`    Will: ${finalWill} (sum ${totalWill} + ability ${willBonus} + external ${externalWillBonus})`);
         debugLog(`    HP: ${totalHP} (sum of all classes)`);
     }
 
