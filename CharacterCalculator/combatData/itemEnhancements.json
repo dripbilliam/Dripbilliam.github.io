@@ -61,7 +61,7 @@
     { "type": "Damage Reduction", "params": { "soak": 5, "pierce": 1 } },
     { "type": "Damage Resist", "params": { "resist": 5 } },
     { "type": "Spell Resistance", "params": { "sr": 10 } },
-    { "type": "Keen", "params": { "profile": "20" } },
+    { "type": "Keen", "params": {} },
     { "type": "Granted Feat", "params": { "featName": "" } }
   ],
   "typeConfigs": {
@@ -576,29 +576,16 @@
       }
     },
     "Keen": {
-      "fields": [
-        {
-          "key": "profile",
-          "label": "Profile",
-          "control": "select",
-          "optionSource": "keenProfiles",
-          "uiOrder": 10
-        }
-      ],
+      "fields": [],
       "behaviorOps": [
         {
           "op": "addFlag",
-          "flag": "keen {{profile}}"
+          "flag": "keen"
         }
       ],
       "moteRule": {
-        "mode": "lookup",
-        "valueFrom": "profile",
-        "table": {
-          "20": 10,
-          "19-20": 25,
-          "18-20": 50
-        }
+        "mode": "fixed",
+        "value": 10
       }
     },
     "Light": {
