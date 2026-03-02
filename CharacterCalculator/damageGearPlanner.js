@@ -688,6 +688,19 @@
     let SONG_LABEL_GROUPS = buildSongLabelGroups(DEFAULT_SONG_LABEL_GROUP_ROWS);
     let SONG_TOKEN_GROUPS = buildSongTokenGroups(DEFAULT_SONG_TOKEN_ROWS);
 
+    let PROPERTY_TYPES = DEFAULT_PROPERTY_TYPES.slice();
+    let INNATE_ONLY_TYPES = new Set(DEFAULT_INNATE_ONLY_TYPES);
+    let PROPERTY_DEFAULT_PARAMS_BY_TYPE = new Map(
+        DEFAULT_PROPERTY_PARAM_ROWS.map(row => [row.type, deepCloneJsonValue(row.params)])
+    );
+    let ITEM_ENHANCEMENT_TYPE_CONFIGS = new Map();
+
+    let ITEM_META_DEFAULTS = deepCloneJsonValue(DEFAULT_ITEM_META_DEFAULTS);
+    let WEAPON_FOCUS_GROUPS = DEFAULT_WEAPON_FOCUS_GROUPS.slice();
+    let BASE_WEAPON_DAMAGE_TYPES = DEFAULT_BASE_WEAPON_DAMAGE_TYPES.slice();
+    let ITEM_SPECIAL_KEY_OPTIONS = DEFAULT_ITEM_SPECIAL_KEY_ROWS.map(row => row.key);
+    let ITEM_SPECIAL_KEY_TYPES = Object.fromEntries(DEFAULT_ITEM_SPECIAL_KEY_ROWS.map(row => [row.key, row.valueType]));
+
     const SONG_TARGET_TOGGLE_DEFS = [];
 
     const TARGET_ALIGNMENT_OPTIONS = [
@@ -2734,6 +2747,7 @@
             damageBonus: 0,
             damageAdds: {
                 flat: 0,
+                flatByType: new Map(),
                 diceByType: new Map()
             },
             critDamageBonus: 0,
@@ -2812,8 +2826,11 @@
 
                 const flat = Number(valueText);
                 if (!Number.isFinite(flat) || flat === 0) return;
-                const key = `${typeKey}|avg`;
-                effects.damageAdds.diceByType.set(key, (effects.damageAdds.diceByType.get(key) || 0) + flat);
+                effects.damageAdds.flat += flat;
+                if (!(effects.damageAdds.flatByType instanceof Map)) {
+                    effects.damageAdds.flatByType = new Map();
+                }
+                effects.damageAdds.flatByType.set(typeKey, (effects.damageAdds.flatByType.get(typeKey) || 0) + flat);
                 effects.damageBonus += flat;
                 effects.sourceDetails.damageBonus.push({
                     label: `I'm Lazy damage #${index + 1} (${typeKey} flat)`,
@@ -2858,6 +2875,18 @@
     function addDamageAddToSummary(damageAdds, params) {
         if (!damageAdds || !params) return;
 
+        if (!(damageAdds.flatByType instanceof Map)) {
+            damageAdds.flatByType = new Map();
+        }
+
+        const addTypedFlat = (type, value) => {
+            const numericValue = Number(value) || 0;
+            if (numericValue <= 0) return;
+            const normalizedType = String(type || 'untyped').trim().toLowerCase() || 'untyped';
+            damageAdds.flat += numericValue;
+            damageAdds.flatByType.set(normalizedType, (damageAdds.flatByType.get(normalizedType) || 0) + numericValue);
+        };
+
         const damageAddType = String(params.damageAddType || '').trim().toLowerCase();
         const mode = String(params.mode || '').toLowerCase();
         const damageType = String(params.damageType || '').trim().toLowerCase() || 'untyped';
@@ -2865,7 +2894,7 @@
         if (damageAddType === 'flat') {
             const flatValue = Math.max(0, Number(params.flatAdd) || 0);
             if (flatValue > 0) {
-                damageAdds.flat += flatValue;
+                addTypedFlat(damageType, flatValue);
                 return;
             }
         }
@@ -2881,7 +2910,7 @@
         }
 
         if (mode === 'flat2') {
-            damageAdds.flat += 2;
+            addTypedFlat(damageType, 2);
             return;
         }
 
@@ -2906,7 +2935,7 @@
         const avgDamage = Number(params.avgDamage);
         if (Number.isFinite(avgDamage) && avgDamage > 0) {
             if (Number.isInteger(avgDamage)) {
-                damageAdds.flat += avgDamage;
+                addTypedFlat(damageType, avgDamage);
             } else {
                 const key = `${damageType}|avg`;
                 damageAdds.diceByType.set(key, (damageAdds.diceByType.get(key) || 0) + avgDamage);
@@ -5089,6 +5118,23 @@
         const sneakAttackDice = getSneakAttackDiceAtLevel(base.level, effects);
         const sneakAttackAverage = sneakAttackDice * 3.5;
         const extraDamageAverage = getAverageDamageAddsValue(effects.damageAdds);
+        const gearBaseDamageWithoutAdds = (Number(effects.damageBonus) || 0) - Number(extraDamageAverage);
+        const multipliableDamageBreakdown = {
+            gearBaseDamage: round2(gearBaseDamageWithoutAdds),
+            buffDamageBonus: round2(Number(buffEffects.damageBonus) || 0),
+            songDamageBonus: round2(Number(songEffects.damageBonus) || 0),
+            featDamageBonus: round2(Number(featCombatMods.damageBonus) || 0),
+            classDamageBonus: round2(Number(classHardAttack.damageBonus) || 0),
+            abilityDamageBonus: round2(Number(abilityCombatMods.damageAbilityMod) || 0)
+        };
+        multipliableDamageBreakdown.total = round2(
+            multipliableDamageBreakdown.gearBaseDamage
+            + multipliableDamageBreakdown.buffDamageBonus
+            + multipliableDamageBreakdown.songDamageBonus
+            + multipliableDamageBreakdown.featDamageBonus
+            + multipliableDamageBreakdown.classDamageBonus
+            + multipliableDamageBreakdown.abilityDamageBonus
+        );
         const multipliableHitDamage = Math.max(0, Number(derived.damageBonus) - Number(extraDamageAverage));
         const nonMultipliableHitDamage = Math.max(0, Number(sneakAttackAverage) + Number(extraDamageAverage));
         const averageHitDamage = multipliableHitDamage + nonMultipliableHitDamage;
@@ -5119,6 +5165,7 @@
             sneakAttackDice,
             sneakAttackAverage,
             extraDamageAverage,
+            multipliableDamageBreakdown,
             multipliableHitDamage,
             nonMultipliableHitDamage,
             averageHitDamage,
@@ -5249,8 +5296,22 @@
     function getTraceDamageDiceComponents(damageAdds) {
         const result = {
             flat: Math.max(0, Number(damageAdds && damageAdds.flat) || 0),
+            flatTerms: [],
             diceTerms: []
         };
+
+        if (damageAdds && damageAdds.flatByType instanceof Map) {
+            damageAdds.flatByType.forEach((amount, type) => {
+                const numericAmount = Number(amount) || 0;
+                if (numericAmount <= 0) return;
+                const normalizedType = String(type || 'untyped').trim().toLowerCase() || 'untyped';
+                result.flatTerms.push({
+                    type: normalizedType,
+                    value: numericAmount
+                });
+            });
+            result.flatTerms.sort((left, right) => String(left.type).localeCompare(String(right.type)));
+        }
 
         if (!damageAdds || !(damageAdds.diceByType instanceof Map)) {
             return result;
@@ -5314,6 +5375,9 @@
         const critThreatMin = Math.max(2, Math.min(20, Math.floor(Number(snapshot && snapshot.critProfile && snapshot.critProfile.threatMin) || 20)));
         const critMultiplier = Math.max(1, Math.floor(Number(snapshot && snapshot.critProfile && snapshot.critProfile.multiplier) || 2));
         const multipliableStatic = Math.max(0, Number(snapshot && snapshot.multipliableHitDamage) || 0);
+        const multipliableDamageBreakdown = snapshot && snapshot.multipliableDamageBreakdown && typeof snapshot.multipliableDamageBreakdown === 'object'
+            ? snapshot.multipliableDamageBreakdown
+            : null;
         const sneakAttackDice = Math.max(0, Math.floor(Number(snapshot && snapshot.sneakAttackDice) || 0));
 
         const damageAdds = getTraceDamageDiceComponents(snapshot && snapshot.effects ? snapshot.effects.damageAdds : null);
@@ -5381,6 +5445,23 @@
                 const componentValues = [];
 
                 if (multipliableStatic > 0) {
+                    if (multipliableDamageBreakdown) {
+                        const multipliableParts = [
+                            { label: 'Gear base (no damage-add dice/flat)', value: Number(multipliableDamageBreakdown.gearBaseDamage) || 0 },
+                            { label: 'Buff/spell damage', value: Number(multipliableDamageBreakdown.buffDamageBonus) || 0 },
+                            { label: 'Song damage', value: Number(multipliableDamageBreakdown.songDamageBonus) || 0 },
+                            { label: 'Feat damage', value: Number(multipliableDamageBreakdown.featDamageBonus) || 0 },
+                            { label: 'Class damage', value: Number(multipliableDamageBreakdown.classDamageBonus) || 0 },
+                            { label: 'Ability damage mod', value: Number(multipliableDamageBreakdown.abilityDamageBonus) || 0 }
+                        ].filter(part => Number(part.value) !== 0);
+
+                        if (multipliableParts.length > 0) {
+                            multipliableParts.forEach(part => {
+                                traceLines.push(`Flat damage add: ${part.label} ${formatSignedForTrace(part.value)}`);
+                            });
+                        }
+                    }
+
                     if (confirmedCrit) {
                         const multiplied = multipliableStatic * critMultiplier;
                         traceLines.push(`Multipliable damage: (${round2(multipliableStatic)} x ${critMultiplier}) = ${round2(multiplied)}`);
@@ -6141,7 +6222,7 @@
             ].join('');
         };
 
-        const damageAddSummary = formatDamageAddSummary(effects.damageAdds);
+        const damageAddComponents = getTraceDamageDiceComponents(effects.damageAdds);
 
         const restrictionWarningDetails = getRestrictionSoftWarnings(base.level, { includeSlotKeys: true });
         const restrictionWarnings = restrictionWarningDetails.map(entry => entry.message);
@@ -6192,28 +6273,56 @@
             { key: 'Base BAB', value: `${formatSigned(derived.bab)}` },
             {
                 key: 'Capped (+20 cap)',
-                value: `${formatSigned(snapshot.cappedAttack.cappedBonus)} total | buffs ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')} | class-capped ${classHardCappedLines.join(' | ')}`
-            },
-            {
-                key: 'Weapon Minimum Rule',
-                value: `Highest used of: enhancement ${formatSigned(effects.enhancementAttackBonus)} | direct ${formatSigned(effects.directAttackBonus)} | minimum ${formatSigned(weaponFloorUsed)}`,
-                tooltip: 'Minimum is a guaranteed weapon AB value from effects like Corrupt Weapon or the I\'m Lazy Weapon AB minimum proxy.'
+                value: `${formatSigned(snapshot.cappedAttack.cappedBonus)} total | weapon min input (enh ${formatSigned(effects.enhancementAttackBonus)} / direct ${formatSigned(effects.directAttackBonus)} / floor ${formatSigned(weaponFloorUsed)}) | buffs ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')} | class-capped ${classHardCappedLines.join(' | ')}`,
+                tooltip: 'Weapon minimum feeds into the capped section as one candidate value (enhancement/direct/floor), with +20 cap applied after source resolution.'
             },
             { key: 'Uncapped Adds', value: `feats ${formatEntryLines(featCombatMods.attackSources).join(' | ')} | class ${classHardUncappedLines.join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.attack).join(' | ')} | misc ${formatSigned(snapshot.buffEffects.uncappedAttackBonus)}` },
             { key: 'Ability Mod', value: `${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})` }
         ];
 
-        const damageDetailLines = [
-            `Base damage bonus: +0`,
-            `Gear damage adds: ${formatEntryLines(effects.sourceDetails.damageBonus).join(' | ')}`,
-            `Mighty properties: ${formatEntryLines(effects.sourceDetails.mighty).join(' | ')} (effective cap ${formatSigned(effects.mightyCap)})`,
-            `Buff/spell damage adds: ${formatEntryLines(snapshot.buffEffects.detail.damage).join(' | ')}`,
-            `Song damage adds: ${formatEntryLines(snapshot.songEffects.detail.damage).join(' | ')}`,
-            `Feat damage adds: ${formatEntryLines(featCombatMods.damageSources).join(' | ')}`,
-            `Class hard damage adds: ${formatEntryLines(snapshot.classHardAttack.damageSources).join(' | ')}`,
-            abilityCombatMods.isRangedMissileWeapon
-                ? `Ranged STR-to-damage via Mighty: min(max(STR mod ${formatSigned(abilityCombatMods.strMod)}, +0), Mighty cap ${formatSigned(abilityCombatMods.mightyCap)}) = ${formatSigned(abilityCombatMods.damageAbilityMod)}`
-                : `Melee/Thrown STR mod to damage: ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+        const multipliableDamageBreakdown = snapshot && snapshot.multipliableDamageBreakdown && typeof snapshot.multipliableDamageBreakdown === 'object'
+            ? snapshot.multipliableDamageBreakdown
+            : null;
+        const damageAddRows = [];
+        if (Array.isArray(damageAddComponents.flatTerms) && damageAddComponents.flatTerms.length > 0) {
+            damageAddComponents.flatTerms.forEach(term => {
+                const typeSuffix = term.type && term.type !== 'untyped' ? ` ${term.type}` : ' untyped';
+                damageAddRows.push({
+                    key: `Gear flat adds${typeSuffix}`,
+                    value: formatSigned(term.value)
+                });
+            });
+        } else if ((damageAddComponents.flat || 0) > 0) {
+            damageAddRows.push({ key: 'Gear flat adds untyped', value: formatSigned(damageAddComponents.flat) });
+        }
+        (Array.isArray(damageAddComponents.diceTerms) ? damageAddComponents.diceTerms : []).forEach(term => {
+            const typeSuffix = term.type && term.type !== 'untyped' ? ` ${term.type}` : '';
+            damageAddRows.push({
+                key: `Gear dice adds${typeSuffix}`,
+                value: `${term.count}d${term.size}`
+            });
+        });
+        if (damageAddRows.length === 0) {
+            damageAddRows.push({ key: 'Gear damage adds', value: 'none' });
+        }
+
+        const damageDetailRows = [
+            {
+                key: 'Gear base damage',
+                value: formatSigned(multipliableDamageBreakdown ? multipliableDamageBreakdown.gearBaseDamage : Math.max(0, (Number(effects.damageBonus) || 0) - (Number(snapshot.extraDamageAverage) || 0)))
+            },
+            { key: 'Buff/spell damage', value: `${formatSigned(snapshot.buffEffects.damageBonus)} | ${formatEntryLines(snapshot.buffEffects.detail.damage).join(' | ')}` },
+            { key: 'Song damage', value: `${formatSigned(snapshot.songEffects.damageBonus)} | ${formatEntryLines(snapshot.songEffects.detail.damage).join(' | ')}` },
+            { key: 'Feat damage', value: `${formatSigned(featCombatMods.damageBonus)} | ${formatEntryLines(featCombatMods.damageSources).join(' | ')}` },
+            { key: 'Class damage', value: `${formatSigned(snapshot.classHardAttack.damageBonus)} | ${formatEntryLines(snapshot.classHardAttack.damageSources).join(' | ')}` },
+            {
+                key: 'Ability damage mod',
+                value: abilityCombatMods.isRangedMissileWeapon
+                    ? `${formatSigned(abilityCombatMods.damageAbilityMod)} | Mighty cap ${formatSigned(abilityCombatMods.mightyCap)} from STR ${formatSigned(abilityCombatMods.strMod)}`
+                    : `${formatSigned(abilityCombatMods.damageAbilityMod)} | melee/thrown STR`
+            },
+            { key: 'Mighty properties', value: `${formatEntryLines(effects.sourceDetails.mighty).join(' | ')} (cap ${formatSigned(effects.mightyCap)})` },
+            ...damageAddRows
         ];
 
         const critDetailLines = [
@@ -6327,19 +6436,10 @@
                     `Computed attack sequence: ${formatAttackBonusSequence(attackBonusSequence)}`
                 ]
             ),
-            buildDrawerWithSources(
+            buildDrawerWithTable(
                 'Damage Bonus',
-                formatSigned(derived.damageBonus),
-                damageDetailLines
-            ),
-            buildDrawerWithSources(
-                'Damage Adds',
-                damageAddSummary,
-                [
-                    `Total damage adds (avg view): ${damageAddSummary}`,
-                    `Property-level damage add sources: ${formatEntryLines(effects.sourceDetails.damageBonus).join(' | ')}`,
-                    `Skill-affecting gear entries: ${formatEntryLines(effects.sourceDetails.skillBonuses).join(' | ')}`
-                ]
+                'By Source',
+                damageDetailRows
             ),
             buildDrawerWithSources(
                 'Sneak Attack',
