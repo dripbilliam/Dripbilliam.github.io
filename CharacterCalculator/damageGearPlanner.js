@@ -384,6 +384,57 @@
         };
     }
 
+    function createDefaultLazyProxyState() {
+        return {
+            enabled: false,
+            cappedAbBonus: 0,
+            uncappedAbBonus: 0,
+            weaponBonusFloor: 0,
+            damageBonus: 0,
+            damageEntries: '',
+            stats: {
+                str: 0,
+                dex: 0,
+                con: 0,
+                int: 0,
+                wis: 0,
+                cha: 0
+            }
+        };
+    }
+
+    function ensureLazyProxyState() {
+        if (!state.lazyProxy || typeof state.lazyProxy !== 'object') {
+            state.lazyProxy = createDefaultLazyProxyState();
+            return;
+        }
+
+        if (typeof state.lazyProxy.enabled !== 'boolean') {
+            state.lazyProxy.enabled = false;
+        }
+
+        const numericKeys = ['cappedAbBonus', 'uncappedAbBonus', 'weaponBonusFloor', 'damageBonus'];
+        numericKeys.forEach(key => {
+            if (!Number.isFinite(Number(state.lazyProxy[key]))) {
+                state.lazyProxy[key] = 0;
+            }
+        });
+
+        if (typeof state.lazyProxy.damageEntries !== 'string') {
+            state.lazyProxy.damageEntries = '';
+        }
+
+        if (!state.lazyProxy.stats || typeof state.lazyProxy.stats !== 'object') {
+            state.lazyProxy.stats = createDefaultLazyProxyState().stats;
+        }
+
+        ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(statKey => {
+            if (!Number.isFinite(Number(state.lazyProxy.stats[statKey]))) {
+                state.lazyProxy.stats[statKey] = 0;
+            }
+        });
+    }
+
     function ensureClassAttackToggleState() {
         if (!state.classAttackToggles || typeof state.classAttackToggles !== 'object') {
             state.classAttackToggles = createDefaultClassAttackToggleState();
@@ -505,6 +556,7 @@
             damageSubtab: 'planner'
         },
         buffs: {},
+        lazyProxy: createDefaultLazyProxyState(),
         classAttackToggles: createDefaultClassAttackToggleState(),
         classBonusOptions: createDefaultClassBonusOptions(),
         targeting: {
@@ -1125,10 +1177,12 @@
             if (!removeCaps && options.max !== undefined) input.max = String(options.max);
             if (options.step !== undefined) input.step = String(options.step);
             input.value = String(p[key] ?? (options.defaultValue ?? 0));
-            input.addEventListener('change', () => {
+            const commitNumber = () => {
                 p[key] = parseFloat(input.value) || 0;
                 onChange();
-            });
+            };
+            input.addEventListener('input', commitNumber);
+            input.addEventListener('change', commitNumber);
             wrapper.appendChild(labelEl);
             wrapper.appendChild(input);
             container.appendChild(wrapper);
@@ -1144,10 +1198,12 @@
             input.type = 'text';
             input.placeholder = placeholder;
             input.value = p[key] || '';
-            input.addEventListener('change', () => {
+            const commitText = () => {
                 p[key] = input.value;
                 onChange();
-            });
+            };
+            input.addEventListener('input', commitText);
+            input.addEventListener('change', commitText);
             wrapper.appendChild(labelEl);
             wrapper.appendChild(input);
             container.appendChild(wrapper);
@@ -1974,6 +2030,49 @@
             });
         });
 
+        ensureLazyProxyState();
+        if (state.lazyProxy.enabled) {
+            const lazyEntries = parseLazyDamageEntries(state.lazyProxy.damageEntries);
+            lazyEntries.forEach((entry, index) => {
+                const typeKey = String(entry.type || 'untyped').trim().toLowerCase() || 'untyped';
+                const valueText = String(entry.valueText || '').trim().toLowerCase();
+                const diceMatch = valueText.match(/^(\d+)d(\d+)$/i);
+                if (diceMatch) {
+                    const count = Math.max(0, parseInt(diceMatch[1], 10) || 0);
+                    const size = Math.max(2, parseInt(diceMatch[2], 10) || 0);
+                    if (count <= 0) return;
+                    const key = `${typeKey}|d${size}`;
+                    effects.damageAdds.diceByType.set(key, (effects.damageAdds.diceByType.get(key) || 0) + count);
+                    const avgDamage = count * ((size + 1) / 2);
+                    effects.damageBonus += avgDamage;
+                    effects.sourceDetails.damageBonus.push({
+                        label: `I'm Lazy damage #${index + 1} (${typeKey} ${count}d${size})`,
+                        value: avgDamage
+                    });
+                    return;
+                }
+
+                const flat = Number(valueText);
+                if (!Number.isFinite(flat) || flat === 0) return;
+                const key = `${typeKey}|avg`;
+                effects.damageAdds.diceByType.set(key, (effects.damageAdds.diceByType.get(key) || 0) + flat);
+                effects.damageBonus += flat;
+                effects.sourceDetails.damageBonus.push({
+                    label: `I'm Lazy damage #${index + 1} (${typeKey} flat)`,
+                    value: flat
+                });
+            });
+
+            const lazyFlatDamage = Number(state.lazyProxy.damageBonus) || 0;
+            if (lazyFlatDamage !== 0) {
+                effects.damageBonus += lazyFlatDamage;
+                effects.sourceDetails.damageBonus.push({
+                    label: "I'm Lazy damage bonus",
+                    value: lazyFlatDamage
+                });
+            }
+        }
+
         effects.attackBonus = Math.max(effects.enhancementAttackBonus, effects.directAttackBonus);
 
         return effects;
@@ -2657,6 +2756,37 @@
         return Number.isFinite(numeric) ? numeric : 0;
     }
 
+    function parseLazyDamageEntries(rawText) {
+        const entries = [];
+        const text = String(rawText || '');
+        if (!text.trim()) return entries;
+
+        text.split(/\r?\n/).forEach(line => {
+            const trimmed = String(line || '').trim();
+            if (!trimmed) return;
+
+            const withType = trimmed.match(/^([^:]+):\s*([+-]?\d+(?:\.\d+)?|\d+d\d+)$/i);
+            if (withType) {
+                entries.push({ type: String(withType[1]).trim(), valueText: String(withType[2]).trim() });
+                return;
+            }
+
+            const bare = trimmed.match(/^([+-]?\d+(?:\.\d+)?|\d+d\d+)$/i);
+            if (bare) {
+                entries.push({ type: 'untyped', valueText: String(bare[1]).trim() });
+            }
+        });
+
+        return entries;
+    }
+
+    function getLazyProxySoftStatBonus(statKey) {
+        ensureLazyProxyState();
+        if (!state.lazyProxy.enabled) return 0;
+        if (!state.lazyProxy.stats || typeof state.lazyProxy.stats !== 'object') return 0;
+        return Number(state.lazyProxy.stats[statKey]) || 0;
+    }
+
     function getClassInfoByName(className) {
         const target = String(className || '').trim();
         if (!target) return null;
@@ -3079,6 +3209,28 @@
         const isEnabled = (name) => Boolean(state.buffs && state.buffs[name] && state.buffs[name].enabled);
         const casterLevelFor = (name) => Math.max(1, Math.floor(Number(state.buffs && state.buffs[name] ? state.buffs[name].casterLevel : 30) || 1));
 
+        ensureLazyProxyState();
+        if (state.lazyProxy.enabled) {
+            const lazyCappedAb = Number(state.lazyProxy.cappedAbBonus) || 0;
+            const lazyUncappedAb = Number(state.lazyProxy.uncappedAbBonus) || 0;
+            const lazyWeaponFloor = Number(state.lazyProxy.weaponBonusFloor) || 0;
+
+            if (lazyCappedAb !== 0) {
+                out.cappedAttackBonusFromBuffs += lazyCappedAb;
+                out.detail.attack.push({ label: "I'm Lazy capped AB", value: lazyCappedAb });
+            }
+
+            if (lazyUncappedAb !== 0) {
+                out.uncappedAttackBonus += lazyUncappedAb;
+                out.detail.attack.push({ label: "I'm Lazy uncapped AB", value: lazyUncappedAb });
+            }
+
+            if (lazyWeaponFloor !== 0) {
+                out.weaponBonusFloor = Math.max(out.weaponBonusFloor, lazyWeaponFloor);
+                out.detail.attack.push({ label: "I'm Lazy weapon AB floor", value: 0 });
+            }
+        }
+
         if (isEnabled('aid')) {
             out.cappedAttackBonusFromBuffs += 1;
             out.detail.attack.push({ label: 'Aid', value: 1 });
@@ -3490,6 +3642,8 @@
     function renderBuffsEditor() {
         if (!rootEls || !rootEls.buffList) return;
 
+        ensureLazyProxyState();
+
         rootEls.buffList.innerHTML = '';
 
         const renderBuffRow = (def, targetContainer) => {
@@ -3593,6 +3747,122 @@
         zooContainer.appendChild(zooHeader);
         zooContainer.appendChild(zooBody);
         rootEls.buffList.appendChild(zooContainer);
+
+        const lazyContainer = document.createElement('div');
+        lazyContainer.className = 'gear-drawer open';
+
+        const lazyHeader = document.createElement('button');
+        lazyHeader.type = 'button';
+        lazyHeader.className = 'gear-drawer-header';
+        lazyHeader.setAttribute('aria-expanded', 'true');
+        lazyHeader.textContent = "I'm Lazy";
+
+        const lazyBody = document.createElement('div');
+        lazyBody.className = 'gear-drawer-body';
+
+        const enabledRow = document.createElement('div');
+        enabledRow.className = 'gear-field-row';
+        const enabledLabel = document.createElement('label');
+        enabledLabel.style.minWidth = '220px';
+        enabledLabel.style.fontWeight = 'bold';
+        enabledLabel.textContent = 'Enable quick proxy values';
+        const enabledToggle = document.createElement('input');
+        enabledToggle.type = 'checkbox';
+        enabledToggle.checked = Boolean(state.lazyProxy.enabled);
+        enabledToggle.addEventListener('change', () => {
+            state.lazyProxy.enabled = Boolean(enabledToggle.checked);
+            scheduleGearRefreshAndValidation();
+        });
+        enabledRow.appendChild(enabledToggle);
+        enabledRow.appendChild(enabledLabel);
+        lazyBody.appendChild(enabledRow);
+
+        const addProxyNumberField = (labelText, key, min = -999, max = 999, step = 1) => {
+            const row = document.createElement('div');
+            row.className = 'gear-field-row';
+
+            const label = document.createElement('label');
+            label.style.minWidth = '220px';
+            label.textContent = labelText;
+
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = String(min);
+            input.max = String(max);
+            input.step = String(step);
+            input.style.width = '120px';
+            input.value = String(Number(state.lazyProxy[key]) || 0);
+            input.addEventListener('input', () => {
+                const parsed = Number(input.value);
+                state.lazyProxy[key] = Number.isFinite(parsed) ? parsed : 0;
+                scheduleGearRefreshAndValidation();
+            });
+
+            row.appendChild(label);
+            row.appendChild(input);
+            lazyBody.appendChild(row);
+        };
+
+        addProxyNumberField('Capped AB proxy', 'cappedAbBonus');
+        addProxyNumberField('Uncapped AB proxy', 'uncappedAbBonus');
+        addProxyNumberField('Weapon AB minimum proxy', 'weaponBonusFloor', 0, 20);
+        addProxyNumberField('Damage bonus proxy', 'damageBonus');
+
+        const damageEntriesRow = document.createElement('div');
+        damageEntriesRow.className = 'gear-field-row';
+        damageEntriesRow.style.alignItems = 'flex-start';
+        const damageEntriesLabel = document.createElement('label');
+        damageEntriesLabel.style.minWidth = '220px';
+        damageEntriesLabel.textContent = 'Damage entries (one per line)';
+        const damageEntriesInput = document.createElement('textarea');
+        damageEntriesInput.style.width = 'min(560px, 95%)';
+        damageEntriesInput.style.minHeight = '92px';
+        damageEntriesInput.placeholder = 'Examples:\nfire: 2d6\ndivine: 5\n3d4';
+        damageEntriesInput.value = String(state.lazyProxy.damageEntries || '');
+        damageEntriesInput.addEventListener('input', () => {
+            state.lazyProxy.damageEntries = String(damageEntriesInput.value || '');
+            scheduleGearRefreshAndValidation();
+        });
+        damageEntriesRow.appendChild(damageEntriesLabel);
+        damageEntriesRow.appendChild(damageEntriesInput);
+        lazyBody.appendChild(damageEntriesRow);
+
+        const statHeader = document.createElement('div');
+        statHeader.className = 'muted-note';
+        statHeader.textContent = 'Stat proxies (soft): respects +12 soft-stat cap in planner propagation.';
+        lazyBody.appendChild(statHeader);
+
+        const statGrid = document.createElement('div');
+        statGrid.className = 'gear-field-row';
+        ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(statKey => {
+            const wrap = document.createElement('label');
+            wrap.style.display = 'flex';
+            wrap.style.alignItems = 'center';
+            wrap.style.gap = '6px';
+            wrap.style.minWidth = '110px';
+            wrap.textContent = statKey.toUpperCase();
+
+            const statInput = document.createElement('input');
+            statInput.type = 'number';
+            statInput.min = '-99';
+            statInput.max = '99';
+            statInput.step = '1';
+            statInput.style.width = '70px';
+            statInput.value = String(Number(state.lazyProxy.stats[statKey]) || 0);
+            statInput.addEventListener('input', () => {
+                const parsed = Number(statInput.value);
+                state.lazyProxy.stats[statKey] = Number.isFinite(parsed) ? parsed : 0;
+                scheduleGearRefreshAndValidation();
+            });
+
+            wrap.appendChild(statInput);
+            statGrid.appendChild(wrap);
+        });
+        lazyBody.appendChild(statGrid);
+
+        lazyContainer.appendChild(lazyHeader);
+        lazyContainer.appendChild(lazyBody);
+        rootEls.buffList.appendChild(lazyContainer);
     }
 
     function renderClassAttackBonusEditor() {
@@ -3691,7 +3961,7 @@
                 const details = document.createElement('span');
                 details.className = 'feat-label';
                 details.textContent = preview.applies
-                    ? `Blackguard Lvl ${preview.blackguardLevel} | Weapon floor +${round2(preview.weaponBonusFloor)} (main-hand)`
+                    ? `Blackguard Lvl ${preview.blackguardLevel} | Weapon minimum +${round2(preview.weaponBonusFloor)} (main-hand)`
                     : (preview.disabledReason || 'Inactive');
 
                 row.appendChild(toggle);
@@ -3973,6 +4243,7 @@
         derived.attackBonus += featCombatMods.attackBonus;
         derived.attackBonus += Number(classHardAttack.total) || 0;
         derived.attackBonus += Number(songEffects.attackBonus) || 0;
+        derived.attackBonus += Number(buffEffects.uncappedAttackBonus) || 0;
         derived.damageBonus += featCombatMods.damageBonus;
         derived.damageBonus += Number(classHardAttack.damageBonus) || 0;
         derived.critDamageBonus += featCombatMods.overwhelmingCritAverage;
@@ -4769,9 +5040,25 @@
         };
         const toArray = (value) => Array.isArray(value) ? value : [];
         const formatEntryLines = (entries, emptyLabel = 'none') => {
-            const list = toArray(entries)
-                .filter(entry => entry && typeof entry === 'object' && Number(entry.value) !== 0)
-                .map(entry => `${String(entry.label || 'source')}: ${formatSigned(entry.value)}`);
+            const grouped = new Map();
+            toArray(entries)
+                .filter(entry => entry && typeof entry === 'object' && Number(entry.value ?? entry.bonus) !== 0)
+                .forEach(entry => {
+                    const rawLabel = String(
+                        entry.label
+                        || entry.feat
+                        || entry.name
+                        || entry.sourceLabel
+                        || entry.key
+                        || 'source'
+                    ).trim();
+                    const label = rawLabel || 'source';
+                    const value = Number(entry.value ?? entry.bonus) || 0;
+                    grouped.set(label, (grouped.get(label) || 0) + value);
+                });
+
+            const list = Array.from(grouped.entries())
+                .map(([label, value]) => `${label}: ${formatSigned(value)}`);
             return list.length > 0 ? list : [emptyLabel];
         };
         const buildDrawerWithSources = (label, valueText, sourceLines) => {
@@ -4788,6 +5075,36 @@
                 `    <span class="gear-drawer-total">${escapeHtml(valueText)}</span>`,
                 '  </button>',
                 `  <div class="gear-drawer-body">${sourceHtml}</div>`,
+                '</div>'
+            ].join('');
+        };
+        const buildDrawerWithTable = (label, valueText, rows) => {
+            const rowItems = toArray(rows).filter(row => row && typeof row === 'object');
+            const tableHtml = rowItems.length > 0
+                ? [
+                    '<table class="gear-special-table">',
+                    '  <tbody>',
+                    ...rowItems.map(row => {
+                        const key = escapeHtml(String(row.key || '').trim() || 'Detail');
+                        const value = escapeHtml(String(row.value || '').trim() || '—');
+                        const keyTooltip = escapeHtml(String(row.keyTooltip || row.tooltip || '').trim());
+                        const valueTooltip = escapeHtml(String(row.valueTooltip || row.tooltip || '').trim());
+                        const keyTitleAttr = keyTooltip ? ` title="${keyTooltip}"` : '';
+                        const valueTitleAttr = valueTooltip ? ` title="${valueTooltip}"` : '';
+                        return `    <tr class="gear-special-row"><td class="gear-special-key-col"${keyTitleAttr}>${key}</td><td${valueTitleAttr}>${value}</td></tr>`;
+                    }),
+                    '  </tbody>',
+                    '</table>'
+                ].join('')
+                : '<div class="muted-note">No additional source details.</div>';
+
+            return [
+                '<div class="gear-drawer">',
+                `  <button type="button" class="gear-drawer-header" aria-expanded="false">`,
+                `    <span class="gear-drawer-label">${escapeHtml(label)}</span>`,
+                `    <span class="gear-drawer-total">${escapeHtml(valueText)}</span>`,
+                '  </button>',
+                `  <div class="gear-drawer-body">${tableHtml}</div>`,
                 '</div>'
             ].join('');
         };
@@ -4819,16 +5136,38 @@
             `<div class="gear-chip">HP: ${base.hp}</div>`
         ].join('');
 
-        const attackDetailLines = [
-            `Base BAB: ${formatSigned(derived.bab)}`,
-            `Capped section total: ${formatSigned(snapshot.cappedAttack.cappedBonus)} (cap +20)`,
-            `Weapon enhancement candidates: ${formatEntryLines(effects.sourceDetails.enhancementAttack).join(' | ')}`,
-            `Direct attack bonus candidates: ${formatEntryLines(effects.sourceDetails.directAttack).join(' | ')}`,
-            `Buff/spell attack adds: ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')}`,
-            `Feat attack adds: ${formatEntryLines(featCombatMods.attackSources).join(' | ')}`,
-            `Class hard AB adds: ${snapshot.classHardAttack.sources.length > 0 ? snapshot.classHardAttack.sources.map(source => `${source.label}: ${formatSigned(source.bonus)}`).join(' | ') : 'none'}`,
-            `Song attack adds: ${formatEntryLines(snapshot.songEffects.detail.attack).join(' | ')}`,
-            `${abilityCombatMods.attackAbility.toUpperCase()} ability mod: ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})`
+        const classHardUncappedLines = formatEntryLines(
+            toArray(snapshot.classHardAttack.sources).map(source => ({
+                label: source.label,
+                value: Number(source.bonus) || 0
+            }))
+        );
+        const classHardCappedLines = formatEntryLines(
+            toArray(snapshot.classHardAttack.cappedSources).map(source => ({
+                label: source.label,
+                value: Number(source.bonus) || 0
+            }))
+        );
+
+        const cappedBuffAdd = Number(snapshot.cappedAttack.buffCappedBonus) || 0;
+        const cappedClassAdd = Number(snapshot.cappedAttack.classCappedBonus) || 0;
+        const cappedCombinedAdds = cappedBuffAdd + cappedClassAdd;
+        const weaponFloorUsed = Math.max(
+            Number(snapshot.buffEffects.weaponBonusFloor) || 0,
+            Number(snapshot.classHardAttack.weaponBonusFloor) || 0
+        );
+
+        const attackDetailRows = [
+            { key: 'Base BAB', value: `${formatSigned(derived.bab)}` },
+            { key: 'Capped Section', value: `${formatSigned(snapshot.cappedAttack.cappedBonus)} (capped at +20)` },
+            {
+                key: 'Weapon Minimum Rule',
+                value: `Highest used of: enhancement ${formatSigned(effects.enhancementAttackBonus)} | direct ${formatSigned(effects.directAttackBonus)} | minimum ${formatSigned(weaponFloorUsed)}`,
+                tooltip: 'Minimum is a guaranteed weapon AB value from effects like Corrupt Weapon or the I\'m Lazy Weapon AB minimum proxy.'
+            },
+            { key: 'Capped Contributors', value: `buffs ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')} | class-capped ${classHardCappedLines.join(' | ')}` },
+            { key: 'Uncapped Adds', value: `feats ${formatEntryLines(featCombatMods.attackSources).join(' | ')} | class ${classHardUncappedLines.join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.attack).join(' | ')} | misc ${formatSigned(snapshot.buffEffects.uncappedAttackBonus)}` },
+            { key: `${abilityCombatMods.attackAbility.toUpperCase()} Ability Mod`, value: `${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})` }
         ];
 
         const damageDetailLines = [
@@ -4941,10 +5280,10 @@
             : ['none'];
 
         rootEls.gearSummary.innerHTML = [
-            buildDrawerWithSources(
+            buildDrawerWithTable(
                 'Attack Bonus',
                 formatAttackBonusSequence(attackBonusSequence),
-                attackDetailLines
+                attackDetailRows
             ),
             buildDrawerWithSources(
                 'Attacks per Round',
@@ -5949,9 +6288,11 @@
         const effects = buildGearEffects();
         const songPropagation = getSongPlannerPropagationBonuses(numericLevel);
         const buffSoftStats = getBuffSoftStatBonuses(numericLevel).stats;
-        return (Number(effects.softStats[normalizedStat]) || 0)
+        const total = (Number(effects.softStats[normalizedStat]) || 0)
             + (Number(songPropagation.stats[normalizedStat]) || 0)
-            + (Number(buffSoftStats[normalizedStat]) || 0);
+            + (Number(buffSoftStats[normalizedStat]) || 0)
+            + getLazyProxySoftStatBonus(normalizedStat);
+        return total > 12 ? 12 : total;
     }
 
     function getItemStatBonusDetailsForStat(level, statName) {
@@ -5997,6 +6338,22 @@
                     label: `${entry.label}${entry.secondCast ? ' (2nd Cast)' : ''}`,
                     value
                 });
+            });
+        }
+
+        const lazyStatValue = getLazyProxySoftStatBonus(normalizedStat);
+        if (lazyStatValue !== 0) {
+            details.push({
+                label: "I'm Lazy stat proxy",
+                value: lazyStatValue
+            });
+        }
+
+        const rawTotal = details.reduce((sum, entry) => sum + (Number(entry && entry.value) || 0), 0);
+        if (rawTotal > 12) {
+            details.push({
+                label: 'Soft stat cap (+12)',
+                value: 12 - rawTotal
             });
         }
 
@@ -6140,9 +6497,11 @@
     }
 
     function getGearPlannerSnapshot() {
+        ensureLazyProxyState();
         return {
             selectedSlot: state.selectedSlot,
             buffs: JSON.parse(JSON.stringify(state.buffs || {})),
+            lazyProxy: JSON.parse(JSON.stringify(state.lazyProxy || {})),
             classAttackToggles: JSON.parse(JSON.stringify(state.classAttackToggles || {})),
             classBonusOptions: JSON.parse(JSON.stringify(state.classBonusOptions || {})),
             targeting: JSON.parse(JSON.stringify(state.targeting || {})),
@@ -6167,6 +6526,24 @@
                 secondCast: Boolean(incoming && incoming.secondCast)
             };
         });
+        state.lazyProxy = createDefaultLazyProxyState();
+        const incomingLazyProxy = snapshot.lazyProxy && typeof snapshot.lazyProxy === 'object' ? snapshot.lazyProxy : null;
+        if (incomingLazyProxy) {
+            state.lazyProxy.enabled = Boolean(incomingLazyProxy.enabled);
+            state.lazyProxy.cappedAbBonus = Number(incomingLazyProxy.cappedAbBonus) || 0;
+            state.lazyProxy.uncappedAbBonus = Number(incomingLazyProxy.uncappedAbBonus) || 0;
+            state.lazyProxy.weaponBonusFloor = Number(incomingLazyProxy.weaponBonusFloor) || 0;
+            state.lazyProxy.damageBonus = Number(incomingLazyProxy.damageBonus) || 0;
+            state.lazyProxy.damageEntries = String(incomingLazyProxy.damageEntries || '');
+
+            const incomingStats = incomingLazyProxy.stats && typeof incomingLazyProxy.stats === 'object'
+                ? incomingLazyProxy.stats
+                : {};
+            ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(statKey => {
+                state.lazyProxy.stats[statKey] = Number(incomingStats[statKey]) || 0;
+            });
+        }
+        ensureLazyProxyState();
         state.classAttackToggles = createDefaultClassAttackToggleState();
         const incomingClassAttackToggles = snapshot.classAttackToggles && typeof snapshot.classAttackToggles === 'object'
             ? snapshot.classAttackToggles
@@ -6258,6 +6635,7 @@
         BUFF_DEFINITIONS.forEach(def => {
             state.buffs[def.name] = { enabled: false, casterLevel: 30, secondCast: false };
         });
+        state.lazyProxy = createDefaultLazyProxyState();
         state.classAttackToggles = createDefaultClassAttackToggleState();
         state.classBonusOptions = createDefaultClassBonusOptions();
         state.song = {
