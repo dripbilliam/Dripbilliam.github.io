@@ -1,0 +1,58 @@
+{
+  "metaDefaults": {
+    "craftedTemplateKey": "",
+    "baseWeaponChart": "",
+    "baseWeaponType": "",
+    "finesse": "",
+    "focusGroup": "",
+    "baseDamage": "",
+    "critRange": "",
+    "damageType": "slashing",
+    "proficiency": "",
+    "concussion": false,
+    "oneHandEdged": false,
+    "twoHanded": false,
+    "polearm": false,
+    "unarmed": false,
+    "missile": false,
+    "thrown": false,
+    "ranged": false,
+    "baseArmor": 0,
+    "classRestriction": "",
+    "minClassLevel": 0,
+    "raceRestriction": "",
+    "umdBypass": 0,
+    "loreBypass": 0
+  },
+  "weaponFocusGroupRows": [
+    { "value": "Concussion" },
+    { "value": "Two-Handed" },
+    { "value": "Polearm" },
+    { "value": "One-Handed Edge" },
+    { "value": "Unarmed" },
+    { "value": "Missle" },
+    { "value": "Thrown" }
+  ],
+  "baseWeaponDamageTypeRows": [
+    { "value": "slashing" },
+    { "value": "bludgeoning" },
+    { "value": "piercing" },
+    { "value": "slashing-piercing" },
+    { "value": "bludgeoning-piercing" },
+    { "value": "slashing-bludgeoning" }
+  ],
+  "specialKeyRows": [
+    { "key": "castSpells", "valueType": "array" },
+    { "key": "extraMeleeDamageTypes", "valueType": "array" },
+    { "key": "extraDamageTypes", "valueType": "array" },
+    { "key": "aprConditions", "valueType": "array" },
+    { "key": "weightIncrease", "valueType": "string" },
+    { "key": "weightReductionText", "valueType": "string" },
+    { "key": "arcaneSpellFailure", "valueType": "string" },
+    { "key": "allowedBaseTypes", "valueType": "array" },
+    { "key": "armorBonusBySubtype", "valueType": "object" },
+    { "key": "touchAttack", "valueType": "boolean" },
+    { "key": "ammoNotes", "valueType": "array" },
+    { "key": "notes", "valueType": "array" }
+  ]
+}

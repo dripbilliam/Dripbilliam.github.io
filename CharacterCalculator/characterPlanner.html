@@ -467,7 +467,7 @@
             font-family: Consolas, 'Courier New', monospace;
             font-size: 12px;
             line-height: 1.35;
-            color: #222;
+            color: inherit;
         }
 
         .muted-note {
@@ -914,6 +914,7 @@
                 <button type="button" id="damageGearSubtabSongs" class="gear-subtab-btn">Songs</button>
                 <button type="button" id="damageGearSubtabClassAb" class="gear-subtab-btn">Class AB</button>
                 <button type="button" id="damageGearSubtabGraph" class="gear-subtab-btn">Damage Graph</button>
+                <button type="button" id="damageGearSubtabDebug" class="gear-subtab-btn">Debug</button>
             </div>
 
             <div id="damageGearPlannerPanel" class="gear-subtab-panel active">
@@ -961,19 +962,11 @@
 
                         <div class="gear-summary-grid">
                             <div>
-                                <h4 style="margin: 10px 0 6px;">Character Pass-through</h4>
-                                <div id="baseDerivedSummary"></div>
-                            </div>
-                            <div>
                                 <h4 style="margin: 10px 0 6px;">Gear-adjusted Summary</h4>
                                 <div id="gearDerivedSummary"></div>
                             </div>
                         </div>
-                        <div class="gear-field-row" style="margin-top:10px;">
-                            <span id="gearMoteTotal" class="feat-label">Total Motes: 0</span>
-                            <span id="gearFlags" class="feat-label">Flags: none</span>
-                        </div>
-                        <p class="muted-note">Touch-attack and flat-footed handling are flagged for future use; not applied yet.</p>
+                        <div id="baseDerivedSummary" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -1072,6 +1065,19 @@
                     <h3 style="margin-top:0;">Class-Specific Attack Bonus Toggles</h3>
                     <div id="damageClassAttackBonusList"></div>
                     <p class="muted-note">Enable situational class AB sources you want included in attack bonus calculations.</p>
+                </div>
+            </div>
+
+            <div id="damageGearDebugPanel" class="gear-subtab-panel">
+                <div class="gear-panel">
+                    <h3 style="margin-top:0;">Combat Debug</h3>
+                    <div class="gear-field-row">
+                        <button type="button" id="runGearDebugSnapshotBtn">Run Debug Snapshot</button>
+                        <span class="muted-note">Runs auto-log enable + combat dump + divine_power state capture.</span>
+                    </div>
+                    <div class="damage-sim-trace">
+                        <pre id="gearDebugSnapshotOutput">Run Debug Snapshot to capture current runtime wiring.</pre>
+                    </div>
                 </div>
             </div>
         </div>

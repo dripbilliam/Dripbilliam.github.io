@@ -1,0 +1,838 @@
+{
+  "propertyTypeRows": [
+    { "type": "Ability" },
+    { "type": "Armor" },
+    { "type": "Armor vs Damage type/Race/Alignment" },
+    { "type": "Enhancement" },
+    { "type": "Enhancement vs Alignment/Race" },
+    { "type": "Weight Reduction" },
+    { "type": "Bonus Spell Slots" },
+    { "type": "Damage" },
+    { "type": "Damage vs Alignment/Race/Alignment" },
+    { "type": "Damage Immunity" },
+    { "type": "Damage Vulnerability" },
+    { "type": "Damage Reduction" },
+    { "type": "Damage Resist" },
+    { "type": "Darkvision" },
+    { "type": "Spell Resistance" },
+    { "type": "Specific Saving Throws" },
+    { "type": "General Saving Throws" },
+    { "type": "Keen" },
+    { "type": "Light" },
+    { "type": "Mighty" },
+    { "type": "Regeneration" },
+    { "type": "Skill" },
+    { "type": "Attack Bonus" },
+    { "type": "Attack Bonus vs Alignment/Race/Alignment" },
+    { "type": "Vampiric Regeneration" },
+    { "type": "Massive Criticals" },
+    { "type": "Granted Feat" }
+  ],
+  "innateOnlyTypeRows": [
+    { "type": "Regeneration" },
+    { "type": "Vampiric Regeneration" },
+    { "type": "Armor vs Damage type/Race/Alignment" },
+    { "type": "Enhancement vs Alignment/Race" },
+    { "type": "Damage vs Alignment/Race/Alignment" },
+    { "type": "Attack Bonus vs Alignment/Race/Alignment" },
+    { "type": "Granted Feat" }
+  ],
+  "defaultParamRows": [
+    { "type": "Ability", "params": { "stat": "str", "value": 1 } },
+    { "type": "Armor", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Armor vs Damage type/Race/Alignment", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Enhancement", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Enhancement vs Alignment/Race", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Mighty", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Regeneration", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Skill", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Attack Bonus", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Attack Bonus vs Alignment/Race/Alignment", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Vampiric Regeneration", "params": { "value": 1, "target": "", "save": "fort", "saveKind": "other", "skill": "" } },
+    { "type": "Specific Saving Throws", "params": { "saveKind": "universal" } },
+    { "type": "General Saving Throws", "params": { "save": "fort" } },
+    { "type": "Weight Reduction", "params": { "reduction": 90 } },
+    { "type": "Bonus Spell Slots", "params": { "casterClass": "Bard", "spellLevel": 1, "slots": 1 } },
+    { "type": "Damage", "params": { "damageType": "Acid", "mode": "flat2", "avgDamage": 2, "diceLabel": "+2" } },
+    { "type": "Damage vs Alignment/Race/Alignment", "params": { "damageType": "Acid", "mode": "flat2", "avgDamage": 2, "target": "", "diceLabel": "+2" } },
+    { "type": "Massive Criticals", "params": { "mode": "flat4", "avgDamage": 4, "diceLabel": "4" } },
+    { "type": "Damage Immunity", "params": { "damageType": "Acid", "percent": 5 } },
+    { "type": "Damage Vulnerability", "params": { "damageType": "Acid", "percent": 5 } },
+    { "type": "Damage Reduction", "params": { "soak": 5, "pierce": 1 } },
+    { "type": "Damage Resist", "params": { "resist": 5 } },
+    { "type": "Spell Resistance", "params": { "sr": 10 } },
+    { "type": "Keen", "params": { "profile": "20" } },
+    { "type": "Granted Feat", "params": { "featName": "" } }
+  ],
+  "typeConfigs": {
+    "Ability": {
+      "fields": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "control": "select",
+          "options": ["str", "dex", "con", "int", "wis", "cha"],
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addSoftStat",
+          "statField": "stat",
+          "valueField": "value",
+          "defaultValue": 1
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 8
+      }
+    },
+    "Armor": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        },
+        {
+          "key": "armorType",
+          "label": "AC Type (Innate)",
+          "control": "select",
+          "options": ["armor", "shield", "natural", "deflection", "dodge"],
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addAcBySlotOrParam",
+          "valueField": "value",
+          "bucketField": "armorType"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 6,
+        "constant": 0
+      }
+    },
+    "Armor vs Damage type/Race/Alignment": {
+      "fields": [
+        {
+          "key": "target",
+          "label": "Target",
+          "control": "text",
+          "placeholder": "Race, alignment, or damage type",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Armor vs Damage type/Race/Alignment ({{target}}) +{{value}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 3,
+        "constant": 0
+      }
+    },
+    "Enhancement": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addEnhancementBySlotCategory",
+          "valueField": "value"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 6,
+        "constant": 0
+      }
+    },
+    "Enhancement vs Alignment/Race": {
+      "fields": [
+        {
+          "key": "target",
+          "label": "Target",
+          "control": "text",
+          "placeholder": "Race or alignment",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Enhancement vs Alignment/Race ({{target}}) +{{value}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 4,
+        "constant": 0
+      }
+    },
+    "Weight Reduction": {
+      "fields": [
+        {
+          "key": "reduction",
+          "label": "Reduction %",
+          "control": "select",
+          "optionSource": "weightReductionOptions",
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [],
+      "moteRule": {
+        "mode": "lookup",
+        "valueFrom": "reduction",
+        "table": {
+          "90": 1,
+          "80": 2
+        }
+      }
+    },
+    "Bonus Spell Slots": {
+      "fields": [
+        {
+          "key": "casterClass",
+          "label": "Class",
+          "control": "select",
+          "options": ["Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorc", "Wizard", "Favored Soul", "Shaman", "Warlock", "Spellsword", "Harbinger"],
+          "min": null,
+          "max": null,
+          "step": null,
+          "defaultValue": "Bard",
+          "placeholder": "",
+          "uiOrder": 10
+        },
+        {
+          "key": "spellLevel",
+          "label": "Level",
+          "control": "number",
+          "options": [],
+          "min": 1,
+          "max": 9,
+          "step": 1,
+          "defaultValue": 1,
+          "placeholder": "",
+          "uiOrder": 20
+        },
+        {
+          "key": "slots",
+          "label": "Slots",
+          "control": "number",
+          "options": [],
+          "min": 1,
+          "max": null,
+          "step": 1,
+          "defaultValue": 1,
+          "placeholder": "",
+          "uiOrder": 30
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Bonus Spell Slots {{casterClass}} L{{spellLevel}} x{{slots}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "spellSlot",
+        "classField": "casterClass",
+        "levelField": "spellLevel",
+        "slotsField": "slots"
+      }
+    },
+    "Damage": {
+      "fields": [
+        {
+          "key": "damageType",
+          "label": "Damage Type",
+          "control": "select",
+          "optionSource": "damageTypes",
+          "uiOrder": 10
+        },
+        {
+          "key": "damageEditor",
+          "label": "Damage",
+          "control": "damageAddTypeEditor",
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addDamageFromParams"
+        }
+      ],
+      "moteRule": {
+        "mode": "damageAverage",
+        "coefficient": 2,
+        "constant": 4
+      }
+    },
+    "Damage vs Alignment/Race/Alignment": {
+      "fields": [
+        {
+          "key": "target",
+          "label": "Target",
+          "control": "text",
+          "placeholder": "Race or alignment",
+          "uiOrder": 10
+        },
+        {
+          "key": "damageType",
+          "label": "Damage Type",
+          "control": "select",
+          "optionSource": "damageTypes",
+          "uiOrder": 20
+        },
+        {
+          "key": "damageEditor",
+          "label": "Damage",
+          "control": "damageAddTypeEditor",
+          "uiOrder": 30
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Damage vs Alignment/Race/Alignment ({{target}}) +{{avgDamage}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "damageAverage",
+        "coefficient": 2,
+        "constant": 0
+      }
+    },
+    "Damage Immunity": {
+      "fields": [
+        {
+          "key": "damageType",
+          "label": "Damage Type",
+          "control": "select",
+          "optionSource": "damageTypes",
+          "uiOrder": 10
+        },
+        {
+          "key": "percent",
+          "label": "Percent",
+          "control": "number",
+          "min": 0,
+          "step": 5,
+          "defaultValue": 5,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Damage Immunity {{damageType}} {{percent}}%"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "percent",
+        "coefficient": 0.2,
+        "constant": 0
+      }
+    },
+    "Damage Vulnerability": {
+      "fields": [
+        {
+          "key": "damageType",
+          "label": "Damage Type",
+          "control": "select",
+          "optionSource": "damageTypes",
+          "uiOrder": 10
+        },
+        {
+          "key": "percent",
+          "label": "Percent",
+          "control": "number",
+          "min": 0,
+          "step": 5,
+          "defaultValue": 5,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Damage Vulnerability {{damageType}} {{percent}}%"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 0
+      }
+    },
+    "Damage Reduction": {
+      "fields": [
+        {
+          "key": "soak",
+          "label": "Soak",
+          "control": "number",
+          "min": 5,
+          "step": 5,
+          "defaultValue": 5,
+          "uiOrder": 10
+        },
+        {
+          "key": "pierce",
+          "label": "Bypass",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Damage Reduction"
+        }
+      ],
+      "moteRule": {
+        "mode": "damagereduction",
+        "soakField": "soak",
+        "pierceField": "pierce"
+      }
+    },
+    "Damage Resist": {
+      "fields": [
+        {
+          "key": "resist",
+          "label": "Resist",
+          "control": "number",
+          "min": 5,
+          "step": 5,
+          "defaultValue": 5,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Damage Resist"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "resist",
+        "coefficient": 0.4,
+        "constant": 0
+      }
+    },
+    "Darkvision": {
+      "fields": [],
+      "behaviorOps": [
+        {
+          "op": "addFlag",
+          "flag": "darkvision"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 2
+      }
+    },
+    "Spell Resistance": {
+      "fields": [
+        {
+          "key": "sr",
+          "label": "SR",
+          "control": "number",
+          "min": 10,
+          "step": 1,
+          "defaultValue": 10,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addToEffect",
+          "effectKey": "maxSpellResistance",
+          "valueFrom": "sr",
+          "mode": "max"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 2
+      }
+    },
+    "Specific Saving Throws": {
+      "fields": [
+        {
+          "key": "saveKind",
+          "label": "Type",
+          "control": "select",
+          "optionSource": "specificSaveTypes",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addSpecificSaveFromParams",
+          "kindField": "saveKind",
+          "valueField": "value",
+          "nonInnateValue": 1
+        }
+      ],
+      "moteRule": {
+        "mode": "specificSaveKind",
+        "kindField": "saveKind"
+      }
+    },
+    "General Saving Throws": {
+      "fields": [
+        {
+          "key": "save",
+          "label": "Save",
+          "control": "select",
+          "optionSource": "generalSaveTypes",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addGeneralSaveFromParams",
+          "saveField": "save",
+          "valueField": "value",
+          "nonInnateValue": 1
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 2
+      }
+    },
+    "Keen": {
+      "fields": [
+        {
+          "key": "profile",
+          "label": "Profile",
+          "control": "select",
+          "optionSource": "keenProfiles",
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addFlag",
+          "flag": "keen {{profile}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "lookup",
+        "valueFrom": "profile",
+        "table": {
+          "20": 10,
+          "19-20": 25,
+          "18-20": 50
+        }
+      }
+    },
+    "Light": {
+      "fields": [],
+      "behaviorOps": [
+        {
+          "op": "addFlag",
+          "flag": "light"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 0
+      }
+    },
+    "Mighty": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Cap",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addToEffect",
+          "effectKey": "mightyCap",
+          "valueFrom": "value",
+          "mode": "max"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 2,
+        "constant": 0
+      }
+    },
+    "Regeneration": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Regeneration"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 4,
+        "constant": 0
+      }
+    },
+    "Skill": {
+      "fields": [
+        {
+          "key": "skill",
+          "label": "Skill",
+          "control": "select",
+          "optionSource": "skillOptions",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": -99,
+          "max": 99,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addSkillBonus",
+          "skillField": "skill",
+          "valueField": "value",
+          "defaultValue": 1
+        },
+        {
+          "op": "appendSituational",
+          "template": "Skill {{skill}} +{{value}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "skillLegacy",
+        "valueField": "value"
+      }
+    },
+    "Attack Bonus": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addToEffect",
+          "effectKey": "directAttackBonus",
+          "valueFrom": "value",
+          "nonInnateMax": 1
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 4,
+        "constant": 0,
+        "clampMin": 0,
+        "clampMax": 1
+      }
+    },
+    "Attack Bonus vs Alignment/Race/Alignment": {
+      "fields": [
+        {
+          "key": "target",
+          "label": "Target",
+          "control": "text",
+          "placeholder": "Race or alignment",
+          "uiOrder": 10
+        },
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 20
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Attack Bonus vs Alignment/Race/Alignment ({{target}}) +{{value}}"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 2,
+        "constant": 0,
+        "clampMin": 0,
+        "clampMax": 1
+      }
+    },
+    "Vampiric Regeneration": {
+      "fields": [
+        {
+          "key": "value",
+          "label": "Value",
+          "control": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "appendSituational",
+          "template": "Vampiric Regeneration"
+        }
+      ],
+      "moteRule": {
+        "mode": "linear",
+        "valueFrom": "value",
+        "coefficient": 4,
+        "constant": 0,
+        "clampMin": 0,
+        "clampMax": 1
+      }
+    },
+    "Massive Criticals": {
+      "fields": [
+        {
+          "key": "mode",
+          "label": "Mode",
+          "control": "select",
+          "optionSource": "massiveCritModes",
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addCritDamageFromParams"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 8
+      }
+    },
+    "Granted Feat": {
+      "fields": [
+        {
+          "key": "featName",
+          "label": "Feat",
+          "control": "select",
+          "optionSource": "featOptions",
+          "uiOrder": 10
+        }
+      ],
+      "behaviorOps": [
+        {
+          "op": "addGrantedFeat",
+          "featField": "featName"
+        }
+      ],
+      "moteRule": {
+        "mode": "fixed",
+        "value": 0
+      }
+    }
+  }
+}

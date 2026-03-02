@@ -1,0 +1,179 @@
+{
+  "items": [
+    {
+      "id": "arcane_archer_arrow_enchant",
+      "name": "arcane_archer_arrow_enchant",
+      "key": "arcaneArcherArrowEnchant",
+      "label": "Arcane Archer: Arrow Enchant AB",
+      "description": "",
+      "sourceLabel": "Arcane Archer arrow enchant",
+      "className": "Arcane archer",
+      "extraNameCandidates": [
+        "arrow enchant",
+        "arrowenchant"
+      ],
+      "defaultEnabled": false,
+      "behaviorType": "classExtra",
+      "behaviorConfig": {},
+      "special": null,
+      "notes": null,
+      "uiOrder": 10
+    },
+    {
+      "id": "weapon_master_ab_bonus",
+      "name": "weapon_master_ab_bonus",
+      "key": "weaponMasterAbBonus",
+      "label": "Weapon Master: AB Bonus",
+      "description": "",
+      "sourceLabel": "Weapon Master AB Bonus",
+      "className": "Weapon master",
+      "extraNameCandidates": [
+        "ab bonus",
+        "attack bonus"
+      ],
+      "defaultEnabled": false,
+      "behaviorType": "classExtra",
+      "behaviorConfig": {},
+      "special": null,
+      "notes": null,
+      "uiOrder": 20
+    },
+    {
+      "id": "cavalier_mounted_charge_ab",
+      "name": "cavalier_mounted_charge_ab",
+      "key": "cavalierMountedChargeAb",
+      "label": "Cavalier: Mounted Charge AB",
+      "description": "",
+      "sourceLabel": "Cavalier mounted charge AB",
+      "className": "Cavalier",
+      "extraNameCandidates": [
+        "mounted charge ab",
+        "mounted charge"
+      ],
+      "defaultEnabled": false,
+      "behaviorType": "classExtra",
+      "behaviorConfig": {},
+      "special": null,
+      "notes": null,
+      "uiOrder": 30
+    },
+    {
+      "id": "cavalier_on_foot_charge_ab",
+      "name": "cavalier_on_foot_charge_ab",
+      "key": "cavalierOnFootChargeAb",
+      "label": "Cavalier: On-foot Charge AB",
+      "description": "",
+      "sourceLabel": "Cavalier on-foot charge AB",
+      "className": "Cavalier",
+      "extraNameCandidates": [
+        "on-foot charge ab",
+        "on foot charge ab",
+        "on-foot charge",
+        "on foot charge"
+      ],
+      "defaultEnabled": false,
+      "behaviorType": "classExtra",
+      "behaviorConfig": {},
+      "special": null,
+      "notes": null,
+      "uiOrder": 40
+    },
+    {
+      "id": "spellsword_weave_affinity",
+      "name": "spellsword_weave_affinity",
+      "key": "spellswordWeaveAffinity",
+      "label": "Spellsword: Weave Affinity",
+      "description": "",
+      "sourceLabel": "Spellsword weave affinity",
+      "className": "Spellsword",
+      "extraNameCandidates": [],
+      "defaultEnabled": false,
+      "behaviorType": "spellswordWeaveAffinity",
+      "behaviorConfig": {
+        "className": "Spellsword",
+        "blockerClassName": "Monk",
+        "levelsPerStep": 7,
+        "capAbilityStat": "int",
+        "damageAttribute": "str",
+        "dodgeAttribute": "dex",
+        "option": {
+          "key": "spellswordPrimaryAttribute",
+          "label": "Primary",
+          "values": [
+            "str",
+            "dex"
+          ],
+          "defaultValue": "str"
+        }
+      },
+      "special": null,
+      "notes": null,
+      "uiOrder": 50
+    },
+    {
+      "id": "unholy_accuracy",
+      "name": "unholy_accuracy",
+      "key": "unholyAccuracy",
+      "label": "Unholy Accuracy (feat)",
+      "description": "",
+      "sourceLabel": "Unholy Accuracy",
+      "className": "Blackguard",
+      "extraNameCandidates": [],
+      "defaultEnabled": false,
+      "behaviorType": "featFlatCappedAttack",
+      "behaviorConfig": {
+        "requiredFeat": "unholy accuracy",
+        "attackBonus": 1
+      },
+      "special": null,
+      "notes": null,
+      "uiOrder": 60
+    },
+    {
+      "id": "corrupt_weapon",
+      "name": "corrupt_weapon",
+      "key": "corruptWeapon",
+      "label": "Corrupt Weapon (Blackguard)",
+      "description": "",
+      "sourceLabel": "Corrupt Weapon",
+      "className": "Blackguard",
+      "extraNameCandidates": [],
+      "defaultEnabled": false,
+      "behaviorType": "featWeaponFloorFromClassLevel",
+      "behaviorConfig": {
+        "requiredFeat": "corrupt weapon",
+        "className": "Blackguard",
+        "baseValue": 1,
+        "levelsPerStep": 5,
+        "stepValue": 1,
+        "minValue": 1,
+        "maxValue": 5
+      },
+      "special": null,
+      "notes": null,
+      "uiOrder": 70
+    },
+    {
+      "id": "divine_smite",
+      "name": "divine_smite",
+      "key": "divineSmite",
+      "label": "Divine Smite (feat)",
+      "description": "",
+      "sourceLabel": "Divine Smite",
+      "className": "Paladin",
+      "extraNameCandidates": [],
+      "defaultEnabled": false,
+      "behaviorType": "featMeleeSmite",
+      "behaviorConfig": {
+        "requiredFeat": "divine smite",
+        "className": "Paladin",
+        "requiresMelee": true,
+        "attackAbilityStat": "cha",
+        "damageCap": 20
+      },
+      "special": null,
+      "notes": null,
+      "uiOrder": 80
+    }
+  ]
+}

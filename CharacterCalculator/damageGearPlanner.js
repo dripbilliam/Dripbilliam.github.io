@@ -13,7 +13,7 @@
         { key: 'boots', label: 'Boots', category: 'boots' }
     ];
 
-    const PROPERTY_TYPES = [
+    const DEFAULT_PROPERTY_TYPES = [
         'Ability',
         'Armor',
         'Armor vs Damage type/Race/Alignment',
@@ -41,6 +41,44 @@
         'Vampiric Regeneration',
         'Massive Criticals',
         'Granted Feat'
+    ];
+
+    const DEFAULT_INNATE_ONLY_TYPES = [
+        'Regeneration',
+        'Vampiric Regeneration',
+        'Armor vs Damage type/Race/Alignment',
+        'Enhancement vs Alignment/Race',
+        'Damage vs Alignment/Race/Alignment',
+        'Attack Bonus vs Alignment/Race/Alignment',
+        'Granted Feat'
+    ];
+
+    const DEFAULT_PROPERTY_PARAM_ROWS = [
+        { type: 'Ability', params: { stat: 'str', value: 1 } },
+        { type: 'Armor', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Armor vs Damage type/Race/Alignment', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Enhancement', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Enhancement vs Alignment/Race', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Mighty', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Regeneration', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Skill', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Attack Bonus', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Attack Bonus vs Alignment/Race/Alignment', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Vampiric Regeneration', params: { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' } },
+        { type: 'Specific Saving Throws', params: { saveKind: 'universal' } },
+        { type: 'General Saving Throws', params: { save: 'fort' } },
+        { type: 'Weight Reduction', params: { reduction: 90 } },
+        { type: 'Bonus Spell Slots', params: { casterClass: 'Bard', spellLevel: 1, slots: 1 } },
+        { type: 'Damage', params: { damageType: 'Acid', mode: 'flat2', avgDamage: 2, diceLabel: '+2' } },
+        { type: 'Damage vs Alignment/Race/Alignment', params: { damageType: 'Acid', mode: 'flat2', avgDamage: 2, target: '', diceLabel: '+2' } },
+        { type: 'Massive Criticals', params: { mode: 'flat4', avgDamage: 4, diceLabel: '4' } },
+        { type: 'Damage Immunity', params: { damageType: 'Acid', percent: 5 } },
+        { type: 'Damage Vulnerability', params: { damageType: 'Acid', percent: 5 } },
+        { type: 'Damage Reduction', params: { soak: 5, pierce: 1 } },
+        { type: 'Damage Resist', params: { resist: 5 } },
+        { type: 'Spell Resistance', params: { sr: 10 } },
+        { type: 'Keen', params: { profile: '20' } },
+        { type: 'Granted Feat', params: { featName: '' } }
     ];
 
     const SPELL_SLOT_COSTS = { 1: 1, 2: 2, 3: 3, 4: 6, 5: 8, 6: 10, 7: 14, 8: 16, 9: 18 };
@@ -89,7 +127,7 @@
         { value: 'flat4', label: '4' },
         { value: 'd8', label: '1d8' }
     ];
-    const WEAPON_FOCUS_GROUPS = [
+    const DEFAULT_WEAPON_FOCUS_GROUPS = [
         'Concussion',
         'Two-Handed',
         'Polearm',
@@ -98,7 +136,7 @@
         'Missle',
         'Thrown'
     ];
-    const BASE_WEAPON_DAMAGE_TYPES = [
+    const DEFAULT_BASE_WEAPON_DAMAGE_TYPES = [
         'slashing',
         'bludgeoning',
         'piercing',
@@ -106,33 +144,45 @@
         'bludgeoning-piercing',
         'slashing-bludgeoning'
     ];
-    const ITEM_SPECIAL_KEY_OPTIONS = [
-        'castSpells',
-        'extraMeleeDamageTypes',
-        'extraDamageTypes',
-        'aprConditions',
-        'weightIncrease',
-        'weightReductionText',
-        'arcaneSpellFailure',
-        'allowedBaseTypes',
-        'armorBonusBySubtype',
-        'touchAttack',
-        'ammoNotes',
-        'notes'
+    const DEFAULT_ITEM_SPECIAL_KEY_ROWS = [
+        { key: 'castSpells', valueType: 'array' },
+        { key: 'extraMeleeDamageTypes', valueType: 'array' },
+        { key: 'extraDamageTypes', valueType: 'array' },
+        { key: 'aprConditions', valueType: 'array' },
+        { key: 'weightIncrease', valueType: 'string' },
+        { key: 'weightReductionText', valueType: 'string' },
+        { key: 'arcaneSpellFailure', valueType: 'string' },
+        { key: 'allowedBaseTypes', valueType: 'array' },
+        { key: 'armorBonusBySubtype', valueType: 'object' },
+        { key: 'touchAttack', valueType: 'boolean' },
+        { key: 'ammoNotes', valueType: 'array' },
+        { key: 'notes', valueType: 'array' }
     ];
-    const ITEM_SPECIAL_KEY_TYPES = {
-        castSpells: 'array',
-        extraMeleeDamageTypes: 'array',
-        extraDamageTypes: 'array',
-        aprConditions: 'array',
-        weightIncrease: 'string',
-        weightReductionText: 'string',
-        arcaneSpellFailure: 'string',
-        allowedBaseTypes: 'array',
-        armorBonusBySubtype: 'object',
-        touchAttack: 'boolean',
-        ammoNotes: 'array',
-        notes: 'array'
+
+    const DEFAULT_ITEM_META_DEFAULTS = {
+        craftedTemplateKey: '',
+        baseWeaponChart: '',
+        baseWeaponType: '',
+        finesse: '',
+        focusGroup: '',
+        baseDamage: '',
+        critRange: '',
+        damageType: 'slashing',
+        proficiency: '',
+        concussion: false,
+        oneHandEdged: false,
+        twoHanded: false,
+        polearm: false,
+        unarmed: false,
+        missile: false,
+        thrown: false,
+        ranged: false,
+        baseArmor: 0,
+        classRestriction: '',
+        minClassLevel: 0,
+        raceRestriction: '',
+        umdBypass: 0,
+        loreBypass: 0
     };
     const BASE_WEAPON_DATA = [
         { name: 'Bastard Sword', finesse: 'yes', damage: '1d10', critical: '19-20/x2', damageType: 'slashing', proficiency: 'Exotic, Cavalier', concussion: false, oneHandEdged: true, twoHanded: true, polearm: false, unarmed: false, missile: false, thrown: false },
@@ -208,33 +258,216 @@
     const BASE_WEAPON_LOOKUP = new Map(
         BASE_WEAPON_DATA.map(weapon => [weapon.name.toLowerCase(), weapon])
     );
-    const INNATE_ONLY_TYPES = new Set([
-        'Regeneration',
-        'Vampiric Regeneration',
-        'Armor vs Damage type/Race/Alignment',
-        'Enhancement vs Alignment/Race',
-        'Damage vs Alignment/Race/Alignment',
-        'Attack Bonus vs Alignment/Race/Alignment',
-        'Granted Feat'
-    ]);
-
-    const BUFF_DEFINITIONS = [
-        { name: 'aid', label: 'Aid', modifies: ['attackBonus'], mode: 'flat', value: 1 },
-        { name: 'bless', label: 'Bless', modifies: ['attackBonus'], mode: 'flat', value: 1 },
-        { name: 'true_strike', label: 'True Strike', modifies: ['attackBonus'], mode: 'flat', value: 20 },
-        { name: 'haste', label: 'Haste', modifies: ['extraApr'], mode: 'flat', value: 1 },
-        { name: 'divine_favor', label: 'Divine Favor', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 1, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
-        { name: 'divine_power', label: 'Divine Power', modifies: ['fighterBabOverride', 'damageAbilityOverride', 'hpBonus'], mode: 'flat', value: 0, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
-        { name: 'blood_frenzy', label: 'Blood Frenzy', modifies: ['attackBonus', 'damageBonus', 'willSave', 'refSave', 'dodgeAc'], mode: 'flat', value: 0 },
-        { name: 'battletide', label: 'Battletide', modifies: ['attackBonus', 'damageBonus', 'fortSave', 'refSave', 'willSave'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['war_cry'] },
-        { name: 'war_cry', label: 'War Cry', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['battletide'] },
-        { name: 'bulls_strength', label: "Bull's Strength", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'str', hasSecondCast: true },
-        { name: 'bears_endurance', label: "Bear's Endurance", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'con', hasSecondCast: true },
-        { name: 'eagles_splendor', label: "Eagle's Splendor", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'cha', hasSecondCast: true },
-        { name: 'owls_wisdom', label: "Owl's Wisdom", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'wis', hasSecondCast: true },
-        { name: 'cats_grace', label: "Cat's Grace", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'dex', hasSecondCast: true },
-        { name: 'foxes_cunning', label: "Fox's Cunning", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'int', hasSecondCast: true }
+    const BUFF_DEFINITION_KEYS = [
+        'id',
+        'name',
+        'label',
+        'description',
+        'category',
+        'modifies',
+        'mode',
+        'value',
+        'hasCasterLevel',
+        'minCasterLevel',
+        'maxCasterLevel',
+        'hasSecondCast',
+        'secondCastMode',
+        'secondCastValue',
+        'statBuff',
+        'mutuallyExclusiveWith',
+        'requiresFeat',
+        'requiresClass',
+        'requiresClassLevel',
+        'derivedEffects',
+        'notes',
+        'enabledByDefault',
+        'uiOrder'
     ];
+
+    function createBlankBuffDefinition() {
+        return {
+            id: '',
+            name: '',
+            label: '',
+            description: '',
+            category: '',
+            modifies: [],
+            mode: 'flat',
+            value: 0,
+            hasCasterLevel: false,
+            minCasterLevel: null,
+            maxCasterLevel: null,
+            hasSecondCast: false,
+            secondCastMode: null,
+            secondCastValue: null,
+            statBuff: null,
+            mutuallyExclusiveWith: [],
+            requiresFeat: null,
+            requiresClass: null,
+            requiresClassLevel: null,
+            derivedEffects: [],
+            notes: null,
+            enabledByDefault: false,
+            uiOrder: 0
+        };
+    }
+
+    function normalizeBuffDefinitionRow(rawRow, index = 0) {
+        const raw = rawRow && typeof rawRow === 'object' ? rawRow : {};
+        const normalized = createBlankBuffDefinition();
+        BUFF_DEFINITION_KEYS.forEach(key => {
+            if (Object.prototype.hasOwnProperty.call(raw, key)) {
+                normalized[key] = raw[key];
+            }
+        });
+
+        normalized.id = String(normalized.id || normalized.name || `buff_${index + 1}`).trim().toLowerCase();
+        normalized.name = String(normalized.name || normalized.id || `buff_${index + 1}`).trim().toLowerCase();
+        normalized.label = String(normalized.label || normalized.name || `Buff ${index + 1}`).trim();
+        normalized.description = normalized.description == null ? '' : String(normalized.description).trim();
+        normalized.category = normalized.category == null ? '' : String(normalized.category).trim();
+        normalized.mode = String(normalized.mode || 'flat').trim().toLowerCase() || 'flat';
+        normalized.value = Number.isFinite(Number(normalized.value)) ? Number(normalized.value) : 0;
+        normalized.hasCasterLevel = Boolean(normalized.hasCasterLevel);
+        normalized.minCasterLevel = Number.isFinite(Number(normalized.minCasterLevel)) ? Number(normalized.minCasterLevel) : null;
+        normalized.maxCasterLevel = Number.isFinite(Number(normalized.maxCasterLevel)) ? Number(normalized.maxCasterLevel) : null;
+        normalized.hasSecondCast = Boolean(normalized.hasSecondCast);
+        normalized.secondCastMode = normalized.secondCastMode == null ? null : String(normalized.secondCastMode).trim().toLowerCase();
+        normalized.secondCastValue = Number.isFinite(Number(normalized.secondCastValue)) ? Number(normalized.secondCastValue) : null;
+        normalized.statBuff = normalized.statBuff == null ? null : String(normalized.statBuff).trim().toLowerCase();
+        normalized.requiresFeat = normalized.requiresFeat == null ? null : String(normalized.requiresFeat).trim();
+        normalized.requiresClass = normalized.requiresClass == null ? null : String(normalized.requiresClass).trim();
+        normalized.requiresClassLevel = Number.isFinite(Number(normalized.requiresClassLevel)) ? Number(normalized.requiresClassLevel) : null;
+        normalized.derivedEffects = Array.isArray(normalized.derivedEffects)
+            ? normalized.derivedEffects
+                .filter(effect => effect && typeof effect === 'object')
+                .map((effect, effectIndex) => {
+                    const legacyModifier = Array.isArray(effect.modifies)
+                        ? String(effect.modifies[0] || '').trim()
+                        : '';
+                    const legacy = legacyModifierToDerivedEffectType(legacyModifier);
+                    const explicitType = String(effect.effectType || '').trim();
+                    const explicitTarget = effect.target == null ? '' : String(effect.target).trim().toLowerCase();
+                    return {
+                        id: String(effect.id || `derived_${effectIndex + 1}`).trim().toLowerCase(),
+                        label: String(effect.label || '').trim(),
+                        effectType: (explicitType || legacy.effectType || '').trim(),
+                        target: (explicitTarget || legacy.target || '') || null,
+                        mode: String(effect.mode || 'flat').trim().toLowerCase() || 'flat',
+                        value: Number.isFinite(Number(effect.value)) ? Number(effect.value) : 0,
+                        valueSource: String(effect.valueSource || 'constant').trim(),
+                        minValue: (effect.minValue !== null
+                            && effect.minValue !== undefined
+                            && String(effect.minValue).trim() !== ''
+                            && Number.isFinite(Number(effect.minValue)))
+                            ? Number(effect.minValue)
+                            : null,
+                        maxValue: (effect.maxValue !== null
+                            && effect.maxValue !== undefined
+                            && String(effect.maxValue).trim() !== ''
+                            && Number.isFinite(Number(effect.maxValue)))
+                            ? Number(effect.maxValue)
+                            : null,
+                        notes: effect.notes == null ? null : String(effect.notes).trim()
+                    };
+                })
+            : [];
+        normalized.notes = normalized.notes == null ? null : String(normalized.notes).trim();
+        normalized.enabledByDefault = Boolean(normalized.enabledByDefault);
+        normalized.uiOrder = Number.isFinite(Number(normalized.uiOrder)) ? Number(normalized.uiOrder) : index;
+
+        normalized.modifies = Array.isArray(normalized.modifies)
+            ? normalized.modifies.map(value => String(value || '').trim()).filter(Boolean)
+            : [];
+
+        normalized.mutuallyExclusiveWith = Array.isArray(normalized.mutuallyExclusiveWith)
+            ? normalized.mutuallyExclusiveWith.map(value => String(value || '').trim().toLowerCase()).filter(Boolean)
+            : [];
+
+        return normalized;
+    }
+
+    function toRuntimeBuffDefinition(row, index = 0) {
+        const normalized = normalizeBuffDefinitionRow(row, index);
+        return {
+            name: normalized.name,
+            label: normalized.label,
+            modifies: normalized.modifies,
+            mode: normalized.mode,
+            value: normalized.value,
+            hasCasterLevel: normalized.hasCasterLevel,
+            minCasterLevel: normalized.minCasterLevel == null ? 1 : normalized.minCasterLevel,
+            maxCasterLevel: normalized.maxCasterLevel == null ? 30 : normalized.maxCasterLevel,
+            hasSecondCast: normalized.hasSecondCast,
+            statBuff: normalized.statBuff,
+            mutuallyExclusiveWith: normalized.mutuallyExclusiveWith,
+            derivedEffects: normalized.derivedEffects,
+            enabledByDefault: normalized.enabledByDefault,
+            uiOrder: normalized.uiOrder
+        };
+    }
+
+    function legacyModifierToDerivedEffectType(modifier) {
+        const normalized = String(modifier || '').trim().toLowerCase();
+        if (!normalized) return { effectType: '', target: null };
+        if (normalized === 'fighterbaboverride') return { effectType: 'setBabOverride', target: null };
+        if (normalized === 'strengthminimum' || normalized === 'damageabilityoverride') return { effectType: 'setAbilityMinimum', target: 'str' };
+        if (normalized === 'hitpoints' || normalized === 'hpbonus') return { effectType: 'addHitPoints', target: null };
+        return { effectType: normalized, target: null };
+    }
+
+    function derivedEffectTypeToLegacyModifiers(effectType, target) {
+        const normalizedType = String(effectType || '').trim().toLowerCase();
+        const normalizedTarget = String(target || '').trim().toLowerCase();
+        if (!normalizedType) return [];
+        if (normalizedType === 'setbaboverride') return ['fighterBabOverride'];
+        if (normalizedType === 'setabilityminimum' && normalizedTarget === 'str') return ['strengthMinimum'];
+        if (normalizedType === 'addhitpoints') return ['hitPoints'];
+        return [];
+    }
+
+    function deepCloneJsonValue(value) {
+        if (value === null || value === undefined) return value;
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    function hasRequiredUniformKeys(rows, requiredKeys) {
+        if (!Array.isArray(rows) || rows.length === 0) return false;
+        const expected = Array.isArray(requiredKeys) ? requiredKeys.slice().sort() : [];
+        if (expected.length === 0) return false;
+
+        return rows.every(row => {
+            if (!row || typeof row !== 'object' || Array.isArray(row)) return false;
+            const keys = Object.keys(row).slice().sort();
+            if (keys.length !== expected.length) return false;
+            for (let index = 0; index < expected.length; index += 1) {
+                if (keys[index] !== expected[index]) return false;
+            }
+            return true;
+        });
+    }
+
+    const DEFAULT_BUFF_DEFINITION_ROWS = [
+        { id: 'aid', name: 'aid', label: 'Aid', description: '', category: 'spell', modifies: ['attackBonus'], mode: 'flat', value: 1, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 10 },
+        { id: 'bless', name: 'bless', label: 'Bless', description: '', category: 'spell', modifies: ['attackBonus'], mode: 'flat', value: 1, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 20 },
+        { id: 'true_strike', name: 'true_strike', label: 'True Strike', description: '', category: 'spell', modifies: ['attackBonus'], mode: 'flat', value: 20, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 30 },
+        { id: 'haste', name: 'haste', label: 'Haste', description: '', category: 'spell', modifies: ['extraApr'], mode: 'flat', value: 1, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 40 },
+        { id: 'divine_favor', name: 'divine_favor', label: 'Divine Favor', description: '', category: 'spell', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 1, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 50 },
+        { id: 'divine_power', name: 'divine_power', label: 'Divine Power', description: '', category: 'spell', modifies: [], mode: 'flat', value: 0, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, derivedEffects: [{ id: 'hp', label: 'HP', effectType: 'addHitPoints', target: null, mode: 'flat', value: 0, valueSource: 'casterLevel', minValue: null, maxValue: null, notes: null }, { id: 'str_floor', label: 'STR floor', effectType: 'setAbilityMinimum', target: 'str', mode: 'flat', value: 18, valueSource: 'constant', minValue: null, maxValue: null, notes: null }, { id: 'bab_override', label: 'BAB override', effectType: 'setBabOverride', target: null, mode: 'flat', value: 0, valueSource: 'fighterBabAtLevel', minValue: null, maxValue: null, notes: null }], notes: null, enabledByDefault: false, uiOrder: 60 },
+        { id: 'blood_frenzy', name: 'blood_frenzy', label: 'Blood Frenzy', description: '', category: 'spell', modifies: ['attackBonus', 'damageBonus', 'willSave', 'refSave', 'dodgeAc'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 70 },
+        { id: 'battletide', name: 'battletide', label: 'Battletide', description: '', category: 'spell', modifies: ['attackBonus', 'damageBonus', 'fortSave', 'refSave', 'willSave'], mode: 'flat', value: 2, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: ['war_cry'], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 80 },
+        { id: 'war_cry', name: 'war_cry', label: 'War Cry', description: '', category: 'spell', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 2, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: ['battletide'], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 90 },
+        { id: 'bulls_strength', name: 'bulls_strength', label: "Bull's Strength", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'str', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 100 },
+        { id: 'bears_endurance', name: 'bears_endurance', label: "Bear's Endurance", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'con', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 110 },
+        { id: 'eagles_splendor', name: 'eagles_splendor', label: "Eagle's Splendor", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'cha', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 120 },
+        { id: 'owls_wisdom', name: 'owls_wisdom', label: "Owl's Wisdom", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'wis', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 130 },
+        { id: 'cats_grace', name: 'cats_grace', label: "Cat's Grace", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'dex', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 140 },
+        { id: 'foxes_cunning', name: 'foxes_cunning', label: "Fox's Cunning", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'int', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 150 }
+    ];
+
+    let BUFF_DEFINITIONS = DEFAULT_BUFF_DEFINITION_ROWS
+        .map((row, index) => toRuntimeBuffDefinition(row, index))
+        .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
 
     const ZOO_SPELL_BUFF_NAMES = new Set([
         'bulls_strength',
@@ -245,96 +478,215 @@
         'foxes_cunning'
     ]);
 
-    const CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS = [
-        {
-            key: 'arcaneArcherArrowEnchant',
-            label: 'Arcane Archer: Arrow Enchant AB',
-            sourceLabel: 'Arcane Archer arrow enchant',
-            className: 'Arcane archer',
-            extraNameCandidates: ['arrow enchant', 'arrowenchant'],
-            defaultEnabled: false
-        },
-        {
-            key: 'weaponMasterAbBonus',
-            label: 'Weapon Master: AB Bonus',
-            sourceLabel: 'Weapon Master AB Bonus',
-            className: 'Weapon master',
-            extraNameCandidates: ['ab bonus', 'attack bonus'],
-            defaultEnabled: false
-        },
-        {
-            key: 'cavalierMountedChargeAb',
-            label: 'Cavalier: Mounted Charge AB',
-            sourceLabel: 'Cavalier mounted charge AB',
-            className: 'Cavalier',
-            extraNameCandidates: ['mounted charge ab', 'mounted charge'],
-            defaultEnabled: false
-        },
-        {
-            key: 'cavalierOnFootChargeAb',
-            label: 'Cavalier: On-foot Charge AB',
-            sourceLabel: 'Cavalier on-foot charge AB',
-            className: 'Cavalier',
-            extraNameCandidates: ['on-foot charge ab', 'on foot charge ab', 'on-foot charge', 'on foot charge'],
-            defaultEnabled: false
-        },
-        {
-            key: 'spellswordWeaveAffinity',
-            label: 'Spellsword: Weave Affinity',
-            sourceLabel: 'Spellsword weave affinity',
-            className: 'Spellsword',
-            defaultEnabled: false,
-            special: 'spellswordWeaveAffinity'
-        },
-        {
-            key: 'unholyAccuracy',
-            label: 'Unholy Accuracy (feat)',
-            sourceLabel: 'Unholy Accuracy',
-            className: 'Blackguard',
-            defaultEnabled: false,
-            special: 'unholyAccuracy'
-        },
-        {
-            key: 'corruptWeapon',
-            label: 'Corrupt Weapon (Blackguard)',
-            sourceLabel: 'Corrupt Weapon',
-            className: 'Blackguard',
-            defaultEnabled: false,
-            special: 'corruptWeapon'
-        },
-        {
-            key: 'divineSmite',
-            label: 'Divine Smite (feat)',
-            sourceLabel: 'Divine Smite',
-            className: 'Paladin',
-            defaultEnabled: false,
-            special: 'divineSmite'
-        }
+    const CLASS_ATTACK_RULE_KEYS = [
+        'id',
+        'name',
+        'key',
+        'label',
+        'description',
+        'sourceLabel',
+        'className',
+        'extraNameCandidates',
+        'defaultEnabled',
+        'behaviorType',
+        'behaviorConfig',
+        'special',
+        'notes',
+        'uiOrder'
     ];
+
+    function createBlankClassAttackRuleDefinition() {
+        return {
+            id: '',
+            name: '',
+            key: '',
+            label: '',
+            description: '',
+            sourceLabel: '',
+            className: '',
+            extraNameCandidates: [],
+            defaultEnabled: false,
+            behaviorType: null,
+            behaviorConfig: {},
+            special: null,
+            notes: null,
+            uiOrder: 0
+        };
+    }
+
+    function normalizeClassAttackRuleRow(rawRow, index = 0) {
+        const raw = rawRow && typeof rawRow === 'object' ? rawRow : {};
+        const normalized = createBlankClassAttackRuleDefinition();
+        CLASS_ATTACK_RULE_KEYS.forEach(key => {
+            if (Object.prototype.hasOwnProperty.call(raw, key)) {
+                normalized[key] = raw[key];
+            }
+        });
+
+        normalized.id = String(normalized.id || normalized.name || normalized.key || `class_attack_rule_${index + 1}`).trim().toLowerCase();
+        normalized.name = String(normalized.name || normalized.id || `class_attack_rule_${index + 1}`).trim().toLowerCase();
+        normalized.key = String(normalized.key || normalized.name || normalized.id || `classAttackRule${index + 1}`).trim();
+        normalized.label = String(normalized.label || normalized.key || `Class Rule ${index + 1}`).trim();
+        normalized.description = normalized.description == null ? '' : String(normalized.description).trim();
+        normalized.sourceLabel = String(normalized.sourceLabel || normalized.label || normalized.key).trim();
+        normalized.className = String(normalized.className || '').trim();
+        normalized.extraNameCandidates = Array.isArray(normalized.extraNameCandidates)
+            ? normalized.extraNameCandidates.map(value => String(value || '').trim()).filter(Boolean)
+            : [];
+        normalized.defaultEnabled = Boolean(normalized.defaultEnabled);
+        normalized.behaviorType = String(normalized.behaviorType || '').trim() || null;
+        normalized.behaviorConfig = normalized.behaviorConfig && typeof normalized.behaviorConfig === 'object' && !Array.isArray(normalized.behaviorConfig)
+            ? normalized.behaviorConfig
+            : {};
+        normalized.special = normalized.special == null ? null : String(normalized.special).trim();
+        normalized.notes = normalized.notes == null ? null : String(normalized.notes).trim();
+        normalized.uiOrder = Number.isFinite(Number(normalized.uiOrder)) ? Number(normalized.uiOrder) : index;
+
+        return normalized;
+    }
+
+    function toRuntimeClassAttackRuleDefinition(row, index = 0) {
+        const normalized = normalizeClassAttackRuleRow(row, index);
+        return {
+            key: normalized.key,
+            label: normalized.label,
+            sourceLabel: normalized.sourceLabel,
+            className: normalized.className,
+            extraNameCandidates: normalized.extraNameCandidates,
+            defaultEnabled: normalized.defaultEnabled,
+            behaviorType: normalized.behaviorType,
+            behaviorConfig: normalized.behaviorConfig,
+            special: normalized.special,
+            uiOrder: normalized.uiOrder
+        };
+    }
+
+    const DEFAULT_CLASS_ATTACK_RULE_ROWS = [
+        { id: 'arcane_archer_arrow_enchant', name: 'arcane_archer_arrow_enchant', key: 'arcaneArcherArrowEnchant', label: 'Arcane Archer: Arrow Enchant AB', description: '', sourceLabel: 'Arcane Archer arrow enchant', className: 'Arcane archer', extraNameCandidates: ['arrow enchant', 'arrowenchant'], defaultEnabled: false, special: null, notes: null, uiOrder: 10 },
+        { id: 'weapon_master_ab_bonus', name: 'weapon_master_ab_bonus', key: 'weaponMasterAbBonus', label: 'Weapon Master: AB Bonus', description: '', sourceLabel: 'Weapon Master AB Bonus', className: 'Weapon master', extraNameCandidates: ['ab bonus', 'attack bonus'], defaultEnabled: false, special: null, notes: null, uiOrder: 20 },
+        { id: 'cavalier_mounted_charge_ab', name: 'cavalier_mounted_charge_ab', key: 'cavalierMountedChargeAb', label: 'Cavalier: Mounted Charge AB', description: '', sourceLabel: 'Cavalier mounted charge AB', className: 'Cavalier', extraNameCandidates: ['mounted charge ab', 'mounted charge'], defaultEnabled: false, special: null, notes: null, uiOrder: 30 },
+        { id: 'cavalier_on_foot_charge_ab', name: 'cavalier_on_foot_charge_ab', key: 'cavalierOnFootChargeAb', label: 'Cavalier: On-foot Charge AB', description: '', sourceLabel: 'Cavalier on-foot charge AB', className: 'Cavalier', extraNameCandidates: ['on-foot charge ab', 'on foot charge ab', 'on-foot charge', 'on foot charge'], defaultEnabled: false, special: null, notes: null, uiOrder: 40 },
+        { id: 'spellsword_weave_affinity', name: 'spellsword_weave_affinity', key: 'spellswordWeaveAffinity', label: 'Spellsword: Weave Affinity', description: '', sourceLabel: 'Spellsword weave affinity', className: 'Spellsword', extraNameCandidates: [], defaultEnabled: false, special: 'spellswordWeaveAffinity', notes: null, uiOrder: 50 },
+        { id: 'unholy_accuracy', name: 'unholy_accuracy', key: 'unholyAccuracy', label: 'Unholy Accuracy (feat)', description: '', sourceLabel: 'Unholy Accuracy', className: 'Blackguard', extraNameCandidates: [], defaultEnabled: false, special: 'unholyAccuracy', notes: null, uiOrder: 60 },
+        { id: 'corrupt_weapon', name: 'corrupt_weapon', key: 'corruptWeapon', label: 'Corrupt Weapon (Blackguard)', description: '', sourceLabel: 'Corrupt Weapon', className: 'Blackguard', extraNameCandidates: [], defaultEnabled: false, special: 'corruptWeapon', notes: null, uiOrder: 70 },
+        { id: 'divine_smite', name: 'divine_smite', key: 'divineSmite', label: 'Divine Smite (feat)', description: '', sourceLabel: 'Divine Smite', className: 'Paladin', extraNameCandidates: [], defaultEnabled: false, special: 'divineSmite', notes: null, uiOrder: 80 }
+    ];
+
+    let CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS = DEFAULT_CLASS_ATTACK_RULE_ROWS
+        .map((row, index) => toRuntimeClassAttackRuleDefinition(row, index))
+        .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
 
     const SPELLSWORD_PRIMARY_ATTRIBUTE_OPTIONS = [
         { value: 'str', label: 'Strength Primary' },
         { value: 'dex', label: 'Dexterity Primary' }
     ];
 
-    const SONG_SKILL_LABEL_ALIASES = {
-        'perf bluff': ['perform', 'bluff'],
-        'spot listen': ['spot', 'listen'],
-        'appraise lore': ['appraise', 'lore'],
-        'hide ms': ['hide', 'move silently'],
-        'open lock disarm trap slght of hand listen search hide ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
-        'concen lisn': ['concentration', 'listen'],
-        'perf & bluff': ['perform', 'bluff'],
-        'spot+listen': ['spot', 'listen'],
-        'appraise & lore': ['appraise', 'lore'],
-        'hide & ms': ['hide', 'move silently'],
-        'open lock disarm trap slght of hand listen search hide & ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
-        'open lock disarm trap slght of hand listen search hide and ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
-        'concen+lisn': ['concentration', 'listen'],
-        'esf perform search bonus': ['search'],
-        'esf perform riding': ['ride'],
-        'open lock disarm trap slght of hand listen search hide & ms ': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently']
-    };
+    const SONG_RULE_SKILL_ALIAS_KEYS = ['id', 'name', 'key', 'values', 'notes', 'uiOrder'];
+    const SONG_RULE_CONDITIONAL_TARGET_KEYS = ['id', 'name', 'key', 'target', 'notes', 'uiOrder'];
+    const SONG_RULE_LABEL_GROUP_KEYS = ['id', 'name', 'groupKey', 'label', 'notes', 'uiOrder'];
+    const SONG_RULE_TOKEN_KEYS = ['id', 'name', 'groupKey', 'token', 'notes', 'uiOrder'];
+    const ITEM_ENHANCEMENT_PROPERTY_TYPE_KEYS = ['type'];
+    const ITEM_ENHANCEMENT_INNATE_TYPE_KEYS = ['type'];
+    const ITEM_ENHANCEMENT_DEFAULT_PARAM_KEYS = ['type', 'params'];
+    const ITEM_META_SPECIAL_KEY_KEYS = ['key', 'valueType'];
+    const ITEM_META_VALUE_ROW_KEYS = ['value'];
+
+    const DEFAULT_SONG_SKILL_ALIAS_ROWS = [];
+
+    const DEFAULT_SONG_CONDITIONAL_TARGET_ROWS = [];
+
+    const DEFAULT_SONG_LABEL_GROUP_ROWS = [];
+
+    const DEFAULT_SONG_TOKEN_ROWS = [];
+
+    function buildSongSkillAliasMap(rows) {
+        const map = {};
+        const sorted = Array.isArray(rows)
+            ? rows.slice().sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0))
+            : [];
+        sorted.forEach(row => {
+            const key = normalizeSongNameKey(row && row.key);
+            const values = Array.isArray(row && row.values)
+                ? row.values.map(value => String(value || '').trim().toLowerCase()).filter(Boolean)
+                : [];
+            if (!key || values.length === 0) return;
+            map[key] = values;
+        });
+        return map;
+    }
+
+    function buildSongConditionalTargetMap(rows) {
+        const map = {};
+        const sorted = Array.isArray(rows)
+            ? rows.slice().sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0))
+            : [];
+        sorted.forEach(row => {
+            const key = normalizeSongNameKey(row && row.key);
+            const target = String(row && row.target || '').trim();
+            if (!key || !target) return;
+            map[key] = target;
+        });
+        return map;
+    }
+
+    function createEmptySongLabelGroups() {
+        return {
+            universalSaveLabels: new Set(),
+            multiSaveLabels: new Set(),
+            dodgeLabels: new Set(),
+            directDamageLabels: new Set(),
+            singleSkillLabels: new Set(),
+            allSkillsLabels: new Set()
+        };
+    }
+
+    function createEmptySongTokenGroups() {
+        return {
+            conditionalAttackPrefixes: [],
+            conditionalAcPrefixes: [],
+            conditionalDodgePrefixes: [],
+            directDamageIncludeTokens: [],
+            directDamageExcludeTokens: [],
+            unmappedIgnoreTokens: []
+        };
+    }
+
+    function buildSongLabelGroups(rows) {
+        const groups = createEmptySongLabelGroups();
+        const sorted = Array.isArray(rows)
+            ? rows.slice().sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0))
+            : [];
+
+        sorted.forEach(row => {
+            const groupKey = String(row && row.groupKey || '').trim();
+            const label = normalizeSongNameKey(row && row.label);
+            if (!groupKey || !label || !(groups[groupKey] instanceof Set)) return;
+            groups[groupKey].add(label);
+        });
+
+        return groups;
+    }
+
+    function buildSongTokenGroups(rows) {
+        const groups = createEmptySongTokenGroups();
+        const sorted = Array.isArray(rows)
+            ? rows.slice().sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0))
+            : [];
+
+        sorted.forEach(row => {
+            const groupKey = String(row && row.groupKey || '').trim();
+            const token = String(row && row.token || '').trim().toLowerCase();
+            if (!groupKey || !token || !Array.isArray(groups[groupKey])) return;
+            groups[groupKey].push(token);
+        });
+
+        return groups;
+    }
+
+    let SONG_SKILL_LABEL_ALIASES = buildSongSkillAliasMap(DEFAULT_SONG_SKILL_ALIAS_ROWS);
+    let SONG_CONDITIONAL_TARGET_MAP = buildSongConditionalTargetMap(DEFAULT_SONG_CONDITIONAL_TARGET_ROWS);
+    let SONG_LABEL_GROUPS = buildSongLabelGroups(DEFAULT_SONG_LABEL_GROUP_ROWS);
+    let SONG_TOKEN_GROUPS = buildSongTokenGroups(DEFAULT_SONG_TOKEN_ROWS);
 
     const SONG_TARGET_TOGGLE_DEFS = [];
 
@@ -378,10 +730,43 @@
         }, {});
     }
 
+    function getClassRuleOptionDefinitions() {
+        const optionDefs = [];
+        const seen = new Set();
+
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+            const config = def && def.behaviorConfig && typeof def.behaviorConfig === 'object'
+                ? def.behaviorConfig
+                : null;
+            const option = config && config.option && typeof config.option === 'object'
+                ? config.option
+                : null;
+            if (!option) return;
+
+            const key = String(option.key || '').trim();
+            if (!key || seen.has(key)) return;
+            seen.add(key);
+
+            const values = Array.isArray(option.values)
+                ? option.values
+                    .map(value => String(value || '').trim().toLowerCase())
+                    .filter(Boolean)
+                : [];
+            if (!values.length) return;
+
+            const defaultValue = String(option.defaultValue || values[0]).trim().toLowerCase();
+            optionDefs.push({ key, values, defaultValue: values.includes(defaultValue) ? defaultValue : values[0] });
+        });
+
+        return optionDefs;
+    }
+
     function createDefaultClassBonusOptions() {
-        return {
-            spellswordPrimaryAttribute: 'str'
-        };
+        const defaults = {};
+        getClassRuleOptionDefinitions().forEach(def => {
+            defaults[def.key] = def.defaultValue;
+        });
+        return defaults;
     }
 
     function createDefaultLazyProxyState() {
@@ -454,14 +839,17 @@
             return;
         }
 
-        if (!Object.prototype.hasOwnProperty.call(state.classBonusOptions, 'spellswordPrimaryAttribute')) {
-            state.classBonusOptions.spellswordPrimaryAttribute = 'str';
-        }
+        getClassRuleOptionDefinitions().forEach(def => {
+            if (!Object.prototype.hasOwnProperty.call(state.classBonusOptions, def.key)) {
+                state.classBonusOptions[def.key] = def.defaultValue;
+                return;
+            }
 
-        const selected = String(state.classBonusOptions.spellswordPrimaryAttribute || '').toLowerCase();
-        if (selected !== 'str' && selected !== 'dex') {
-            state.classBonusOptions.spellswordPrimaryAttribute = 'str';
-        }
+            const selected = String(state.classBonusOptions[def.key] || '').trim().toLowerCase();
+            state.classBonusOptions[def.key] = def.values.includes(selected)
+                ? selected
+                : def.defaultValue;
+        });
     }
 
     function normalizeBaseDamageType(rawType) {
@@ -580,6 +968,7 @@
     let craftedTemplatesLoaded = false;
     let pendingGearRefresh = false;
     let softErrorSlotKeys = new Set();
+    let lastCombatDebugSnapshot = null;
 
     let rootEls = null;
 
@@ -666,31 +1055,7 @@
     }
 
     function getDefaultItemMeta() {
-        return {
-            craftedTemplateKey: '',
-            baseWeaponChart: '',
-            baseWeaponType: '',
-            finesse: '',
-            focusGroup: '',
-            baseDamage: '',
-            critRange: '',
-            damageType: 'slashing',
-            proficiency: '',
-            concussion: false,
-            oneHandEdged: false,
-            twoHanded: false,
-            polearm: false,
-            unarmed: false,
-            missile: false,
-            thrown: false,
-            ranged: false,
-            baseArmor: 0,
-            classRestriction: '',
-            minClassLevel: 0,
-            raceRestriction: '',
-            umdBypass: 0,
-            loreBypass: 0
-        };
+        return deepCloneJsonValue(ITEM_META_DEFAULTS);
     }
 
     function buildCraftedTemplateLabel(template) {
@@ -794,9 +1159,698 @@
 
     async function loadBardSongTables() {
         const candidates = [
-            '../Parsed/bardSongTables.json',
-            '/Parsed/bardSongTables.json',
-            './Parsed/bardSongTables.json'
+            './combatData/songData.json',
+            '/CharacterCalculator/combatData/songData.json',
+            '/combatData/songData.json'
+        ];
+
+        const errors = [];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) {
+                    errors.push(`${url}: ${response.status} ${response.statusText}`);
+                    continue;
+                }
+                const json = await response.json();
+                if (json && json.bardSongTable && json.bardSongTable.songsByName) {
+                    state.songData = json;
+                    return;
+                }
+                errors.push(`${url}: missing bardSongTable.songsByName`);
+            } catch {
+                errors.push(`${url}: fetch/parse failure`);
+                continue;
+            }
+        }
+
+        state.songData = null;
+        throw new Error(`Unable to load required song data from combatData/songData.json. ${errors.join(' | ')}`);
+    }
+
+    async function loadSongRuleDefinitions() {
+        const candidates = [
+            './combatData/songRules.json',
+            '/CharacterCalculator/combatData/songRules.json',
+            '/combatData/songRules.json'
+        ];
+
+        const errors = [];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) continue;
+
+                const json = await response.json();
+                const skillAliasRows = json && Array.isArray(json.skillAliasRows) ? json.skillAliasRows : [];
+                const conditionalTargetRows = json && Array.isArray(json.conditionalTargetRows) ? json.conditionalTargetRows : [];
+                const labelGroupRows = json && Array.isArray(json.labelGroupRows) ? json.labelGroupRows : [];
+                const tokenRows = json && Array.isArray(json.tokenRows) ? json.tokenRows : [];
+                if (!skillAliasRows.length || !conditionalTargetRows.length || !labelGroupRows.length || !tokenRows.length) {
+                    errors.push(`${url}: missing required song rule arrays`);
+                    continue;
+                }
+
+                if (!hasRequiredUniformKeys(skillAliasRows, SONG_RULE_SKILL_ALIAS_KEYS)) {
+                    plannerDebugLog('Rejected song rules: non-uniform skillAliasRows keys', { url, expectedKeys: SONG_RULE_SKILL_ALIAS_KEYS });
+                    errors.push(`${url}: non-uniform skillAliasRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(conditionalTargetRows, SONG_RULE_CONDITIONAL_TARGET_KEYS)) {
+                    plannerDebugLog('Rejected song rules: non-uniform conditionalTargetRows keys', { url, expectedKeys: SONG_RULE_CONDITIONAL_TARGET_KEYS });
+                    errors.push(`${url}: non-uniform conditionalTargetRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(labelGroupRows, SONG_RULE_LABEL_GROUP_KEYS)) {
+                    plannerDebugLog('Rejected song rules: non-uniform labelGroupRows keys', { url, expectedKeys: SONG_RULE_LABEL_GROUP_KEYS });
+                    errors.push(`${url}: non-uniform labelGroupRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(tokenRows, SONG_RULE_TOKEN_KEYS)) {
+                    plannerDebugLog('Rejected song rules: non-uniform tokenRows keys', { url, expectedKeys: SONG_RULE_TOKEN_KEYS });
+                    errors.push(`${url}: non-uniform tokenRows keys`);
+                    continue;
+                }
+
+                SONG_SKILL_LABEL_ALIASES = buildSongSkillAliasMap(skillAliasRows);
+                SONG_CONDITIONAL_TARGET_MAP = buildSongConditionalTargetMap(conditionalTargetRows);
+                SONG_LABEL_GROUPS = buildSongLabelGroups(labelGroupRows);
+                SONG_TOKEN_GROUPS = buildSongTokenGroups(tokenRows);
+
+                plannerDebugLog('Loaded song interpretation rules from JSON', {
+                    url,
+                    skillAliases: Object.keys(SONG_SKILL_LABEL_ALIASES).length,
+                    conditionalTargets: Object.keys(SONG_CONDITIONAL_TARGET_MAP).length,
+                    labelGroupCounts: {
+                        universalSaveLabels: SONG_LABEL_GROUPS.universalSaveLabels.size,
+                        multiSaveLabels: SONG_LABEL_GROUPS.multiSaveLabels.size,
+                        dodgeLabels: SONG_LABEL_GROUPS.dodgeLabels.size,
+                        directDamageLabels: SONG_LABEL_GROUPS.directDamageLabels.size
+                    },
+                    tokenGroupCounts: Object.fromEntries(Object.entries(SONG_TOKEN_GROUPS).map(([key, value]) => [key, Array.isArray(value) ? value.length : 0]))
+                });
+                return;
+            } catch {
+                errors.push(`${url}: fetch/parse failure`);
+                continue;
+            }
+        }
+
+        SONG_SKILL_LABEL_ALIASES = {};
+        SONG_CONDITIONAL_TARGET_MAP = {};
+        SONG_LABEL_GROUPS = createEmptySongLabelGroups();
+        SONG_TOKEN_GROUPS = createEmptySongTokenGroups();
+        throw new Error(`Unable to load required song interpretation rules from combatData/songRules.json. ${errors.join(' | ')}`);
+    }
+
+    function normalizeItemEnhancementTypeRows(rows) {
+        return rows
+            .map(row => String(row && row.type || '').trim())
+            .filter(Boolean);
+    }
+
+    function normalizeItemEnhancementDefaultParamRows(rows) {
+        const map = new Map();
+        rows.forEach(row => {
+            const type = String(row && row.type || '').trim();
+            const params = row && typeof row.params === 'object' && !Array.isArray(row.params)
+                ? deepCloneJsonValue(row.params)
+                : {};
+            if (!type) return;
+            map.set(type, params);
+        });
+        return map;
+    }
+
+    function normalizeItemEnhancementTypeConfigs(rawConfigs) {
+        const map = new Map();
+        if (!rawConfigs || typeof rawConfigs !== 'object' || Array.isArray(rawConfigs)) return map;
+
+        Object.entries(rawConfigs).forEach(([typeName, config]) => {
+            const type = String(typeName || '').trim();
+            if (!type || !config || typeof config !== 'object' || Array.isArray(config)) return;
+            const fields = Array.isArray(config.fields)
+                ? config.fields
+                    .filter(field => field && typeof field === 'object' && !Array.isArray(field))
+                    .map(field => ({
+                        key: String(field.key || '').trim(),
+                        label: String(field.label || field.key || '').trim(),
+                        control: String(field.control || 'number').trim().toLowerCase(),
+                        optionSource: String(field.optionSource || '').trim(),
+                        options: Array.isArray(field.options) ? deepCloneJsonValue(field.options) : [],
+                        min: field.min,
+                        max: field.max,
+                        step: field.step,
+                        defaultValue: field.defaultValue,
+                        placeholder: field.placeholder == null ? '' : String(field.placeholder),
+                        uiOrder: Number.isFinite(Number(field.uiOrder)) ? Number(field.uiOrder) : 0
+                    }))
+                    .filter(field => field.key)
+                : [];
+            const behaviorOps = Array.isArray(config.behaviorOps)
+                ? deepCloneJsonValue(config.behaviorOps).filter(op => op && typeof op === 'object' && !Array.isArray(op))
+                : [];
+            const moteRule = config.moteRule && typeof config.moteRule === 'object' && !Array.isArray(config.moteRule)
+                ? deepCloneJsonValue(config.moteRule)
+                : null;
+
+            map.set(type, {
+                fields,
+                behaviorOps,
+                moteRule
+            });
+        });
+
+        return map;
+    }
+
+    function getItemEnhancementTypeConfig(type) {
+        const key = String(type || '').trim();
+        if (!key) return null;
+        return ITEM_ENHANCEMENT_TYPE_CONFIGS.get(key) || null;
+    }
+
+    function resolveEnhancementBehaviorNumericValue(op, params) {
+        const p = params && typeof params === 'object' ? params : {};
+        if (op && op.valueFrom != null) {
+            const fieldKey = String(op.valueFrom);
+            const rawValue = Number(p[fieldKey]);
+            if (!Number.isFinite(rawValue)) {
+                if (op.nonInnateValue !== undefined && op.nonInnateValue !== null) {
+                    return Number(op.nonInnateValue) || 0;
+                }
+                return 0;
+            }
+            return rawValue;
+        }
+        return Number(op && op.value) || 0;
+    }
+
+    function applyEnhancementBehaviorTemplate(rawTemplate, params) {
+        const template = String(rawTemplate || '');
+        const p = params && typeof params === 'object' ? params : {};
+        return template.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_match, key) => {
+            const value = p[key];
+            return value === undefined || value === null ? '' : String(value);
+        }).trim();
+    }
+
+    function applyExternalEnhancementBehavior(property, effects, sourcePrefix, slotKey) {
+        const config = getItemEnhancementTypeConfig(property && property.type);
+        if (!config) return false;
+        if (!Array.isArray(config.behaviorOps) || config.behaviorOps.length === 0) return true;
+
+        const params = property && property.params && typeof property.params === 'object' ? property.params : {};
+        let appliedAny = false;
+
+        config.behaviorOps.forEach(op => {
+            const opType = String(op && op.op || '').trim();
+            if (!opType) return;
+
+            if (opType === 'addToEffect') {
+                const effectKey = String(op.effectKey || '').trim();
+                if (!effectKey || !Object.prototype.hasOwnProperty.call(effects, effectKey)) return;
+                let addValue = resolveEnhancementBehaviorNumericValue(op, params);
+                if (!Number.isFinite(addValue)) return;
+                if (op.nonInnateMax !== undefined && op.nonInnateMax !== null && !(property && property.innate)) {
+                    const cap = Number(op.nonInnateMax);
+                    if (Number.isFinite(cap)) {
+                        addValue = Math.min(cap, Math.max(0, addValue));
+                    }
+                }
+                const mode = String(op.mode || 'add').trim().toLowerCase();
+                if (mode === 'max') {
+                    effects[effectKey] = Math.max(Number(effects[effectKey]) || 0, addValue);
+                } else {
+                    effects[effectKey] += addValue;
+                }
+
+                if (effectKey === 'directAttackBonus' && effects.sourceDetails && Array.isArray(effects.sourceDetails.directAttack)) {
+                    effects.sourceDetails.directAttack.push({ label: sourcePrefix, value: addValue });
+                }
+                if (effectKey === 'damageBonus' && effects.sourceDetails && Array.isArray(effects.sourceDetails.damageBonus)) {
+                    effects.sourceDetails.damageBonus.push({ label: sourcePrefix, value: addValue });
+                }
+                if (effectKey === 'maxSpellResistance' && effects.sourceDetails && Array.isArray(effects.sourceDetails.spellResistance)) {
+                    effects.sourceDetails.spellResistance.push({ label: sourcePrefix, value: addValue });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addSoftStat') {
+                const statField = String(op.statField || 'stat').trim();
+                const valueField = String(op.valueField || 'value').trim();
+                const stat = String(params[statField] || '').trim().toLowerCase();
+                const fallback = Number(op.defaultValue);
+                const value = (params[valueField] !== undefined && params[valueField] !== null && params[valueField] !== '')
+                    ? (Number(params[valueField]) || 0)
+                    : (Number.isFinite(fallback) ? fallback : 0);
+                if (!stat || !Object.prototype.hasOwnProperty.call(effects.softStats, stat)) return;
+                effects.softStats[stat] += value;
+                if (effects.sourceDetails && effects.sourceDetails.softStats && Array.isArray(effects.sourceDetails.softStats[stat])) {
+                    effects.sourceDetails.softStats[stat].push({ label: sourcePrefix, value });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addAcBySlotOrParam') {
+                const valueField = String(op.valueField || 'value').trim();
+                const typeField = String(op.bucketField || 'armorType').trim();
+                const amount = Math.max(0, Number(params[valueField]) || 0);
+                const overrideType = (property && property.innate && params[typeField]) ? normalizeAcBucket(params[typeField]) : null;
+                const bucket = overrideType || getArmorTypeForSlot(slotKey);
+                const resolvedBucket = bucket || 'armor';
+                if (!Array.isArray(effects.acBuckets[resolvedBucket])) return;
+                effects.acBuckets[resolvedBucket].push(amount);
+                if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets[resolvedBucket])) {
+                    effects.sourceDetails.acBuckets[resolvedBucket].push({
+                        label: `${sourcePrefix}${overrideType ? ` (${resolvedBucket})` : ''}`,
+                        value: amount
+                    });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addEnhancementBySlotCategory') {
+                const valueField = String(op.valueField || 'value').trim();
+                const resolvedSlotKey = String(slotKey || '').trim();
+                const amount = Math.max(0, Number(params[valueField]) || 0);
+                if (getSlotCategory(resolvedSlotKey) === 'weapon') {
+                    effects.enhancementAttackBonus += amount;
+                    effects.damageBonus += amount;
+                    if (effects.sourceDetails) {
+                        if (Array.isArray(effects.sourceDetails.enhancementAttack)) {
+                            effects.sourceDetails.enhancementAttack.push({ label: sourcePrefix, value: amount });
+                        }
+                        if (Array.isArray(effects.sourceDetails.damageBonus)) {
+                            effects.sourceDetails.damageBonus.push({ label: `${sourcePrefix} (weapon enhancement)`, value: amount });
+                        }
+                    }
+                } else {
+                    const bucket = getArmorTypeForSlot(resolvedSlotKey);
+                    if (Array.isArray(effects.acBuckets[bucket])) {
+                        effects.acBuckets[bucket].push(amount);
+                    }
+                    if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets[bucket])) {
+                        effects.sourceDetails.acBuckets[bucket].push({ label: sourcePrefix, value: amount });
+                    }
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addDamageFromParams') {
+                const avgDamage = getAverageDamageFromParams(params);
+                effects.damageBonus += avgDamage;
+                addDamageAddToSummary(effects.damageAdds, params);
+                if (effects.sourceDetails && Array.isArray(effects.sourceDetails.damageBonus)) {
+                    effects.sourceDetails.damageBonus.push({
+                        label: `${sourcePrefix} (${String(params.damageType || 'untyped')})`,
+                        value: avgDamage
+                    });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addCritDamageFromParams') {
+                const avgCrit = getMassiveCriticalAverageFromParams(params);
+                effects.critDamageBonus += avgCrit;
+                if (effects.sourceDetails && Array.isArray(effects.sourceDetails.critDamageBonus)) {
+                    effects.sourceDetails.critDamageBonus.push({ label: sourcePrefix, value: avgCrit });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addGeneralSaveFromParams') {
+                const saveField = String(op.saveField || 'save').trim();
+                const valueField = String(op.valueField || 'value').trim();
+                const save = String(params[saveField] || 'fort').trim();
+                const amount = (property && property.innate)
+                    ? Math.max(0, Number(params[valueField]) || 0)
+                    : Math.max(0, Number(op.nonInnateValue) || 1);
+                if (!Object.prototype.hasOwnProperty.call(effects.saveBonus, save)) return;
+                effects.saveBonus[save] += amount;
+                if (effects.sourceDetails && effects.sourceDetails.saveBonus && Array.isArray(effects.sourceDetails.saveBonus[save])) {
+                    effects.sourceDetails.saveBonus[save].push({ label: sourcePrefix, value: amount });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addSpecificSaveFromParams') {
+                const kindField = String(op.kindField || 'saveKind').trim();
+                const valueField = String(op.valueField || 'value').trim();
+                const kind = String(params[kindField] || 'universal').trim().toLowerCase();
+                const amount = (property && property.innate)
+                    ? Math.max(0, Number(params[valueField]) || 0)
+                    : Math.max(0, Number(op.nonInnateValue) || 1);
+                if (kind === 'universal') {
+                    effects.saveBonus.fort += amount;
+                    effects.saveBonus.ref += amount;
+                    effects.saveBonus.will += amount;
+                    if (effects.sourceDetails && effects.sourceDetails.saveBonus) {
+                        if (Array.isArray(effects.sourceDetails.saveBonus.fort)) effects.sourceDetails.saveBonus.fort.push({ label: `${sourcePrefix} (universal)`, value: amount });
+                        if (Array.isArray(effects.sourceDetails.saveBonus.ref)) effects.sourceDetails.saveBonus.ref.push({ label: `${sourcePrefix} (universal)`, value: amount });
+                        if (Array.isArray(effects.sourceDetails.saveBonus.will)) effects.sourceDetails.saveBonus.will.push({ label: `${sourcePrefix} (universal)`, value: amount });
+                    }
+                } else {
+                    effects.situational.push(`${property.type} ${kind} +${amount}`);
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addSkillBonus') {
+                const skillField = String(op.skillField || 'skill').trim();
+                const valueField = String(op.valueField || 'value').trim();
+                const fallback = Number(op.defaultValue);
+                const rawSkill = String(params[skillField] || '').trim();
+                const normalizedSkill = typeof normalizeSkillKey === 'function'
+                    ? normalizeSkillKey(rawSkill)
+                    : rawSkill.toLowerCase();
+                if (!normalizedSkill) return;
+                const hasValue = params[valueField] !== undefined && params[valueField] !== null && params[valueField] !== '';
+                const amount = hasValue ? (Number(params[valueField]) || 0) : (Number.isFinite(fallback) ? fallback : 0);
+                effects.itemSkillBonuses.set(normalizedSkill, (effects.itemSkillBonuses.get(normalizedSkill) || 0) + amount);
+                if (effects.sourceDetails && Array.isArray(effects.sourceDetails.skillBonuses)) {
+                    effects.sourceDetails.skillBonuses.push({
+                        label: `${sourcePrefix} (${normalizedSkill})`,
+                        value: amount
+                    });
+                }
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addGrantedFeat') {
+                const featField = String(op.featField || 'featName').trim();
+                const normalizedName = (typeof resolveFeatName === 'function')
+                    ? resolveFeatName(String(params[featField] || '').trim())
+                    : String(params[featField] || '').trim();
+                if (!normalizedName) return;
+                const key = normalizedName.toLowerCase();
+                if (!effects.itemGrantedFeats.has(key)) {
+                    effects.itemGrantedFeats.set(key, { name: normalizedName, sources: new Set() });
+                }
+                effects.itemGrantedFeats.get(key).sources.add(sourcePrefix.split(' • ')[0]);
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'appendSituational') {
+                const text = applyEnhancementBehaviorTemplate(op.template, params);
+                if (!text) return;
+                effects.situational.push(text);
+                appliedAny = true;
+                return;
+            }
+
+            if (opType === 'addFlag') {
+                const flag = applyEnhancementBehaviorTemplate(op.flag, params);
+                if (!flag) return;
+                effects.flags.add(flag);
+                appliedAny = true;
+            }
+        });
+
+        return true;
+    }
+
+    function calcExternalEnhancementMotes(property) {
+        const config = getItemEnhancementTypeConfig(property && property.type);
+        const rule = config && config.moteRule && typeof config.moteRule === 'object' ? config.moteRule : null;
+        if (!rule) return null;
+
+        const params = property && property.params && typeof property.params === 'object' ? property.params : {};
+        const mode = String(rule.mode || '').trim().toLowerCase();
+        if (!mode) return null;
+
+        if (mode === 'linear') {
+            const valueFrom = String(rule.valueFrom || 'value');
+            const coefficient = Number(rule.coefficient);
+            const constant = Number(rule.constant);
+            let sourceValue = Number(params[valueFrom]) || 0;
+            if (rule.clampMin !== undefined && rule.clampMin !== null) {
+                sourceValue = Math.max(Number(rule.clampMin) || 0, sourceValue);
+            }
+            if (rule.clampMax !== undefined && rule.clampMax !== null) {
+                sourceValue = Math.min(Number(rule.clampMax) || sourceValue, sourceValue);
+            }
+            return (Number.isFinite(coefficient) ? coefficient : 1) * sourceValue + (Number.isFinite(constant) ? constant : 0);
+        }
+
+        if (mode === 'fixed') {
+            return Number(rule.value) || 0;
+        }
+
+        if (mode === 'lookup') {
+            const valueFrom = String(rule.valueFrom || 'value');
+            const table = rule.table && typeof rule.table === 'object' && !Array.isArray(rule.table) ? rule.table : {};
+            const key = String(params[valueFrom]);
+            return Number(table[key]) || 0;
+        }
+
+        if (mode === 'sumcomponents') {
+            const components = Array.isArray(rule.components) ? rule.components : [];
+            let total = 0;
+            components.forEach(component => {
+                if (!component || typeof component !== 'object') return;
+                const valueFrom = String(component.valueFrom || '').trim();
+                if (!valueFrom) return;
+                const multiplier = Number(component.multiplier);
+                const sourceValue = Number(params[valueFrom]) || 0;
+                total += sourceValue * (Number.isFinite(multiplier) ? multiplier : 1);
+            });
+            return total;
+        }
+
+        if (mode === 'damagereduction') {
+            const soakField = String(rule.soakField || 'soak');
+            const pierceField = String(rule.pierceField || 'pierce');
+            const soak = Math.max(0, Number(params[soakField]) || 0);
+            const pierce = Math.max(0, Number(params[pierceField]) || 0);
+            return (soak / 5) * pierce;
+        }
+
+        if (mode === 'damageaverage') {
+            const coefficient = Number(rule.coefficient);
+            const constant = Number(rule.constant);
+            const avg = getAverageDamageFromParams(params);
+            return avg * (Number.isFinite(coefficient) ? coefficient : 1) + (Number.isFinite(constant) ? constant : 0);
+        }
+
+        if (mode === 'specificsavekind') {
+            const kindField = String(rule.kindField || 'saveKind');
+            const kind = String(params[kindField] || 'universal').trim().toLowerCase();
+            if (kind === 'universal') return 6;
+            if (kind === 'death' || kind === 'mind') return 2;
+            return 1;
+        }
+
+        if (mode === 'skilllegacy') {
+            const valueField = String(rule.valueField || 'value');
+            const value = Math.abs(Number(params[valueField]) || 1);
+            return Math.max(1, Math.min(2, value));
+        }
+
+        if (mode === 'spellslot') {
+            const classField = String(rule.classField || 'casterClass');
+            const levelField = String(rule.levelField || 'spellLevel');
+            const slotsField = String(rule.slotsField || 'slots');
+            const classRange = getSpellSlotClassRange(params[classField]);
+            const levelRaw = Number(params[levelField]) || classRange.min;
+            const level = Math.max(classRange.min, Math.min(classRange.max, levelRaw));
+            const slots = Math.max(1, Number(params[slotsField]) || 1);
+            return (SPELL_SLOT_COSTS[level] || 0) * slots;
+        }
+
+        return null;
+    }
+
+    async function loadItemEnhancementDefinitions() {
+        const candidates = [
+            './combatData/itemEnhancements.json',
+            '/CharacterCalculator/combatData/itemEnhancements.json',
+            '/combatData/itemEnhancements.json'
+        ];
+
+        const errors = [];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) {
+                    errors.push(`${url}: ${response.status} ${response.statusText}`);
+                    continue;
+                }
+
+                const json = await response.json();
+                const propertyTypeRows = json && Array.isArray(json.propertyTypeRows) ? json.propertyTypeRows : [];
+                const innateOnlyTypeRows = json && Array.isArray(json.innateOnlyTypeRows) ? json.innateOnlyTypeRows : [];
+                const defaultParamRows = json && Array.isArray(json.defaultParamRows) ? json.defaultParamRows : [];
+                const typeConfigs = json && json.typeConfigs && typeof json.typeConfigs === 'object' && !Array.isArray(json.typeConfigs)
+                    ? json.typeConfigs
+                    : {};
+                if (!propertyTypeRows.length || !innateOnlyTypeRows.length || !defaultParamRows.length) {
+                    errors.push(`${url}: missing required enhancement rule arrays`);
+                    continue;
+                }
+
+                if (!hasRequiredUniformKeys(propertyTypeRows, ITEM_ENHANCEMENT_PROPERTY_TYPE_KEYS)) {
+                    errors.push(`${url}: non-uniform propertyTypeRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(innateOnlyTypeRows, ITEM_ENHANCEMENT_INNATE_TYPE_KEYS)) {
+                    errors.push(`${url}: non-uniform innateOnlyTypeRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(defaultParamRows, ITEM_ENHANCEMENT_DEFAULT_PARAM_KEYS)) {
+                    errors.push(`${url}: non-uniform defaultParamRows keys`);
+                    continue;
+                }
+
+                const propertyTypes = normalizeItemEnhancementTypeRows(propertyTypeRows);
+                const innateOnlyTypes = normalizeItemEnhancementTypeRows(innateOnlyTypeRows);
+                const paramMap = normalizeItemEnhancementDefaultParamRows(defaultParamRows);
+                if (propertyTypes.length === 0 || paramMap.size === 0) {
+                    errors.push(`${url}: normalized enhancement data is empty`);
+                    continue;
+                }
+
+                PROPERTY_TYPES = propertyTypes;
+                INNATE_ONLY_TYPES = new Set(innateOnlyTypes);
+                PROPERTY_DEFAULT_PARAMS_BY_TYPE = paramMap;
+                ITEM_ENHANCEMENT_TYPE_CONFIGS = normalizeItemEnhancementTypeConfigs(typeConfigs);
+
+                plannerDebugLog('Loaded item enhancement definitions from JSON', {
+                    url,
+                    propertyTypes: PROPERTY_TYPES.length,
+                    innateOnlyTypes: INNATE_ONLY_TYPES.size,
+                    defaultParams: PROPERTY_DEFAULT_PARAMS_BY_TYPE.size,
+                    typeConfigs: ITEM_ENHANCEMENT_TYPE_CONFIGS.size
+                });
+                return;
+            } catch {
+                errors.push(`${url}: fetch/parse failure`);
+            }
+        }
+
+        PROPERTY_TYPES = DEFAULT_PROPERTY_TYPES.slice();
+        INNATE_ONLY_TYPES = new Set(DEFAULT_INNATE_ONLY_TYPES);
+        PROPERTY_DEFAULT_PARAMS_BY_TYPE = new Map(
+            DEFAULT_PROPERTY_PARAM_ROWS.map(row => [row.type, deepCloneJsonValue(row.params)])
+        );
+        ITEM_ENHANCEMENT_TYPE_CONFIGS = new Map();
+        throw new Error(`Unable to load required item enhancement definitions from combatData/itemEnhancements.json. ${errors.join(' | ')}`);
+    }
+
+    function normalizeItemMetaValueRows(rows) {
+        return rows
+            .map(row => String(row && row.value || '').trim())
+            .filter(Boolean);
+    }
+
+    function normalizeItemMetaSpecialKeyRows(rows) {
+        return rows
+            .map(row => ({
+                key: String(row && row.key || '').trim(),
+                valueType: String(row && row.valueType || '').trim()
+            }))
+            .filter(row => row.key && row.valueType);
+    }
+
+    async function loadItemMetaDefinitions() {
+        const candidates = [
+            './combatData/itemMeta.json',
+            '/CharacterCalculator/combatData/itemMeta.json',
+            '/combatData/itemMeta.json'
+        ];
+
+        const errors = [];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) {
+                    errors.push(`${url}: ${response.status} ${response.statusText}`);
+                    continue;
+                }
+
+                const json = await response.json();
+                const metaDefaults = json && typeof json.metaDefaults === 'object' && !Array.isArray(json.metaDefaults)
+                    ? json.metaDefaults
+                    : null;
+                const weaponFocusGroupRows = json && Array.isArray(json.weaponFocusGroupRows) ? json.weaponFocusGroupRows : [];
+                const baseWeaponDamageTypeRows = json && Array.isArray(json.baseWeaponDamageTypeRows) ? json.baseWeaponDamageTypeRows : [];
+                const specialKeyRows = json && Array.isArray(json.specialKeyRows) ? json.specialKeyRows : [];
+                if (!metaDefaults || !weaponFocusGroupRows.length || !baseWeaponDamageTypeRows.length || !specialKeyRows.length) {
+                    errors.push(`${url}: missing required item meta sections`);
+                    continue;
+                }
+
+                if (!hasRequiredUniformKeys(weaponFocusGroupRows, ITEM_META_VALUE_ROW_KEYS)) {
+                    errors.push(`${url}: non-uniform weaponFocusGroupRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(baseWeaponDamageTypeRows, ITEM_META_VALUE_ROW_KEYS)) {
+                    errors.push(`${url}: non-uniform baseWeaponDamageTypeRows keys`);
+                    continue;
+                }
+                if (!hasRequiredUniformKeys(specialKeyRows, ITEM_META_SPECIAL_KEY_KEYS)) {
+                    errors.push(`${url}: non-uniform specialKeyRows keys`);
+                    continue;
+                }
+
+                const normalizedMetaDefaults = {
+                    ...DEFAULT_ITEM_META_DEFAULTS,
+                    ...deepCloneJsonValue(metaDefaults)
+                };
+                const focusGroups = normalizeItemMetaValueRows(weaponFocusGroupRows);
+                const damageTypes = normalizeItemMetaValueRows(baseWeaponDamageTypeRows);
+                const normalizedSpecialRows = normalizeItemMetaSpecialKeyRows(specialKeyRows);
+                if (!focusGroups.length || !damageTypes.length || !normalizedSpecialRows.length) {
+                    errors.push(`${url}: normalized item meta data is empty`);
+                    continue;
+                }
+
+                ITEM_META_DEFAULTS = normalizedMetaDefaults;
+                WEAPON_FOCUS_GROUPS = focusGroups;
+                BASE_WEAPON_DAMAGE_TYPES = damageTypes;
+                ITEM_SPECIAL_KEY_OPTIONS = normalizedSpecialRows.map(row => row.key);
+                ITEM_SPECIAL_KEY_TYPES = Object.fromEntries(normalizedSpecialRows.map(row => [row.key, row.valueType]));
+
+                plannerDebugLog('Loaded item meta definitions from JSON', {
+                    url,
+                    focusGroups: WEAPON_FOCUS_GROUPS.length,
+                    baseDamageTypes: BASE_WEAPON_DAMAGE_TYPES.length,
+                    specialKeys: ITEM_SPECIAL_KEY_OPTIONS.length
+                });
+                return;
+            } catch {
+                errors.push(`${url}: fetch/parse failure`);
+            }
+        }
+
+        ITEM_META_DEFAULTS = deepCloneJsonValue(DEFAULT_ITEM_META_DEFAULTS);
+        WEAPON_FOCUS_GROUPS = DEFAULT_WEAPON_FOCUS_GROUPS.slice();
+        BASE_WEAPON_DAMAGE_TYPES = DEFAULT_BASE_WEAPON_DAMAGE_TYPES.slice();
+        ITEM_SPECIAL_KEY_OPTIONS = DEFAULT_ITEM_SPECIAL_KEY_ROWS.map(row => row.key);
+        ITEM_SPECIAL_KEY_TYPES = Object.fromEntries(DEFAULT_ITEM_SPECIAL_KEY_ROWS.map(row => [row.key, row.valueType]));
+        throw new Error(`Unable to load required item meta definitions from combatData/itemMeta.json. ${errors.join(' | ')}`);
+    }
+
+    async function loadCombatBuffDefinitions() {
+        const candidates = [
+            './combatData/buffs.json',
+            '/CharacterCalculator/combatData/buffs.json',
+            '/combatData/buffs.json'
         ];
 
         for (const url of candidates) {
@@ -804,8 +1858,77 @@
                 const response = await fetch(url, { cache: 'no-store' });
                 if (!response.ok) continue;
                 const json = await response.json();
-                if (json && json.bardSongTable && json.bardSongTable.songsByName) {
-                    state.songData = json;
+                const rows = Array.isArray(json)
+                    ? json
+                    : (json && Array.isArray(json.items) ? json.items : []);
+                if (!Array.isArray(rows) || rows.length === 0) continue;
+                if (!hasRequiredUniformKeys(rows, BUFF_DEFINITION_KEYS)) {
+                    plannerDebugLog('Rejected combat buff definitions: non-uniform keys', {
+                        url,
+                        expectedKeys: BUFF_DEFINITION_KEYS
+                    });
+                    continue;
+                }
+
+                BUFF_DEFINITIONS = rows
+                    .map((row, index) => toRuntimeBuffDefinition(row, index))
+                    .filter(def => def && def.name)
+                    .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
+
+                if (BUFF_DEFINITIONS.length > 0) {
+                    plannerDebugLog('Loaded combat buff definitions from JSON', {
+                        url,
+                        count: BUFF_DEFINITIONS.length
+                    });
+                    return;
+                }
+            } catch (error) {
+                continue;
+            }
+        }
+
+        BUFF_DEFINITIONS = DEFAULT_BUFF_DEFINITION_ROWS
+            .map((row, index) => toRuntimeBuffDefinition(row, index))
+            .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
+        plannerDebugLog('Using built-in combat buff definitions fallback', {
+            count: BUFF_DEFINITIONS.length
+        });
+    }
+
+    async function loadClassAttackRuleDefinitions() {
+        const candidates = [
+            './combatData/classAttackRules.json',
+            '/CharacterCalculator/combatData/classAttackRules.json',
+            '/combatData/classAttackRules.json'
+        ];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) continue;
+                const json = await response.json();
+                const rows = Array.isArray(json)
+                    ? json
+                    : (json && Array.isArray(json.items) ? json.items : []);
+                if (!Array.isArray(rows) || rows.length === 0) continue;
+                if (!hasRequiredUniformKeys(rows, CLASS_ATTACK_RULE_KEYS)) {
+                    plannerDebugLog('Rejected class attack rule definitions: non-uniform keys', {
+                        url,
+                        expectedKeys: CLASS_ATTACK_RULE_KEYS
+                    });
+                    continue;
+                }
+
+                CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS = rows
+                    .map((row, index) => toRuntimeClassAttackRuleDefinition(row, index))
+                    .filter(def => def && def.key)
+                    .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
+
+                if (CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.length > 0) {
+                    plannerDebugLog('Loaded class attack rule definitions from JSON', {
+                        url,
+                        count: CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.length
+                    });
                     return;
                 }
             } catch {
@@ -813,7 +1936,41 @@
             }
         }
 
-        state.songData = null;
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS = DEFAULT_CLASS_ATTACK_RULE_ROWS
+            .map((row, index) => toRuntimeClassAttackRuleDefinition(row, index))
+            .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
+        plannerDebugLog('Using built-in class attack rule definitions fallback', {
+            count: CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.length
+        });
+    }
+
+    function initializeBuffStateFromDefinitions(existingBuffState = null) {
+        const source = existingBuffState && typeof existingBuffState === 'object' ? existingBuffState : {};
+        const seeded = {};
+
+        BUFF_DEFINITIONS.forEach(def => {
+            const incoming = source[def.name] && typeof source[def.name] === 'object' ? source[def.name] : null;
+            seeded[def.name] = {
+                enabled: incoming ? Boolean(incoming.enabled) : Boolean(def.enabledByDefault),
+                casterLevel: Math.max(1, Math.min(30, Math.floor(Number(incoming && incoming.casterLevel) || 30))),
+                secondCast: incoming ? Boolean(incoming.secondCast) : false
+            };
+        });
+
+        return seeded;
+    }
+
+    function initializeClassAttackToggleStateFromDefinitions(existingToggleState = null) {
+        const source = existingToggleState && typeof existingToggleState === 'object' ? existingToggleState : {};
+        const seeded = {};
+
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+            seeded[def.key] = Object.prototype.hasOwnProperty.call(source, def.key)
+                ? Boolean(source[def.key])
+                : Boolean(def.defaultEnabled);
+        });
+
+        return seeded;
     }
 
     function applyCraftedTemplateToSlot(slotState, templateEntry) {
@@ -849,61 +2006,27 @@
     }
 
     function defaultParamsForType(type) {
-        switch (type) {
-            case 'Ability':
-                return { stat: 'str', value: 1 };
-            case 'Armor':
-            case 'Armor vs Damage type/Race/Alignment':
-            case 'Enhancement':
-            case 'Enhancement vs Alignment/Race':
-            case 'Mighty':
-            case 'Regeneration':
-            case 'Skill':
-            case 'Attack Bonus':
-            case 'Attack Bonus vs Alignment/Race/Alignment':
-            case 'Vampiric Regeneration':
-                return { value: 1, target: '', save: 'fort', saveKind: 'other', skill: '' };
-            case 'Specific Saving Throws':
-                return { saveKind: 'universal' };
-            case 'General Saving Throws':
-                return { save: 'fort' };
-            case 'Weight Reduction':
-                return { reduction: 90 };
-            case 'Bonus Spell Slots':
-                return { casterClass: 'Bard', spellLevel: 1, slots: 1 };
-            case 'Damage':
-                return { damageType: 'Acid', mode: 'flat2', avgDamage: 2, diceLabel: '+2' };
-            case 'Damage vs Alignment/Race/Alignment':
-                return { damageType: 'Acid', mode: 'flat2', avgDamage: 2, target: '', diceLabel: '+2' };
-            case 'Massive Criticals':
-                return { mode: 'flat4', avgDamage: 4, diceLabel: '4' };
-            case 'Damage Immunity':
-                return { damageType: 'Acid', percent: 5 };
-            case 'Damage Vulnerability':
-                return { damageType: 'Acid', percent: 5 };
-            case 'Damage Reduction':
-                return { soak: 5, pierce: 1 };
-            case 'Damage Resist':
-                return { resist: 5 };
-            case 'Spell Resistance':
-                return { sr: 10 };
-            case 'Keen':
-                return { profile: '20' };
-            case 'Granted Feat':
-                return { featName: '' };
-            default:
-                return {};
-        }
+        const key = String(type || '').trim();
+        if (!key) return {};
+        const mapped = PROPERTY_DEFAULT_PARAMS_BY_TYPE.get(key);
+        return mapped && typeof mapped === 'object'
+            ? deepCloneJsonValue(mapped)
+            : {};
     }
 
-    function init() {
-        BUFF_DEFINITIONS.forEach(def => {
-            state.buffs[def.name] = {
-                enabled: false,
-                casterLevel: 30,
-                secondCast: false
-            };
-        });
+    async function init() {
+        await loadItemEnhancementDefinitions();
+        await loadItemMetaDefinitions();
+        await loadCombatBuffDefinitions();
+        await loadClassAttackRuleDefinitions();
+        await loadSongRuleDefinitions();
+        state.buffs = initializeBuffStateFromDefinitions(state.buffs);
+        state.classAttackToggles = initializeClassAttackToggleStateFromDefinitions(state.classAttackToggles);
+        state.classBonusOptions = {
+            ...createDefaultClassBonusOptions(),
+            ...(state.classBonusOptions && typeof state.classBonusOptions === 'object' ? state.classBonusOptions : {})
+        };
+        ensureClassBonusOptionsState();
 
         rootEls = {
             damageGear: document.getElementById('damageGear'),
@@ -912,11 +2035,13 @@
             damageSubtabSongsBtn: document.getElementById('damageGearSubtabSongs'),
             damageSubtabClassAbBtn: document.getElementById('damageGearSubtabClassAb'),
             damageSubtabGraphBtn: document.getElementById('damageGearSubtabGraph'),
+            damageSubtabDebugBtn: document.getElementById('damageGearSubtabDebug'),
             damageSubtabPlannerPanel: document.getElementById('damageGearPlannerPanel'),
             damageSubtabBuffsPanel: document.getElementById('damageGearBuffsPanel'),
             damageSubtabSongsPanel: document.getElementById('damageGearSongsPanel'),
             damageSubtabClassAbPanel: document.getElementById('damageGearClassAbPanel'),
             damageSubtabGraphPanel: document.getElementById('damageGearGraphPanel'),
+            damageSubtabDebugPanel: document.getElementById('damageGearDebugPanel'),
             paperDoll: document.getElementById('gearPaperDoll'),
             editorTitle: document.getElementById('gearEditorTitle'),
             itemName: document.getElementById('gearItemName'),
@@ -950,7 +2075,9 @@
             songUseSothToggle: document.getElementById('songUseSothToggle'),
             songPropagateToggle: document.getElementById('songPropagateToggle'),
             songEffectSummary: document.getElementById('songEffectSummary'),
-            songUnmappedSummary: document.getElementById('songUnmappedSummary')
+            songUnmappedSummary: document.getElementById('songUnmappedSummary'),
+            gearDebugRunBtn: document.getElementById('runGearDebugSnapshotBtn'),
+            gearDebugOutput: document.getElementById('gearDebugSnapshotOutput')
         };
 
         if (!rootEls.paperDoll) return;
@@ -963,15 +2090,17 @@
         switchDamageSubtab(state.ui.damageSubtab || 'planner');
         renderSummaries();
         patchPlannerHooks();
+        hydrateGearPlannerStateFromPersistedCharacter();
+        renderBuffsEditor();
+        renderSummaries();
 
         loadCraftedTemplates().then(() => {
             renderEditor();
         });
 
-        loadBardSongTables().then(() => {
-            renderSongsEditor();
-            renderSummaries();
-        });
+        await loadBardSongTables();
+        renderSongsEditor();
+        renderSummaries();
 
         const knowWhatImDoingToggle = document.getElementById('knowWhatImDoingToggle');
         if (knowWhatImDoingToggle) {
@@ -1001,6 +2130,10 @@
             rootEls.damageSubtabGraphBtn.addEventListener('click', () => switchDamageSubtab('graph'));
         }
 
+        if (rootEls.damageSubtabDebugBtn) {
+            rootEls.damageSubtabDebugBtn.addEventListener('click', () => switchDamageSubtab('debug'));
+        }
+
         if (rootEls.damageSimRunBtn) {
             rootEls.damageSimRunBtn.addEventListener('click', () => {
                 runDamageSimulationGraph();
@@ -1011,7 +2144,12 @@
             rootEls.damageSimTraceOutput.textContent = 'Run simulation to generate trace output.';
         }
 
-        renderBuffsEditor();
+        if (rootEls.gearDebugRunBtn) {
+            rootEls.gearDebugRunBtn.addEventListener('click', () => {
+                runGearDebugSnapshotCapture();
+            });
+        }
+
         renderClassAttackBonusEditor();
         renderSongsEditor();
         renderDamageGraphTargetEditor();
@@ -1379,193 +2517,80 @@
             syncDerivedDamageFields();
         };
 
-        switch (property.type) {
-            case 'Ability':
-                addSelect('stat', 'Stat', [
-                    { value: 'str', label: 'STR' },
-                    { value: 'dex', label: 'DEX' },
-                    { value: 'con', label: 'CON' },
-                    { value: 'int', label: 'INT' },
-                    { value: 'wis', label: 'WIS' },
-                    { value: 'cha', label: 'CHA' }
-                ]);
-                addNumber('value', '+/-', {
-                    min: -20,
-                    max: 20,
-                    step: 1,
-                    defaultValue: 1
-                });
-                break;
-            case 'Armor':
-                addNumber('value', '+', {
-                    min: 1,
-                    step: 1,
-                    defaultValue: 1
-                });
-                if (removeCaps) {
-                    addSelect('armorType', 'AC Type', [
-                        { value: 'armor', label: 'armor' },
-                        { value: 'shield', label: 'shield' },
-                        { value: 'natural', label: 'natural' },
-                        { value: 'deflection', label: 'deflection' },
-                        { value: 'dodge', label: 'dodge' },
-                        { value: 'other', label: 'other' }
-                    ]);
-                }
-                break;
-            case 'Enhancement':
-            case 'Attack Bonus':
-            case 'Mighty':
-            case 'Regeneration':
-            case 'Vampiric Regeneration':
-                addNumber('value', '+', {
-                    min: 1,
-                    max: (property.type === 'Attack Bonus' || property.type === 'Vampiric Regeneration') ? 1 : undefined,
-                    step: 1,
-                    defaultValue: 1
-                });
-                break;
-            case 'Armor vs Damage type/Race/Alignment':
-            case 'Enhancement vs Alignment/Race':
-            case 'Attack Bonus vs Alignment/Race/Alignment':
-                addText('target', 'Target', 'e.g. evil, undead, fire');
-                addNumber('value', '+', {
-                    min: 1,
-                    max: property.type === 'Attack Bonus vs Alignment/Race/Alignment' ? 1 : undefined,
-                    step: 1,
-                    defaultValue: 1
-                });
-                break;
-            case 'Weight Reduction':
-                if (removeCaps) {
-                    addNumber('reduction', 'Applied %', { min: 0, max: 100, step: 1, defaultValue: 90 });
-                } else {
-                    addSelect('reduction', '%', [90, 80]);
-                }
-                break;
-            case 'Bonus Spell Slots':
-                if (removeCaps) {
-                    addText('casterClass', 'Class', 'e.g. Bard');
-                    addNumber('spellLevel', 'Level', { min: 1, max: 9, step: 1, defaultValue: 1 });
-                } else {
-                    addSelect('casterClass', 'Class', Object.keys(SPELL_SLOT_CLASS_RANGES));
-                    addSelect('spellLevel', 'Level', getSpellLevelsForClass(p.casterClass));
-                }
-                addNumber('slots', 'Slots', { min: 1, step: 1, defaultValue: 1 });
-                break;
-            case 'Damage':
-            case 'Damage vs Alignment/Race/Alignment':
-                addSelect('damageType', 'Type', DAMAGE_TYPES);
-                if (removeCaps) {
-                    addDamageAddTypeEditor();
-                } else {
-                    addSelect('mode', 'Add', DAMAGE_ADD_MODES);
-                }
-                if (property.type === 'Damage vs Alignment/Race/Alignment') {
-                    addText('target', 'Target', 'e.g. evil, undead, fire');
-                }
-                break;
-            case 'Damage Immunity':
-                if (removeCaps) {
-                    addText('damageType', 'Type', 'e.g. Electrical');
-                    addNumber('percent', '%', { min: 0, max: 100, step: 1, defaultValue: 5 });
-                } else {
-                    addSelect('damageType', 'Type', DAMAGE_TYPES);
-                    addSelect('percent', '%', [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]);
-                }
-                break;
-            case 'Damage Vulnerability':
-                if (removeCaps) {
-                    addText('damageType', 'Type', 'e.g. Electrical');
-                    addNumber('percent', '%', { min: 0, max: 100, step: 1, defaultValue: 5 });
-                } else {
-                    addSelect('damageType', 'Type', DAMAGE_TYPES);
-                    addSelect('percent', '%', [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]);
-                }
-                break;
-            case 'Damage Reduction':
-                addSelect('soak', 'Soak', [5, 10, 15, 20]);
-                addSelect('pierce', 'Pierce', [1, 2, 3, 4, 5]);
-                break;
-            case 'Damage Resist':
-                addNumber('resist', 'Resist', { min: 5, step: 5, defaultValue: 5 });
-                break;
-            case 'Darkvision':
-            case 'Light':
-                container.textContent = 'No parameters';
-                break;
-            case 'Spell Resistance':
-                if (removeCaps) {
-                    addNumber('sr', 'SR', { min: 8, step: 1, defaultValue: 10 });
-                } else {
-                    p.sr = 10;
-                    const fixed = document.createElement('div');
-                    fixed.className = 'muted-note';
-                    fixed.textContent = 'Fixed SR 10';
-                    container.appendChild(fixed);
-                }
-                break;
-            case 'Specific Saving Throws':
-                addSelect('saveKind', 'Kind', SPECIFIC_SAVE_TYPES);
-                if (removeCaps) {
-                    addNumber('value', '+', { min: 1, step: 1, defaultValue: 1 });
-                } else {
-                    p.value = 1;
-                    const fixed = document.createElement('div');
-                    fixed.className = 'muted-note';
-                    fixed.textContent = 'Value fixed at +1';
-                    container.appendChild(fixed);
-                }
-                break;
-            case 'General Saving Throws':
-                addSelect('save', 'Save', [
+        const externalTypeConfig = getItemEnhancementTypeConfig(property.type);
+        const resolveFieldOptions = (field) => {
+            if (Array.isArray(field.options) && field.options.length > 0) return field.options;
+            const source = String(field.optionSource || '').trim();
+            if (!source) return [];
+
+            if (source === 'damageTypes') return DAMAGE_TYPES;
+            if (source === 'skillOptions') return getSkillOptions();
+            if (source === 'featOptions') return getFeatOptions(p.featName);
+            if (source === 'spellSlotClassOptions') return Object.keys(SPELL_SLOT_CLASS_RANGES);
+            if (source === 'spellSlotLevelsForClass') return getSpellLevelsForClass(p.casterClass);
+            if (source === 'specificSaveTypes') return SPECIFIC_SAVE_TYPES;
+            if (source === 'generalSaveTypes') {
+                return [
                     { value: 'fort', label: 'Fortitude' },
                     { value: 'ref', label: 'Reflex' },
                     { value: 'will', label: 'Will' }
-                ]);
-                if (removeCaps) {
-                    addNumber('value', '+', { min: 1, step: 1, defaultValue: 1 });
-                } else {
-                    p.value = 1;
-                    const fixed = document.createElement('div');
-                    fixed.className = 'muted-note';
-                    fixed.textContent = 'Value fixed at +1';
-                    container.appendChild(fixed);
-                }
-                break;
-            case 'Keen':
-                if (removeCaps) {
-                    addText('profile', 'Crit', 'e.g. 20 -> 19-20');
-                } else {
-                    addSelect('profile', 'Crit', [
-                        { value: '20', label: '20 -> 19-20' },
-                        { value: '19-20', label: '19-20 -> 17-20' },
-                        { value: '18-20', label: '18-20 -> 15-20' }
-                    ]);
-                }
-                break;
-            case 'Skill':
-                addSelect('skill', 'Skill', getSkillOptions());
-                if (removeCaps) {
-                    addNumber('value', '+/-', { min: -50, step: 1, defaultValue: 1 });
-                } else {
-                    addSelect('value', '+/-', [-2, -1, 1, 2]);
-                }
-                break;
-            case 'Massive Criticals':
-                if (removeCaps) {
-                    addNumber('avgDamage', 'Avg Dmg', { min: 0, step: 0.25, defaultValue: 4 });
-                    addText('diceLabel', 'Label', 'e.g. 1d8');
-                } else {
-                    addSelect('mode', 'Value', MASSIVE_CRIT_MODES);
-                }
-                break;
-            case 'Granted Feat':
-                addSelect('featName', 'Feat', getFeatOptions(p.featName));
-                break;
-            default:
-                container.textContent = 'No parameters';
-                break;
+                ];
+            }
+            if (source === 'keenProfiles') {
+                return [
+                    { value: '20', label: '20 -> 19-20' },
+                    { value: '19-20', label: '19-20 -> 17-20' },
+                    { value: '18-20', label: '18-20 -> 15-20' }
+                ];
+            }
+            if (source === 'massiveCritModes') return MASSIVE_CRIT_MODES;
+            if (source === 'damageAddModes') return DAMAGE_ADD_MODES;
+            if (source === 'weightReductionOptions') return [90, 80];
+            return [];
+        };
+
+        if (externalTypeConfig && Array.isArray(externalTypeConfig.fields) && externalTypeConfig.fields.length > 0) {
+            externalTypeConfig.fields
+                .slice()
+                .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0))
+                .forEach(field => {
+                    const control = String(field.control || 'number').trim().toLowerCase();
+                    if (control === 'none') {
+                        return;
+                    }
+                    if (control === 'staticnote') {
+                        const note = document.createElement('div');
+                        note.className = 'muted-note';
+                        note.textContent = field.placeholder || field.label || '';
+                        container.appendChild(note);
+                        return;
+                    }
+                    if (control === 'damageaddtypeeditor') {
+                        addDamageAddTypeEditor();
+                        return;
+                    }
+                    if (control === 'text') {
+                        addText(field.key, field.label || field.key, field.placeholder || '');
+                        return;
+                    }
+                    if (control === 'select') {
+                        const optionValues = resolveFieldOptions(field);
+                        if (optionValues.length > 0) {
+                            addSelect(field.key, field.label || field.key, optionValues);
+                        } else {
+                            addText(field.key, field.label || field.key, field.placeholder || '');
+                        }
+                        return;
+                    }
+                    addNumber(field.key, field.label || field.key, {
+                        min: field.min,
+                        max: field.max,
+                        step: field.step,
+                        defaultValue: field.defaultValue
+                    });
+                });
+        } else {
+            container.textContent = 'No parameters';
         }
 
         property.params = p;
@@ -1573,93 +2598,11 @@
 
     function calcPropertyMotes(property) {
         if (property && property.innate) return 0;
-        const p = property.params || {};
-        const value = Math.max(0, Number(p.value) || 0);
-        switch (property.type) {
-            case 'Ability':
-                return 8;
-            case 'Armor':
-                return 6 * value;
-            case 'Armor vs Damage type/Race/Alignment':
-                return 3 * value;
-            case 'Enhancement':
-                return 6 * value;
-            case 'Enhancement vs Alignment/Race':
-                return 4 * value;
-            case 'Weight Reduction':
-                return WEIGHT_REDUCTION_COSTS[Number(p.reduction)] ?? 0;
-            case 'Bonus Spell Slots': {
-                const classRange = getSpellSlotClassRange(p.casterClass);
-                const levelRaw = Number(p.spellLevel) || classRange.min;
-                const level = Math.max(classRange.min, Math.min(classRange.max, levelRaw));
-                const slots = Math.max(1, Number(p.slots) || 1);
-                return (SPELL_SLOT_COSTS[level] || 0) * slots;
-            }
-            case 'Damage':
-                return (2 * getAverageDamageFromParams(p)) + 4;
-            case 'Damage vs Alignment/Race/Alignment':
-                return 2 * getAverageDamageFromParams(p);
-            case 'Damage Immunity': {
-                const type = String(p.damageType || '');
-                const unit = type.toLowerCase() === 'acid' ||
-                    type.toLowerCase() === 'cold' ||
-                    type.toLowerCase() === 'divine' ||
-                    type.toLowerCase() === 'electrical' ||
-                    type.toLowerCase() === 'fire' ||
-                    type.toLowerCase() === 'negative' ||
-                    type.toLowerCase() === 'positive' ||
-                    type.toLowerCase() === 'sonic' ||
-                    type.toLowerCase() === 'poison' ||
-                    type.toLowerCase() === 'entropy' ||
-                    type.toLowerCase() === 'psychic'
-                    ? 5
-                    : 5;
-                const percent = Math.max(0, Number(p.percent) || 0);
-                return (percent / 5) * unit;
-            }
-            case 'Damage Vulnerability':
-                return 0;
-            case 'Damage Reduction': {
-                const soak = Math.max(0, Number(p.soak) || 0);
-                const pierce = Math.max(0, Number(p.pierce) || 0);
-                return (soak / 5) * pierce;
-            }
-            case 'Damage Resist':
-                return 2 * ((Math.max(0, Number(p.resist) || 0)) / 5);
-            case 'Darkvision':
-                return 2;
-            case 'Spell Resistance':
-                return 2;
-            case 'Specific Saving Throws': {
-                const kind = String(p.saveKind || 'universal');
-                const unit = kind === 'universal' ? 6 : ((kind === 'death' || kind === 'mind') ? 2 : 1);
-                return unit;
-            }
-            case 'General Saving Throws':
-                return 2;
-            case 'Keen':
-                return KEEN_COSTS[String(p.profile || '20')] || 0;
-            case 'Light':
-                return 0;
-            case 'Mighty':
-                return 2 * value;
-            case 'Regeneration':
-                return 4 * value;
-            case 'Skill':
-                return 1 * Math.max(1, Math.min(2, Math.abs(Number(p.value) || 1)));
-            case 'Attack Bonus':
-                return 4 * Math.min(1, Math.max(0, Number(p.value) || 0));
-            case 'Attack Bonus vs Alignment/Race/Alignment':
-                return 2 * Math.min(1, Math.max(0, Number(p.value) || 0));
-            case 'Vampiric Regeneration':
-                return 4 * Math.min(1, Math.max(0, Number(p.value) || 0));
-            case 'Massive Criticals':
-                return 8;
-            case 'Granted Feat':
-                return 0;
-            default:
-                return 0;
+        const externalMotes = calcExternalEnhancementMotes(property);
+        if (externalMotes !== null && Number.isFinite(Number(externalMotes))) {
+            return Number(externalMotes);
         }
+        return 0;
     }
 
     function getAverageDamageFromMode(mode) {
@@ -1841,192 +2784,7 @@
                 const sourceItemName = String(slotState.name || slot.label || slot.key || 'item').trim();
                 const sourcePrefix = `${sourceItemName} • ${property.type}`;
 
-                if (property.type === 'Ability') {
-                    const stat = String(p.stat || '').toLowerCase();
-                    const hasAbilityValue = p.value !== undefined && p.value !== null && p.value !== '';
-                    const abilityValue = hasAbilityValue ? (Number(p.value) || 0) : 1;
-                    if (Object.prototype.hasOwnProperty.call(effects.softStats, stat)) {
-                        effects.softStats[stat] += abilityValue;
-                        if (Object.prototype.hasOwnProperty.call(effects.sourceDetails.softStats, stat)) {
-                            effects.sourceDetails.softStats[stat].push({
-                                label: sourcePrefix,
-                                value: abilityValue
-                            });
-                        }
-                    }
-                }
-
-                if (property.type === 'Armor') {
-                    const overrideType = property.innate ? normalizeAcBucket(p.armorType) : null;
-                    const bucket = overrideType || getArmorTypeForSlot(slot.key);
-                    effects.acBuckets[bucket].push(value);
-                    effects.sourceDetails.acBuckets[bucket].push({
-                        label: `${sourcePrefix}${overrideType ? ` (${bucket})` : ''}`,
-                        value
-                    });
-                }
-
-                if (property.type === 'Enhancement') {
-                    if (getSlotCategory(slot.key) === 'weapon') {
-                        effects.enhancementAttackBonus += value;
-                        effects.damageBonus += value;
-                        effects.sourceDetails.enhancementAttack.push({
-                            label: sourcePrefix,
-                            value
-                        });
-                        effects.sourceDetails.damageBonus.push({
-                            label: `${sourcePrefix} (weapon enhancement)` ,
-                            value
-                        });
-                    } else {
-                        const bucket = getArmorTypeForSlot(slot.key);
-                        effects.acBuckets[bucket].push(value);
-                        effects.sourceDetails.acBuckets[bucket].push({
-                            label: sourcePrefix,
-                            value
-                        });
-                    }
-                }
-
-                if (property.type === 'Attack Bonus') {
-                    const applied = property.innate ? value : Math.min(1, value);
-                    effects.directAttackBonus += applied;
-                    effects.sourceDetails.directAttack.push({
-                        label: `${sourcePrefix}${property.innate ? '' : ' (non-innate capped +1)'}`,
-                        value: applied
-                    });
-                }
-
-                if (property.type === 'Mighty') {
-                    effects.mightyCap = Math.max(effects.mightyCap, value);
-                    effects.sourceDetails.mighty.push({
-                        label: sourcePrefix,
-                        value
-                    });
-                }
-
-                if (property.type === 'Damage') {
-                    const avgDamage = getAverageDamageFromParams(p);
-                    effects.damageBonus += avgDamage;
-                    addDamageAddToSummary(effects.damageAdds, p);
-                    effects.sourceDetails.damageBonus.push({
-                        label: `${sourcePrefix} (${String(p.damageType || 'untyped')})`,
-                        value: avgDamage
-                    });
-                }
-
-                if (property.type === 'Massive Criticals') {
-                    const avgCrit = getMassiveCriticalAverageFromParams(p);
-                    effects.critDamageBonus += avgCrit;
-                    effects.sourceDetails.critDamageBonus.push({
-                        label: sourcePrefix,
-                        value: avgCrit
-                    });
-                }
-
-                if (property.type === 'General Saving Throws') {
-                    const save = String(p.save || 'fort');
-                    const amount = property.innate ? Math.max(0, Number(p.value) || 0) : 1;
-                    if (save === 'fort' || save === 'ref' || save === 'will') {
-                        effects.saveBonus[save] += amount;
-                        effects.sourceDetails.saveBonus[save].push({
-                            label: sourcePrefix,
-                            value: amount
-                        });
-                    }
-                }
-
-                if (property.type === 'Specific Saving Throws') {
-                    const kind = String(p.saveKind || 'universal');
-                    const amount = property.innate ? Math.max(0, Number(p.value) || 0) : 1;
-                    if (kind === 'universal') {
-                        effects.saveBonus.fort += amount;
-                        effects.saveBonus.ref += amount;
-                        effects.saveBonus.will += amount;
-                        effects.sourceDetails.saveBonus.fort.push({ label: `${sourcePrefix} (universal)`, value: amount });
-                        effects.sourceDetails.saveBonus.ref.push({ label: `${sourcePrefix} (universal)`, value: amount });
-                        effects.sourceDetails.saveBonus.will.push({ label: `${sourcePrefix} (universal)`, value: amount });
-                    } else {
-                        effects.situational.push(`${property.type} ${kind} +1`);
-                    }
-                }
-
-                if (property.type === 'Spell Resistance') {
-                    const srValue = property.innate ? Math.max(0, Number(p.sr) || 0) : 10;
-                    effects.maxSpellResistance = Math.max(effects.maxSpellResistance, srValue);
-                    effects.sourceDetails.spellResistance.push({
-                        label: sourcePrefix,
-                        value: srValue
-                    });
-                }
-
-                if (property.type === 'Darkvision') {
-                    effects.flags.add('darkvision');
-                }
-
-                if (property.type === 'Light') {
-                    effects.flags.add('light');
-                }
-
-                if (property.type === 'Keen') {
-                    effects.flags.add(`keen ${String(p.profile || '')}`);
-                }
-
-                if (property.type === 'Damage Immunity' || property.type === 'Damage Reduction' || property.type === 'Damage Resist') {
-                    if (property.type === 'Damage Immunity') {
-                        effects.situational.push(`${property.type} ${String(p.damageType || '')} ${Math.max(0, Number(p.percent) || 0)}%`);
-                    } else {
-                        effects.situational.push(property.type);
-                    }
-                }
-
-                if (property.type === 'Damage Vulnerability') {
-                    effects.situational.push(`${property.type} ${String(p.damageType || '')} ${Math.max(0, Number(p.percent) || 0)}%`);
-                }
-
-                if (property.type === 'Granted Feat') {
-                    const normalizedName = normalizeFeatName(p.featName);
-                    if (normalizedName) {
-                        const key = normalizedName.toLowerCase();
-                        if (!effects.itemGrantedFeats.has(key)) {
-                            effects.itemGrantedFeats.set(key, {
-                                name: normalizedName,
-                                sources: new Set()
-                            });
-                        }
-                        effects.itemGrantedFeats.get(key).sources.add(slotState.name || slot.label);
-                    }
-                }
-
-                if (property.type === 'Armor vs Damage type/Race/Alignment' || property.type === 'Enhancement vs Alignment/Race' || property.type === 'Damage vs Alignment/Race/Alignment' || property.type === 'Attack Bonus vs Alignment/Race/Alignment') {
-                    const target = String(p.target || '').trim();
-                    const val = property.type.includes('Damage') ? getAverageDamageFromParams(p) : (Number(p.value) || 0);
-                    effects.situational.push(`${property.type}${target ? ` (${target})` : ''}${val ? ` +${val}` : ''}`);
-                }
-
-                if (property.type === 'Skill' || property.type === 'Regeneration' || property.type === 'Vampiric Regeneration' || property.type === 'Bonus Spell Slots') {
-                    const hasSkillValue = p.value !== undefined && p.value !== null && p.value !== '';
-                    const skillValue = hasSkillValue ? (Number(p.value) || 0) : 1;
-                    const suffix = property.type === 'Skill'
-                        ? ` ${String(p.skill || '').trim()} ${skillValue >= 0 ? '+' : ''}${skillValue}`
-                        : '';
-                    effects.situational.push(`${property.type}${suffix}`);
-                }
-
-                if (property.type === 'Skill') {
-                    const normalizedSkill = typeof normalizeSkillKey === 'function'
-                        ? normalizeSkillKey(String(p.skill || ''))
-                        : String(p.skill || '').trim().toLowerCase();
-                    if (normalizedSkill) {
-                        const hasSkillValue = p.value !== undefined && p.value !== null && p.value !== '';
-                        const value = hasSkillValue ? (Number(p.value) || 0) : 1;
-                        effects.itemSkillBonuses.set(normalizedSkill, (effects.itemSkillBonuses.get(normalizedSkill) || 0) + value);
-                        effects.sourceDetails.skillBonuses.push({
-                            label: `${sourcePrefix} (${normalizedSkill})`,
-                            value
-                        });
-                    }
-                }
+                applyExternalEnhancementBehavior(property, effects, sourcePrefix, slot.key);
             });
         });
 
@@ -2183,33 +2941,22 @@
     }
 
     function getCurrentCharacterLevel() {
+        let plannerLevel = 1;
         if (typeof getCurrentBuildLevel === 'function') {
-            const fromPlanner = Math.max(1, Math.min(30, parseInt(getCurrentBuildLevel(), 10) || 1));
-            if (fromPlanner > 0) return fromPlanner;
+            plannerLevel = Math.max(1, Math.min(30, parseInt(getCurrentBuildLevel(), 10) || 1));
         }
 
-        const levels = getPlannerLevelData();
-        if (Array.isArray(levels)) {
+        const levels = getBestEffortPlannerLevels();
+        if (Array.isArray(levels) && levels.length > 0) {
             for (let level = levels.length; level >= 1; level--) {
                 const row = levels[level - 1];
-                if (row && row.class) return level;
-            }
-        }
-
-        if (typeof getCharacterSnapshot === 'function') {
-            try {
-                const snapshot = getCharacterSnapshot();
-                const snapshotLevels = Array.isArray(snapshot && snapshot.levels) ? snapshot.levels : [];
-                for (let level = snapshotLevels.length; level >= 1; level--) {
-                    const row = snapshotLevels[level - 1];
-                    if (row && row.class) return level;
+                if (row && row.class) {
+                    return Math.max(plannerLevel, level);
                 }
-            } catch {
-                // no-op
             }
         }
 
-        return 1;
+        return plannerLevel;
     }
 
     function getIterativeAttackCountFromBab(babValue) {
@@ -2408,8 +3155,8 @@
         const isRangedAttackWeapon = Boolean(mainHandMeta && mainHandMeta.ranged)
             || (Boolean(mainHandMeta && mainHandMeta.missile) && !Boolean(mainHandMeta && mainHandMeta.thrown));
 
-        const dexCanReplaceAttack = (hasWeaponFinesse || finesseWeapon) && dexMod > strMod;
-        const attackAbility = isRangedAttackWeapon ? 'dex' : (dexCanReplaceAttack ? 'dex' : 'str');
+        const canUseDexForAttack = isRangedAttackWeapon || hasWeaponFinesse || finesseWeapon;
+        const attackAbility = (canUseDexForAttack && dexMod > strMod) ? 'dex' : 'str';
         const isRangedMissileWeapon = Boolean(mainHandMeta && mainHandMeta.missile) && !Boolean(mainHandMeta && mainHandMeta.thrown);
         const mightyCap = Math.max(0, Number(options.mightyCap) || 0);
 
@@ -2893,272 +3640,262 @@
         return parsedBonus;
     }
 
-    function getSpellswordWeaveAffinityBonus(level) {
-        ensureClassBonusOptionsState();
+    function getClassRuleBehaviorType(def) {
+        const explicit = String(def && def.behaviorType || '').trim().toLowerCase();
+        if (explicit) return explicit;
 
-        const spellswordLevel = getClassLevelAtBuildLevel('Spellsword', level);
-        const monkLevel = getClassLevelAtBuildLevel('Monk', level);
-        const selectedPrimaryAttribute = String(state.classBonusOptions.spellswordPrimaryAttribute || 'str').toLowerCase() === 'dex'
-            ? 'dex'
-            : 'str';
+        const legacySpecial = String(def && def.special || '').trim();
+        if (legacySpecial === 'spellswordWeaveAffinity') return 'spellswordweaveaffinity';
+        if (legacySpecial === 'unholyAccuracy') return 'featflatcappedattack';
+        if (legacySpecial === 'corruptWeapon') return 'featweaponfloorfromclasslevel';
+        if (legacySpecial === 'divineSmite') return 'featmeleesmite';
+        return 'classextra';
+    }
 
-        const progressionBonus = Math.max(0, Math.floor(spellswordLevel / 7));
-        const hardStats = getCharacterStatsAtLevel(level);
-        const hardAbilityMods = getAbilityModifiersFromStats(hardStats);
-        const hardIntelligenceModifier = Math.max(0, Number(hardAbilityMods.int) || 0);
+    function evaluateClassAttackRule(def, level) {
+        const behaviorType = getClassRuleBehaviorType(def);
+        const config = def && def.behaviorConfig && typeof def.behaviorConfig === 'object'
+            ? def.behaviorConfig
+            : {};
+        const featSet = getOwnedFeatNameSetAtLevel(level);
 
-        const out = {
-            classLevel: spellswordLevel,
-            monkLevel,
-            selectedPrimaryAttribute,
-            progressionBonus,
-            hardIntelligenceModifier,
-            appliedBonus: 0,
-            attackBonus: 0,
-            damageBonus: 0,
-            dodgeAcBonus: 0,
+        const result = {
+            behaviorType,
+            applies: false,
+            disabledReason: '',
+            detailsText: 'Inactive',
             attackSources: [],
-            damageSources: [],
-            dodgeSources: [],
-            disabledReason: ''
-        };
-
-        if (spellswordLevel <= 0) {
-            out.disabledReason = 'Class not present in current build';
-            return out;
-        }
-
-        if (monkLevel > 0) {
-            out.disabledReason = `Disabled (Monk levels: ${monkLevel})`;
-            return out;
-        }
-
-        const appliedBonus = Math.max(0, Math.min(progressionBonus, hardIntelligenceModifier));
-        if (appliedBonus <= 0) {
-            out.disabledReason = 'No bonus after INT cap';
-            return out;
-        }
-
-        out.appliedBonus = appliedBonus;
-        out.attackBonus = appliedBonus;
-        out.attackSources.push({
-            key: 'spellswordWeaveAffinityAttack',
-            label: `Spellsword weave affinity (${selectedPrimaryAttribute.toUpperCase()}) AB`,
-            bonus: appliedBonus
-        });
-
-        if (selectedPrimaryAttribute === 'str') {
-            out.damageBonus = appliedBonus;
-            out.damageSources.push({ label: 'Spellsword weave affinity (STR)', value: appliedBonus });
-        } else {
-            out.dodgeAcBonus = appliedBonus;
-            out.dodgeSources.push({ label: 'Spellsword weave affinity (DEX)', value: appliedBonus });
-        }
-
-        return out;
-    }
-
-    function getUnholyAccuracyBonus(level) {
-        const featSet = getOwnedFeatNameSetAtLevel(level);
-        const hasFeat = featSet.has('unholy accuracy');
-        const out = {
-            hasFeat,
-            attackBonus: 0,
-            applies: false,
-            disabledReason: ''
-        };
-
-        if (!hasFeat) {
-            out.disabledReason = 'Requires feat: Unholy Accuracy';
-            return out;
-        }
-
-        out.attackBonus = 1;
-        out.applies = true;
-        return out;
-    }
-
-    function getCorruptWeaponBonus(level) {
-        const featSet = getOwnedFeatNameSetAtLevel(level);
-        const hasFeat = featSet.has('corrupt weapon');
-        const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
-        const out = {
-            hasFeat,
-            blackguardLevel,
-            weaponBonusFloor: 0,
-            applies: false,
-            disabledReason: ''
-        };
-
-        if (!hasFeat) {
-            out.disabledReason = 'Requires feat: Corrupt Weapon';
-            return out;
-        }
-
-        if (blackguardLevel <= 0) {
-            out.disabledReason = 'Requires Blackguard class levels';
-            return out;
-        }
-
-        out.weaponBonusFloor = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
-        out.applies = true;
-        return out;
-    }
-
-    function getDivineSmiteBonus(level) {
-        const featSet = getOwnedFeatNameSetAtLevel(level);
-        const hasFeat = featSet.has('divine smite');
-        const paladinLevel = getClassLevelAtBuildLevel('Paladin', level);
-
-        const mainHandState = ensureSlotState('mainHand');
-        const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
-        const isMeleeWeapon = !Boolean(mainHandMeta && (mainHandMeta.missile || mainHandMeta.thrown || mainHandMeta.ranged));
-
-        const hardStats = getCharacterStatsAtLevel(level);
-        const hardMods = getAbilityModifiersFromStats(hardStats);
-        const charismaMod = Number(hardMods && hardMods.cha) || 0;
-
-        const out = {
-            hasFeat,
-            paladinLevel,
-            charismaMod,
-            isMeleeWeapon,
-            attackBonus: 0,
+            cappedSources: [],
             damageBonus: 0,
-            applies: false,
-            disabledReason: ''
+            damageSources: [],
+            dodgeAcBonus: 0,
+            dodgeSources: [],
+            weaponBonusFloor: 0
         };
 
-        if (!hasFeat) {
-            out.disabledReason = 'Requires feat: Divine Smite';
-            return out;
+        if (behaviorType === 'classextra') {
+            const classLevel = getClassLevelAtBuildLevel(def.className, level);
+            const activeBonus = classLevel > 0
+                ? getClassExtraProgressionBonus(def.className, def.extraNameCandidates, level)
+                : 0;
+            result.detailsText = classLevel > 0
+                ? `Class Lvl ${classLevel} | Bonus ${activeBonus >= 0 ? '+' : ''}${round2(activeBonus)}`
+                : 'Class not present in current build';
+            if (activeBonus !== 0) {
+                result.applies = true;
+                result.attackSources.push({ key: def.key, label: def.sourceLabel, bonus: activeBonus });
+            }
+            return result;
         }
 
-        if (!isMeleeWeapon) {
-            out.disabledReason = 'Only applies with melee weapons';
-            return out;
+        if (behaviorType === 'spellswordweaveaffinity') {
+            const className = String(config.className || def.className || 'Spellsword').trim() || 'Spellsword';
+            const blockerClassName = String(config.blockerClassName || 'Monk').trim() || 'Monk';
+            const levelsPerStep = Math.max(1, Math.floor(Number(config.levelsPerStep) || 7));
+            const capAbilityStat = String(config.capAbilityStat || 'int').trim().toLowerCase() || 'int';
+            const option = config.option && typeof config.option === 'object' ? config.option : {};
+            const optionKey = String(option.key || 'spellswordPrimaryAttribute').trim() || 'spellswordPrimaryAttribute';
+            const optionValues = Array.isArray(option.values)
+                ? option.values.map(value => String(value || '').trim().toLowerCase()).filter(Boolean)
+                : ['str', 'dex'];
+            const defaultOption = String(option.defaultValue || optionValues[0] || 'str').trim().toLowerCase();
+            const selectedPrimaryAttribute = String(state.classBonusOptions && state.classBonusOptions[optionKey] || defaultOption).trim().toLowerCase();
+            const selectedPrimarySafe = optionValues.includes(selectedPrimaryAttribute) ? selectedPrimaryAttribute : defaultOption;
+
+            const classLevel = getClassLevelAtBuildLevel(className, level);
+            const blockerClassLevel = getClassLevelAtBuildLevel(blockerClassName, level);
+            const progressionBonus = Math.max(0, Math.floor(classLevel / levelsPerStep));
+            const hardStats = getCharacterStatsAtLevel(level);
+            const hardAbilityMods = getAbilityModifiersFromStats(hardStats);
+            const hardCapModifier = Math.max(0, Number(hardAbilityMods[capAbilityStat]) || 0);
+            const appliedBonus = Math.max(0, Math.min(progressionBonus, hardCapModifier));
+
+            result.detailsText = classLevel <= 0
+                ? 'Class not present in current build'
+                : blockerClassLevel > 0
+                    ? `Class Lvl ${classLevel} | Disabled (${blockerClassName} levels: ${blockerClassLevel})`
+                    : `Class Lvl ${classLevel} | Per-${levelsPerStep} levels +${round2(progressionBonus)} | Hard ${capAbilityStat.toUpperCase()} cap +${round2(hardCapModifier)} | Applied +${round2(appliedBonus)}`;
+
+            if (classLevel <= 0 || blockerClassLevel > 0 || appliedBonus <= 0) {
+                result.disabledReason = classLevel <= 0
+                    ? 'Class not present in current build'
+                    : (blockerClassLevel > 0 ? `Disabled (${blockerClassName} levels: ${blockerClassLevel})` : 'No bonus after cap');
+                return result;
+            }
+
+            result.applies = true;
+            result.attackSources.push({
+                key: `${def.key}_attack`,
+                label: `${def.sourceLabel} (${selectedPrimarySafe.toUpperCase()}) AB`,
+                bonus: appliedBonus
+            });
+
+            const damageAttribute = String(config.damageAttribute || 'str').trim().toLowerCase() || 'str';
+            const dodgeAttribute = String(config.dodgeAttribute || 'dex').trim().toLowerCase() || 'dex';
+            if (selectedPrimarySafe === damageAttribute) {
+                result.damageBonus += appliedBonus;
+                result.damageSources.push({ label: `${def.sourceLabel} (${damageAttribute.toUpperCase()})`, value: appliedBonus });
+            } else if (selectedPrimarySafe === dodgeAttribute) {
+                result.dodgeAcBonus += appliedBonus;
+                result.dodgeSources.push({ label: `${def.sourceLabel} (${dodgeAttribute.toUpperCase()})`, value: appliedBonus });
+            }
+
+            return result;
         }
 
-        out.attackBonus = charismaMod;
-        out.damageBonus = Math.min(20, Math.max(0, paladinLevel));
-        out.applies = true;
-        return out;
+        if (behaviorType === 'featflatcappedattack') {
+            const requiredFeat = String(config.requiredFeat || '').trim().toLowerCase();
+            const attackBonus = Number(config.attackBonus) || 0;
+            if (requiredFeat && !featSet.has(requiredFeat)) {
+                result.disabledReason = `Requires feat: ${config.requiredFeat || requiredFeat}`;
+                result.detailsText = result.disabledReason;
+                return result;
+            }
+            result.applies = attackBonus !== 0;
+            result.detailsText = result.applies
+                ? `Feat found | Capped AB +${round2(attackBonus)}`
+                : 'No bonus';
+            if (result.applies) {
+                result.cappedSources.push({ key: def.key, label: def.sourceLabel, bonus: attackBonus });
+            }
+            return result;
+        }
+
+        if (behaviorType === 'featweaponfloorfromclasslevel') {
+            const requiredFeat = String(config.requiredFeat || '').trim().toLowerCase();
+            const className = String(config.className || def.className || '').trim();
+            const classLevel = getClassLevelAtBuildLevel(className, level);
+            if (requiredFeat && !featSet.has(requiredFeat)) {
+                result.disabledReason = `Requires feat: ${config.requiredFeat || requiredFeat}`;
+                result.detailsText = result.disabledReason;
+                return result;
+            }
+            if (classLevel <= 0) {
+                result.disabledReason = `Requires ${className} class levels`;
+                result.detailsText = result.disabledReason;
+                return result;
+            }
+
+            const base = Number(config.baseValue);
+            const baseValue = Number.isFinite(base) ? base : 1;
+            const levelsPerStep = Math.max(1, Math.floor(Number(config.levelsPerStep) || 5));
+            const stepValue = Number.isFinite(Number(config.stepValue)) ? Number(config.stepValue) : 1;
+            const minValue = Number.isFinite(Number(config.minValue)) ? Number(config.minValue) : 1;
+            const maxValue = Number.isFinite(Number(config.maxValue)) ? Number(config.maxValue) : 5;
+            const computed = baseValue + (Math.floor(Math.max(0, classLevel - 1) / levelsPerStep) * stepValue);
+            const floorValue = Math.max(minValue, Math.min(maxValue, computed));
+
+            result.applies = floorValue > 0;
+            result.weaponBonusFloor = floorValue;
+            result.detailsText = result.applies
+                ? `${className} Lvl ${classLevel} | Weapon minimum +${round2(floorValue)} (main-hand)`
+                : 'No weapon minimum bonus';
+            return result;
+        }
+
+        if (behaviorType === 'featmeleesmite') {
+            const requiredFeat = String(config.requiredFeat || '').trim().toLowerCase();
+            const className = String(config.className || def.className || 'Paladin').trim() || 'Paladin';
+            const classLevel = getClassLevelAtBuildLevel(className, level);
+            const attackAbility = String(config.attackAbilityStat || 'cha').trim().toLowerCase() || 'cha';
+            const damageCap = Math.max(0, Number(config.damageCap) || 20);
+
+            if (requiredFeat && !featSet.has(requiredFeat)) {
+                result.disabledReason = `Requires feat: ${config.requiredFeat || requiredFeat}`;
+                result.detailsText = result.disabledReason;
+                return result;
+            }
+
+            const mainHandState = ensureSlotState('mainHand');
+            const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
+            const isMeleeWeapon = !Boolean(mainHandMeta && (mainHandMeta.missile || mainHandMeta.thrown || mainHandMeta.ranged));
+            if (Boolean(config.requiresMelee) && !isMeleeWeapon) {
+                result.disabledReason = 'Only applies with melee weapons';
+                result.detailsText = result.disabledReason;
+                return result;
+            }
+
+            const hardStats = getCharacterStatsAtLevel(level);
+            const hardMods = getAbilityModifiersFromStats(hardStats);
+            const attackAdd = Number(hardMods && hardMods[attackAbility]) || 0;
+            const damageAdd = Math.min(damageCap, Math.max(0, classLevel));
+
+            result.applies = attackAdd !== 0 || damageAdd !== 0;
+            result.detailsText = result.applies
+                ? `Melee active | AB ${attackAdd >= 0 ? '+' : ''}${round2(attackAdd)} (${attackAbility.toUpperCase()}) | Damage +${round2(damageAdd)} (${className} cap ${damageCap})`
+                : 'Inactive';
+            if (attackAdd !== 0) {
+                result.attackSources.push({ key: def.key, label: `${def.sourceLabel} (${attackAbility.toUpperCase()})`, bonus: attackAdd });
+            }
+            if (damageAdd !== 0) {
+                result.damageBonus += damageAdd;
+                result.damageSources.push({ label: `${def.sourceLabel} (${className} levels, cap ${damageCap})`, value: damageAdd });
+            }
+            return result;
+        }
+
+        result.detailsText = 'Unsupported rule behavior';
+        return result;
     }
 
     function getClassHardAttackBonus(level) {
         ensureClassAttackToggleState();
         ensureClassBonusOptionsState();
+
         const sources = [];
         const cappedSources = [];
+        const damageSources = [];
+        const dodgeSources = [];
         let damageBonus = 0;
         let dodgeAcBonus = 0;
         let weaponBonusFloor = 0;
         let cappedAttackBonusFromClass = 0;
-        const damageSources = [];
-        const dodgeSources = [];
-        let spellsword = null;
-        let unholyAccuracy = null;
-        let corruptWeapon = null;
-        let divineSmite = null;
+        const ruleEvaluations = {};
 
         CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
             if (!state.classAttackToggles[def.key]) return;
 
-            if (def.special === 'spellswordWeaveAffinity') {
-                spellsword = getSpellswordWeaveAffinityBonus(level);
-                if (spellsword && spellsword.attackSources.length > 0) {
-                    spellsword.attackSources.forEach(source => sources.push(source));
-                }
-                damageBonus += Number(spellsword && spellsword.damageBonus) || 0;
-                dodgeAcBonus += Number(spellsword && spellsword.dodgeAcBonus) || 0;
-                if (spellsword && Array.isArray(spellsword.damageSources) && spellsword.damageSources.length > 0) {
-                    spellsword.damageSources.forEach(source => damageSources.push(source));
-                }
-                if (spellsword && Array.isArray(spellsword.dodgeSources) && spellsword.dodgeSources.length > 0) {
-                    spellsword.dodgeSources.forEach(source => dodgeSources.push(source));
-                }
-                return;
+            const evaluation = evaluateClassAttackRule(def, level);
+            ruleEvaluations[def.key] = evaluation;
+
+            if (Array.isArray(evaluation.attackSources)) {
+                evaluation.attackSources.forEach(source => sources.push(source));
+            }
+            if (Array.isArray(evaluation.cappedSources)) {
+                evaluation.cappedSources.forEach(source => {
+                    cappedSources.push(source);
+                    cappedAttackBonusFromClass += Number(source.bonus) || 0;
+                });
             }
 
-            if (def.special === 'unholyAccuracy') {
-                unholyAccuracy = getUnholyAccuracyBonus(level);
-                if (unholyAccuracy.applies && Number(unholyAccuracy.attackBonus) !== 0) {
-                    cappedAttackBonusFromClass += Number(unholyAccuracy.attackBonus) || 0;
-                    cappedSources.push({
-                        key: def.key,
-                        label: def.sourceLabel,
-                        bonus: Number(unholyAccuracy.attackBonus) || 0
-                    });
-                }
-                return;
+            damageBonus += Number(evaluation.damageBonus) || 0;
+            dodgeAcBonus += Number(evaluation.dodgeAcBonus) || 0;
+            weaponBonusFloor = Math.max(weaponBonusFloor, Number(evaluation.weaponBonusFloor) || 0);
+
+            if (Array.isArray(evaluation.damageSources)) {
+                evaluation.damageSources.forEach(source => damageSources.push(source));
             }
-
-            if (def.special === 'corruptWeapon') {
-                corruptWeapon = getCorruptWeaponBonus(level);
-                if (corruptWeapon.applies && Number(corruptWeapon.weaponBonusFloor) > 0) {
-                    weaponBonusFloor = Math.max(weaponBonusFloor, Number(corruptWeapon.weaponBonusFloor) || 0);
-                }
-                return;
+            if (Array.isArray(evaluation.dodgeSources)) {
+                evaluation.dodgeSources.forEach(source => dodgeSources.push(source));
             }
-
-            if (def.special === 'divineSmite') {
-                divineSmite = getDivineSmiteBonus(level);
-                if (divineSmite.applies) {
-                    const attackAdd = Number(divineSmite.attackBonus) || 0;
-                    const damageAdd = Number(divineSmite.damageBonus) || 0;
-                    if (attackAdd !== 0) {
-                        sources.push({
-                            key: def.key,
-                            label: `${def.sourceLabel} (CHA)` ,
-                            bonus: attackAdd
-                        });
-                    }
-                    if (damageAdd !== 0) {
-                        damageBonus += damageAdd;
-                        damageSources.push({ label: `${def.sourceLabel} (Paladin levels, cap 20)`, value: damageAdd });
-                    }
-                }
-                return;
-            }
-
-            const bonus = getClassExtraProgressionBonus(def.className, def.extraNameCandidates, level);
-            if (bonus === 0) return;
-
-            sources.push({
-                key: def.key,
-                label: def.sourceLabel,
-                bonus
-            });
         });
 
+        const total = sources.reduce((sum, source) => sum + (Number(source.bonus) || 0), 0);
         plannerDebugLog('Class hard attack summary', {
             level,
             toggles: { ...(state.classAttackToggles || {}) },
+            ruleEvaluations,
             sources,
             cappedSources,
-            total: sources.reduce((sum, source) => sum + (Number(source.bonus) || 0), 0),
+            total,
             cappedAttackBonusFromClass,
             weaponBonusFloor,
             damageBonus,
-            dodgeAcBonus,
-            unholyAccuracy,
-            corruptWeapon,
-            divineSmite,
-            spellsword: spellsword
-                ? {
-                    classLevel: spellsword.classLevel,
-                    monkLevel: spellsword.monkLevel,
-                    selectedPrimaryAttribute: spellsword.selectedPrimaryAttribute,
-                    progressionBonus: spellsword.progressionBonus,
-                    hardIntelligenceModifier: spellsword.hardIntelligenceModifier,
-                    appliedBonus: spellsword.appliedBonus,
-                    disabledReason: spellsword.disabledReason
-                }
-                : null
+            dodgeAcBonus
         });
 
         return {
-            total: sources.reduce((sum, source) => sum + (Number(source.bonus) || 0), 0),
+            total,
             sources,
             cappedSources,
             cappedAttackBonusFromClass,
@@ -3167,16 +3904,204 @@
             damageSources,
             dodgeAcBonus,
             dodgeSources,
-            spellsword,
-            unholyAccuracy,
-            corruptWeapon,
-            divineSmite
+            ruleEvaluations
         };
     }
 
     function getFighterBabAtLevel(level) {
         const numericLevel = Math.max(1, Math.floor(Number(level) || 1));
-        return numericLevel;
+        const fromClassData = getClassBabAtClassLevel('Fighter', numericLevel);
+        return Number.isFinite(Number(fromClassData)) && Number(fromClassData) > 0
+            ? Number(fromClassData)
+            : numericLevel;
+    }
+
+    function getClassBabAtClassLevel(className, classLevel) {
+        const resolved = getClassInfoByName(className);
+        if (!resolved || !resolved.info) return 0;
+
+        const progression = Array.isArray(resolved.info.levelProgression)
+            ? resolved.info.levelProgression
+            : [];
+        if (progression.length === 0) return 0;
+
+        const numericClassLevel = Math.max(1, Math.floor(Number(classLevel) || 1));
+        const index = Math.max(0, Math.min(numericClassLevel - 1, progression.length - 1));
+        const row = progression[index];
+        return Array.isArray(row) ? (Number(row[0]) || 0) : 0;
+    }
+
+    function getBuffDefinitionByName(buffName) {
+        const normalizedName = String(buffName || '').trim().toLowerCase();
+        if (!normalizedName) return null;
+        return BUFF_DEFINITIONS.find(def => String(def && def.name || '').trim().toLowerCase() === normalizedName) || null;
+    }
+
+    function resolveDerivedBuffEffectValue(rule, context) {
+        const rawSource = String(rule && rule.valueSource || 'constant').trim();
+        const source = rawSource.toLowerCase();
+        const effectType = String(rule && rule.effectType || '').trim().toLowerCase();
+        const baseValue = Number(rule && rule.value) || 0;
+        const level = Number(context && context.level) || 1;
+        const casterLevel = Number(context && context.casterLevel) || 1;
+        const fighterSourceAliases = new Set([
+            'fighterbabatlevel',
+            'fighterbabatlvl',
+            'fighterbab',
+            'fighterbaboverride'
+        ]);
+
+        let resolved = baseValue;
+        if (source === 'casterlevel') {
+            resolved = casterLevel;
+        } else if (fighterSourceAliases.has(source)) {
+            resolved = getFighterBabAtLevel(level);
+        } else if (effectType === 'setbaboverride') {
+            const requestedClass = (!rawSource || source === 'constant' || source === 'casterlevel' || fighterSourceAliases.has(source))
+                ? 'Fighter'
+                : rawSource;
+            const classLevelFromCaster = Math.max(1, Math.floor(casterLevel));
+            const requestedBab = getClassBabAtClassLevel(requestedClass, classLevelFromCaster);
+            resolved = Number.isFinite(Number(requestedBab)) && Number(requestedBab) > 0
+                ? Number(requestedBab)
+                : getFighterBabAtLevel(classLevelFromCaster);
+        }
+
+        const hasMinValue = rule
+            && rule.minValue !== null
+            && rule.minValue !== undefined
+            && String(rule.minValue).trim() !== ''
+            && Number.isFinite(Number(rule.minValue));
+        const hasMaxValue = rule
+            && rule.maxValue !== null
+            && rule.maxValue !== undefined
+            && String(rule.maxValue).trim() !== ''
+            && Number.isFinite(Number(rule.maxValue));
+
+        if (hasMinValue) {
+            resolved = Math.max(Number(rule.minValue), resolved);
+        }
+        if (hasMaxValue) {
+            resolved = Math.min(Number(rule.maxValue), resolved);
+        }
+
+        return resolved;
+    }
+
+    function applyDerivedBuffEffectsToComputedOut(buffDef, out, context) {
+        const rules = Array.isArray(buffDef && buffDef.derivedEffects) ? buffDef.derivedEffects : [];
+        if (!rules.length || !out || typeof out !== 'object') return;
+
+        rules.forEach(rule => {
+            const value = resolveDerivedBuffEffectValue(rule, context);
+            const effectType = String(rule && rule.effectType || '').trim().toLowerCase();
+            const effectTarget = String(rule && rule.target || '').trim().toLowerCase();
+            const detailSuffix = String(rule && rule.label || '').trim();
+            const detailLabel = detailSuffix ? `${buffDef.label} (${detailSuffix})` : buffDef.label;
+
+            if (effectType === 'addhitpoints') {
+                out.hpBonus += value;
+                out.detail.hp.push({ label: detailLabel, value });
+                return;
+            }
+
+            if (effectType === 'setabilityminimum' && effectTarget === 'str') {
+                out.strOverrideMin = Number.isFinite(Number(out.strOverrideMin))
+                    ? Math.max(Number(out.strOverrideMin), value)
+                    : value;
+                out.detail.strFloor.push({ label: detailLabel, value });
+                return;
+            }
+
+            if (effectType === 'setbaboverride') {
+                out.overrideBab = value;
+                out.detail.bab.push({ label: detailLabel, value });
+            }
+        });
+    }
+
+    function appendDerivedBuffEffectsToActiveBuffList(output, buffDef, context) {
+        const rules = Array.isArray(buffDef && buffDef.derivedEffects) ? buffDef.derivedEffects : [];
+        if (!rules.length || !Array.isArray(output)) return;
+
+        rules.forEach((rule, ruleIndex) => {
+            const value = resolveDerivedBuffEffectValue(rule, context);
+            const modifies = derivedEffectTypeToLegacyModifiers(rule && rule.effectType, rule && rule.target);
+            if (!modifies.length) return;
+            const labelSuffix = String(rule && rule.label || '').trim();
+            output.push({
+                name: `${buffDef.name}_derived_${String(rule && rule.id || ruleIndex + 1).trim().toLowerCase()}`,
+                label: labelSuffix ? `${buffDef.label} (${labelSuffix})` : `${buffDef.label} (Derived)`,
+                modifies,
+                mode: String(rule && rule.mode || 'flat').trim().toLowerCase() || 'flat',
+                value
+            });
+        });
+    }
+
+    function applyStandardBuffModifiersToComputedOut(out, def, value) {
+        const modifiers = Array.isArray(def && def.modifies) ? def.modifies : [];
+        const label = String(def && def.label || def && def.name || 'Buff').trim() || 'Buff';
+        const numericValue = Number(value) || 0;
+        if (!modifiers.length || numericValue === 0) return;
+
+        modifiers.forEach(modifier => {
+            const key = String(modifier || '').trim().toLowerCase();
+            if (!key) return;
+
+            if (key === 'attackbonus') {
+                out.cappedAttackBonusFromBuffs += numericValue;
+                out.detail.attack.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'damagebonus') {
+                out.damageBonus += numericValue;
+                out.detail.damage.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'fortsave') {
+                out.saveBonus.fort += numericValue;
+                out.detail.saveFort.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'refsave') {
+                out.saveBonus.ref += numericValue;
+                out.detail.saveRef.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'willsave') {
+                out.saveBonus.will += numericValue;
+                out.detail.saveWill.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'dodgeac') {
+                out.dodgeAcBonus += numericValue;
+                out.detail.dodgeAc.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'extraapr') {
+                out.extraHighestAbAttacks += numericValue;
+                out.detail.attack.push({ label: `${label} (extra APR at highest AB)`, value: 0 });
+                return;
+            }
+
+            if (key === 'weaponbonusfloor') {
+                out.weaponBonusFloor = Math.max(out.weaponBonusFloor, numericValue);
+                out.detail.attack.push({ label: `${label} (weapon minimum)`, value: 0 });
+                return;
+            }
+
+            if (key === 'uncappedattackbonus') {
+                out.uncappedAttackBonus += numericValue;
+                out.detail.attack.push({ label: `${label} (uncapped)`, value: numericValue });
+            }
+        });
     }
 
     function computeBuffEffects(level, effects) {
@@ -3231,41 +4156,31 @@
             }
         }
 
-        if (isEnabled('aid')) {
-            out.cappedAttackBonusFromBuffs += 1;
-            out.detail.attack.push({ label: 'Aid', value: 1 });
-        }
-        if (isEnabled('bless')) {
-            out.cappedAttackBonusFromBuffs += 1;
-            out.detail.attack.push({ label: 'Bless', value: 1 });
-        }
-        if (isEnabled('true_strike')) {
-            out.cappedAttackBonusFromBuffs += 20;
-            out.detail.attack.push({ label: 'True Strike', value: 20 });
-        }
-        if (isEnabled('haste')) {
-            out.extraHighestAbAttacks += 1;
-            out.detail.attack.push({ label: 'Haste (extra APR at highest AB)', value: 0 });
-        }
+        BUFF_DEFINITIONS.forEach(def => {
+            if (!def || !def.name || !isEnabled(def.name)) return;
 
-        if (isEnabled('divine_favor')) {
-            const cl = casterLevelFor('divine_favor');
-            const favorBonus = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
-            out.cappedAttackBonusFromBuffs += favorBonus;
-            out.damageBonus += favorBonus;
-            out.detail.attack.push({ label: `Divine Favor (CL ${cl})`, value: favorBonus });
-            out.detail.damage.push({ label: `Divine Favor (CL ${cl})`, value: favorBonus });
-        }
+            const name = String(def.name || '').trim().toLowerCase();
+            if (name === 'blood_frenzy' || name === 'battletide' || name === 'war_cry') {
+                return;
+            }
 
-        if (isEnabled('divine_power')) {
-            const cl = casterLevelFor('divine_power');
-            out.overrideBab = getFighterBabAtLevel(level);
-            out.strOverrideMin = 18;
-            out.hpBonus += cl;
-            out.detail.bab.push({ label: `Divine Power (fighter BAB)`, value: out.overrideBab });
-            out.detail.strFloor.push({ label: 'Divine Power (STR floor)', value: 18 });
-            out.detail.hp.push({ label: `Divine Power (CL ${cl})`, value: cl });
-        }
+            let appliedValue = Number(def.value) || 0;
+            if (name === 'divine_favor') {
+                const cl = casterLevelFor('divine_favor');
+                appliedValue = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
+            }
+
+            applyStandardBuffModifiersToComputedOut(out, def, appliedValue);
+        });
+
+        BUFF_DEFINITIONS.forEach(def => {
+            if (!def || !def.name || !isEnabled(def.name)) return;
+            if (!Array.isArray(def.derivedEffects) || def.derivedEffects.length === 0) return;
+            applyDerivedBuffEffectsToComputedOut(def, out, {
+                level,
+                casterLevel: casterLevelFor(def.name)
+            });
+        });
 
         if (isEnabled('blood_frenzy')) {
             const hasSf = featSet.has('spell focus: transmutation');
@@ -3347,12 +4262,10 @@
                 output.push({ name: `${def.name}_ac`, label: `${def.label} (Dodge AC)`, modifies: ['dodgeAc'], mode: 'flat', value: -2 });
             }
 
-            if (def.name === 'divine_power') {
-                const cl = Math.max(1, Math.floor(Number(config.casterLevel) || 1));
-                output.push({ name: `${def.name}_hp`, label: `${def.label} (HP)`, modifies: ['hitPoints'], mode: 'flat', value: cl });
-                output.push({ name: `${def.name}_str`, label: `${def.label} (STR floor)`, modifies: ['strengthMinimum'], mode: 'flat', value: 18 });
-                output.push({ name: `${def.name}_bab`, label: `${def.label} (BAB override)`, modifies: ['fighterBabOverride'], mode: 'flat', value: getFighterBabAtLevel(level) });
-            }
+            appendDerivedBuffEffectsToActiveBuffList(output, def, {
+                level,
+                casterLevel: Math.max(1, Math.floor(Number(config.casterLevel) || 1))
+            });
 
             output.push({
                 name: def.name,
@@ -3380,17 +4293,9 @@
     function parseSongSkillTargets(effectLabel) {
         const normalized = normalizeSongNameKey(effectLabel);
         if (SONG_SKILL_LABEL_ALIASES[normalized]) return SONG_SKILL_LABEL_ALIASES[normalized];
-        if (normalized === 'all skills') return ['*all*'];
+        if (SONG_LABEL_GROUPS.allSkillsLabels.has(normalized)) return ['*all*'];
 
-        if (normalized === 'concentr') return ['concentration'];
-        if (normalized === 'umd') return ['use magic device'];
-        if (normalized === 'rope') return ['climb'];
-        if (normalized === 'spellcraft') return ['spellcraft'];
-        if (normalized === 'sail') return ['sail'];
-        if (normalized === 'heal') return ['heal'];
-        if (normalized === 'hide ms') return ['hide', 'move silently'];
-
-        if (/^(perform|bluff|concentration|appraise|lore|listen|spot|search|ride|tumble|set trap|animal empathy|open lock|disarm trap|sleight of hand|hide|move silently|climb)$/.test(normalized)) {
+        if (SONG_LABEL_GROUPS.singleSkillLabels.has(normalized)) {
             return [normalized];
         }
 
@@ -3430,22 +4335,7 @@
 
     function resolveSongConditionalTarget(effectLabel) {
         const key = normalizeSongNameKey(effectLabel);
-        const map = {
-            'ab vs beast animal': 'beastAnimal',
-            'ab vs shapeshift': 'shapeshift',
-            'ab vs dragon': 'dragon',
-            'ac vs dragon': 'dragon',
-            'ac vs beast animal': 'beastAnimal',
-            'ac vs construct': 'construct',
-            'ac vs elementals': 'elemental',
-            'ac vs ooze': 'ooze',
-            'ac vs shapeshift': 'shapeshift',
-            'ac vs animal': 'beastAnimal',
-            'ac vs evil': 'evil',
-            'ac vs giant ogre half giant': 'giantOgreHalfGiant',
-            'dodge ac vs lawful': 'lawful'
-        };
-        return map[key] || '';
+        return SONG_CONDITIONAL_TARGET_MAP[key] || '';
     }
 
     function getActiveSongEffects(level) {
@@ -3495,10 +4385,13 @@
             const labelKey = normalizeSongNameKey(effect.label);
 
             const conditionalTarget = resolveSongConditionalTarget(effect.label);
-            if (labelKey.startsWith('ab vs ') || labelKey.startsWith('ac vs ') || labelKey.startsWith('dodge ac vs ')) {
+            const isConditionalAttack = SONG_TOKEN_GROUPS.conditionalAttackPrefixes.some(prefix => labelKey.startsWith(prefix));
+            const isConditionalAc = SONG_TOKEN_GROUPS.conditionalAcPrefixes.some(prefix => labelKey.startsWith(prefix));
+            const isConditionalDodge = SONG_TOKEN_GROUPS.conditionalDodgePrefixes.some(prefix => labelKey.startsWith(prefix));
+            if (isConditionalAttack || isConditionalAc || isConditionalDodge) {
                 const enabled = getSongTargetToggleState(conditionalTarget);
                 if (enabled && Number.isFinite(totalNumeric)) {
-                    if (labelKey.startsWith('ab vs ')) {
+                    if (isConditionalAttack) {
                         empty.attackBonus += totalNumeric;
                         empty.detail.attack.push({ label: effect.label, value: totalNumeric });
                     } else {
@@ -3516,19 +4409,21 @@
                 return;
             }
 
-            if (labelKey === 'bludg dm') {
+            if (SONG_LABEL_GROUPS.directDamageLabels.has(labelKey)) {
                 if (Number.isFinite(totalNumeric)) empty.damageBonus += totalNumeric;
                 if (Number.isFinite(totalNumeric)) empty.detail.damage.push({ label: effect.label, value: totalNumeric });
                 return;
             }
 
-            if (/dmg|damage/.test(labelKey) && !/vuln|immunity|resist|dr /.test(labelKey)) {
+            const matchesDamageInclude = SONG_TOKEN_GROUPS.directDamageIncludeTokens.some(token => labelKey.includes(token));
+            const matchesDamageExclude = SONG_TOKEN_GROUPS.directDamageExcludeTokens.some(token => labelKey.includes(token));
+            if (matchesDamageInclude && !matchesDamageExclude) {
                 if (Number.isFinite(totalNumeric)) empty.damageBonus += totalNumeric;
                 if (Number.isFinite(totalNumeric)) empty.detail.damage.push({ label: effect.label, value: totalNumeric });
                 return;
             }
 
-            if (labelKey === 'uni saves' || labelKey === 'unisave' || labelKey === 'unisaves') {
+            if (SONG_LABEL_GROUPS.universalSaveLabels.has(labelKey)) {
                 if (Number.isFinite(totalNumeric)) {
                     empty.saveBonus.fort += totalNumeric;
                     empty.saveBonus.ref += totalNumeric;
@@ -3546,7 +4441,7 @@
                 return;
             }
 
-            if (labelKey === 'save vs trap' || labelKey === 'save vs poison' || labelKey === 'save vs cold' || labelKey === 'save vs elec' || labelKey === 'save vs acid' || labelKey === 'save vs death' || labelKey === 'save vs mind') {
+            if (SONG_LABEL_GROUPS.multiSaveLabels.has(labelKey)) {
                 if (Number.isFinite(totalNumeric)) {
                     empty.saveBonus.fort += totalNumeric;
                     empty.saveBonus.ref += totalNumeric;
@@ -3558,7 +4453,7 @@
                 return;
             }
 
-            if (labelKey === 'ac dodge' || labelKey === 'dodge ac' || labelKey === 'ac') {
+            if (SONG_LABEL_GROUPS.dodgeLabels.has(labelKey)) {
                 if (Number.isFinite(totalNumeric)) empty.dodgeAcBonus += totalNumeric;
                 if (Number.isFinite(totalNumeric)) empty.detail.dodgeAc.push({ label: effect.label, value: totalNumeric });
                 return;
@@ -3610,7 +4505,8 @@
                 return;
             }
 
-            if (!/perform req|effect|immunity|move speed|regen|dr|resist|vuln|bard only|all skills/.test(labelKey)) {
+            const shouldIgnoreUnmapped = SONG_TOKEN_GROUPS.unmappedIgnoreTokens.some(token => labelKey.includes(token));
+            if (!shouldIgnoreUnmapped) {
                 empty.unmapped.push(`${effect.label}: ${baseValue}${canUseSoth && effect.sothBonus ? ` (+ ${effect.sothBonus} SOTH)` : ''}`);
             }
         });
@@ -3886,130 +4782,57 @@
                 state.classAttackToggles[def.key] = Boolean(toggle.checked);
                 renderSummaries();
             });
-
-            if (def.special === 'spellswordWeaveAffinity') {
-                const preview = getSpellswordWeaveAffinityBonus(level);
-
-                const label = document.createElement('label');
-                label.style.minWidth = '260px';
-                label.style.fontWeight = 'bold';
-                label.textContent = def.label;
-
-                const primaryLabel = document.createElement('label');
-                primaryLabel.textContent = 'Primary';
-                primaryLabel.style.minWidth = '56px';
-
-                const primarySelect = document.createElement('select');
-                SPELLSWORD_PRIMARY_ATTRIBUTE_OPTIONS.forEach(optionDef => {
-                    const option = document.createElement('option');
-                    option.value = optionDef.value;
-                    option.textContent = optionDef.label;
-                    primarySelect.appendChild(option);
-                });
-                primarySelect.value = preview.selectedPrimaryAttribute;
-                primarySelect.addEventListener('change', () => {
-                    state.classBonusOptions.spellswordPrimaryAttribute = String(primarySelect.value || 'str').toLowerCase() === 'dex' ? 'dex' : 'str';
-                    renderSummaries();
-                });
-
-                const details = document.createElement('span');
-                details.className = 'feat-label';
-                details.textContent = preview.classLevel <= 0
-                    ? 'Class not present in current build'
-                    : preview.monkLevel > 0
-                        ? `Class Lvl ${preview.classLevel} | Disabled (Monk levels: ${preview.monkLevel})`
-                        : `Class Lvl ${preview.classLevel} | Per-7 levels ${preview.progressionBonus >= 0 ? '+' : ''}${round2(preview.progressionBonus)} | Hard INT cap ${preview.hardIntelligenceModifier >= 0 ? '+' : ''}${round2(preview.hardIntelligenceModifier)} | Applied ${preview.appliedBonus >= 0 ? '+' : ''}${round2(preview.appliedBonus)}`;
-
-                row.appendChild(toggle);
-                row.appendChild(label);
-                row.appendChild(primaryLabel);
-                row.appendChild(primarySelect);
-                row.appendChild(details);
-                rootEls.classAttackBonusList.appendChild(row);
-                return;
-            }
-
-            if (def.special === 'unholyAccuracy') {
-                const preview = getUnholyAccuracyBonus(level);
-
-                const label = document.createElement('label');
-                label.style.minWidth = '320px';
-                label.style.fontWeight = 'bold';
-                label.textContent = def.label;
-
-                const details = document.createElement('span');
-                details.className = 'feat-label';
-                details.textContent = preview.applies
-                    ? `Feat found | Capped AB +${round2(preview.attackBonus)}`
-                    : (preview.disabledReason || 'Inactive');
-
-                row.appendChild(toggle);
-                row.appendChild(label);
-                row.appendChild(details);
-                rootEls.classAttackBonusList.appendChild(row);
-                return;
-            }
-
-            if (def.special === 'corruptWeapon') {
-                const preview = getCorruptWeaponBonus(level);
-
-                const label = document.createElement('label');
-                label.style.minWidth = '320px';
-                label.style.fontWeight = 'bold';
-                label.textContent = def.label;
-
-                const details = document.createElement('span');
-                details.className = 'feat-label';
-                details.textContent = preview.applies
-                    ? `Blackguard Lvl ${preview.blackguardLevel} | Weapon minimum +${round2(preview.weaponBonusFloor)} (main-hand)`
-                    : (preview.disabledReason || 'Inactive');
-
-                row.appendChild(toggle);
-                row.appendChild(label);
-                row.appendChild(details);
-                rootEls.classAttackBonusList.appendChild(row);
-                return;
-            }
-
-            if (def.special === 'divineSmite') {
-                const preview = getDivineSmiteBonus(level);
-
-                const label = document.createElement('label');
-                label.style.minWidth = '320px';
-                label.style.fontWeight = 'bold';
-                label.textContent = def.label;
-
-                const details = document.createElement('span');
-                details.className = 'feat-label';
-                details.textContent = preview.applies
-                    ? `Melee active | AB ${preview.attackBonus >= 0 ? '+' : ''}${round2(preview.attackBonus)} (CHA) | Damage +${round2(preview.damageBonus)} (Paladin cap 20)`
-                    : (preview.disabledReason || 'Inactive');
-
-                row.appendChild(toggle);
-                row.appendChild(label);
-                row.appendChild(details);
-                rootEls.classAttackBonusList.appendChild(row);
-                return;
-            }
-
-            const classLevel = getClassLevelAtBuildLevel(def.className, level);
-            const activeBonus = classLevel > 0
-                ? getClassExtraProgressionBonus(def.className, def.extraNameCandidates, level)
-                : 0;
-
             const label = document.createElement('label');
             label.style.minWidth = '320px';
             label.style.fontWeight = 'bold';
             label.textContent = def.label;
 
-            const details = document.createElement('span');
-            details.className = 'feat-label';
-            details.textContent = classLevel > 0
-                ? `Class Lvl ${classLevel} | Bonus ${activeBonus >= 0 ? '+' : ''}${round2(activeBonus)}`
-                : 'Class not present in current build';
-
             row.appendChild(toggle);
             row.appendChild(label);
+
+            const config = def && def.behaviorConfig && typeof def.behaviorConfig === 'object'
+                ? def.behaviorConfig
+                : null;
+            const option = config && config.option && typeof config.option === 'object'
+                ? config.option
+                : null;
+            if (option) {
+                const optionKey = String(option.key || '').trim();
+                const values = Array.isArray(option.values)
+                    ? option.values.map(value => String(value || '').trim().toLowerCase()).filter(Boolean)
+                    : [];
+                if (optionKey && values.length > 0) {
+                    const optionLabel = document.createElement('label');
+                    optionLabel.textContent = String(option.label || optionKey).trim() || optionKey;
+                    optionLabel.style.minWidth = '64px';
+
+                    const optionSelect = document.createElement('select');
+                    values.forEach(value => {
+                        const entry = document.createElement('option');
+                        entry.value = value;
+                        entry.textContent = value.toUpperCase();
+                        optionSelect.appendChild(entry);
+                    });
+
+                    const defaultValue = String(option.defaultValue || values[0]).trim().toLowerCase();
+                    const selectedValue = String(state.classBonusOptions && state.classBonusOptions[optionKey] || defaultValue).trim().toLowerCase();
+                    optionSelect.value = values.includes(selectedValue) ? selectedValue : defaultValue;
+                    optionSelect.addEventListener('change', () => {
+                        state.classBonusOptions[optionKey] = String(optionSelect.value || defaultValue).trim().toLowerCase();
+                        renderSummaries();
+                    });
+
+                    row.appendChild(optionLabel);
+                    row.appendChild(optionSelect);
+                }
+            }
+
+            const preview = evaluateClassAttackRule(def, level);
+
+            const details = document.createElement('span');
+            details.className = 'feat-label';
+            details.textContent = preview.detailsText || preview.disabledReason || 'Inactive';
+
             row.appendChild(details);
             rootEls.classAttackBonusList.appendChild(row);
         });
@@ -4226,6 +5049,14 @@
         const effectiveBab = hasBabOverride
             ? Number(buffEffects.overrideBab)
             : base.bab;
+        lastCombatDebugSnapshot = buildCombatDebugSnapshot({
+            base,
+            buffEffects,
+            effectiveBab,
+            cappedAttack,
+            hasBabOverride
+        });
+        maybeAutoLogCombatDebug(lastCombatDebugSnapshot);
         const derived = {
             attackBonus: effectiveBab + cappedAttack.cappedBonus,
             fort: base.fort + effects.saveBonus.fort + (Number(buffEffects.saveBonus.fort) || 0) + (Number(songEffects.saveBonus.fort) || 0),
@@ -4759,7 +5590,7 @@
     }
 
     function switchDamageSubtab(tabName) {
-        const allowed = new Set(['planner', 'buffs', 'songs', 'classab', 'graph']);
+        const allowed = new Set(['planner', 'buffs', 'songs', 'classab', 'graph', 'debug']);
         const targetTab = allowed.has(String(tabName || '').toLowerCase())
             ? String(tabName || '').toLowerCase()
             : 'planner';
@@ -4780,6 +5611,9 @@
         if (rootEls.damageSubtabGraphBtn) {
             rootEls.damageSubtabGraphBtn.classList.toggle('active', targetTab === 'graph');
         }
+        if (rootEls.damageSubtabDebugBtn) {
+            rootEls.damageSubtabDebugBtn.classList.toggle('active', targetTab === 'debug');
+        }
         if (rootEls.damageSubtabPlannerPanel) {
             rootEls.damageSubtabPlannerPanel.classList.toggle('active', targetTab === 'planner');
         }
@@ -4794,6 +5628,53 @@
         }
         if (rootEls.damageSubtabGraphPanel) {
             rootEls.damageSubtabGraphPanel.classList.toggle('active', targetTab === 'graph');
+        }
+        if (rootEls.damageSubtabDebugPanel) {
+            rootEls.damageSubtabDebugPanel.classList.toggle('active', targetTab === 'debug');
+        }
+    }
+
+    function runGearDebugSnapshotCapture() {
+        try {
+            window.setGearCombatAutoLog(true);
+        } catch {
+            try {
+                localStorage.setItem('gear_debug_autolog', '1');
+            } catch {
+                // no-op
+            }
+            renderSummaries();
+        }
+
+        let combatSnapshot = null;
+        try {
+            combatSnapshot = window.dumpGearCombatDebugSnapshot();
+        } catch {
+            combatSnapshot = window.getGearCombatDebugSnapshot ? window.getGearCombatDebugSnapshot() : null;
+        }
+
+        const gp = getGearPlannerSnapshot();
+        const divinePowerState = gp && gp.buffs ? (gp.buffs.divine_power || null) : null;
+
+        const combined = {
+            generatedAt: new Date().toISOString(),
+            commandsRun: [
+                'setGearCombatAutoLog(true)',
+                'dumpGearCombatDebugSnapshot()',
+                'const gp = getGearPlannerSnapshot(); console.log(gp?.buffs?.divine_power)'
+            ],
+            divine_power_state: divinePowerState,
+            combat_debug_snapshot: combatSnapshot
+        };
+
+        if (rootEls && rootEls.gearDebugOutput) {
+            rootEls.gearDebugOutput.textContent = JSON.stringify(combined, null, 2);
+        }
+
+        try {
+            console.log('[GearDebug] Combined debug payload', JSON.stringify(combined, null, 2));
+        } catch {
+            console.log('[GearDebug] Combined debug payload', combined);
         }
     }
 
@@ -4986,12 +5867,44 @@
     function getBaseDerivedSummary() {
         const level = getCurrentCharacterLevel();
 
+        const computeFallbackBab = () => {
+            const levels = getBestEffortPlannerLevels();
+            if (!Array.isArray(levels) || levels.length === 0) return 0;
+
+            const classLevels = new Map();
+            for (let index = 0; index < level; index++) {
+                const row = levels[index];
+                const className = String(row && row.class || '').trim();
+                if (!className) continue;
+                classLevels.set(className, (classLevels.get(className) || 0) + 1);
+            }
+
+            if (classLevels.size === 0) return 0;
+
+            let totalBab = 0;
+            classLevels.forEach((classLevel, className) => {
+                const classInfo = classData && classData[className];
+                const progression = Array.isArray(classInfo && classInfo.levelProgression)
+                    ? classInfo.levelProgression
+                    : null;
+                if (!progression || progression.length === 0) return;
+
+                const progressionIndex = Math.max(0, Math.min(classLevel - 1, progression.length - 1));
+                const progressionRow = progression[progressionIndex];
+                totalBab += Array.isArray(progressionRow) ? (Number(progressionRow[0]) || 0) : 0;
+            });
+
+            return Math.max(0, totalBab);
+        };
+
         if (typeof getDerivedCombatStatsAtLevel === 'function') {
             const stats = getDerivedCombatStatsAtLevel(level);
             if (stats && typeof stats === 'object') {
+                const directBab = Number(stats.bab) || 0;
+                const fallbackBab = computeFallbackBab();
                 return {
                     level,
-                    bab: Number(stats.bab) || 0,
+                    bab: directBab > 0 ? directBab : fallbackBab,
                     fort: Number(stats.fort) || 0,
                     ref: Number(stats.ref) || 0,
                     will: Number(stats.will) || 0,
@@ -5002,9 +5915,11 @@
 
         const levels = getPlannerLevelData();
         const row = (Array.isArray(levels) && levels[level - 1]) ? levels[level - 1] : null;
+        const directBab = row ? (Number(row.bab) || 0) : 0;
+        const fallbackBab = computeFallbackBab();
         return {
             level,
-            bab: row ? (row.bab || 0) : 0,
+            bab: directBab > 0 ? directBab : fallbackBab,
             fort: row ? (row.fort || 0) : 0,
             ref: row ? (row.ref || 0) : 0,
             will: row ? (row.will || 0) : 0,
@@ -5020,8 +5935,125 @@
         }
     }
 
+    function getBestEffortPlannerLevels() {
+        const directLevels = getPlannerLevelData();
+        const hasDirectClasses = Array.isArray(directLevels)
+            && directLevels.some(row => row && row.class);
+        if (hasDirectClasses) {
+            return directLevels;
+        }
+
+        if (typeof getCharacterSnapshot === 'function') {
+            try {
+                const snapshot = getCharacterSnapshot();
+                const snapshotLevels = Array.isArray(snapshot && snapshot.levels)
+                    ? snapshot.levels
+                    : [];
+                if (snapshotLevels.some(row => row && row.class)) {
+                    return snapshotLevels;
+                }
+            } catch {
+                // no-op
+            }
+        }
+
+        return directLevels;
+    }
+
+    function getPlannerClassBreakdown(levels, maxLevel) {
+        const breakdown = {};
+        if (!Array.isArray(levels)) return breakdown;
+
+        const cappedLevel = Math.max(1, Math.min(30, Math.floor(Number(maxLevel) || 1)));
+        for (let index = 0; index < cappedLevel; index++) {
+            const row = levels[index];
+            const className = String(row && row.class || '').trim();
+            if (!className) continue;
+            breakdown[className] = (breakdown[className] || 0) + 1;
+        }
+        return breakdown;
+    }
+
+    function buildCombatDebugSnapshot({ base, buffEffects, effectiveBab, cappedAttack, hasBabOverride }) {
+        const levels = getBestEffortPlannerLevels();
+        const level = Math.max(1, Math.min(30, Number(base && base.level) || 1));
+        const plannerClasses = getPlannerClassBreakdown(levels, level);
+        const divineDef = getBuffDefinitionByName('divine_power');
+        const divineState = state && state.buffs ? state.buffs.divine_power : null;
+        const divineDerived = Array.isArray(divineDef && divineDef.derivedEffects) ? divineDef.derivedEffects : [];
+
+        const overrideRule = divineDerived.find(rule => String(rule && rule.effectType || '').trim().toLowerCase() === 'setbaboverride') || null;
+        const overrideSource = String(overrideRule && overrideRule.valueSource || '').trim();
+        const overrideCasterLevel = Math.max(1, Math.floor(Number(divineState && divineState.casterLevel) || 1));
+        const overrideClassBab = overrideRule
+            ? getClassBabAtClassLevel(overrideSource || 'Fighter', overrideCasterLevel)
+            : null;
+
+        return {
+            timestamp: new Date().toISOString(),
+            wiring: {
+                hasGetCurrentBuildLevel: typeof getCurrentBuildLevel === 'function',
+                hasGetDerivedCombatStatsAtLevel: typeof getDerivedCombatStatsAtLevel === 'function',
+                hasClassData: Boolean(classData && typeof classData === 'object'),
+                plannerLevelsPresent: Array.isArray(levels),
+                plannerLevelsWithClass: Array.isArray(levels) ? levels.some(row => row && row.class) : false
+            },
+            planner: {
+                level,
+                classBreakdown: plannerClasses,
+                base: {
+                    bab: Number(base && base.bab) || 0,
+                    fort: Number(base && base.fort) || 0,
+                    ref: Number(base && base.ref) || 0,
+                    will: Number(base && base.will) || 0,
+                    hp: Number(base && base.hp) || 0
+                }
+            },
+            divinePower: {
+                state: divineState ? {
+                    enabled: Boolean(divineState.enabled),
+                    casterLevel: Math.max(1, Math.floor(Number(divineState.casterLevel) || 1)),
+                    secondCast: Boolean(divineState.secondCast)
+                } : null,
+                definitionFound: Boolean(divineDef),
+                derivedEffectsCount: divineDerived.length,
+                overrideRule: overrideRule ? {
+                    effectType: overrideRule.effectType || null,
+                    valueSource: overrideSource || null,
+                    resolvedClassBabAtCasterLevel: Number(overrideClassBab) || 0
+                } : null
+            },
+            buffs: {
+                hasBabOverride,
+                overrideBab: buffEffects ? buffEffects.overrideBab : null,
+                uncappedAttackBonus: Number(buffEffects && buffEffects.uncappedAttackBonus) || 0,
+                cappedAttackBonusFromBuffs: Number(buffEffects && buffEffects.cappedAttackBonusFromBuffs) || 0
+            },
+            attack: {
+                cappedBonus: Number(cappedAttack && cappedAttack.cappedBonus) || 0,
+                effectiveBab: Number(effectiveBab) || 0
+            }
+        };
+    }
+
+    function maybeAutoLogCombatDebug(snapshot) {
+        if (!snapshot || typeof snapshot !== 'object') return;
+
+        try {
+            if (localStorage.getItem('gear_debug_autolog') !== '1') return;
+        } catch {
+            return;
+        }
+
+        try {
+            console.log('[GearDebug] Combat snapshot', JSON.stringify(snapshot, null, 2));
+        } catch {
+            // no-op
+        }
+    }
+
     function renderSummaries() {
-        if (!rootEls || !rootEls.baseSummary || !rootEls.gearSummary) return;
+        if (!rootEls || !rootEls.gearSummary) return;
         renderDamageGraphTargetEditor();
         renderClassAttackBonusEditor();
 
@@ -5127,14 +6159,16 @@
             renderPaperDoll();
         }
 
-        rootEls.baseSummary.innerHTML = [
-            `<div class="gear-chip">Build Level: ${base.level}</div>`,
-            `<div class="gear-chip">BAB: +${base.bab}</div>`,
-            `<div class="gear-chip">Fort: +${base.fort}</div>`,
-            `<div class="gear-chip">Ref: +${base.ref}</div>`,
-            `<div class="gear-chip">Will: +${base.will}</div>`,
-            `<div class="gear-chip">HP: ${base.hp}</div>`
-        ].join('');
+        if (rootEls.baseSummary) {
+            rootEls.baseSummary.innerHTML = [
+                `<div class="gear-chip">Build Level: ${base.level}</div>`,
+                `<div class="gear-chip">BAB: +${base.bab}</div>`,
+                `<div class="gear-chip">Fort: +${base.fort}</div>`,
+                `<div class="gear-chip">Ref: +${base.ref}</div>`,
+                `<div class="gear-chip">Will: +${base.will}</div>`,
+                `<div class="gear-chip">HP: ${base.hp}</div>`
+            ].join('');
+        }
 
         const classHardUncappedLines = formatEntryLines(
             toArray(snapshot.classHardAttack.sources).map(source => ({
@@ -5149,9 +6183,6 @@
             }))
         );
 
-        const cappedBuffAdd = Number(snapshot.cappedAttack.buffCappedBonus) || 0;
-        const cappedClassAdd = Number(snapshot.cappedAttack.classCappedBonus) || 0;
-        const cappedCombinedAdds = cappedBuffAdd + cappedClassAdd;
         const weaponFloorUsed = Math.max(
             Number(snapshot.buffEffects.weaponBonusFloor) || 0,
             Number(snapshot.classHardAttack.weaponBonusFloor) || 0
@@ -5159,15 +6190,17 @@
 
         const attackDetailRows = [
             { key: 'Base BAB', value: `${formatSigned(derived.bab)}` },
-            { key: 'Capped Section', value: `${formatSigned(snapshot.cappedAttack.cappedBonus)} (capped at +20)` },
+            {
+                key: 'Capped (+20 cap)',
+                value: `${formatSigned(snapshot.cappedAttack.cappedBonus)} total | buffs ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')} | class-capped ${classHardCappedLines.join(' | ')}`
+            },
             {
                 key: 'Weapon Minimum Rule',
                 value: `Highest used of: enhancement ${formatSigned(effects.enhancementAttackBonus)} | direct ${formatSigned(effects.directAttackBonus)} | minimum ${formatSigned(weaponFloorUsed)}`,
                 tooltip: 'Minimum is a guaranteed weapon AB value from effects like Corrupt Weapon or the I\'m Lazy Weapon AB minimum proxy.'
             },
-            { key: 'Capped Contributors', value: `buffs ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')} | class-capped ${classHardCappedLines.join(' | ')}` },
             { key: 'Uncapped Adds', value: `feats ${formatEntryLines(featCombatMods.attackSources).join(' | ')} | class ${classHardUncappedLines.join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.attack).join(' | ')} | misc ${formatSigned(snapshot.buffEffects.uncappedAttackBonus)}` },
-            { key: `${abilityCombatMods.attackAbility.toUpperCase()} Ability Mod`, value: `${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})` }
+            { key: 'Ability Mod', value: `${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})` }
         ];
 
         const damageDetailLines = [
@@ -5370,7 +6403,9 @@
             rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (BAB ${round2(derived.bab)} + ability ${round2(abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(featCombatMods.attackBonus)} + class ${round2(snapshot.classHardAttack.total)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
         }
 
-        rootEls.totalMotes.textContent = `Total Motes: ${formatMote(totalMotes)}`;
+        if (rootEls.totalMotes) {
+            rootEls.totalMotes.textContent = `Total Motes: ${formatMote(totalMotes)}`;
+        }
 
         const flagList = Array.from(effects.flags);
         const uniqueSituational = Array.from(new Set(effects.situational));
@@ -5390,7 +6425,9 @@
             });
         }
 
-        rootEls.flags.innerHTML = flagLines.join('');
+        if (rootEls.flags) {
+            rootEls.flags.innerHTML = flagLines.join('');
+        }
 
         if (rootEls.songEffectSummary) {
             const activeSong = state.song && state.song.enabled ? (getSongEntryFromState() || { name: state.song.name }) : null;
@@ -5665,14 +6702,7 @@
                             </div>
                             <div class="gear-field-row">
                                 <label style="min-width:90px; font-weight:bold;">Tags</label>
-                                <label><input id="meta_concussion" type="checkbox"> Concussion</label>
-                                <label><input id="meta_oneHandEdged" type="checkbox"> 1H Edged</label>
-                                <label><input id="meta_twoHanded" type="checkbox"> 2-Handed</label>
-                                <label><input id="meta_polearm" type="checkbox"> Polearm</label>
-                                <label><input id="meta_unarmed" type="checkbox"> Unarmed</label>
-                                <label><input id="meta_missile" type="checkbox"> Missile</label>
                                 <label><input id="meta_ranged" type="checkbox"> Ranged</label>
-                                <label><input id="meta_thrown" type="checkbox"> Thrown</label>
                             </div>
                         </div>
                     </div>
@@ -5781,14 +6811,7 @@
                 const checkbox = section.querySelector(selector);
                 if (checkbox) checkbox.checked = Boolean(value);
             };
-            setChecked('#meta_concussion', meta.concussion);
-            setChecked('#meta_oneHandEdged', meta.oneHandEdged);
-            setChecked('#meta_twoHanded', meta.twoHanded);
-            setChecked('#meta_polearm', meta.polearm);
-            setChecked('#meta_unarmed', meta.unarmed);
-            setChecked('#meta_missile', meta.missile);
             setChecked('#meta_ranged', meta.ranged);
-            setChecked('#meta_thrown', meta.thrown);
         };
         syncTagCheckboxes();
 
@@ -5983,14 +7006,7 @@
         bindInput('#meta_critRange', 'critRange', value => value || '');
         bindInput('#meta_damageType', 'damageType', value => normalizeBaseDamageType(value));
         bindInput('#meta_baseArmor', 'baseArmor', value => Math.max(0, parseInt(value, 10) || 0));
-        bindCheckbox('#meta_concussion', 'concussion');
-        bindCheckbox('#meta_oneHandEdged', 'oneHandEdged');
-        bindCheckbox('#meta_twoHanded', 'twoHanded');
-        bindCheckbox('#meta_polearm', 'polearm');
-        bindCheckbox('#meta_unarmed', 'unarmed');
-        bindCheckbox('#meta_missile', 'missile');
         bindCheckbox('#meta_ranged', 'ranged');
-        bindCheckbox('#meta_thrown', 'thrown');
         bindInput('#meta_classRestriction', 'classRestriction', value => value || '');
         bindInput('#meta_minClassLevel', 'minClassLevel', value => Math.max(0, parseInt(value, 10) || 0));
         bindInput('#meta_raceRestriction', 'raceRestriction', value => value || '');
@@ -6496,6 +7512,21 @@
         });
     }
 
+    function hydrateGearPlannerStateFromPersistedCharacter() {
+        try {
+            const saved = localStorage.getItem('dnd_character');
+            if (!saved) return;
+
+            const parsed = JSON.parse(saved);
+            if (!parsed || typeof parsed !== 'object') return;
+            if (!parsed.gearPlanner || typeof parsed.gearPlanner !== 'object') return;
+
+            applyGearPlannerSnapshot(parsed.gearPlanner);
+        } catch {
+            // no-op
+        }
+    }
+
     function getGearPlannerSnapshot() {
         ensureLazyProxyState();
         return {
@@ -6517,15 +7548,7 @@
         }
 
         state.selectedSlot = snapshot.selectedSlot || 'mainHand';
-        state.buffs = {};
-        BUFF_DEFINITIONS.forEach(def => {
-            const incoming = snapshot.buffs && snapshot.buffs[def.name] ? snapshot.buffs[def.name] : null;
-            state.buffs[def.name] = {
-                enabled: Boolean(incoming && incoming.enabled),
-                casterLevel: Math.max(1, Math.min(30, Math.floor(Number(incoming && incoming.casterLevel) || 30))),
-                secondCast: Boolean(incoming && incoming.secondCast)
-            };
-        });
+        state.buffs = initializeBuffStateFromDefinitions(snapshot.buffs);
         state.lazyProxy = createDefaultLazyProxyState();
         const incomingLazyProxy = snapshot.lazyProxy && typeof snapshot.lazyProxy === 'object' ? snapshot.lazyProxy : null;
         if (incomingLazyProxy) {
@@ -6560,11 +7583,13 @@
         const incomingClassBonusOptions = snapshot.classBonusOptions && typeof snapshot.classBonusOptions === 'object'
             ? snapshot.classBonusOptions
             : null;
-        if (incomingClassBonusOptions && Object.prototype.hasOwnProperty.call(incomingClassBonusOptions, 'spellswordPrimaryAttribute')) {
-            state.classBonusOptions.spellswordPrimaryAttribute = String(incomingClassBonusOptions.spellswordPrimaryAttribute || '').toLowerCase() === 'dex'
-                ? 'dex'
-                : 'str';
+        if (incomingClassBonusOptions) {
+            Object.keys(state.classBonusOptions).forEach(optionKey => {
+                if (!Object.prototype.hasOwnProperty.call(incomingClassBonusOptions, optionKey)) return;
+                state.classBonusOptions[optionKey] = String(incomingClassBonusOptions[optionKey] || state.classBonusOptions[optionKey]).trim().toLowerCase();
+            });
         }
+        ensureClassBonusOptionsState();
 
         const incomingSong = snapshot.song && typeof snapshot.song === 'object' ? snapshot.song : null;
         const incomingTargeting = snapshot.targeting && typeof snapshot.targeting === 'object' ? snapshot.targeting : null;
@@ -6631,10 +7656,7 @@
 
     function resetGearPlannerState() {
         state.selectedSlot = 'mainHand';
-        state.buffs = {};
-        BUFF_DEFINITIONS.forEach(def => {
-            state.buffs[def.name] = { enabled: false, casterLevel: 30, secondCast: false };
-        });
+        state.buffs = initializeBuffStateFromDefinitions(null);
         state.lazyProxy = createDefaultLazyProxyState();
         state.classAttackToggles = createDefaultClassAttackToggleState();
         state.classBonusOptions = createDefaultClassBonusOptions();
@@ -6663,6 +7685,36 @@
     window.applyGearPlannerSnapshot = applyGearPlannerSnapshot;
     window.resetGearPlannerState = resetGearPlannerState;
     window.refreshGearPlannerDerivedSummary = renderSummaries;
+    window.getGearCombatDebugSnapshot = function () {
+        return lastCombatDebugSnapshot
+            ? JSON.parse(JSON.stringify(lastCombatDebugSnapshot))
+            : null;
+    };
+    window.dumpGearCombatDebugSnapshot = function () {
+        const snapshot = window.getGearCombatDebugSnapshot();
+        if (!snapshot) {
+            console.log('[GearDebug] No combat snapshot available yet.');
+            return null;
+        }
+        try {
+            console.log('[GearDebug] Manual dump', JSON.stringify(snapshot, null, 2));
+        } catch {
+            console.log('[GearDebug] Manual dump', snapshot);
+        }
+        return snapshot;
+    };
+    window.setGearCombatAutoLog = function (enabled) {
+        const on = Boolean(enabled);
+        try {
+            localStorage.setItem('gear_debug_autolog', on ? '1' : '0');
+        } catch {
+            // no-op
+        }
+        console.log(`[GearDebug] Auto log ${on ? 'enabled' : 'disabled'}.`);
+        if (on) {
+            renderSummaries();
+        }
+    };
     window.getItemGrantedFeatDetails = getItemGrantedFeatDetails;
     window.getItemSkillBonusForSkill = getItemSkillBonusForSkill;
     window.getSongSkillBonusForSkill = getSongSkillBonusForSkill;
@@ -6671,5 +7723,9 @@
     window.getExternalSaveBonusForType = getExternalSaveBonusForType;
     window.getActiveBuffObjects = () => getActiveBuffObjects(getCurrentCharacterLevel(), buildGearEffects());
 
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => {
+        init().catch(error => {
+            console.error('[Damage Gear Planner] Initialization failed', error);
+        });
+    });
 })();
