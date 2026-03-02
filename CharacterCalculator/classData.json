@@ -5,7 +5,10 @@
       "alignment": "None",
       "bab": "4",
       "feats": ["weapon focus (missile)", "point blank shot"],
-      "race": ["elf", "half-elf"],
+      "race": {
+        "type": "anyOf",
+        "values": ["Aquatic Elf", "Wood Elf", "Wild Elf", "Sun Elf", "Moon Elf", "Half-Elf", "Drow"]
+      },
       "class": {
         "type": "anyOf",
         "levels": 3,
@@ -34,7 +37,7 @@
       "overwhelming critical (missile)"
     ],
     "hasSpellcasting": true,
-    "maxLevel": 30,
+    "maxLevel": 20,
     "levelProgression": [
       [1, 2, 2, 0, 8],
       [2, 3, 3, 0, 16],
@@ -797,31 +800,31 @@
     "extras": [
       {
         "name": "spirited charge tier",
-        "values": ["1", "-", "-", "2", "-", "-", "3", "-", "-", "4"]
+        "values": ["1", "1", "1", "2", "2", "2", "3", "3", "3", "4"]
       },
       {
         "name": "mounted charge AB",
-        "values": ["+2", "-", "-", "+3", "-", "-", "+4", "-", "-", "+5"]
+        "values": ["+2", "+2", "+2", "+3", "+3", "+3", "+4", "+4", "+4", "+5"]
       },
       {
         "name": "on-foot charge AB",
-        "values": ["-", "-", "-", "+1", "-", "-", "+2", "-", "-", "+3"]
+        "values": ["0", "0", "0", "+1", "+1", "+1", "+2", "+2", "+2", "+3"]
       },
       {
         "name": "non-cav weapon AB",
-        "values": ["-", "-", "-", "+1", "-", "-", "-", "-", "-", "+2"]
+        "values": ["0", "0", "0", "+1", "+1", "+1", "+2", "+2", "+2", "+3"]
       },
       {
         "name": "daze slash/pierce",
-        "values": ["0.5s", "-", "-", "1s", "-", "-", "1.5s", "-", "-", "2s"]
+        "values": ["0.5s", "0.5s", "0.5s", "1s", "1s", "1s", "1.5s", "1.5s", "1.5s", "2s"]
       },
       {
         "name": "stun bludgeon",
-        "values": ["0.5s", "-", "-", "1s", "-", "-", "1.5s", "-", "-", "2s"]
+        "values": ["0.5s", "0.5s", "0.5s", "1s", "1s", "1s", "1.5s", "1.5s", "1.5s", "2s"]
       },
       {
         "name": "bullrush bludgeon",
-        "values": ["-", "-", "-", "1s", "-", "-", "1.5s", "-", "-", "2s"]
+        "values": ["0", "0", "0", "1s", "1s", "1s", "1.5s", "1.5s", "1.5s", "2s"]
       }
     ]
   ,
@@ -2116,7 +2119,7 @@
 "improved critical (Polearm)",
 "improved critical (One-Handed Edge)",
 "improved critical (Unarmed)",
-"improved critical (Missle)",
+"improved critical (Missile)",
       "improved disarm",
       "improved expertise",
       "improved knockdown",
@@ -2140,14 +2143,14 @@
 "weapon focus (Polearm)",
 "weapon focus (One-Handed Edge)",
 "weapon focus (Unarmed)",
-"weapon focus (Missle)",
+"weapon focus (Missile)",
       "weapon proficiency (exotic)",
       "weapon specialization (Concussion)",
 "weapon specialization (Two-Handed)",
 "weapon specialization (Polearm)",
 "weapon specialization (One-Handed Edge)",
 "weapon specialization (Unarmed)",
-"weapon specialization (Missle)",
+"weapon specialization (Missile)",
       "whirlwind attack",
       "Ricochet",
       "Ballistic shot",
@@ -2163,12 +2166,12 @@
 "epic weapon focus (Polearm)",
 "epic weapon focus (One-Handed Edge)",
 "epic weapon focus (Unarmed)",
-"epic weapon focus (Missle)","weapon specialization (Concussion)",
+"epic weapon focus (Missile)","weapon specialization (Concussion)",
 "weapon specialization (Two-Handed)",
 "weapon specialization (Polearm)",
 "weapon specialization (One-Handed Edge)",
 "weapon specialization (Unarmed)",
-"weapon specialization (Missle)",
+"weapon specialization (Missile)",
 
         
       "improved stunning fist",
@@ -4838,6 +4841,19 @@
     "skillPointsAtFirstLevel": "(4 + ${int}) * 4",
     "hitDie": "d8",
     "proficiencies": ["armor proficiency (light)", "armor proficiency (medium)", "Shield proficiency", "weapon proficiency (martial)", "weapon proficiency (simple)"],
+    "classFeatTracks": {
+      "spellsword_path": {
+        "label": "Path",
+        "slots": [
+          { "classLevel": 12, "tier": "standard", "count": 1 }
+        ],
+        "options": [
+          { "feat": "Abjurant Champion", "tier": "standard", "when": "always" },
+          { "feat": "Arcane Marauder", "tier": "standard", "when": "always" },
+          { "feat": "Bladesinger", "tier": "standard", "when": "always" }
+        ]
+      }
+    },
     "bonusFeatsAtLevels": [6, 12, 18, 23, 26, 29],
     "availableBonusFeats": [
       "abjurant champion",
@@ -5013,18 +5029,18 @@
       "",
       "Uncanny Dodge I",
       "Imbue Armor",
-      "Bonus Feat + Path, Combat Casting",
+      "Bonus Feat, Path, Combat Casting",
       "",
       "",
       "",
       "Greater Elemental Strike",
       "",
-      "Bonus Feat + Path",
+      "Bonus Feat, Path",
       "",
       "",
       "",
       "",
-      "Epic Bonus Feat + Path",
+      "Epic Bonus Feat, Path",
       "Improved Combat Casting",
       "",
       "Epic Bonus Feat + Path, Greater Imbue Armor, Elemental Maelstrom, Caster level against dispels +3",
@@ -5668,8 +5684,13 @@
       "",
       "Bonus Feat, AB Bonus +4",
       ""
-    ]
-  ,
+    ],
+    "Extras": [
+              {
+        "name": "AB Bonus",
+        "values": [0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,3,3,3,4,4]
+      }
+    ],
     "classSkills": [
       "concentration",
       "craft mastery",

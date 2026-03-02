@@ -4281,39 +4281,6 @@
       "desc": "The character's [[summon shadow]] ability is reinforced, allowing him to call an [[epic shadowlord (summon)|epic shadowlord]] to his side. Unlike a non-epic shadowlord, an epic shadowlord is a potent fighter, reinforced by his master's lifeforce, making him stronger each time the shadowdancer gains a [[class level|level]]."
     }
   },
-  "Epic skill focus": {
-    "name": "Epic skill focus",
-    "requirements": {
-      "level": 21,
-      "feats": [
-        "20 ranks in the chosen skill"
-      ],
-      "skills": {},
-      "stats": {},
-      "bab": null,
-      "class": [],
-      "race": [],
-      "alignment": null,
-      "spells": {},
-      "other": [],
-      "repeatable": false,
-      "repeatableCount": 0,
-      "levelGate": null
-    },
-    "effects": {
-      "stats": {},
-      "ac": {},
-      "skills": {
-        "skill": 10
-      },
-      "hp": null,
-      "other": []
-    },
-    "source": {
-      "type": "general",
-      "desc": "The character gains a +10 bonus on all [[skill check]]s with the chosen [[skill]]."
-    }
-  },
   "Epic Spell Focus: Abjuration": {
     "name": "Epic Spell Focus: Abjuration",
     "requirements": {
@@ -12867,7 +12834,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Appraise)"
       ],
       "skills": {
         "appraise": 20
@@ -12933,7 +12899,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Bluff)"
       ],
       "skills": {
         "bluff": 20
@@ -12999,7 +12964,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Climb)"
       ],
       "skills": {
         "climb": 20
@@ -13065,7 +13029,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Concentration)"
       ],
       "skills": {
         "concentration": 20
@@ -13131,7 +13094,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Craft Mastery)"
       ],
       "skills": {
         "craft mastery": 20
@@ -13197,7 +13159,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Discipline)"
       ],
       "skills": {
         "discipline": 20
@@ -13263,7 +13224,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Heal)"
       ],
       "skills": {
         "heal": 20
@@ -13329,7 +13289,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Hide)"
       ],
       "skills": {
         "hide": 20
@@ -13395,7 +13354,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Taunt)"
       ],
       "skills": {
         "taunt": 20
@@ -13461,7 +13419,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Intimidate)"
       ],
       "skills": {
         "intimidate": 20
@@ -13527,7 +13484,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Leadership)"
       ],
       "skills": {
         "leadership": 20
@@ -13593,7 +13549,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Listen)"
       ],
       "skills": {
         "listen": 20
@@ -13659,7 +13614,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Lore)"
       ],
       "skills": {
         "lore": 20
@@ -13725,7 +13679,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Move Silently)"
       ],
       "skills": {
         "move silently": 20
@@ -13791,7 +13744,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Parry)"
       ],
       "skills": {
         "parry": 20
@@ -13857,7 +13809,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Perform)"
       ],
       "skills": {
         "perform": 20
@@ -13923,7 +13874,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Ride)"
       ],
       "skills": {
         "ride": 20
@@ -13989,7 +13939,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Sail)"
       ],
       "skills": {
         "sail": 20
@@ -14055,7 +14004,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Search)"
       ],
       "skills": {
         "search": 20
@@ -14121,7 +14069,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Sleight of Hand)"
       ],
       "skills": {
         "sleight of hand": 20
@@ -14187,7 +14134,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Use Magic Device)"
       ],
       "skills": {
         "use magic device": 20
@@ -14253,7 +14199,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Tumble)"
       ],
       "skills": {
         "tumble": 20
@@ -14319,7 +14264,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Spellcraft)"
       ],
       "skills": {
         "spellcraft": 20
@@ -14385,7 +14329,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Spot)"
       ],
       "skills": {
         "spot": 20
@@ -14451,7 +14394,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Disable Trap)"
       ],
       "skills": {
         "disable trap": 20
@@ -14517,7 +14459,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Open Lock)"
       ],
       "skills": {
         "open lock": 20
@@ -14583,7 +14524,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Use Trap)"
       ],
       "skills": {
         "use trap": 20
@@ -14812,7 +14752,7 @@
     "requirements": {
       "level": null,
       "feats": [
-        "Weapon Proficiency"
+        "Weapon focus (Missile)"
       ],
       "skills": {},
       "stats": {},
@@ -22571,7 +22511,6 @@
     "requirements": {
       "level": 21,
       "feats": [
-        "Skill Focus (Animal Empathy)"
       ],
       "skills": {
         "animal empathy": 20

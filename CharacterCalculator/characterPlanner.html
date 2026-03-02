@@ -210,6 +210,20 @@
             border: 1px solid #ddd;
             border-radius: 3px;
         }
+        .validation-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .validation-header h3 {
+            margin: 0;
+        }
+        .validate-now-btn {
+            padding: 4px 8px;
+            font-size: 11px;
+            line-height: 1.2;
+        }
         .valid { color: green; font-weight: bold; }
         .invalid { color: red; font-weight: bold; }
 
@@ -478,6 +492,19 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .gear-drawer-label {
+            flex: 1;
+        }
+
+        .gear-drawer-total {
+            white-space: nowrap;
+            font-weight: 700;
         }
 
         .gear-drawer-body {
@@ -536,6 +563,112 @@
             display: flex;
             justify-content: flex-end;
             margin-top: 8px;
+        }
+
+        body {
+            background: #0f1115;
+            color: #e6e9ef;
+        }
+
+        .container {
+            background: #171a21;
+            color: #e6e9ef;
+            border: 1px solid #2a3140;
+        }
+
+        .stats-display,
+        .validation-section,
+        .gear-panel,
+        .damage-sim-panel,
+        .damage-sim-trace,
+        .damage-sim-canvas-wrap,
+        .share-modal {
+            background: #1c212b;
+            border-color: #30394a;
+            color: #e6e9ef;
+        }
+
+        .toolbar input,
+        .toolbar select,
+        select,
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            background: #11151c;
+            color: #e6e9ef;
+            border-color: #3a455a;
+        }
+
+        .tabs {
+            border-bottom-color: #4a8cff;
+        }
+
+        .tab-button {
+            background: #1f2b3f;
+            color: #9fc2ff;
+        }
+
+        .tab-button:hover {
+            background: #2a3d5e;
+        }
+
+        .tab-button.active {
+            background: #4a8cff;
+            color: #fff;
+            border-bottom-color: #4a8cff;
+        }
+
+        table,
+        .gear-special-table {
+            background: #171a21;
+            color: #e6e9ef;
+        }
+
+        th {
+            background: #2d5fb7;
+            color: #fff;
+            border-color: #3f4f6e;
+        }
+
+        td,
+        .gear-special-table td,
+        .gear-special-table th {
+            border-color: #30394a;
+        }
+
+        tr:nth-child(even) {
+            background: #1a202b;
+        }
+
+        tr:hover {
+            background: #253247;
+        }
+
+        #skills td.skill-class-cell {
+            background: #223626;
+        }
+
+        #skills td.skill-nonclass-cell {
+            background: #3a2f1f;
+        }
+
+        #skills tr:hover td.skill-class-cell {
+            background: #2c4a31;
+        }
+
+        #skills tr:hover td.skill-nonclass-cell {
+            background: #4a3c28;
+        }
+
+        .muted-note,
+        .stat-source,
+        .share-modal-note,
+        .skill-total {
+            color: #aeb8c8;
+        }
+
+        .share-modal-backdrop {
+            background: rgba(0, 0, 0, 0.62);
         }
     </style>
 </head>
@@ -688,6 +821,7 @@
                 <button type="button" id="damageGearSubtabPlanner" class="gear-subtab-btn active">Gear Planner</button>
                 <button type="button" id="damageGearSubtabBuffs" class="gear-subtab-btn">Buffs</button>
                 <button type="button" id="damageGearSubtabSongs" class="gear-subtab-btn">Songs</button>
+                <button type="button" id="damageGearSubtabClassAb" class="gear-subtab-btn">Class AB</button>
                 <button type="button" id="damageGearSubtabGraph" class="gear-subtab-btn">Damage Graph</button>
             </div>
 
@@ -756,9 +890,35 @@
             <div id="damageGearGraphPanel" class="gear-subtab-panel">
                 <div class="damage-sim-panel">
                     <h3 style="margin-top:0;">AC vs Average Damage per Round</h3>
+                    <div class="gear-field-row" style="align-items:flex-end; gap:10px; flex-wrap:wrap;">
+                        <div style="min-width:220px;">
+                            <label for="damageGraphTargetAlignment" style="font-weight:bold;">Target Alignment</label>
+                            <select id="damageGraphTargetAlignment"></select>
+                        </div>
+                        <div style="min-width:260px;">
+                            <label for="damageGraphTargetRace" style="font-weight:bold;">Target Race</label>
+                            <select id="damageGraphTargetRace"></select>
+                        </div>
+                    </div>
+                    <div id="damageGraphTargetToggleList"></div>
+                    <div class="gear-field-row">
+                        <span id="damageGraphTargetSummary" class="feat-label">Target profile: neutral | none</span>
+                    </div>
                     <div class="gear-field-row">
                         <button type="button" id="runDamageSimulationBtn">Run 500000-round Simulation</button>
-                        <span class="feat-label">X Axis: AC 20-80</span>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            Samples
+                            <input id="damageSimSamples" type="number" min="1" max="100" step="1" value="1" style="width:72px;">
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            AC Min
+                            <input id="damageSimAcMin" type="number" min="0" max="100" step="1" value="20" style="width:72px;">
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            AC Max
+                            <input id="damageSimAcMax" type="number" min="0" max="100" step="1" value="80" style="width:72px;">
+                        </label>
+                        <span class="feat-label">X Axis: AC selectable (0-100)</span>
                         <span class="feat-label">Y Axis: Average Damage/Round</span>
                     </div>
                     <div class="gear-field-row">
@@ -815,10 +975,21 @@
                     <div id="songUnmappedSummary" class="muted-note"></div>
                 </div>
             </div>
+
+            <div id="damageGearClassAbPanel" class="gear-subtab-panel">
+                <div class="gear-panel">
+                    <h3 style="margin-top:0;">Class-Specific Attack Bonus Toggles</h3>
+                    <div id="damageClassAttackBonusList"></div>
+                    <p class="muted-note">Enable situational class AB sources you want included in attack bonus calculations.</p>
+                </div>
+            </div>
         </div>
 
         <div class="validation-section">
-            <h3>Validation & Status</h3>
+            <div class="validation-header">
+                <h3>Validation & Status</h3>
+                <button type="button" class="validate-now-btn" onclick="validateCharacter()">Validate Now</button>
+            </div>
             <div id="validationOutput">Character loaded. Ready to build.</div>
         </div>
     </div>

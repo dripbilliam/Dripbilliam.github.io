@@ -116,7 +116,6 @@ const VALIDATION_TRAILING_DEBOUNCE_MS = 1500;
 const SKILL_STAT_VALIDATION_DEBOUNCE_MS = VALIDATION_TRAILING_DEBOUNCE_MS;
 let refreshTimer = null;
 let validationTimer = null;
-let pendingSkillGridRefresh = false;
 let debugLogsEnabled = false;
 
 function debugLog(...args) {
@@ -141,22 +140,15 @@ function scheduleValidation(delayMs = UI_REFRESH_DEBOUNCE_MS) {
     }, effectiveDelay);
 }
 
-function schedulePlannerRefresh({ includeSkills = false, validationDelayMs = VALIDATION_TRAILING_DEBOUNCE_MS } = {}) {
-    pendingSkillGridRefresh = pendingSkillGridRefresh || includeSkills;
-
+function schedulePlannerRefresh({ validationDelayMs = VALIDATION_TRAILING_DEBOUNCE_MS } = {}) {
     if (refreshTimer) {
         clearTimeout(refreshTimer);
     }
 
     refreshTimer = setTimeout(() => {
-        const shouldRefreshSkills = pendingSkillGridRefresh;
-        pendingSkillGridRefresh = false;
         refreshTimer = null;
 
         updateGrid();
-        if (shouldRefreshSkills) {
-            updateSkillGrid();
-        }
         scheduleValidation(validationDelayMs);
     }, UI_REFRESH_DEBOUNCE_MS);
 }
@@ -311,7 +303,6 @@ function populateRaceSelect() {
 // Handle stat changes with real-time validation
 function handleStatChange() {
     updateStatGrid();
-    updateSkillGrid();
     scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
 }
 
@@ -1242,6 +1233,16 @@ function getItemSkillBonusAtLevel(level, skillKey) {
     return parseStatBonusValue(window.getItemSkillBonusForSkill(level, normalizedSkill));
 }
 
+function getSongSkillBonusAtLevel(level, skillKey) {
+    if ((parseInt(level, 10) || 0) < 30) return 0;
+    if (typeof window.getSongSkillBonusForSkill !== 'function') return 0;
+
+    const normalizedSkill = normalizeSkillKey(skillKey);
+    if (!normalizedSkill) return 0;
+
+    return parseStatBonusValue(window.getSongSkillBonusForSkill(level, normalizedSkill));
+}
+
 function getItemStatBonusAtLevel(level, statKey) {
     if ((parseInt(level, 10) || 0) < 30) return 0;
     if (typeof window.getItemStatBonusForStat !== 'function') return 0;
@@ -1252,11 +1253,34 @@ function getItemStatBonusAtLevel(level, statKey) {
     return parseStatBonusValue(window.getItemStatBonusForStat(level, normalizedStat));
 }
 
+function getItemStatBonusDetailsAtLevel(level, statKey) {
+    if ((parseInt(level, 10) || 0) < 30) return [];
+    if (typeof window.getItemStatBonusDetailsForStat !== 'function') return [];
+
+    const normalizedStat = normalizeStatKey(statKey);
+    if (!normalizedStat) return [];
+
+    const rawDetails = window.getItemStatBonusDetailsForStat(level, normalizedStat);
+    if (!Array.isArray(rawDetails)) return [];
+
+    return rawDetails
+        .map(entry => {
+            const label = String(entry && entry.label ? entry.label : '').trim();
+            const value = parseStatBonusValue(entry && entry.value);
+            return {
+                label,
+                value
+            };
+        })
+        .filter(entry => entry.label && entry.value !== 0);
+}
+
 function getTotalSkillBonusAtLevel(level, skillKey) {
     return getRaceSkillBonus(skillKey)
         + getFeatSkillBonusAtLevel(level, skillKey)
         + getClassSkillBonusAtLevel(level, skillKey)
-        + getItemSkillBonusAtLevel(level, skillKey);
+    + getItemSkillBonusAtLevel(level, skillKey)
+    + getSongSkillBonusAtLevel(level, skillKey);
 }
 
 function getSkillAbilityBonusAtLevel(level, skillName) {
@@ -1689,6 +1713,11 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
         ? [{ name: 'Equipped items', bonus: itemBonus }]
         : [];
 
+    const songBonus = getSongSkillBonusAtLevel(level, normalizedSkill);
+    const songSources = songBonus !== 0
+        ? [{ name: 'Song propagation (L30)', bonus: songBonus }]
+        : [];
+
     const levelStats = getStatsAtLevel(level);
     const mods = getAbilityModifiers(levelStats);
     const abilityKeys = Array.isArray(SKILL_ABILITY_MAP[normalizedSkill])
@@ -1701,7 +1730,7 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
     }));
     const abilityBonus = abilitySources.reduce((sum, entry) => sum + entry.bonus, 0);
 
-    const total = raw + raceBonus + featBonus + classBonus + itemBonus + abilityBonus;
+    const total = raw + raceBonus + featBonus + classBonus + itemBonus + songBonus + abilityBonus;
 
     return {
         skill: normalizedSkill,
@@ -1715,6 +1744,8 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
         classSources,
         itemBonus,
         itemSources,
+        songBonus,
+        songSources,
         abilityBonus,
         abilitySources,
         total
@@ -1745,6 +1776,11 @@ function getSkillIncreaseTooltipAtLevel(level, skillName) {
 
     lines.push(`Item Bonuses: ${formatSignedValue(breakdown.itemBonus)}`);
     breakdown.itemSources.forEach(source => {
+        lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Song Bonuses: ${formatSignedValue(breakdown.songBonus)}`);
+    breakdown.songSources.forEach(source => {
         lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
     });
 
@@ -2011,7 +2047,19 @@ function calculateStatProgression() {
             const itemSoftBonus = getItemStatBonusAtLevel(level, statKey);
             if (itemSoftBonus === 0) return;
             currentSoftBonusTotals[statKey] += itemSoftBonus;
-            softAppliedBonuses.push(`Gear ${itemSoftBonus > 0 ? '+' : ''}${itemSoftBonus} ${STAT_LABELS[statKey]} (soft)`);
+
+            const itemSoftDetails = getItemStatBonusDetailsAtLevel(level, statKey);
+            let detailTotal = 0;
+
+            itemSoftDetails.forEach(detail => {
+                detailTotal += detail.value;
+                softAppliedBonuses.push(`${detail.label} ${detail.value > 0 ? '+' : ''}${detail.value} ${STAT_LABELS[statKey]} (soft)`);
+            });
+
+            const remainder = itemSoftBonus - detailTotal;
+            if (remainder !== 0 || itemSoftDetails.length === 0) {
+                softAppliedBonuses.push(`Gear ${remainder > 0 ? '+' : ''}${remainder} ${STAT_LABELS[statKey]} (soft)`);
+            }
         });
 
         const softStats = {
@@ -2041,6 +2089,41 @@ function getStatsAtLevel(level) {
         calculateStatProgression();
     }
     return levelStatData[level - 1] || getStats();
+}
+
+function getCurrentBuildLevel() {
+    if (!Array.isArray(levelData)) return 1;
+    for (let index = levelData.length - 1; index >= 0; index--) {
+        const row = levelData[index];
+        if (row && row.class) {
+            return index + 1;
+        }
+    }
+    return 1;
+}
+
+function getDerivedCombatStatsAtLevel(level) {
+    const numericLevel = Math.max(1, Math.min(30, parseInt(level, 10) || 1));
+    if (!Array.isArray(levelData) || !levelData[numericLevel - 1]) {
+        return {
+            level: numericLevel,
+            bab: 0,
+            fort: 0,
+            ref: 0,
+            will: 0,
+            hp: 0
+        };
+    }
+
+    const row = levelData[numericLevel - 1];
+    return {
+        level: numericLevel,
+        bab: Number(row.bab) || 0,
+        fort: Number(row.fort) || 0,
+        ref: Number(row.ref) || 0,
+        will: Number(row.will) || 0,
+        hp: Number(row.hp) || 0
+    };
 }
 
 function calculateMulticlassProgression() {
@@ -2236,9 +2319,9 @@ function updateGrid() {
 
                     // Check race requirement
                     if (race && classReqs.race) {
-                        const raceValid = classReqs.race.some(r => r.toLowerCase() === race.toLowerCase());
-                        if (!raceValid) {
-                            errors.push(`${newClass} requires race: ${classReqs.race.join(' or ')}`);
+                        const raceRequirement = evaluateRaceRequirement(classReqs.race, race);
+                        if (!raceRequirement.valid) {
+                            errors.push(`${newClass} requires race: ${raceRequirement.summary || 'specific race requirement'}`);
                         }
                     }
 
@@ -3051,7 +3134,6 @@ function updateStatGrid() {
                 levelData[level - 1].statIncrease = statSelect.value || '';
                 calculateMulticlassProgression();
                 updateGrid();
-                updateSkillGrid();
                 scheduleValidation(SKILL_STAT_VALIDATION_DEBOUNCE_MS);
             };
 
@@ -3633,6 +3715,73 @@ function getMissingClassFeatRequirements(rawFeatRequirements, priorFeats) {
     return missing;
 }
 
+function evaluateRaceRequirement(rawRaceRequirement, selectedRace) {
+    const raceName = String(selectedRace || '').trim().toLowerCase();
+    if (!rawRaceRequirement) {
+        return { valid: true, summary: '' };
+    }
+
+    const normalizeList = (values) => (Array.isArray(values) ? values : [])
+        .filter(value => typeof value === 'string' && value.trim().length > 0)
+        .map(value => value.trim());
+
+    const raceMatches = (value) => String(value || '').trim().toLowerCase() === raceName;
+
+    if (Array.isArray(rawRaceRequirement)) {
+        const values = normalizeList(rawRaceRequirement);
+        if (values.length === 0) return { valid: true, summary: '' };
+        return {
+            valid: values.some(raceMatches),
+            summary: values.join(' or ')
+        };
+    }
+
+    if (typeof rawRaceRequirement === 'string') {
+        const value = rawRaceRequirement.trim();
+        if (!value) return { valid: true, summary: '' };
+        return {
+            valid: raceMatches(value),
+            summary: value
+        };
+    }
+
+    if (typeof rawRaceRequirement === 'object') {
+        const type = String(rawRaceRequirement.type || '').trim().toLowerCase();
+        const values = normalizeList(rawRaceRequirement.values);
+
+        if (type && values.length > 0) {
+            if (type === 'anyof') {
+                return { valid: values.some(raceMatches), summary: values.join(' or ') };
+            }
+            if (type === 'allof') {
+                return { valid: values.every(raceMatches), summary: values.join(' and ') };
+            }
+            if (type === 'noneof') {
+                return { valid: values.every(value => !raceMatches(value)), summary: `not ${values.join(', ')}` };
+            }
+        }
+
+        const anyOf = normalizeList(rawRaceRequirement.anyOf);
+        const allOf = normalizeList(rawRaceRequirement.allOf);
+        const noneOf = normalizeList(rawRaceRequirement.noneOf);
+
+        const validAny = anyOf.length === 0 || anyOf.some(raceMatches);
+        const validAll = allOf.length === 0 || allOf.every(raceMatches);
+        const validNone = noneOf.length === 0 || noneOf.every(value => !raceMatches(value));
+        const summaryParts = [];
+        if (anyOf.length > 0) summaryParts.push(anyOf.join(' or '));
+        if (allOf.length > 0) summaryParts.push(allOf.join(' and '));
+        if (noneOf.length > 0) summaryParts.push(`not ${noneOf.join(', ')}`);
+
+        return {
+            valid: validAny && validAll && validNone,
+            summary: summaryParts.join('; ')
+        };
+    }
+
+    return { valid: true, summary: '' };
+}
+
 function validateFeatRequirements(level, featName, stats, mods) {
     const issues = [];
     const resolvedFeatName = resolveFeatName(featName);
@@ -3675,7 +3824,7 @@ function validateFeatRequirements(level, featName, stats, mods) {
     // Check feat prerequisites (other feats must be taken first)
     if (reqs.feats) {
         const priorFeats = Array.from(
-            getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: false }).values()
+            getEffectiveOwnedFeatDetailsAtLevel(level, { includeSelectedCurrentLevel: true }).values()
         ).map(detail => detail.name);
 
         const priorFeatSet = new Set(
@@ -3783,6 +3932,16 @@ function validateFeatRequirements(level, featName, stats, mods) {
         }
     }
 
+    // Check race requirements
+    if (reqs.race) {
+        const selectedRace = document.getElementById('raceSelect').value;
+        const raceRequirement = evaluateRaceRequirement(reqs.race, selectedRace);
+        if (!raceRequirement.valid) {
+            const summary = raceRequirement.summary || 'specific race requirement';
+            issues.push({ level, type: 'feat', message: `❌ ${featName} requires race: ${summary} (current race: ${selectedRace || 'none'})`, severity: 'error' });
+        }
+    }
+
     // Check class requirements
     if (reqs.class && Array.isArray(reqs.class) && reqs.class.length > 0) {
         const classReqs = reqs.class;
@@ -3856,10 +4015,9 @@ function validateCharacterRealtime() {
 
         // Check race/class compatibility
         if (race && classReqs.race) {
-            const requiredRaces = classReqs.race;
-            const raceValid = requiredRaces.some(r => r.toLowerCase() === race.toLowerCase());
-            if (!raceValid) {
-                issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires race: ${requiredRaces.join(' or ')}`, severity: 'error' });
+            const raceRequirement = evaluateRaceRequirement(classReqs.race, race);
+            if (!raceRequirement.valid) {
+                issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires race: ${raceRequirement.summary || 'specific race requirement'}`, severity: 'error' });
             }
         }
 
@@ -4067,6 +4225,7 @@ function validateCharacterRealtime() {
 }
 
 function validateCharacter() {
+    updateSkillGrid();
     validateCharacterRealtime();
 }
 

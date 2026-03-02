@@ -95,7 +95,8 @@
         'Polearm',
         'One-Handed Edge',
         'Unarmed',
-        'Missle'
+        'Missle',
+        'Thrown'
     ];
     const BASE_WEAPON_DAMAGE_TYPES = [
         'slashing',
@@ -220,16 +221,109 @@
     const BUFF_DEFINITIONS = [
         { name: 'aid', label: 'Aid', modifies: ['attackBonus'], mode: 'flat', value: 1 },
         { name: 'bless', label: 'Bless', modifies: ['attackBonus'], mode: 'flat', value: 1 },
-        { name: 'unholy_accuracy', label: 'Unholy Accuracy (feat)', modifies: ['attackBonus'], mode: 'flat', value: 1, requiresFeat: 'unholy accuracy' },
-        { name: 'corrupt_weapon', label: 'Corrupt Weapon (Blackguard)', modifies: ['weaponEnhancementBonus'], mode: 'flat', value: 0, requiresFeat: 'corrupt weapon', classScaled: 'Blackguard' },
+        { name: 'true_strike', label: 'True Strike', modifies: ['attackBonus'], mode: 'flat', value: 20 },
+        { name: 'haste', label: 'Haste', modifies: ['extraApr'], mode: 'flat', value: 1 },
         { name: 'divine_favor', label: 'Divine Favor', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 1, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
         { name: 'divine_power', label: 'Divine Power', modifies: ['fighterBabOverride', 'damageAbilityOverride', 'hpBonus'], mode: 'flat', value: 0, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 30 },
         { name: 'blood_frenzy', label: 'Blood Frenzy', modifies: ['attackBonus', 'damageBonus', 'willSave', 'refSave', 'dodgeAc'], mode: 'flat', value: 0 },
         { name: 'battletide', label: 'Battletide', modifies: ['attackBonus', 'damageBonus', 'fortSave', 'refSave', 'willSave'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['war_cry'] },
-        { name: 'war_cry', label: 'War Cry', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['battletide'] }
+        { name: 'war_cry', label: 'War Cry', modifies: ['attackBonus', 'damageBonus'], mode: 'flat', value: 2, mutuallyExclusiveWith: ['battletide'] },
+        { name: 'bulls_strength', label: "Bull's Strength", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'str', hasSecondCast: true },
+        { name: 'bears_endurance', label: "Bear's Endurance", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'con', hasSecondCast: true },
+        { name: 'eagles_splendor', label: "Eagle's Splendor", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'cha', hasSecondCast: true },
+        { name: 'owls_wisdom', label: "Owl's Wisdom", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'wis', hasSecondCast: true },
+        { name: 'cats_grace', label: "Cat's Grace", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'dex', hasSecondCast: true },
+        { name: 'foxes_cunning', label: "Fox's Cunning", modifies: ['softStatBonus'], mode: 'flat', value: 0, statBuff: 'int', hasSecondCast: true }
+    ];
+
+    const ZOO_SPELL_BUFF_NAMES = new Set([
+        'bulls_strength',
+        'bears_endurance',
+        'eagles_splendor',
+        'owls_wisdom',
+        'cats_grace',
+        'foxes_cunning'
+    ]);
+
+    const CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS = [
+        {
+            key: 'arcaneArcherArrowEnchant',
+            label: 'Arcane Archer: Arrow Enchant AB',
+            sourceLabel: 'Arcane Archer arrow enchant',
+            className: 'Arcane archer',
+            extraNameCandidates: ['arrow enchant', 'arrowenchant'],
+            defaultEnabled: false
+        },
+        {
+            key: 'weaponMasterAbBonus',
+            label: 'Weapon Master: AB Bonus',
+            sourceLabel: 'Weapon Master AB Bonus',
+            className: 'Weapon master',
+            extraNameCandidates: ['ab bonus', 'attack bonus'],
+            defaultEnabled: false
+        },
+        {
+            key: 'cavalierMountedChargeAb',
+            label: 'Cavalier: Mounted Charge AB',
+            sourceLabel: 'Cavalier mounted charge AB',
+            className: 'Cavalier',
+            extraNameCandidates: ['mounted charge ab', 'mounted charge'],
+            defaultEnabled: false
+        },
+        {
+            key: 'cavalierOnFootChargeAb',
+            label: 'Cavalier: On-foot Charge AB',
+            sourceLabel: 'Cavalier on-foot charge AB',
+            className: 'Cavalier',
+            extraNameCandidates: ['on-foot charge ab', 'on foot charge ab', 'on-foot charge', 'on foot charge'],
+            defaultEnabled: false
+        },
+        {
+            key: 'spellswordWeaveAffinity',
+            label: 'Spellsword: Weave Affinity',
+            sourceLabel: 'Spellsword weave affinity',
+            className: 'Spellsword',
+            defaultEnabled: false,
+            special: 'spellswordWeaveAffinity'
+        },
+        {
+            key: 'unholyAccuracy',
+            label: 'Unholy Accuracy (feat)',
+            sourceLabel: 'Unholy Accuracy',
+            className: 'Blackguard',
+            defaultEnabled: false,
+            special: 'unholyAccuracy'
+        },
+        {
+            key: 'corruptWeapon',
+            label: 'Corrupt Weapon (Blackguard)',
+            sourceLabel: 'Corrupt Weapon',
+            className: 'Blackguard',
+            defaultEnabled: false,
+            special: 'corruptWeapon'
+        },
+        {
+            key: 'divineSmite',
+            label: 'Divine Smite (feat)',
+            sourceLabel: 'Divine Smite',
+            className: 'Paladin',
+            defaultEnabled: false,
+            special: 'divineSmite'
+        }
+    ];
+
+    const SPELLSWORD_PRIMARY_ATTRIBUTE_OPTIONS = [
+        { value: 'str', label: 'Strength Primary' },
+        { value: 'dex', label: 'Dexterity Primary' }
     ];
 
     const SONG_SKILL_LABEL_ALIASES = {
+        'perf bluff': ['perform', 'bluff'],
+        'spot listen': ['spot', 'listen'],
+        'appraise lore': ['appraise', 'lore'],
+        'hide ms': ['hide', 'move silently'],
+        'open lock disarm trap slght of hand listen search hide ms': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently'],
+        'concen lisn': ['concentration', 'listen'],
         'perf & bluff': ['perform', 'bluff'],
         'spot+listen': ['spot', 'listen'],
         'appraise & lore': ['appraise', 'lore'],
@@ -241,6 +335,83 @@
         'esf perform riding': ['ride'],
         'open lock disarm trap slght of hand listen search hide & ms ': ['open lock', 'disable trap', 'sleight of hand', 'listen', 'search', 'hide', 'move silently']
     };
+
+    const SONG_TARGET_TOGGLE_DEFS = [];
+
+    const TARGET_ALIGNMENT_OPTIONS = [
+        { value: 'any', label: 'Any Alignment' },
+        { value: 'lg', label: 'Lawful Good' },
+        { value: 'ng', label: 'Neutral Good' },
+        { value: 'cg', label: 'Chaotic Good' },
+        { value: 'ln', label: 'Lawful Neutral' },
+        { value: 'tn', label: 'True Neutral' },
+        { value: 'cn', label: 'Chaotic Neutral' },
+        { value: 'le', label: 'Lawful Evil' },
+        { value: 'ne', label: 'Neutral Evil' },
+        { value: 'ce', label: 'Chaotic Evil' }
+    ];
+
+    const TARGET_RACE_GROUP_OPTIONS = [
+        { value: '', label: 'Any Target Type' },
+        { value: 'beastAnimal', label: 'Beast/Animal' },
+        { value: 'shapeshift', label: 'Shapeshifted' },
+        { value: 'construct', label: 'Construct' },
+        { value: 'elemental', label: 'Elemental' },
+        { value: 'ooze', label: 'Ooze' },
+        { value: 'dragon', label: 'Dragon' },
+        { value: 'giantOgreHalfGiant', label: 'Giant/Ogre/Half-Giant' },
+        { value: 'goblinoid', label: 'Goblinoid' },
+        { value: 'orc', label: 'Orc' }
+    ];
+
+    function createDefaultSongTargetConditions() {
+        return SONG_TARGET_TOGGLE_DEFS.reduce((acc, def) => {
+            acc[def.key] = false;
+            return acc;
+        }, {});
+    }
+
+    function createDefaultClassAttackToggleState() {
+        return CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.reduce((acc, def) => {
+            acc[def.key] = Boolean(def.defaultEnabled);
+            return acc;
+        }, {});
+    }
+
+    function createDefaultClassBonusOptions() {
+        return {
+            spellswordPrimaryAttribute: 'str'
+        };
+    }
+
+    function ensureClassAttackToggleState() {
+        if (!state.classAttackToggles || typeof state.classAttackToggles !== 'object') {
+            state.classAttackToggles = createDefaultClassAttackToggleState();
+            return;
+        }
+
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+            if (!Object.prototype.hasOwnProperty.call(state.classAttackToggles, def.key)) {
+                state.classAttackToggles[def.key] = Boolean(def.defaultEnabled);
+            }
+        });
+    }
+
+    function ensureClassBonusOptionsState() {
+        if (!state.classBonusOptions || typeof state.classBonusOptions !== 'object') {
+            state.classBonusOptions = createDefaultClassBonusOptions();
+            return;
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(state.classBonusOptions, 'spellswordPrimaryAttribute')) {
+            state.classBonusOptions.spellswordPrimaryAttribute = 'str';
+        }
+
+        const selected = String(state.classBonusOptions.spellswordPrimaryAttribute || '').toLowerCase();
+        if (selected !== 'str' && selected !== 'dex') {
+            state.classBonusOptions.spellswordPrimaryAttribute = 'str';
+        }
+    }
 
     function normalizeBaseDamageType(rawType) {
         const raw = String(rawType || '').trim().toLowerCase();
@@ -282,6 +453,15 @@
         }
     }
 
+    function plannerDebugLog(label, payload = null) {
+        if (!isDebugLogsEnabled()) return;
+        if (payload === null || payload === undefined) {
+            console.log(`[Gear Debug] ${label}`);
+            return;
+        }
+        console.log(`[Gear Debug] ${label}`, payload);
+    }
+
     function getFocusGroupFromWeaponFlags(weapon) {
         if (!weapon || typeof weapon !== 'object') return '';
         if (weapon.concussion) return 'Concussion';
@@ -289,6 +469,7 @@
         if (weapon.polearm) return 'Polearm';
         if (weapon.oneHandEdged) return 'One-Handed Edge';
         if (weapon.unarmed) return 'Unarmed';
+        if (weapon.thrown) return 'Thrown';
         if (weapon.missile) return 'Missle';
         return '';
     }
@@ -309,6 +490,7 @@
         meta.unarmed = Boolean(weapon.unarmed);
         meta.missile = Boolean(weapon.missile);
         meta.thrown = Boolean(weapon.thrown);
+        meta.ranged = Boolean(weapon.missile) && !Boolean(weapon.thrown);
         meta.focusGroup = getFocusGroupFromWeaponFlags(weapon);
     }
 
@@ -323,6 +505,13 @@
             damageSubtab: 'planner'
         },
         buffs: {},
+        classAttackToggles: createDefaultClassAttackToggleState(),
+        classBonusOptions: createDefaultClassBonusOptions(),
+        targeting: {
+            alignment: 'any',
+            race: '',
+            targetConditions: createDefaultSongTargetConditions()
+        },
         song: {
             enabled: false,
             name: 'bardic rhythm',
@@ -373,14 +562,6 @@
                     // no-op
                 }
             }
-
-            if (typeof window.validateCharacterRealtime === 'function') {
-                try {
-                    window.validateCharacterRealtime();
-                } catch {
-                    // no-op
-                }
-            }
         });
     }
 
@@ -392,14 +573,12 @@
             const target = event && event.target;
             if (!target) return;
             const tag = String(target.tagName || '').toLowerCase();
-            if (tag === 'input' || tag === 'select' || tag === 'textarea' || tag === 'button') {
+            if (tag === 'select' || tag === 'textarea') {
                 scheduleGearRefreshAndValidation();
             }
         };
 
-        container.addEventListener('input', maybeRefresh, true);
         container.addEventListener('change', maybeRefresh, true);
-        container.addEventListener('click', maybeRefresh, true);
         container.__gearRealtimeBound = true;
     }
 
@@ -452,6 +631,7 @@
             unarmed: false,
             missile: false,
             thrown: false,
+            ranged: false,
             baseArmor: 0,
             classRestriction: '',
             minClassLevel: 0,
@@ -668,7 +848,8 @@
         BUFF_DEFINITIONS.forEach(def => {
             state.buffs[def.name] = {
                 enabled: false,
-                casterLevel: 30
+                casterLevel: 30,
+                secondCast: false
             };
         });
 
@@ -677,10 +858,12 @@
             damageSubtabPlannerBtn: document.getElementById('damageGearSubtabPlanner'),
             damageSubtabBuffsBtn: document.getElementById('damageGearSubtabBuffs'),
             damageSubtabSongsBtn: document.getElementById('damageGearSubtabSongs'),
+            damageSubtabClassAbBtn: document.getElementById('damageGearSubtabClassAb'),
             damageSubtabGraphBtn: document.getElementById('damageGearSubtabGraph'),
             damageSubtabPlannerPanel: document.getElementById('damageGearPlannerPanel'),
             damageSubtabBuffsPanel: document.getElementById('damageGearBuffsPanel'),
             damageSubtabSongsPanel: document.getElementById('damageGearSongsPanel'),
+            damageSubtabClassAbPanel: document.getElementById('damageGearClassAbPanel'),
             damageSubtabGraphPanel: document.getElementById('damageGearGraphPanel'),
             paperDoll: document.getElementById('gearPaperDoll'),
             editorTitle: document.getElementById('gearEditorTitle'),
@@ -700,7 +883,15 @@
             damageSimBuildSummary: document.getElementById('damageSimBuildSummary'),
             damageSimCanvas: document.getElementById('damageSimCanvas'),
             damageSimTraceOutput: document.getElementById('damageSimTraceOutput'),
+            damageSimSamples: document.getElementById('damageSimSamples'),
+            damageSimAcMin: document.getElementById('damageSimAcMin'),
+            damageSimAcMax: document.getElementById('damageSimAcMax'),
+            damageGraphTargetAlignment: document.getElementById('damageGraphTargetAlignment'),
+            damageGraphTargetRace: document.getElementById('damageGraphTargetRace'),
+            damageGraphTargetToggleList: document.getElementById('damageGraphTargetToggleList'),
+            damageGraphTargetSummary: document.getElementById('damageGraphTargetSummary'),
             buffList: document.getElementById('damageBuffList'),
+            classAttackBonusList: document.getElementById('damageClassAttackBonusList'),
             songEnabledToggle: document.getElementById('songEnabledToggle'),
             songNameSelect: document.getElementById('songNameSelect'),
             songLevelSelect: document.getElementById('songLevelSelect'),
@@ -750,6 +941,10 @@
             rootEls.damageSubtabSongsBtn.addEventListener('click', () => switchDamageSubtab('songs'));
         }
 
+        if (rootEls.damageSubtabClassAbBtn) {
+            rootEls.damageSubtabClassAbBtn.addEventListener('click', () => switchDamageSubtab('classab'));
+        }
+
         if (rootEls.damageSubtabGraphBtn) {
             rootEls.damageSubtabGraphBtn.addEventListener('click', () => switchDamageSubtab('graph'));
         }
@@ -765,11 +960,13 @@
         }
 
         renderBuffsEditor();
+        renderClassAttackBonusEditor();
         renderSongsEditor();
+        renderDamageGraphTargetEditor();
     }
 
     function bindEditorEvents() {
-        rootEls.itemName.addEventListener('input', () => {
+        rootEls.itemName.addEventListener('change', () => {
             const slot = ensureSlotState(state.selectedSlot);
             slot.name = rootEls.itemName.value;
             renderPaperDoll();
@@ -928,7 +1125,7 @@
             if (!removeCaps && options.max !== undefined) input.max = String(options.max);
             if (options.step !== undefined) input.step = String(options.step);
             input.value = String(p[key] ?? (options.defaultValue ?? 0));
-            input.addEventListener('input', () => {
+            input.addEventListener('change', () => {
                 p[key] = parseFloat(input.value) || 0;
                 onChange();
             });
@@ -947,7 +1144,7 @@
             input.type = 'text';
             input.placeholder = placeholder;
             input.value = p[key] || '';
-            input.addEventListener('input', () => {
+            input.addEventListener('change', () => {
                 p[key] = input.value;
                 onChange();
             });
@@ -1543,10 +1740,30 @@
             critDamageBonus: 0,
             softStats: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
             maxSpellResistance: 0,
+            mightyCap: 0,
             flags: new Set(),
             situational: [],
             itemGrantedFeats: new Map(),
-            itemSkillBonuses: new Map()
+            itemSkillBonuses: new Map(),
+            sourceDetails: {
+                directAttack: [],
+                enhancementAttack: [],
+                damageBonus: [],
+                critDamageBonus: [],
+                saveBonus: { fort: [], ref: [], will: [] },
+                softStats: { str: [], dex: [], con: [], int: [], wis: [], cha: [] },
+                acBuckets: {
+                    armor: [],
+                    shield: [],
+                    natural: [],
+                    deflection: [],
+                    dodge: [],
+                    other: []
+                },
+                spellResistance: [],
+                skillBonuses: [],
+                mighty: []
+            }
         };
 
         const normalizeFeatName = (rawFeatName) => {
@@ -1565,6 +1782,8 @@
                 const p = property.params || {};
                 const rawValue = Number(p.value) || 0;
                 const value = Math.max(0, rawValue);
+                const sourceItemName = String(slotState.name || slot.label || slot.key || 'item').trim();
+                const sourcePrefix = `${sourceItemName} • ${property.type}`;
 
                 if (property.type === 'Ability') {
                     const stat = String(p.stat || '').toLowerCase();
@@ -1572,6 +1791,12 @@
                     const abilityValue = hasAbilityValue ? (Number(p.value) || 0) : 1;
                     if (Object.prototype.hasOwnProperty.call(effects.softStats, stat)) {
                         effects.softStats[stat] += abilityValue;
+                        if (Object.prototype.hasOwnProperty.call(effects.sourceDetails.softStats, stat)) {
+                            effects.sourceDetails.softStats[stat].push({
+                                label: sourcePrefix,
+                                value: abilityValue
+                            });
+                        }
                     }
                 }
 
@@ -1579,32 +1804,68 @@
                     const overrideType = property.innate ? normalizeAcBucket(p.armorType) : null;
                     const bucket = overrideType || getArmorTypeForSlot(slot.key);
                     effects.acBuckets[bucket].push(value);
+                    effects.sourceDetails.acBuckets[bucket].push({
+                        label: `${sourcePrefix}${overrideType ? ` (${bucket})` : ''}`,
+                        value
+                    });
                 }
 
                 if (property.type === 'Enhancement') {
                     if (getSlotCategory(slot.key) === 'weapon') {
                         effects.enhancementAttackBonus += value;
                         effects.damageBonus += value;
+                        effects.sourceDetails.enhancementAttack.push({
+                            label: sourcePrefix,
+                            value
+                        });
+                        effects.sourceDetails.damageBonus.push({
+                            label: `${sourcePrefix} (weapon enhancement)` ,
+                            value
+                        });
                     } else {
-                        effects.acBuckets[getArmorTypeForSlot(slot.key)].push(value);
+                        const bucket = getArmorTypeForSlot(slot.key);
+                        effects.acBuckets[bucket].push(value);
+                        effects.sourceDetails.acBuckets[bucket].push({
+                            label: sourcePrefix,
+                            value
+                        });
                     }
                 }
 
                 if (property.type === 'Attack Bonus') {
-                    effects.directAttackBonus += property.innate ? value : Math.min(1, value);
+                    const applied = property.innate ? value : Math.min(1, value);
+                    effects.directAttackBonus += applied;
+                    effects.sourceDetails.directAttack.push({
+                        label: `${sourcePrefix}${property.innate ? '' : ' (non-innate capped +1)'}`,
+                        value: applied
+                    });
                 }
 
                 if (property.type === 'Mighty') {
-                    effects.damageBonus += value;
+                    effects.mightyCap = Math.max(effects.mightyCap, value);
+                    effects.sourceDetails.mighty.push({
+                        label: sourcePrefix,
+                        value
+                    });
                 }
 
                 if (property.type === 'Damage') {
-                    effects.damageBonus += getAverageDamageFromParams(p);
+                    const avgDamage = getAverageDamageFromParams(p);
+                    effects.damageBonus += avgDamage;
                     addDamageAddToSummary(effects.damageAdds, p);
+                    effects.sourceDetails.damageBonus.push({
+                        label: `${sourcePrefix} (${String(p.damageType || 'untyped')})`,
+                        value: avgDamage
+                    });
                 }
 
                 if (property.type === 'Massive Criticals') {
-                    effects.critDamageBonus += getMassiveCriticalAverageFromParams(p);
+                    const avgCrit = getMassiveCriticalAverageFromParams(p);
+                    effects.critDamageBonus += avgCrit;
+                    effects.sourceDetails.critDamageBonus.push({
+                        label: sourcePrefix,
+                        value: avgCrit
+                    });
                 }
 
                 if (property.type === 'General Saving Throws') {
@@ -1612,6 +1873,10 @@
                     const amount = property.innate ? Math.max(0, Number(p.value) || 0) : 1;
                     if (save === 'fort' || save === 'ref' || save === 'will') {
                         effects.saveBonus[save] += amount;
+                        effects.sourceDetails.saveBonus[save].push({
+                            label: sourcePrefix,
+                            value: amount
+                        });
                     }
                 }
 
@@ -1622,6 +1887,9 @@
                         effects.saveBonus.fort += amount;
                         effects.saveBonus.ref += amount;
                         effects.saveBonus.will += amount;
+                        effects.sourceDetails.saveBonus.fort.push({ label: `${sourcePrefix} (universal)`, value: amount });
+                        effects.sourceDetails.saveBonus.ref.push({ label: `${sourcePrefix} (universal)`, value: amount });
+                        effects.sourceDetails.saveBonus.will.push({ label: `${sourcePrefix} (universal)`, value: amount });
                     } else {
                         effects.situational.push(`${property.type} ${kind} +1`);
                     }
@@ -1630,6 +1898,10 @@
                 if (property.type === 'Spell Resistance') {
                     const srValue = property.innate ? Math.max(0, Number(p.sr) || 0) : 10;
                     effects.maxSpellResistance = Math.max(effects.maxSpellResistance, srValue);
+                    effects.sourceDetails.spellResistance.push({
+                        label: sourcePrefix,
+                        value: srValue
+                    });
                 }
 
                 if (property.type === 'Darkvision') {
@@ -1693,6 +1965,10 @@
                         const hasSkillValue = p.value !== undefined && p.value !== null && p.value !== '';
                         const value = hasSkillValue ? (Number(p.value) || 0) : 1;
                         effects.itemSkillBonuses.set(normalizedSkill, (effects.itemSkillBonuses.get(normalizedSkill) || 0) + value);
+                        effects.sourceDetails.skillBonuses.push({
+                            label: `${sourcePrefix} (${normalizedSkill})`,
+                            value
+                        });
                     }
                 }
             });
@@ -1808,12 +2084,32 @@
     }
 
     function getCurrentCharacterLevel() {
-        const levels = getPlannerLevelData();
-        if (!Array.isArray(levels)) return 1;
-        for (let level = levels.length; level >= 1; level--) {
-            const row = levels[level - 1];
-            if (row && row.class) return level;
+        if (typeof getCurrentBuildLevel === 'function') {
+            const fromPlanner = Math.max(1, Math.min(30, parseInt(getCurrentBuildLevel(), 10) || 1));
+            if (fromPlanner > 0) return fromPlanner;
         }
+
+        const levels = getPlannerLevelData();
+        if (Array.isArray(levels)) {
+            for (let level = levels.length; level >= 1; level--) {
+                const row = levels[level - 1];
+                if (row && row.class) return level;
+            }
+        }
+
+        if (typeof getCharacterSnapshot === 'function') {
+            try {
+                const snapshot = getCharacterSnapshot();
+                const snapshotLevels = Array.isArray(snapshot && snapshot.levels) ? snapshot.levels : [];
+                for (let level = snapshotLevels.length; level >= 1; level--) {
+                    const row = snapshotLevels[level - 1];
+                    if (row && row.class) return level;
+                }
+            } catch {
+                // no-op
+            }
+        }
+
         return 1;
     }
 
@@ -1992,7 +2288,7 @@
 
     function getWeaponAbilityModifiers(level, options = {}) {
         const numericLevel = Math.max(1, parseInt(level, 10) || 1);
-        const stats = getCharacterStatsAtLevel(numericLevel);
+        const stats = getCharacterSoftStatsAtLevel(numericLevel);
         const minStrength = Math.max(0, Number(options.strOverrideMin) || 0);
         const normalizedStats = {
             ...(stats || {})
@@ -2010,19 +2306,86 @@
         const mainHandState = ensureSlotState('mainHand');
         const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
         const finesseWeapon = isFinesseBaseWeapon(mainHandMeta);
+        const isRangedAttackWeapon = Boolean(mainHandMeta && mainHandMeta.ranged)
+            || (Boolean(mainHandMeta && mainHandMeta.missile) && !Boolean(mainHandMeta && mainHandMeta.thrown));
 
         const dexCanReplaceAttack = (hasWeaponFinesse || finesseWeapon) && dexMod > strMod;
-        const attackAbility = dexCanReplaceAttack ? 'dex' : 'str';
+        const attackAbility = isRangedAttackWeapon ? 'dex' : (dexCanReplaceAttack ? 'dex' : 'str');
+        const isRangedMissileWeapon = Boolean(mainHandMeta && mainHandMeta.missile) && !Boolean(mainHandMeta && mainHandMeta.thrown);
+        const mightyCap = Math.max(0, Number(options.mightyCap) || 0);
+
+        let damageAbilityMod = strMod;
+        let mightyApplied = 0;
+        if (isRangedMissileWeapon) {
+            const positiveStrMod = Math.max(0, strMod);
+            mightyApplied = Math.min(positiveStrMod, mightyCap);
+            damageAbilityMod = mightyApplied;
+        }
 
         return {
             strMod,
             dexMod,
             attackAbility,
             attackAbilityMod: attackAbility === 'dex' ? dexMod : strMod,
-            damageAbilityMod: strMod,
+            damageAbilityMod,
+            isRangedMissileWeapon,
+            isRangedAttackWeapon,
+            mightyCap,
+            mightyApplied,
             hasWeaponFinesse,
             finesseWeapon,
             weaponName: String(mainHandMeta.baseWeaponChart || mainHandMeta.baseWeaponType || '').trim()
+        };
+    }
+
+    function getBuffSoftStatBonuses(level) {
+        const stats = { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 };
+        const detail = [];
+        const numericLevel = Math.max(1, Math.floor(Number(level) || 1));
+        const featSet = getOwnedFeatNameSetAtLevel(numericLevel);
+
+        const hasFeatLike = (prefixText, suffixText) => {
+            const prefix = String(prefixText || '').toLowerCase();
+            const suffix = String(suffixText || '').toLowerCase();
+            if (!prefix || !suffix) return false;
+            for (const featName of featSet) {
+                const normalized = String(featName || '').toLowerCase();
+                if (normalized.includes(prefix) && normalized.includes(suffix)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        const hasGsfTransmutation = hasFeatLike('greater spell focus', 'transmutation');
+        const hasEsfTransmutation = hasFeatLike('epic spell focus', 'transmutation');
+        const baseBonus = hasEsfTransmutation ? 6 : (hasGsfTransmutation ? 5 : 4);
+
+        BUFF_DEFINITIONS.forEach(def => {
+            if (!def || !def.statBuff) return;
+            const statKey = normalizeStatRequirementKey(def.statBuff);
+            if (!statKey || !Object.prototype.hasOwnProperty.call(stats, statKey)) return;
+
+            const config = state.buffs && state.buffs[def.name];
+            if (!config || !config.enabled) return;
+
+            const secondCastBonus = config.secondCast ? 1 : 0;
+            const totalBonus = baseBonus + secondCastBonus;
+            stats[statKey] += totalBonus;
+            detail.push({
+                stat: statKey,
+                label: def.label,
+                value: totalBonus,
+                secondCast: Boolean(config.secondCast)
+            });
+        });
+
+        return {
+            stats,
+            detail,
+            hasGsfTransmutation,
+            hasEsfTransmutation,
+            baseBonus
         };
     }
 
@@ -2082,11 +2445,16 @@
         const hasWeaponOfChoice = featSet.has('weapon of choice');
 
         let attackBonus = 0;
+        let acBonus = 0;
         let damageBonus = 0;
         let improvedCriticalCount = 0;
         let increasedMultiplierCount = 0;
         let hasKiCritical = false;
         let hasOverwhelmingCritical = false;
+        const attackSources = [];
+        const acSources = [];
+        const damageSources = [];
+        const critSources = [];
 
         featSet.forEach(featNameLower => {
             const featName = String(featNameLower || '').trim();
@@ -2094,73 +2462,95 @@
 
             if (hasFeatPrefix(featName, 'weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 attackBonus += 1;
+                attackSources.push({ feat: featName, value: 1 });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'epic weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 attackBonus += 2;
+                attackSources.push({ feat: featName, value: 2 });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 damageBonus += 2;
+                damageSources.push({ feat: featName, value: 2 });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'epic weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 damageBonus += 4;
+                damageSources.push({ feat: featName, value: 4 });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 improvedCriticalCount += 1;
+                critSources.push({ feat: featName, value: 1, kind: 'improvedCritical' });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'epic improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 improvedCriticalCount += 1;
+                critSources.push({ feat: featName, value: 1, kind: 'improvedCritical' });
                 return;
             }
 
             if (hasFeatPrefix(featName, 'overwhelming critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
                 hasOverwhelmingCritical = true;
+                critSources.push({ feat: featName, value: 1, kind: 'overwhelmingCritical' });
                 return;
             }
 
             if (featName === 'superior weapon focus' && hasWeaponOfChoice) {
                 attackBonus += 1;
+                attackSources.push({ feat: featName, value: 1 });
                 return;
             }
 
             if (featName === 'epic prowess') {
                 attackBonus += 1;
+                attackSources.push({ feat: featName, value: 1 });
                 return;
             }
 
             if (featName === 'small stature') {
                 attackBonus += 1;
+                acBonus += 1;
+                attackSources.push({ feat: featName, value: 1 });
+                acSources.push({ feat: featName, value: 1 });
                 return;
             }
 
             if (featName === 'method: signature weapon') {
                 attackBonus += 1;
+                attackSources.push({ feat: featName, value: 1 });
                 return;
             }
 
             if (featName === 'improved method: signature weapon mastery') {
                 attackBonus += 2;
+                attackSources.push({ feat: featName, value: 2 });
                 return;
             }
 
             if (featName === 'increased multiplier' && hasWeaponOfChoice) {
                 increasedMultiplierCount += 1;
+                critSources.push({ feat: featName, value: 1, kind: 'multiplier' });
                 return;
             }
 
             if (featName === 'ki critical' && hasWeaponOfChoice) {
                 hasKiCritical = true;
+                critSources.push({ feat: featName, value: 2, kind: 'kiCriticalRange' });
             }
         });
+
+        const battleTrainingAttack = getBattleTrainingAttackBonus(level);
+        attackBonus += battleTrainingAttack;
+        if (battleTrainingAttack !== 0) {
+            attackSources.push({ feat: 'battle training', value: battleTrainingAttack });
+        }
 
         const baseThreatMin = Math.max(2, Math.min(20, Math.floor(Number(baseCritProfile && baseCritProfile.threatMin) || 20)));
         const baseMultiplier = Math.max(1, Math.floor(Number(baseCritProfile && baseCritProfile.multiplier) || 2));
@@ -2183,7 +2573,12 @@
         return {
             focusGroup,
             attackBonus,
+            acBonus,
             damageBonus,
+            attackSources,
+            acSources,
+            damageSources,
+            critSources,
             hasKeen,
             improvedCriticalCount,
             hasKiCritical,
@@ -2248,6 +2643,407 @@
         return null;
     }
 
+    function parseNumericBonus(rawValue) {
+        if (rawValue === null || rawValue === undefined) return 0;
+        if (typeof rawValue === 'number') return Number.isFinite(rawValue) ? rawValue : 0;
+
+        const parsedSong = parseSongNumeric(rawValue);
+        if (Number.isFinite(parsedSong)) return parsedSong;
+
+        const text = String(rawValue || '').trim();
+        const match = text.match(/[+-]?\d+(?:\.\d+)?/);
+        if (!match) return 0;
+        const numeric = Number(match[0]);
+        return Number.isFinite(numeric) ? numeric : 0;
+    }
+
+    function getClassInfoByName(className) {
+        const target = String(className || '').trim();
+        if (!target) return null;
+
+        try {
+            if (classData && typeof classData === 'object') {
+                if (classData[target]) {
+                    return { key: target, info: classData[target] };
+                }
+
+                const lowered = target.toLowerCase();
+                const matchedKey = Object.keys(classData).find(key => String(key || '').toLowerCase() === lowered);
+                if (matchedKey) {
+                    return { key: matchedKey, info: classData[matchedKey] };
+                }
+            }
+        } catch {
+            // no-op
+        }
+
+        return null;
+    }
+
+    function getClassExtraEntries(classInfo) {
+        if (!classInfo || typeof classInfo !== 'object') return [];
+        if (Array.isArray(classInfo.extras)) return classInfo.extras;
+        if (Array.isArray(classInfo.Extras)) return classInfo.Extras;
+        return [];
+    }
+
+    function getClassExtraProgressionBonus(className, extraNameCandidates, level) {
+        const resolved = getClassInfoByName(className);
+        if (!resolved || !resolved.info) {
+            plannerDebugLog('Class extra bonus: class not found', { className, level });
+            return 0;
+        }
+
+        const extras = getClassExtraEntries(resolved.info);
+        if (!Array.isArray(extras) || extras.length === 0) {
+            plannerDebugLog('Class extra bonus: no extras array', { className, resolvedKey: resolved.key, level });
+            return 0;
+        }
+
+        const candidateSet = new Set((Array.isArray(extraNameCandidates) ? extraNameCandidates : [extraNameCandidates])
+            .map(name => normalizeSongNameKey(name))
+            .filter(Boolean));
+        if (candidateSet.size === 0) {
+            plannerDebugLog('Class extra bonus: empty candidate set', { className, level, extraNameCandidates });
+            return 0;
+        }
+
+        const matchingExtra = extras.find(entry => {
+            const normalizedName = normalizeSongNameKey(entry && entry.name);
+            return normalizedName && candidateSet.has(normalizedName);
+        });
+        if (!matchingExtra || !Array.isArray(matchingExtra.values)) {
+            plannerDebugLog('Class extra bonus: no matching extra row', {
+                className,
+                resolvedKey: resolved.key,
+                level,
+                requestedCandidates: Array.from(candidateSet),
+                availableExtras: extras.map(entry => String(entry && entry.name ? entry.name : ''))
+            });
+            return 0;
+        }
+
+        const classLevel = getClassLevelAtBuildLevel(resolved.key, level);
+        if (classLevel <= 0) {
+            plannerDebugLog('Class extra bonus: class level is zero', {
+                className,
+                resolvedKey: resolved.key,
+                level,
+                matchedExtra: matchingExtra.name
+            });
+            return 0;
+        }
+
+        const progressionValues = matchingExtra.values;
+        if (progressionValues.length === 0) {
+            plannerDebugLog('Class extra bonus: extra has no values', {
+                className,
+                resolvedKey: resolved.key,
+                level,
+                matchedExtra: matchingExtra.name
+            });
+            return 0;
+        }
+
+        const clampedIndex = Math.max(0, Math.min(classLevel - 1, progressionValues.length - 1));
+
+        const rawValue = progressionValues[clampedIndex];
+        const parsedBonus = parseNumericBonus(rawValue);
+        plannerDebugLog('Class extra bonus resolved', {
+            className,
+            resolvedKey: resolved.key,
+            level,
+            classLevel,
+            matchedExtra: matchingExtra.name,
+            requestedCandidates: Array.from(candidateSet),
+            clampedIndex,
+            rawValue,
+            parsedBonus
+        });
+        return parsedBonus;
+    }
+
+    function getSpellswordWeaveAffinityBonus(level) {
+        ensureClassBonusOptionsState();
+
+        const spellswordLevel = getClassLevelAtBuildLevel('Spellsword', level);
+        const monkLevel = getClassLevelAtBuildLevel('Monk', level);
+        const selectedPrimaryAttribute = String(state.classBonusOptions.spellswordPrimaryAttribute || 'str').toLowerCase() === 'dex'
+            ? 'dex'
+            : 'str';
+
+        const progressionBonus = Math.max(0, Math.floor(spellswordLevel / 7));
+        const hardStats = getCharacterStatsAtLevel(level);
+        const hardAbilityMods = getAbilityModifiersFromStats(hardStats);
+        const hardIntelligenceModifier = Math.max(0, Number(hardAbilityMods.int) || 0);
+
+        const out = {
+            classLevel: spellswordLevel,
+            monkLevel,
+            selectedPrimaryAttribute,
+            progressionBonus,
+            hardIntelligenceModifier,
+            appliedBonus: 0,
+            attackBonus: 0,
+            damageBonus: 0,
+            dodgeAcBonus: 0,
+            attackSources: [],
+            damageSources: [],
+            dodgeSources: [],
+            disabledReason: ''
+        };
+
+        if (spellswordLevel <= 0) {
+            out.disabledReason = 'Class not present in current build';
+            return out;
+        }
+
+        if (monkLevel > 0) {
+            out.disabledReason = `Disabled (Monk levels: ${monkLevel})`;
+            return out;
+        }
+
+        const appliedBonus = Math.max(0, Math.min(progressionBonus, hardIntelligenceModifier));
+        if (appliedBonus <= 0) {
+            out.disabledReason = 'No bonus after INT cap';
+            return out;
+        }
+
+        out.appliedBonus = appliedBonus;
+        out.attackBonus = appliedBonus;
+        out.attackSources.push({
+            key: 'spellswordWeaveAffinityAttack',
+            label: `Spellsword weave affinity (${selectedPrimaryAttribute.toUpperCase()}) AB`,
+            bonus: appliedBonus
+        });
+
+        if (selectedPrimaryAttribute === 'str') {
+            out.damageBonus = appliedBonus;
+            out.damageSources.push({ label: 'Spellsword weave affinity (STR)', value: appliedBonus });
+        } else {
+            out.dodgeAcBonus = appliedBonus;
+            out.dodgeSources.push({ label: 'Spellsword weave affinity (DEX)', value: appliedBonus });
+        }
+
+        return out;
+    }
+
+    function getUnholyAccuracyBonus(level) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const hasFeat = featSet.has('unholy accuracy');
+        const out = {
+            hasFeat,
+            attackBonus: 0,
+            applies: false,
+            disabledReason: ''
+        };
+
+        if (!hasFeat) {
+            out.disabledReason = 'Requires feat: Unholy Accuracy';
+            return out;
+        }
+
+        out.attackBonus = 1;
+        out.applies = true;
+        return out;
+    }
+
+    function getCorruptWeaponBonus(level) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const hasFeat = featSet.has('corrupt weapon');
+        const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
+        const out = {
+            hasFeat,
+            blackguardLevel,
+            weaponBonusFloor: 0,
+            applies: false,
+            disabledReason: ''
+        };
+
+        if (!hasFeat) {
+            out.disabledReason = 'Requires feat: Corrupt Weapon';
+            return out;
+        }
+
+        if (blackguardLevel <= 0) {
+            out.disabledReason = 'Requires Blackguard class levels';
+            return out;
+        }
+
+        out.weaponBonusFloor = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
+        out.applies = true;
+        return out;
+    }
+
+    function getDivineSmiteBonus(level) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        const hasFeat = featSet.has('divine smite');
+        const paladinLevel = getClassLevelAtBuildLevel('Paladin', level);
+
+        const mainHandState = ensureSlotState('mainHand');
+        const mainHandMeta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
+        const isMeleeWeapon = !Boolean(mainHandMeta && (mainHandMeta.missile || mainHandMeta.thrown || mainHandMeta.ranged));
+
+        const hardStats = getCharacterStatsAtLevel(level);
+        const hardMods = getAbilityModifiersFromStats(hardStats);
+        const charismaMod = Number(hardMods && hardMods.cha) || 0;
+
+        const out = {
+            hasFeat,
+            paladinLevel,
+            charismaMod,
+            isMeleeWeapon,
+            attackBonus: 0,
+            damageBonus: 0,
+            applies: false,
+            disabledReason: ''
+        };
+
+        if (!hasFeat) {
+            out.disabledReason = 'Requires feat: Divine Smite';
+            return out;
+        }
+
+        if (!isMeleeWeapon) {
+            out.disabledReason = 'Only applies with melee weapons';
+            return out;
+        }
+
+        out.attackBonus = charismaMod;
+        out.damageBonus = Math.min(20, Math.max(0, paladinLevel));
+        out.applies = true;
+        return out;
+    }
+
+    function getClassHardAttackBonus(level) {
+        ensureClassAttackToggleState();
+        ensureClassBonusOptionsState();
+        const sources = [];
+        const cappedSources = [];
+        let damageBonus = 0;
+        let dodgeAcBonus = 0;
+        let weaponBonusFloor = 0;
+        let cappedAttackBonusFromClass = 0;
+        const damageSources = [];
+        const dodgeSources = [];
+        let spellsword = null;
+        let unholyAccuracy = null;
+        let corruptWeapon = null;
+        let divineSmite = null;
+
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+            if (!state.classAttackToggles[def.key]) return;
+
+            if (def.special === 'spellswordWeaveAffinity') {
+                spellsword = getSpellswordWeaveAffinityBonus(level);
+                if (spellsword && spellsword.attackSources.length > 0) {
+                    spellsword.attackSources.forEach(source => sources.push(source));
+                }
+                damageBonus += Number(spellsword && spellsword.damageBonus) || 0;
+                dodgeAcBonus += Number(spellsword && spellsword.dodgeAcBonus) || 0;
+                if (spellsword && Array.isArray(spellsword.damageSources) && spellsword.damageSources.length > 0) {
+                    spellsword.damageSources.forEach(source => damageSources.push(source));
+                }
+                if (spellsword && Array.isArray(spellsword.dodgeSources) && spellsword.dodgeSources.length > 0) {
+                    spellsword.dodgeSources.forEach(source => dodgeSources.push(source));
+                }
+                return;
+            }
+
+            if (def.special === 'unholyAccuracy') {
+                unholyAccuracy = getUnholyAccuracyBonus(level);
+                if (unholyAccuracy.applies && Number(unholyAccuracy.attackBonus) !== 0) {
+                    cappedAttackBonusFromClass += Number(unholyAccuracy.attackBonus) || 0;
+                    cappedSources.push({
+                        key: def.key,
+                        label: def.sourceLabel,
+                        bonus: Number(unholyAccuracy.attackBonus) || 0
+                    });
+                }
+                return;
+            }
+
+            if (def.special === 'corruptWeapon') {
+                corruptWeapon = getCorruptWeaponBonus(level);
+                if (corruptWeapon.applies && Number(corruptWeapon.weaponBonusFloor) > 0) {
+                    weaponBonusFloor = Math.max(weaponBonusFloor, Number(corruptWeapon.weaponBonusFloor) || 0);
+                }
+                return;
+            }
+
+            if (def.special === 'divineSmite') {
+                divineSmite = getDivineSmiteBonus(level);
+                if (divineSmite.applies) {
+                    const attackAdd = Number(divineSmite.attackBonus) || 0;
+                    const damageAdd = Number(divineSmite.damageBonus) || 0;
+                    if (attackAdd !== 0) {
+                        sources.push({
+                            key: def.key,
+                            label: `${def.sourceLabel} (CHA)` ,
+                            bonus: attackAdd
+                        });
+                    }
+                    if (damageAdd !== 0) {
+                        damageBonus += damageAdd;
+                        damageSources.push({ label: `${def.sourceLabel} (Paladin levels, cap 20)`, value: damageAdd });
+                    }
+                }
+                return;
+            }
+
+            const bonus = getClassExtraProgressionBonus(def.className, def.extraNameCandidates, level);
+            if (bonus === 0) return;
+
+            sources.push({
+                key: def.key,
+                label: def.sourceLabel,
+                bonus
+            });
+        });
+
+        plannerDebugLog('Class hard attack summary', {
+            level,
+            toggles: { ...(state.classAttackToggles || {}) },
+            sources,
+            cappedSources,
+            total: sources.reduce((sum, source) => sum + (Number(source.bonus) || 0), 0),
+            cappedAttackBonusFromClass,
+            weaponBonusFloor,
+            damageBonus,
+            dodgeAcBonus,
+            unholyAccuracy,
+            corruptWeapon,
+            divineSmite,
+            spellsword: spellsword
+                ? {
+                    classLevel: spellsword.classLevel,
+                    monkLevel: spellsword.monkLevel,
+                    selectedPrimaryAttribute: spellsword.selectedPrimaryAttribute,
+                    progressionBonus: spellsword.progressionBonus,
+                    hardIntelligenceModifier: spellsword.hardIntelligenceModifier,
+                    appliedBonus: spellsword.appliedBonus,
+                    disabledReason: spellsword.disabledReason
+                }
+                : null
+        });
+
+        return {
+            total: sources.reduce((sum, source) => sum + (Number(source.bonus) || 0), 0),
+            sources,
+            cappedSources,
+            cappedAttackBonusFromClass,
+            weaponBonusFloor,
+            damageBonus,
+            damageSources,
+            dodgeAcBonus,
+            dodgeSources,
+            spellsword,
+            unholyAccuracy,
+            corruptWeapon,
+            divineSmite
+        };
+    }
+
     function getFighterBabAtLevel(level) {
         const numericLevel = Math.max(1, Math.floor(Number(level) || 1));
         return numericLevel;
@@ -2259,30 +3055,45 @@
             cappedAttackBonusFromBuffs: 0,
             uncappedAttackBonus: 0,
             weaponBonusFloor: 0,
+            extraHighestAbAttacks: 0,
             damageBonus: 0,
             saveBonus: { fort: 0, ref: 0, will: 0 },
             dodgeAcBonus: 0,
             hpBonus: 0,
             overrideBab: null,
             strOverrideMin: null,
-            notes: []
+            notes: [],
+            detail: {
+                attack: [],
+                damage: [],
+                saveFort: [],
+                saveRef: [],
+                saveWill: [],
+                dodgeAc: [],
+                hp: [],
+                bab: [],
+                strFloor: []
+            }
         };
 
         const isEnabled = (name) => Boolean(state.buffs && state.buffs[name] && state.buffs[name].enabled);
         const casterLevelFor = (name) => Math.max(1, Math.floor(Number(state.buffs && state.buffs[name] ? state.buffs[name].casterLevel : 30) || 1));
 
-        if (isEnabled('aid')) out.cappedAttackBonusFromBuffs += 1;
-        if (isEnabled('bless')) out.cappedAttackBonusFromBuffs += 1;
-
-        if (isEnabled('unholy_accuracy') && featSet.has('unholy accuracy')) {
+        if (isEnabled('aid')) {
             out.cappedAttackBonusFromBuffs += 1;
+            out.detail.attack.push({ label: 'Aid', value: 1 });
         }
-
-        if (isEnabled('corrupt_weapon') && featSet.has('corrupt weapon')) {
-            const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
-            const corruptBonus = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
-            out.weaponBonusFloor = Math.max(out.weaponBonusFloor, corruptBonus);
-            out.notes.push(`Corrupt Weapon sets minimum weapon bonus +${corruptBonus}`);
+        if (isEnabled('bless')) {
+            out.cappedAttackBonusFromBuffs += 1;
+            out.detail.attack.push({ label: 'Bless', value: 1 });
+        }
+        if (isEnabled('true_strike')) {
+            out.cappedAttackBonusFromBuffs += 20;
+            out.detail.attack.push({ label: 'True Strike', value: 20 });
+        }
+        if (isEnabled('haste')) {
+            out.extraHighestAbAttacks += 1;
+            out.detail.attack.push({ label: 'Haste (extra APR at highest AB)', value: 0 });
         }
 
         if (isEnabled('divine_favor')) {
@@ -2290,6 +3101,8 @@
             const favorBonus = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
             out.cappedAttackBonusFromBuffs += favorBonus;
             out.damageBonus += favorBonus;
+            out.detail.attack.push({ label: `Divine Favor (CL ${cl})`, value: favorBonus });
+            out.detail.damage.push({ label: `Divine Favor (CL ${cl})`, value: favorBonus });
         }
 
         if (isEnabled('divine_power')) {
@@ -2297,6 +3110,9 @@
             out.overrideBab = getFighterBabAtLevel(level);
             out.strOverrideMin = 18;
             out.hpBonus += cl;
+            out.detail.bab.push({ label: `Divine Power (fighter BAB)`, value: out.overrideBab });
+            out.detail.strFloor.push({ label: 'Divine Power (STR floor)', value: 18 });
+            out.detail.hp.push({ label: `Divine Power (CL ${cl})`, value: cl });
         }
 
         if (isEnabled('blood_frenzy')) {
@@ -2323,6 +3139,11 @@
             out.saveBonus.will += will;
             out.saveBonus.ref -= 3;
             out.dodgeAcBonus -= 2;
+            out.detail.attack.push({ label: 'Blood Frenzy', value: ab });
+            out.detail.damage.push({ label: 'Blood Frenzy', value: dmg });
+            out.detail.saveWill.push({ label: 'Blood Frenzy', value: will });
+            out.detail.saveRef.push({ label: 'Blood Frenzy', value: -3 });
+            out.detail.dodgeAc.push({ label: 'Blood Frenzy', value: -2 });
         }
 
         const battletideOn = isEnabled('battletide');
@@ -2331,10 +3152,19 @@
         const stackProtectedDamage = (battletideOn || warCryOn) ? 2 : 0;
         out.cappedAttackBonusFromBuffs += stackProtectedAb;
         out.damageBonus += stackProtectedDamage;
+        if (stackProtectedAb !== 0) {
+            out.detail.attack.push({ label: battletideOn ? 'Battletide' : 'War Cry', value: stackProtectedAb });
+        }
+        if (stackProtectedDamage !== 0) {
+            out.detail.damage.push({ label: battletideOn ? 'Battletide' : 'War Cry', value: stackProtectedDamage });
+        }
         if (battletideOn) {
             out.saveBonus.fort += 2;
             out.saveBonus.ref += 2;
             out.saveBonus.will += 2;
+            out.detail.saveFort.push({ label: 'Battletide', value: 2 });
+            out.detail.saveRef.push({ label: 'Battletide', value: 2 });
+            out.detail.saveWill.push({ label: 'Battletide', value: 2 });
         }
 
         return out;
@@ -2354,9 +3184,6 @@
             if (def.name === 'divine_favor') {
                 const cl = Math.max(1, Math.floor(Number(config.casterLevel) || 1));
                 value = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
-            } else if (def.name === 'corrupt_weapon') {
-                const blackguardLevel = getClassLevelAtBuildLevel('Blackguard', level);
-                value = Math.min(5, Math.max(1, 1 + Math.floor(Math.max(0, blackguardLevel - 1) / 5)));
             } else if (def.name === 'blood_frenzy') {
                 const hasSf = featSet.has('spell focus: transmutation');
                 const hasGsf = featSet.has('greater spell focus: transmutation');
@@ -2403,6 +3230,14 @@
         if (SONG_SKILL_LABEL_ALIASES[normalized]) return SONG_SKILL_LABEL_ALIASES[normalized];
         if (normalized === 'all skills') return ['*all*'];
 
+        if (normalized === 'concentr') return ['concentration'];
+        if (normalized === 'umd') return ['use magic device'];
+        if (normalized === 'rope') return ['climb'];
+        if (normalized === 'spellcraft') return ['spellcraft'];
+        if (normalized === 'sail') return ['sail'];
+        if (normalized === 'heal') return ['heal'];
+        if (normalized === 'hide ms') return ['hide', 'move silently'];
+
         if (/^(perform|bluff|concentration|appraise|lore|listen|spot|search|ride|tumble|set trap|animal empathy|open lock|disarm trap|sleight of hand|hide|move silently|climb)$/.test(normalized)) {
             return [normalized];
         }
@@ -2410,17 +3245,79 @@
         return [];
     }
 
+    function getSongTargetToggleState(targetKey) {
+        if (!targetKey) return false;
+        const targeting = state.targeting || {};
+        const alignment = String(targeting.alignment || 'any').toLowerCase();
+        const selectedTargetRace = String(targeting.race || '');
+
+        if (targetKey === 'evil') {
+            return alignment.length === 2 && alignment.endsWith('e');
+        }
+        if (targetKey === 'lawful') {
+            return alignment.length === 2 && alignment.startsWith('l');
+        }
+
+        return selectedTargetRace === targetKey;
+    }
+
+    function getBattleTrainingAttackBonus(level) {
+        const featSet = getOwnedFeatNameSetAtLevel(level);
+        if (!featSet || featSet.size === 0) return 0;
+
+        const targetRace = state.targeting && state.targeting.race ? state.targeting.race : '';
+        const tags = getTargetRaceTags(targetRace);
+        if (tags.size === 0) return 0;
+
+        let bonus = 0;
+        if (tags.has('giant') && featSet.has('battle training vs. giants')) bonus += 2;
+        if (tags.has('goblinoid') && (featSet.has('battle training vs. goblinoids') || featSet.has('battle training vs. goblins'))) bonus += 1;
+        if (tags.has('orc') && featSet.has('battle training vs. orcs')) bonus += 1;
+        return bonus;
+    }
+
+    function resolveSongConditionalTarget(effectLabel) {
+        const key = normalizeSongNameKey(effectLabel);
+        const map = {
+            'ab vs beast animal': 'beastAnimal',
+            'ab vs shapeshift': 'shapeshift',
+            'ab vs dragon': 'dragon',
+            'ac vs dragon': 'dragon',
+            'ac vs beast animal': 'beastAnimal',
+            'ac vs construct': 'construct',
+            'ac vs elementals': 'elemental',
+            'ac vs ooze': 'ooze',
+            'ac vs shapeshift': 'shapeshift',
+            'ac vs animal': 'beastAnimal',
+            'ac vs evil': 'evil',
+            'ac vs giant ogre half giant': 'giantOgreHalfGiant',
+            'dodge ac vs lawful': 'lawful'
+        };
+        return map[key] || '';
+    }
+
     function getActiveSongEffects(level) {
         const empty = {
             attackBonus: 0,
             damageBonus: 0,
             dodgeAcBonus: 0,
+            concealment: 0,
             saveBonus: { fort: 0, ref: 0, will: 0 },
             skillBonuses: new Map(),
             statBonuses: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+            elementalImmunity: { fire: 0, acid: 0, cold: 0, electrical: 0 },
             featDetails: [],
             unmapped: [],
-            summary: []
+            summary: [],
+            detail: {
+                attack: [],
+                damage: [],
+                saveFort: [],
+                saveRef: [],
+                saveWill: [],
+                dodgeAc: [],
+                skills: []
+            }
         };
 
         if (!state.song || !state.song.enabled) return empty;
@@ -2445,14 +3342,37 @@
 
             const labelKey = normalizeSongNameKey(effect.label);
 
+            const conditionalTarget = resolveSongConditionalTarget(effect.label);
+            if (labelKey.startsWith('ab vs ') || labelKey.startsWith('ac vs ') || labelKey.startsWith('dodge ac vs ')) {
+                const enabled = getSongTargetToggleState(conditionalTarget);
+                if (enabled && Number.isFinite(totalNumeric)) {
+                    if (labelKey.startsWith('ab vs ')) {
+                        empty.attackBonus += totalNumeric;
+                        empty.detail.attack.push({ label: effect.label, value: totalNumeric });
+                    } else {
+                        empty.dodgeAcBonus += totalNumeric;
+                        empty.detail.dodgeAc.push({ label: effect.label, value: totalNumeric });
+                    }
+                }
+                return;
+            }
+
             if (labelKey === 'ab') {
                 if (Number.isFinite(totalNumeric)) empty.attackBonus += totalNumeric;
+                if (Number.isFinite(totalNumeric)) empty.detail.attack.push({ label: effect.label, value: totalNumeric });
                 empty.summary.push(`AB ${baseValue}${canUseSoth && effect.sothBonus ? ` (${effect.sothBonus} SOTH)` : ''}`);
+                return;
+            }
+
+            if (labelKey === 'bludg dm') {
+                if (Number.isFinite(totalNumeric)) empty.damageBonus += totalNumeric;
+                if (Number.isFinite(totalNumeric)) empty.detail.damage.push({ label: effect.label, value: totalNumeric });
                 return;
             }
 
             if (/dmg|damage/.test(labelKey) && !/vuln|immunity|resist|dr /.test(labelKey)) {
                 if (Number.isFinite(totalNumeric)) empty.damageBonus += totalNumeric;
+                if (Number.isFinite(totalNumeric)) empty.detail.damage.push({ label: effect.label, value: totalNumeric });
                 return;
             }
 
@@ -2461,12 +3381,16 @@
                     empty.saveBonus.fort += totalNumeric;
                     empty.saveBonus.ref += totalNumeric;
                     empty.saveBonus.will += totalNumeric;
+                    empty.detail.saveFort.push({ label: effect.label, value: totalNumeric });
+                    empty.detail.saveRef.push({ label: effect.label, value: totalNumeric });
+                    empty.detail.saveWill.push({ label: effect.label, value: totalNumeric });
                 }
                 return;
             }
 
             if (labelKey === 'fortitude') {
                 if (Number.isFinite(totalNumeric)) empty.saveBonus.fort += totalNumeric;
+                if (Number.isFinite(totalNumeric)) empty.detail.saveFort.push({ label: effect.label, value: totalNumeric });
                 return;
             }
 
@@ -2475,12 +3399,31 @@
                     empty.saveBonus.fort += totalNumeric;
                     empty.saveBonus.ref += totalNumeric;
                     empty.saveBonus.will += totalNumeric;
+                    empty.detail.saveFort.push({ label: effect.label, value: totalNumeric });
+                    empty.detail.saveRef.push({ label: effect.label, value: totalNumeric });
+                    empty.detail.saveWill.push({ label: effect.label, value: totalNumeric });
                 }
                 return;
             }
 
             if (labelKey === 'ac dodge' || labelKey === 'dodge ac' || labelKey === 'ac') {
                 if (Number.isFinite(totalNumeric)) empty.dodgeAcBonus += totalNumeric;
+                if (Number.isFinite(totalNumeric)) empty.detail.dodgeAc.push({ label: effect.label, value: totalNumeric });
+                return;
+            }
+
+            if (labelKey === 'concealment') {
+                if (Number.isFinite(totalNumeric)) empty.concealment += totalNumeric;
+                return;
+            }
+
+            if (labelKey === 'imm fire acid cold elec') {
+                if (Number.isFinite(totalNumeric)) {
+                    empty.elementalImmunity.fire += totalNumeric;
+                    empty.elementalImmunity.acid += totalNumeric;
+                    empty.elementalImmunity.cold += totalNumeric;
+                    empty.elementalImmunity.electrical += totalNumeric;
+                }
                 return;
             }
 
@@ -2496,6 +3439,7 @@
                                         : String(skill || '').toLowerCase();
                                     if (!normalized) return;
                                     empty.skillBonuses.set(normalized, (empty.skillBonuses.get(normalized) || 0) + totalNumeric);
+                                    empty.detail.skills.push({ label: `${effect.label} (${normalized})`, value: totalNumeric });
                                 });
                             }
                         } catch {
@@ -2509,11 +3453,12 @@
                         : String(skillName || '').toLowerCase();
                     if (!normalized) return;
                     empty.skillBonuses.set(normalized, (empty.skillBonuses.get(normalized) || 0) + totalNumeric);
+                    empty.detail.skills.push({ label: `${effect.label} (${normalized})`, value: totalNumeric });
                 });
                 return;
             }
 
-            if (!/perform req|effect|immunity|move speed|regen|dr|resist|vuln|bard only/.test(labelKey)) {
+            if (!/perform req|effect|immunity|move speed|regen|dr|resist|vuln|bard only|all skills/.test(labelKey)) {
                 empty.unmapped.push(`${effect.label}: ${baseValue}${canUseSoth && effect.sothBonus ? ` (+ ${effect.sothBonus} SOTH)` : ''}`);
             }
         });
@@ -2521,17 +3466,21 @@
         return empty;
     }
 
-    function getCappedAttackBonusComponents(base, effects, level) {
+    function getCappedAttackBonusComponents(base, effects, level, classHardAttack = null) {
         const buffEffects = computeBuffEffects(level, effects);
+        const classWeaponFloor = Number(classHardAttack && classHardAttack.weaponBonusFloor) || 0;
+        const classCappedAttackBonus = Number(classHardAttack && classHardAttack.cappedAttackBonusFromClass) || 0;
         const weaponBonus = Math.max(
             Number(effects && effects.enhancementAttackBonus) || 0,
             Number(effects && effects.directAttackBonus) || 0,
-            Number(buffEffects.weaponBonusFloor) || 0
+            Number(buffEffects.weaponBonusFloor) || 0,
+            classWeaponFloor
         );
-        const uncappedTotal = weaponBonus + (Number(buffEffects.cappedAttackBonusFromBuffs) || 0);
+        const uncappedTotal = weaponBonus + (Number(buffEffects.cappedAttackBonusFromBuffs) || 0) + classCappedAttackBonus;
         return {
             weaponBonus,
             buffCappedBonus: Number(buffEffects.cappedAttackBonusFromBuffs) || 0,
+            classCappedBonus: classCappedAttackBonus,
             cappedBonus: Math.min(20, Math.max(0, uncappedTotal)),
             uncappedTotal,
             buffEffects
@@ -2542,7 +3491,8 @@
         if (!rootEls || !rootEls.buffList) return;
 
         rootEls.buffList.innerHTML = '';
-        BUFF_DEFINITIONS.forEach(def => {
+
+        const renderBuffRow = (def, targetContainer) => {
             const row = document.createElement('div');
             row.className = 'gear-field-row';
 
@@ -2551,7 +3501,7 @@
             toggle.checked = Boolean(state.buffs[def.name] && state.buffs[def.name].enabled);
             toggle.addEventListener('change', () => {
                 state.buffs[def.name].enabled = Boolean(toggle.checked);
-                renderSummaries();
+                scheduleGearRefreshAndValidation();
             });
 
             const label = document.createElement('label');
@@ -2579,14 +3529,219 @@
                     const parsed = Math.max(min, Math.min(max, Math.floor(Number(clInput.value) || min)));
                     state.buffs[def.name].casterLevel = parsed;
                     clInput.value = String(parsed);
-                    renderSummaries();
+                    scheduleGearRefreshAndValidation();
                 });
 
                 row.appendChild(clLabel);
                 row.appendChild(clInput);
             }
 
-            rootEls.buffList.appendChild(row);
+            if (def.hasSecondCast) {
+                const secondCastLabel = document.createElement('label');
+                secondCastLabel.textContent = '2nd Cast';
+                secondCastLabel.style.minWidth = '70px';
+
+                const secondCastToggle = document.createElement('input');
+                secondCastToggle.type = 'checkbox';
+                secondCastToggle.checked = Boolean(state.buffs[def.name].secondCast);
+                secondCastToggle.addEventListener('change', () => {
+                    state.buffs[def.name].secondCast = Boolean(secondCastToggle.checked);
+                    scheduleGearRefreshAndValidation();
+                });
+
+                row.appendChild(secondCastLabel);
+                row.appendChild(secondCastToggle);
+            }
+
+            targetContainer.appendChild(row);
+        };
+
+        const standardContainer = document.createElement('div');
+        const standardBuffDefs = BUFF_DEFINITIONS.filter(def => !ZOO_SPELL_BUFF_NAMES.has(def.name));
+        standardBuffDefs.forEach(def => renderBuffRow(def, standardContainer));
+        rootEls.buffList.appendChild(standardContainer);
+
+        const zooContainer = document.createElement('div');
+        zooContainer.className = 'gear-drawer open';
+
+        const zooHeader = document.createElement('button');
+        zooHeader.type = 'button';
+        zooHeader.className = 'gear-drawer-header';
+        zooHeader.setAttribute('aria-expanded', 'true');
+        zooHeader.textContent = 'Zoo Spells';
+
+        const zooBody = document.createElement('div');
+        zooBody.className = 'gear-drawer-body';
+
+        const base = getBaseDerivedSummary();
+        const summaryLevel = Math.max(1, Math.floor(Number(base && base.level) || 1));
+        const zooSoftBuff = getBuffSoftStatBonuses(summaryLevel);
+        const perCastBonus = Number(zooSoftBuff.baseBonus) || 4;
+        const transmutationSummary = document.createElement('div');
+        transmutationSummary.className = 'muted-note';
+        transmutationSummary.textContent = [
+            `Transmutation scaling at L${summaryLevel}: per cast +${perCastBonus}`,
+            `Greater Spell Focus: Transmutation ${zooSoftBuff.hasGsfTransmutation ? 'active (+1 tier)' : 'inactive'}`,
+            `Epic Spell Focus: Transmutation ${zooSoftBuff.hasEsfTransmutation ? 'active (+2 tier)' : 'inactive'}`,
+            'Second Cast toggle: +1 additional bonus'
+        ].join(' | ');
+        zooBody.appendChild(transmutationSummary);
+
+        const zooBuffDefs = BUFF_DEFINITIONS.filter(def => ZOO_SPELL_BUFF_NAMES.has(def.name));
+        zooBuffDefs.forEach(def => renderBuffRow(def, zooBody));
+
+        zooContainer.appendChild(zooHeader);
+        zooContainer.appendChild(zooBody);
+        rootEls.buffList.appendChild(zooContainer);
+    }
+
+    function renderClassAttackBonusEditor() {
+        if (!rootEls || !rootEls.classAttackBonusList) return;
+
+        ensureClassAttackToggleState();
+        ensureClassBonusOptionsState();
+        const base = getBaseDerivedSummary();
+        const level = Math.max(1, Math.floor(Number(base && base.level) || 1));
+
+        rootEls.classAttackBonusList.innerHTML = '';
+
+        CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+            const row = document.createElement('div');
+            row.className = 'gear-field-row';
+
+            const toggle = document.createElement('input');
+            toggle.type = 'checkbox';
+            toggle.checked = Boolean(state.classAttackToggles[def.key]);
+            toggle.addEventListener('change', () => {
+                state.classAttackToggles[def.key] = Boolean(toggle.checked);
+                renderSummaries();
+            });
+
+            if (def.special === 'spellswordWeaveAffinity') {
+                const preview = getSpellswordWeaveAffinityBonus(level);
+
+                const label = document.createElement('label');
+                label.style.minWidth = '260px';
+                label.style.fontWeight = 'bold';
+                label.textContent = def.label;
+
+                const primaryLabel = document.createElement('label');
+                primaryLabel.textContent = 'Primary';
+                primaryLabel.style.minWidth = '56px';
+
+                const primarySelect = document.createElement('select');
+                SPELLSWORD_PRIMARY_ATTRIBUTE_OPTIONS.forEach(optionDef => {
+                    const option = document.createElement('option');
+                    option.value = optionDef.value;
+                    option.textContent = optionDef.label;
+                    primarySelect.appendChild(option);
+                });
+                primarySelect.value = preview.selectedPrimaryAttribute;
+                primarySelect.addEventListener('change', () => {
+                    state.classBonusOptions.spellswordPrimaryAttribute = String(primarySelect.value || 'str').toLowerCase() === 'dex' ? 'dex' : 'str';
+                    renderSummaries();
+                });
+
+                const details = document.createElement('span');
+                details.className = 'feat-label';
+                details.textContent = preview.classLevel <= 0
+                    ? 'Class not present in current build'
+                    : preview.monkLevel > 0
+                        ? `Class Lvl ${preview.classLevel} | Disabled (Monk levels: ${preview.monkLevel})`
+                        : `Class Lvl ${preview.classLevel} | Per-7 levels ${preview.progressionBonus >= 0 ? '+' : ''}${round2(preview.progressionBonus)} | Hard INT cap ${preview.hardIntelligenceModifier >= 0 ? '+' : ''}${round2(preview.hardIntelligenceModifier)} | Applied ${preview.appliedBonus >= 0 ? '+' : ''}${round2(preview.appliedBonus)}`;
+
+                row.appendChild(toggle);
+                row.appendChild(label);
+                row.appendChild(primaryLabel);
+                row.appendChild(primarySelect);
+                row.appendChild(details);
+                rootEls.classAttackBonusList.appendChild(row);
+                return;
+            }
+
+            if (def.special === 'unholyAccuracy') {
+                const preview = getUnholyAccuracyBonus(level);
+
+                const label = document.createElement('label');
+                label.style.minWidth = '320px';
+                label.style.fontWeight = 'bold';
+                label.textContent = def.label;
+
+                const details = document.createElement('span');
+                details.className = 'feat-label';
+                details.textContent = preview.applies
+                    ? `Feat found | Capped AB +${round2(preview.attackBonus)}`
+                    : (preview.disabledReason || 'Inactive');
+
+                row.appendChild(toggle);
+                row.appendChild(label);
+                row.appendChild(details);
+                rootEls.classAttackBonusList.appendChild(row);
+                return;
+            }
+
+            if (def.special === 'corruptWeapon') {
+                const preview = getCorruptWeaponBonus(level);
+
+                const label = document.createElement('label');
+                label.style.minWidth = '320px';
+                label.style.fontWeight = 'bold';
+                label.textContent = def.label;
+
+                const details = document.createElement('span');
+                details.className = 'feat-label';
+                details.textContent = preview.applies
+                    ? `Blackguard Lvl ${preview.blackguardLevel} | Weapon floor +${round2(preview.weaponBonusFloor)} (main-hand)`
+                    : (preview.disabledReason || 'Inactive');
+
+                row.appendChild(toggle);
+                row.appendChild(label);
+                row.appendChild(details);
+                rootEls.classAttackBonusList.appendChild(row);
+                return;
+            }
+
+            if (def.special === 'divineSmite') {
+                const preview = getDivineSmiteBonus(level);
+
+                const label = document.createElement('label');
+                label.style.minWidth = '320px';
+                label.style.fontWeight = 'bold';
+                label.textContent = def.label;
+
+                const details = document.createElement('span');
+                details.className = 'feat-label';
+                details.textContent = preview.applies
+                    ? `Melee active | AB ${preview.attackBonus >= 0 ? '+' : ''}${round2(preview.attackBonus)} (CHA) | Damage +${round2(preview.damageBonus)} (Paladin cap 20)`
+                    : (preview.disabledReason || 'Inactive');
+
+                row.appendChild(toggle);
+                row.appendChild(label);
+                row.appendChild(details);
+                rootEls.classAttackBonusList.appendChild(row);
+                return;
+            }
+
+            const classLevel = getClassLevelAtBuildLevel(def.className, level);
+            const activeBonus = classLevel > 0
+                ? getClassExtraProgressionBonus(def.className, def.extraNameCandidates, level)
+                : 0;
+
+            const label = document.createElement('label');
+            label.style.minWidth = '320px';
+            label.style.fontWeight = 'bold';
+            label.textContent = def.label;
+
+            const details = document.createElement('span');
+            details.className = 'feat-label';
+            details.textContent = classLevel > 0
+                ? `Class Lvl ${classLevel} | Bonus ${activeBonus >= 0 ? '+' : ''}${round2(activeBonus)}`
+                : 'Class not present in current build';
+
+            row.appendChild(toggle);
+            row.appendChild(label);
+            row.appendChild(details);
+            rootEls.classAttackBonusList.appendChild(row);
         });
     }
 
@@ -2660,6 +3815,82 @@
         }
     }
 
+    function normalizeTargetText(rawValue) {
+        return String(rawValue || '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
+    }
+
+    function getTargetRaceTags(targetRaceValue) {
+        const normalized = String(targetRaceValue || '').trim();
+        const tags = new Set();
+
+        if (!normalized) return tags;
+
+        if (normalized === 'giantOgreHalfGiant') {
+            tags.add('giant');
+        }
+        if (normalized === 'goblinoid') {
+            tags.add('goblinoid');
+        }
+        if (normalized === 'orc') {
+            tags.add('orc');
+        }
+
+        if (normalized === '__group_giant__') tags.add('giant');
+        if (normalized === '__group_goblinoid__') tags.add('goblinoid');
+        if (normalized === '__group_orc__') tags.add('orc');
+
+        return tags;
+    }
+
+    function renderDamageGraphTargetEditor() {
+        if (!rootEls) return;
+        if (!state.targeting || typeof state.targeting !== 'object') {
+            state.targeting = {
+                alignment: 'any',
+                race: '',
+                targetConditions: createDefaultSongTargetConditions()
+            };
+        }
+        if (!state.targeting.targetConditions || typeof state.targeting.targetConditions !== 'object') {
+            state.targeting.targetConditions = createDefaultSongTargetConditions();
+        }
+
+        if (rootEls.damageGraphTargetAlignment) {
+            rootEls.damageGraphTargetAlignment.innerHTML = TARGET_ALIGNMENT_OPTIONS
+                .map(option => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`)
+                .join('');
+            rootEls.damageGraphTargetAlignment.value = String(state.targeting.alignment || 'any');
+            rootEls.damageGraphTargetAlignment.onchange = () => {
+                state.targeting.alignment = rootEls.damageGraphTargetAlignment.value || 'any';
+                renderSummaries();
+            };
+        }
+
+        if (rootEls.damageGraphTargetRace) {
+            const allOptions = TARGET_RACE_GROUP_OPTIONS;
+            rootEls.damageGraphTargetRace.innerHTML = allOptions
+                .map(option => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`)
+                .join('');
+
+            const selectedRace = String(state.targeting.race || '');
+            const hasSelected = allOptions.some(option => String(option.value) === selectedRace);
+            rootEls.damageGraphTargetRace.value = hasSelected ? selectedRace : '';
+            state.targeting.race = rootEls.damageGraphTargetRace.value || '';
+
+            rootEls.damageGraphTargetRace.onchange = () => {
+                state.targeting.race = rootEls.damageGraphTargetRace.value || '';
+                renderSummaries();
+            };
+        }
+
+        if (rootEls.damageGraphTargetToggleList) {
+            rootEls.damageGraphTargetToggleList.innerHTML = '';
+        }
+    }
+
     function getSongPlannerPropagationBonuses(level) {
         const empty = {
             skills: new Map(),
@@ -2684,9 +3915,13 @@
     function getCombatSnapshot() {
         const base = getBaseDerivedSummary();
         const effects = buildGearEffects();
-        const cappedAttack = getCappedAttackBonusComponents(base, effects, base.level);
-        const buffEffects = cappedAttack.buffEffects;
         const songEffects = getActiveSongEffects(base.level);
+        const classHardAttack = getClassHardAttackBonus(base.level);
+        const cappedAttack = getCappedAttackBonusComponents(base, effects, base.level, classHardAttack);
+        const buffEffects = cappedAttack.buffEffects;
+        const baseCritProfile = getCritProfileForSimulation(effects);
+        const featCombatMods = getWeaponFeatCombatModifiers(base.level, effects, baseCritProfile);
+        const critProfile = getCritProfileForSimulation(effects, featCombatMods);
 
         if (Number(buffEffects.dodgeAcBonus) !== 0) {
             effects.acBuckets.dodge.push(Number(buffEffects.dodgeAcBonus));
@@ -2694,12 +3929,31 @@
         if (Number(songEffects.dodgeAcBonus) !== 0) {
             effects.acBuckets.dodge.push(Number(songEffects.dodgeAcBonus));
         }
+        if (Number(featCombatMods.acBonus) !== 0) {
+            effects.acBuckets.other.push(Number(featCombatMods.acBonus));
+        }
+        if (Number(classHardAttack.dodgeAcBonus) !== 0) {
+            effects.acBuckets.dodge.push(Number(classHardAttack.dodgeAcBonus));
+            if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets.dodge)) {
+                classHardAttack.dodgeSources.forEach(source => {
+                    effects.sourceDetails.acBuckets.dodge.push({
+                        label: source.label,
+                        value: Number(source.value) || 0
+                    });
+                });
+            }
+        }
 
         const ac = computeStackedAc(effects);
         const abilityCombatMods = getWeaponAbilityModifiers(base.level, {
-            strOverrideMin: buffEffects.strOverrideMin
+            strOverrideMin: buffEffects.strOverrideMin,
+            mightyCap: effects.mightyCap
         });
-        const effectiveBab = Number.isFinite(Number(buffEffects.overrideBab))
+        const hasBabOverride = buffEffects.overrideBab !== null
+            && buffEffects.overrideBab !== undefined
+            && buffEffects.overrideBab !== ''
+            && Number.isFinite(Number(buffEffects.overrideBab));
+        const effectiveBab = hasBabOverride
             ? Number(buffEffects.overrideBab)
             : base.bab;
         const derived = {
@@ -2716,18 +3970,20 @@
             cappedAttack
         };
 
-        const baseCritProfile = getCritProfileForSimulation(effects);
-        const featCombatMods = getWeaponFeatCombatModifiers(base.level, effects, baseCritProfile);
-        const critProfile = getCritProfileForSimulation(effects, featCombatMods);
-
         derived.attackBonus += featCombatMods.attackBonus;
+        derived.attackBonus += Number(classHardAttack.total) || 0;
         derived.attackBonus += Number(songEffects.attackBonus) || 0;
         derived.damageBonus += featCombatMods.damageBonus;
+        derived.damageBonus += Number(classHardAttack.damageBonus) || 0;
         derived.critDamageBonus += featCombatMods.overwhelmingCritAverage;
         derived.attackBonus += abilityCombatMods.attackAbilityMod;
         derived.damageBonus += abilityCombatMods.damageAbilityMod;
 
         const attackBonusSequence = getAttackBonusSequence(derived.attackBonus, effectiveBab);
+        const extraHighestAbAttacks = Math.max(0, Math.floor(Number(buffEffects.extraHighestAbAttacks) || 0));
+        for (let index = 0; index < extraHighestAbAttacks; index++) {
+            attackBonusSequence.unshift(derived.attackBonus);
+        }
         const sneakAttackDice = getSneakAttackDiceAtLevel(base.level, effects);
         const sneakAttackAverage = sneakAttackDice * 3.5;
         const extraDamageAverage = getAverageDamageAddsValue(effects.damageAdds);
@@ -2751,9 +4007,11 @@
             derived,
             baseCritProfile,
             featCombatMods,
+            classHardAttack,
             abilityCombatMods,
             attackBonusSequence,
             buffEffects,
+            extraHighestAbAttacks,
             songEffects,
             cappedAttack,
             sneakAttackDice,
@@ -2777,8 +4035,8 @@
         const critProfile = (snapshot && snapshot.critProfile) ? snapshot.critProfile : { threatMin: 20, multiplier: 2 };
         const critThreatMin = Math.max(2, Math.min(20, Math.floor(Number(critProfile.threatMin) || 20)));
 
-        const minAc = Math.max(1, Math.floor(Number(acMin) || 20));
-        const maxAc = Math.max(minAc, Math.floor(Number(acMax) || 80));
+        const minAc = Math.max(0, Math.min(100, Math.floor(Number(acMin) || 20)));
+        const maxAc = Math.max(minAc, Math.min(100, Math.floor(Number(acMax) || 80)));
         const totalRounds = Math.max(1, Math.floor(Number(rounds) || 500000));
         const pointCount = maxAc - minAc + 1;
 
@@ -2842,6 +4100,28 @@
         }
 
         return points;
+    }
+
+    function simulateAverageDamageCurveWithSamples(snapshot, rounds = 500000, acMin = 20, acMax = 80, samples = 1) {
+        const sampleCount = Math.max(1, Math.min(100, Math.floor(Number(samples) || 1)));
+        const minAc = Math.max(0, Math.min(100, Math.floor(Number(acMin) || 20)));
+        const maxAc = Math.max(minAc, Math.min(100, Math.floor(Number(acMax) || 80)));
+        const totalPoints = maxAc - minAc + 1;
+
+        if (totalPoints <= 0) return [];
+
+        const totals = new Float64Array(totalPoints);
+        for (let sampleIndex = 0; sampleIndex < sampleCount; sampleIndex++) {
+            const points = simulateAverageDamageCurve(snapshot, rounds, minAc, maxAc);
+            for (let index = 0; index < points.length; index++) {
+                totals[index] += Number(points[index].damage) || 0;
+            }
+        }
+
+        return Array.from({ length: totalPoints }, (_, index) => ({
+            ac: minAc + index,
+            damage: totals[index] / sampleCount
+        }));
     }
 
     function rollDie(sides) {
@@ -3208,7 +4488,7 @@
     }
 
     function switchDamageSubtab(tabName) {
-        const allowed = new Set(['planner', 'buffs', 'songs', 'graph']);
+        const allowed = new Set(['planner', 'buffs', 'songs', 'classab', 'graph']);
         const targetTab = allowed.has(String(tabName || '').toLowerCase())
             ? String(tabName || '').toLowerCase()
             : 'planner';
@@ -3223,6 +4503,9 @@
         if (rootEls.damageSubtabSongsBtn) {
             rootEls.damageSubtabSongsBtn.classList.toggle('active', targetTab === 'songs');
         }
+        if (rootEls.damageSubtabClassAbBtn) {
+            rootEls.damageSubtabClassAbBtn.classList.toggle('active', targetTab === 'classab');
+        }
         if (rootEls.damageSubtabGraphBtn) {
             rootEls.damageSubtabGraphBtn.classList.toggle('active', targetTab === 'graph');
         }
@@ -3235,6 +4518,9 @@
         if (rootEls.damageSubtabSongsPanel) {
             rootEls.damageSubtabSongsPanel.classList.toggle('active', targetTab === 'songs');
         }
+        if (rootEls.damageSubtabClassAbPanel) {
+            rootEls.damageSubtabClassAbPanel.classList.toggle('active', targetTab === 'classab');
+        }
         if (rootEls.damageSubtabGraphPanel) {
             rootEls.damageSubtabGraphPanel.classList.toggle('active', targetTab === 'graph');
         }
@@ -3244,17 +4530,24 @@
         if (!rootEls || !rootEls.damageSimCanvas) return;
 
         const rounds = 500000;
-        const acMin = 20;
-        const acMax = 80;
+        const sampleCount = Math.max(1, Math.min(100, Math.floor(Number(rootEls.damageSimSamples && rootEls.damageSimSamples.value) || 1)));
+        const rawAcMin = Math.max(0, Math.min(100, Math.floor(Number(rootEls.damageSimAcMin && rootEls.damageSimAcMin.value) || 20)));
+        const rawAcMax = Math.max(0, Math.min(100, Math.floor(Number(rootEls.damageSimAcMax && rootEls.damageSimAcMax.value) || 80)));
+        const acMin = Math.min(rawAcMin, rawAcMax);
+        const acMax = Math.max(rawAcMin, rawAcMax);
+
+        if (rootEls.damageSimSamples) rootEls.damageSimSamples.value = String(sampleCount);
+        if (rootEls.damageSimAcMin) rootEls.damageSimAcMin.value = String(acMin);
+        if (rootEls.damageSimAcMax) rootEls.damageSimAcMax.value = String(acMax);
 
         const snapshot = getCombatSnapshot();
         const attackText = formatAttackBonusSequence(snapshot.attackBonusSequence);
         if (rootEls.damageSimBuildSummary) {
-            rootEls.damageSimBuildSummary.textContent = `AB ${attackText} (BAB ${round2(snapshot.derived.bab)} + ability ${round2(snapshot.abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(snapshot.featCombatMods.attackBonus)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${snapshot.sneakAttackDice}d6`;
+            rootEls.damageSimBuildSummary.textContent = `AB ${attackText} (BAB ${round2(snapshot.derived.bab)} + ability ${round2(snapshot.abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(snapshot.featCombatMods.attackBonus)} + class ${round2(snapshot.classHardAttack.total)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${snapshot.sneakAttackDice}d6`;
         }
 
         if (rootEls.damageSimStatus) {
-            rootEls.damageSimStatus.textContent = 'Running simulation...';
+            rootEls.damageSimStatus.textContent = `Running simulation (${sampleCount} sample${sampleCount === 1 ? '' : 's'})...`;
         }
         if (rootEls.damageSimRunBtn) {
             rootEls.damageSimRunBtn.disabled = true;
@@ -3266,7 +4559,7 @@
         await new Promise(resolve => setTimeout(resolve, 10));
 
         const startedAt = performance.now();
-        const points = simulateAverageDamageCurve(snapshot, rounds, acMin, acMax);
+        const points = simulateAverageDamageCurveWithSamples(snapshot, rounds, acMin, acMax, sampleCount);
         const traceAc = Math.floor((acMin + acMax) / 2);
         const traceBlocks = buildDetailedAttackTraces(snapshot, { traceCount: 5, traceAc });
         renderDamageSimulationTrace(traceBlocks, traceAc);
@@ -3421,6 +4714,21 @@
 
     function getBaseDerivedSummary() {
         const level = getCurrentCharacterLevel();
+
+        if (typeof getDerivedCombatStatsAtLevel === 'function') {
+            const stats = getDerivedCombatStatsAtLevel(level);
+            if (stats && typeof stats === 'object') {
+                return {
+                    level,
+                    bab: Number(stats.bab) || 0,
+                    fort: Number(stats.fort) || 0,
+                    ref: Number(stats.ref) || 0,
+                    will: Number(stats.will) || 0,
+                    hp: Number(stats.hp) || 0
+                };
+            }
+        }
+
         const levels = getPlannerLevelData();
         const row = (Array.isArray(levels) && levels[level - 1]) ? levels[level - 1] : null;
         return {
@@ -3443,6 +4751,8 @@
 
     function renderSummaries() {
         if (!rootEls || !rootEls.baseSummary || !rootEls.gearSummary) return;
+        renderDamageGraphTargetEditor();
+        renderClassAttackBonusEditor();
 
         const snapshot = getCombatSnapshot();
         const { base, effects, derived, baseCritProfile, featCombatMods, abilityCombatMods, attackBonusSequence, sneakAttackDice, sneakAttackAverage, critProfile } = snapshot;
@@ -3457,11 +4767,29 @@
             const numeric = round2(Number(value) || 0);
             return numeric >= 0 ? `+${numeric}` : `${numeric}`;
         };
-        const buildChipWithSources = (label, valueText, sourceText) => {
-            const sourceHtml = sourceText
-                ? `<div class="muted-note">${escapeHtml(sourceText)}</div>`
-                : '';
-            return `<div class="gear-chip"><div>${escapeHtml(label)}: ${escapeHtml(valueText)}</div>${sourceHtml}</div>`;
+        const toArray = (value) => Array.isArray(value) ? value : [];
+        const formatEntryLines = (entries, emptyLabel = 'none') => {
+            const list = toArray(entries)
+                .filter(entry => entry && typeof entry === 'object' && Number(entry.value) !== 0)
+                .map(entry => `${String(entry.label || 'source')}: ${formatSigned(entry.value)}`);
+            return list.length > 0 ? list : [emptyLabel];
+        };
+        const buildDrawerWithSources = (label, valueText, sourceLines) => {
+            const lineItems = toArray(sourceLines)
+                .map(line => String(line || '').trim())
+                .filter(Boolean);
+            const sourceHtml = lineItems.length > 0
+                ? lineItems.map(line => `<div class="muted-note">${escapeHtml(line)}</div>`).join('')
+                : '<div class="muted-note">No additional source details.</div>';
+            return [
+                '<div class="gear-drawer">',
+                `  <button type="button" class="gear-drawer-header" aria-expanded="false">`,
+                `    <span class="gear-drawer-label">${escapeHtml(label)}</span>`,
+                `    <span class="gear-drawer-total">${escapeHtml(valueText)}</span>`,
+                '  </button>',
+                `  <div class="gear-drawer-body">${sourceHtml}</div>`,
+                '</div>'
+            ].join('');
         };
 
         const damageAddSummary = formatDamageAddSummary(effects.damageAdds);
@@ -3491,65 +4819,216 @@
             `<div class="gear-chip">HP: ${base.hp}</div>`
         ].join('');
 
+        const attackDetailLines = [
+            `Base BAB: ${formatSigned(derived.bab)}`,
+            `Capped section total: ${formatSigned(snapshot.cappedAttack.cappedBonus)} (cap +20)`,
+            `Weapon enhancement candidates: ${formatEntryLines(effects.sourceDetails.enhancementAttack).join(' | ')}`,
+            `Direct attack bonus candidates: ${formatEntryLines(effects.sourceDetails.directAttack).join(' | ')}`,
+            `Buff/spell attack adds: ${formatEntryLines(snapshot.buffEffects.detail.attack).join(' | ')}`,
+            `Feat attack adds: ${formatEntryLines(featCombatMods.attackSources).join(' | ')}`,
+            `Class hard AB adds: ${snapshot.classHardAttack.sources.length > 0 ? snapshot.classHardAttack.sources.map(source => `${source.label}: ${formatSigned(source.bonus)}`).join(' | ') : 'none'}`,
+            `Song attack adds: ${formatEntryLines(snapshot.songEffects.detail.attack).join(' | ')}`,
+            `${abilityCombatMods.attackAbility.toUpperCase()} ability mod: ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})`
+        ];
+
+        const damageDetailLines = [
+            `Base damage bonus: +0`,
+            `Gear damage adds: ${formatEntryLines(effects.sourceDetails.damageBonus).join(' | ')}`,
+            `Mighty properties: ${formatEntryLines(effects.sourceDetails.mighty).join(' | ')} (effective cap ${formatSigned(effects.mightyCap)})`,
+            `Buff/spell damage adds: ${formatEntryLines(snapshot.buffEffects.detail.damage).join(' | ')}`,
+            `Song damage adds: ${formatEntryLines(snapshot.songEffects.detail.damage).join(' | ')}`,
+            `Feat damage adds: ${formatEntryLines(featCombatMods.damageSources).join(' | ')}`,
+            `Class hard damage adds: ${formatEntryLines(snapshot.classHardAttack.damageSources).join(' | ')}`,
+            abilityCombatMods.isRangedMissileWeapon
+                ? `Ranged STR-to-damage via Mighty: min(max(STR mod ${formatSigned(abilityCombatMods.strMod)}, +0), Mighty cap ${formatSigned(abilityCombatMods.mightyCap)}) = ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+                : `Melee/Thrown STR mod to damage: ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+        ];
+
+        const critDetailLines = [
+            `Base crit profile: ${baseCritProfile.label}`,
+            `Improved critical feats: ${formatEntryLines((featCombatMods.critSources || []).filter(source => source.kind === 'improvedCritical')).join(' | ')}`,
+            `Multiplier feats: ${formatEntryLines((featCombatMods.critSources || []).filter(source => source.kind === 'multiplier')).join(' | ')}`,
+            `Ki critical: ${formatEntryLines((featCombatMods.critSources || []).filter(source => source.kind === 'kiCriticalRange')).join(' | ')}`,
+            `Keen property active: ${featCombatMods.hasKeen ? 'yes' : 'no'}`
+        ];
+
+        const massiveCritDetailLines = [
+            `Gear massive critical adds: ${formatEntryLines(effects.sourceDetails.critDamageBonus).join(' | ')}`,
+            `Feat massive crit adds: ${featCombatMods.overwhelmingCritAverage !== 0 ? `Overwhelming critical: ${formatSigned(featCombatMods.overwhelmingCritAverage)}` : 'none'}`
+        ];
+
+        const saveFortLines = [
+            `Base Fort: ${formatSigned(base.fort)}`,
+            `Gear Fort adds: ${formatEntryLines(effects.sourceDetails.saveBonus.fort).join(' | ')}`,
+            `Buff/spell Fort adds: ${formatEntryLines(snapshot.buffEffects.detail.saveFort).join(' | ')}`,
+            `Song Fort adds: ${formatEntryLines(snapshot.songEffects.detail.saveFort).join(' | ')}`
+        ];
+
+        const saveRefLines = [
+            `Base Ref: ${formatSigned(base.ref)}`,
+            `Gear Ref adds: ${formatEntryLines(effects.sourceDetails.saveBonus.ref).join(' | ')}`,
+            `Buff/spell Ref adds: ${formatEntryLines(snapshot.buffEffects.detail.saveRef).join(' | ')}`,
+            `Song Ref adds: ${formatEntryLines(snapshot.songEffects.detail.saveRef).join(' | ')}`
+        ];
+
+        const saveWillLines = [
+            `Base Will: ${formatSigned(base.will)}`,
+            `Gear Will adds: ${formatEntryLines(effects.sourceDetails.saveBonus.will).join(' | ')}`,
+            `Buff/spell Will adds: ${formatEntryLines(snapshot.buffEffects.detail.saveWill).join(' | ')}`,
+            `Song Will adds: ${formatEntryLines(snapshot.songEffects.detail.saveWill).join(' | ')}`
+        ];
+
+        const acDetailLines = [
+            `Armor bucket (max): ${formatSigned(derived.ac.armor)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.armor).join(' | ')}`,
+            `Shield bucket (max): ${formatSigned(derived.ac.shield)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.shield).join(' | ')}`,
+            `Natural bucket (max): ${formatSigned(derived.ac.natural)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.natural).join(' | ')}`,
+            `Deflection bucket (max): ${formatSigned(derived.ac.deflection)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.deflection).join(' | ')}`,
+            `Dodge bucket (sum, cap +20): ${formatSigned(derived.ac.dodge)} | gear ${formatEntryLines(effects.sourceDetails.acBuckets.dodge).join(' | ')} | buffs ${formatEntryLines(snapshot.buffEffects.detail.dodgeAc).join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.dodgeAc).join(' | ')} | feats ${formatEntryLines(featCombatMods.acSources).join(' | ')} | class ${formatEntryLines(snapshot.classHardAttack.dodgeSources).join(' | ')}`
+        ];
+
+        const spellResistanceLines = [
+            `Base spell resistance: 0`,
+            `Gear spell resistance entries: ${formatEntryLines(effects.sourceDetails.spellResistance).join(' | ')}`
+        ];
+
+        const sneakSourceCounts = new Map();
+        const addSneakSource = (name, sourceTag) => {
+            const key = String(name || '').trim().toLowerCase();
+            if (!key) return;
+            if (!sneakSourceCounts.has(key)) {
+                sneakSourceCounts.set(key, {
+                    name: String(name || '').trim(),
+                    count: 0,
+                    sourceTags: new Set()
+                });
+            }
+            const entry = sneakSourceCounts.get(key);
+            entry.count += 1;
+            if (sourceTag) entry.sourceTags.add(sourceTag);
+        };
+
+        try {
+            if (typeof getEffectiveOwnedFeatDetailsAtLevel === 'function') {
+                const ownedDetails = getEffectiveOwnedFeatDetailsAtLevel(base.level, { includeSelectedCurrentLevel: true });
+                if (ownedDetails && typeof ownedDetails.forEach === 'function') {
+                    ownedDetails.forEach(detail => {
+                        if (!detail || !detail.name) return;
+                        if (isSneakAttackFeatName(detail.name)) {
+                            addSneakSource(detail.name, detail.sourceType || 'feat source');
+                        }
+                    });
+                }
+            }
+        } catch {
+            // no-op
+        }
+
+        if (effects && effects.itemGrantedFeats instanceof Map) {
+            effects.itemGrantedFeats.forEach(itemFeatDetail => {
+                if (!itemFeatDetail || !itemFeatDetail.name) return;
+                if (!isSneakAttackFeatName(itemFeatDetail.name)) return;
+                const sourceList = itemFeatDetail.sources instanceof Set
+                    ? Array.from(itemFeatDetail.sources)
+                    : ['item'];
+                sourceList.forEach(sourceName => addSneakSource(itemFeatDetail.name, sourceName));
+            });
+        }
+
+        const sneakAttackSourceLines = sneakSourceCounts.size > 0
+            ? Array.from(sneakSourceCounts.values())
+                .sort((left, right) => left.name.localeCompare(right.name))
+                .map(entry => `${entry.name}: +${entry.count}d6 (${Array.from(entry.sourceTags).join(', ') || 'source unknown'})`)
+            : ['none'];
+
         rootEls.gearSummary.innerHTML = [
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Attack Bonus',
                 formatAttackBonusSequence(attackBonusSequence),
-                `Base BAB ${formatSigned(derived.bab)}; Capped bonus min(+20, weapon ${formatSigned(snapshot.cappedAttack.weaponBonus)} + buff/spell ${formatSigned(snapshot.cappedAttack.buffCappedBonus)}) = ${formatSigned(snapshot.cappedAttack.cappedBonus)}; Feats ${formatSigned(featCombatMods.attackBonus)} (focus: ${featCombatMods.focusGroup || 'none'}); Song ${formatSigned(snapshot.songEffects.attackBonus)}; ${abilityCombatMods.attackAbility.toUpperCase()} mod ${formatSigned(abilityCombatMods.attackAbilityMod)} (STR ${formatSigned(abilityCombatMods.strMod)}, DEX ${formatSigned(abilityCombatMods.dexMod)})${abilityCombatMods.attackAbility === 'dex' ? ` via ${abilityCombatMods.hasWeaponFinesse ? 'Weapon Finesse' : 'finesse base weapon'}${abilityCombatMods.weaponName ? ` (${abilityCombatMods.weaponName})` : ''}` : ''}`
+                attackDetailLines
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Attacks per Round',
                 String(attackBonusSequence.length),
-                `From BAB ${base.bab}; extra attacks at BAB 6/11/16 (max 4)`
+                [
+                    `From BAB ${base.bab}`,
+                    'Extra attacks unlock at BAB 6 / 11 / 16 (max 4 total)',
+                    `Computed attack sequence: ${formatAttackBonusSequence(attackBonusSequence)}`
+                ]
             ),
-            buildChipWithSources(
-                'Damage Bonus (avg)',
+            buildDrawerWithSources(
+                'Damage Bonus',
                 formatSigned(derived.damageBonus),
-                `Base +0; Gear ${formatSigned(effects.damageBonus)}; Buffs ${formatSigned(snapshot.buffEffects.damageBonus)}; Song ${formatSigned(snapshot.songEffects.damageBonus)}; Feats ${formatSigned(featCombatMods.damageBonus)}; STR mod ${formatSigned(abilityCombatMods.damageAbilityMod)}`
+                damageDetailLines
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Damage Adds',
                 damageAddSummary,
-                `Base none; Gear adds ${damageAddSummary}`
+                [
+                    `Total damage adds (avg view): ${damageAddSummary}`,
+                    `Property-level damage add sources: ${formatEntryLines(effects.sourceDetails.damageBonus).join(' | ')}`,
+                    `Skill-affecting gear entries: ${formatEntryLines(effects.sourceDetails.skillBonuses).join(' | ')}`
+                ]
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Sneak Attack',
                 `${sneakAttackDice}d6${sneakAttackDice > 0 ? ` (avg +${sneakAttackAverageRounded} on qualifying hit)` : ''}`,
-                `From feat/granted/item sources at build level ${base.level}`
+                [
+                    `Total sneak attack dice at level ${base.level}: ${sneakAttackDice}d6`,
+                    `Exact sneak attack sources: ${sneakAttackSourceLines.join(' | ')}`
+                ]
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Crit Profile',
                 critProfile.label,
-                `Base ${baseCritProfile.label}; IC ${featCombatMods.improvedCriticalCount}${featCombatMods.hasKeen ? ' + Keen' : ''}${featCombatMods.hasKiCritical ? ' + Ki Critical' : ''}; Multiplier +${featCombatMods.multiplierBonus}`
+                critDetailLines
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Weapon Feat Mods',
-                `AB ${formatSigned(featCombatMods.attackBonus)} | DMG ${formatSigned(featCombatMods.damageBonus)} | IC ${featCombatMods.improvedCriticalCount}${featCombatMods.hasKeen ? ' + Keen' : ''}`,
-                `Active focus group: ${featCombatMods.focusGroup || 'none'}; ${featCombatMods.hasKiCritical ? 'Ki Critical +2 range; ' : ''}${featCombatMods.multiplierBonus > 0 ? `Increased Multiplier +${featCombatMods.multiplierBonus}; ` : ''}${featCombatMods.overwhelmingCritDice > 0 ? `Overwhelming Crit +${featCombatMods.overwhelmingCritDice}d6 on crit` : 'No additional crit-only feat damage'}`
+                `AB ${formatSigned(featCombatMods.attackBonus)} | AC ${formatSigned(featCombatMods.acBonus)} | DMG ${formatSigned(featCombatMods.damageBonus)} | IC ${featCombatMods.improvedCriticalCount}${featCombatMods.hasKeen ? ' + Keen' : ''}`,
+                [
+                    `Active focus group: ${featCombatMods.focusGroup || 'none'}`,
+                    `Attack feat lines: ${formatEntryLines(featCombatMods.attackSources).join(' | ')}`,
+                    `AC feat lines: ${formatEntryLines(featCombatMods.acSources).join(' | ')}`,
+                    `Damage feat lines: ${formatEntryLines(featCombatMods.damageSources).join(' | ')}`,
+                    `Crit feat lines: ${formatEntryLines(featCombatMods.critSources).join(' | ')}`
+                ]
             ),
-            buildChipWithSources(
-                'Massive Criticals (avg)',
+            buildDrawerWithSources(
+                'Massive Criticals',
                 formatSigned(derived.critDamageBonus),
-                `Gear massive crit ${formatSigned(effects.critDamageBonus)}; Overwhelming crit ${formatSigned(featCombatMods.overwhelmingCritAverage)}`
+                massiveCritDetailLines
             ),
-            buildChipWithSources('Fort', formatSigned(derived.fort), `Base ${formatSigned(base.fort)}; Gear ${formatSigned(effects.saveBonus.fort)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.fort)}; Song ${formatSigned(snapshot.songEffects.saveBonus.fort)}`),
-            buildChipWithSources('Ref', formatSigned(derived.ref), `Base ${formatSigned(base.ref)}; Gear ${formatSigned(effects.saveBonus.ref)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.ref)}; Song ${formatSigned(snapshot.songEffects.saveBonus.ref)}`),
-            buildChipWithSources('Will', formatSigned(derived.will), `Base ${formatSigned(base.will)}; Gear ${formatSigned(effects.saveBonus.will)}; Buffs ${formatSigned(snapshot.buffEffects.saveBonus.will)}; Song ${formatSigned(snapshot.songEffects.saveBonus.will)}`),
-            buildChipWithSources('HP', `${derived.hp}`, `Base ${base.hp}; Gear +0`),
-            buildChipWithSources(
+            buildDrawerWithSources('Fort', formatSigned(derived.fort), saveFortLines),
+            buildDrawerWithSources('Ref', formatSigned(derived.ref), saveRefLines),
+            buildDrawerWithSources('Will', formatSigned(derived.will), saveWillLines),
+            buildDrawerWithSources('HP', `${derived.hp}`, [
+                `Base HP: ${base.hp}`,
+                `Buff HP adds: ${formatEntryLines(snapshot.buffEffects.detail.hp).join(' | ')}`
+            ]),
+            buildDrawerWithSources(
                 'AC bonus total',
                 formatSigned(derived.ac.total),
-                `Base +0; Armor ${formatSigned(derived.ac.armor)} | Shield ${formatSigned(derived.ac.shield)} | Natural ${formatSigned(derived.ac.natural)} | Deflection ${formatSigned(derived.ac.deflection)} | Dodge ${formatSigned(derived.ac.dodge)}`
+                acDetailLines
             ),
-            buildChipWithSources(
+            buildDrawerWithSources(
                 'Spell Resistance',
                 `${derived.spellResistance || 0}`,
-                `Base 0; Gear ${derived.spellResistance || 0}`
+                spellResistanceLines
             )
         ].join('');
 
+        const drawerHeaders = rootEls.gearSummary.querySelectorAll('.gear-drawer-header');
+        drawerHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const drawer = header.closest('.gear-drawer');
+                if (!drawer) return;
+                const isOpen = drawer.classList.toggle('open');
+                header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        });
+
         if (rootEls.damageSimBuildSummary) {
-            rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (BAB ${round2(derived.bab)} + ability ${round2(abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(featCombatMods.attackBonus)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
+            rootEls.damageSimBuildSummary.textContent = `AB ${formatAttackBonusSequence(attackBonusSequence)} (BAB ${round2(derived.bab)} + ability ${round2(abilityCombatMods.attackAbilityMod)} + capped ${round2(snapshot.cappedAttack.cappedBonus)} + feats ${round2(featCombatMods.attackBonus)} + class ${round2(snapshot.classHardAttack.total)} + song ${round2(snapshot.songEffects.attackBonus)}) | Crit ${snapshot.critProfile.label} | Hit ${round2(snapshot.averageHitDamage)} | Crit Hit ${round2(snapshot.averageCritHitDamage)} | Sneak ${sneakAttackDice}d6`;
         }
 
         rootEls.totalMotes.textContent = `Total Motes: ${formatMote(totalMotes)}`;
@@ -3579,15 +5058,48 @@
             if (!activeSong) {
                 rootEls.songEffectSummary.textContent = 'No active song effects.';
             } else {
-                rootEls.songEffectSummary.textContent = `Active: ${activeSong.name || state.song.name} L${state.song.level}${state.song.useSoth ? ' + SOTH' : ''} | AB ${formatSigned(snapshot.songEffects.attackBonus)} | DMG ${formatSigned(snapshot.songEffects.damageBonus)} | Saves F/R/W ${formatSigned(snapshot.songEffects.saveBonus.fort)}/${formatSigned(snapshot.songEffects.saveBonus.ref)}/${formatSigned(snapshot.songEffects.saveBonus.will)} | Skills ${snapshot.songEffects.skillBonuses.size}`;
+                const coreParts = [];
+                if (Number(snapshot.songEffects.attackBonus) !== 0) coreParts.push(`AB ${formatSigned(snapshot.songEffects.attackBonus)}`);
+                if (Number(snapshot.songEffects.damageBonus) !== 0) coreParts.push(`DMG ${formatSigned(snapshot.songEffects.damageBonus)}`);
+                if (Number(snapshot.songEffects.saveBonus.fort) !== 0 || Number(snapshot.songEffects.saveBonus.ref) !== 0 || Number(snapshot.songEffects.saveBonus.will) !== 0) {
+                    coreParts.push(`Saves F/R/W ${formatSigned(snapshot.songEffects.saveBonus.fort)}/${formatSigned(snapshot.songEffects.saveBonus.ref)}/${formatSigned(snapshot.songEffects.saveBonus.will)}`);
+                }
+                if (Number(snapshot.songEffects.dodgeAcBonus) !== 0) coreParts.push(`Dodge AC ${formatSigned(snapshot.songEffects.dodgeAcBonus)}`);
+                if (Number(snapshot.songEffects.concealment) !== 0) coreParts.push(`Conceal ${formatSigned(snapshot.songEffects.concealment)}%`);
+                if (Number(snapshot.songEffects.elementalImmunity.fire) !== 0 || Number(snapshot.songEffects.elementalImmunity.acid) !== 0 || Number(snapshot.songEffects.elementalImmunity.cold) !== 0 || Number(snapshot.songEffects.elementalImmunity.electrical) !== 0) {
+                    coreParts.push(`Imm F/A/C/E ${formatSigned(snapshot.songEffects.elementalImmunity.fire)}/${formatSigned(snapshot.songEffects.elementalImmunity.acid)}/${formatSigned(snapshot.songEffects.elementalImmunity.cold)}/${formatSigned(snapshot.songEffects.elementalImmunity.electrical)}%`);
+                }
+                coreParts.push(`Skills ${snapshot.songEffects.skillBonuses.size}`);
+                rootEls.songEffectSummary.textContent = `Active: ${activeSong.name || state.song.name} L${state.song.level}${state.song.useSoth ? ' + SOTH' : ''} | ${coreParts.join(' | ')}`;
             }
         }
 
         if (rootEls.songUnmappedSummary) {
+            const skillDetail = Array.from((snapshot.songEffects && snapshot.songEffects.skillBonuses instanceof Map ? snapshot.songEffects.skillBonuses : new Map()).entries())
+                .filter(([, value]) => Number(value) !== 0)
+                .sort((left, right) => left[0].localeCompare(right[0]))
+                .map(([skill, value]) => `${skill} ${formatSigned(value)}`);
+
+            const detailSegments = [];
+            if (skillDetail.length > 0) {
+                detailSegments.push(`Skill adjustments: ${skillDetail.join(', ')}`);
+            }
+
             const unmapped = Array.isArray(snapshot.songEffects.unmapped) ? snapshot.songEffects.unmapped : [];
-            rootEls.songUnmappedSummary.textContent = unmapped.length > 0
-                ? `Unmapped song fields: ${unmapped.slice(0, 8).join('; ')}${unmapped.length > 8 ? ' ...' : ''}`
-                : 'All selected song fields currently map to planner/combat modifiers.';
+            if (unmapped.length > 0) {
+                detailSegments.push(`Unmapped song fields: ${unmapped.slice(0, 8).join('; ')}${unmapped.length > 8 ? ' ...' : ''}`);
+            } else {
+                detailSegments.push('All selected song fields currently map to planner/combat modifiers.');
+            }
+
+            rootEls.songUnmappedSummary.textContent = detailSegments.join(' | ');
+        }
+
+        if (rootEls.damageGraphTargetSummary) {
+            const alignmentValue = String(state.targeting && state.targeting.alignment ? state.targeting.alignment : 'any');
+            const raceValue = String(state.targeting && state.targeting.race ? state.targeting.race : '');
+            const alignmentLabel = (TARGET_ALIGNMENT_OPTIONS.find(option => option.value === alignmentValue) || TARGET_ALIGNMENT_OPTIONS[0]).label;
+            rootEls.damageGraphTargetSummary.textContent = `Target profile: ${alignmentLabel} | ${raceValue || 'Any Race'}`;
         }
     }
 
@@ -3820,6 +5332,7 @@
                                 <label><input id="meta_polearm" type="checkbox"> Polearm</label>
                                 <label><input id="meta_unarmed" type="checkbox"> Unarmed</label>
                                 <label><input id="meta_missile" type="checkbox"> Missile</label>
+                                <label><input id="meta_ranged" type="checkbox"> Ranged</label>
                                 <label><input id="meta_thrown" type="checkbox"> Thrown</label>
                             </div>
                         </div>
@@ -3935,6 +5448,7 @@
             setChecked('#meta_polearm', meta.polearm);
             setChecked('#meta_unarmed', meta.unarmed);
             setChecked('#meta_missile', meta.missile);
+            setChecked('#meta_ranged', meta.ranged);
             setChecked('#meta_thrown', meta.thrown);
         };
         syncTagCheckboxes();
@@ -3942,11 +5456,6 @@
         const bindInput = (selector, key, parser = (value) => value) => {
             const input = section.querySelector(selector);
             if (!input) return;
-            input.addEventListener('input', () => {
-                meta[key] = parser(input.value);
-                slotState.meta = meta;
-                scheduleGearRefreshAndValidation();
-            });
             input.addEventListener('change', () => {
                 meta[key] = parser(input.value);
                 slotState.meta = meta;
@@ -4141,6 +5650,7 @@
         bindCheckbox('#meta_polearm', 'polearm');
         bindCheckbox('#meta_unarmed', 'unarmed');
         bindCheckbox('#meta_missile', 'missile');
+        bindCheckbox('#meta_ranged', 'ranged');
         bindCheckbox('#meta_thrown', 'thrown');
         bindInput('#meta_classRestriction', 'classRestriction', value => value || '');
         bindInput('#meta_minClassLevel', 'minClassLevel', value => Math.max(0, parseInt(value, 10) || 0));
@@ -4208,6 +5718,33 @@
             int: readStat('stat_int'),
             wis: readStat('stat_wis'),
             cha: readStat('stat_cha')
+        };
+    }
+
+    function getCharacterSoftStatsAtLevel(level) {
+        const hardStats = getCharacterStatsAtLevel(level);
+        const softStats = hardStats && hardStats.softStats && typeof hardStats.softStats === 'object'
+            ? hardStats.softStats
+            : null;
+
+        if (!softStats) {
+            return {
+                str: Number(hardStats && hardStats.str) || 10,
+                dex: Number(hardStats && hardStats.dex) || 10,
+                con: Number(hardStats && hardStats.con) || 10,
+                int: Number(hardStats && hardStats.int) || 10,
+                wis: Number(hardStats && hardStats.wis) || 10,
+                cha: Number(hardStats && hardStats.cha) || 10
+            };
+        }
+
+        return {
+            str: Number(softStats.str) || Number(hardStats && hardStats.str) || 10,
+            dex: Number(softStats.dex) || Number(hardStats && hardStats.dex) || 10,
+            con: Number(softStats.con) || Number(hardStats && hardStats.con) || 10,
+            int: Number(softStats.int) || Number(hardStats && hardStats.int) || 10,
+            wis: Number(softStats.wis) || Number(hardStats && hardStats.wis) || 10,
+            cha: Number(softStats.cha) || Number(hardStats && hardStats.cha) || 10
         };
     }
 
@@ -4387,6 +5924,21 @@
         return effects.itemSkillBonuses.get(normalizedSkill) || 0;
     }
 
+    function getSongSkillBonusForSkill(level, skillName) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return 0;
+
+        const normalizedSkill = typeof normalizeSkillKey === 'function'
+            ? normalizeSkillKey(skillName)
+            : String(skillName || '').trim().toLowerCase();
+
+        if (!normalizedSkill) return 0;
+
+        const songPropagation = getSongPlannerPropagationBonuses(numericLevel);
+        if (!(songPropagation.skills instanceof Map)) return 0;
+        return songPropagation.skills.get(normalizedSkill) || 0;
+    }
+
     function getItemStatBonusForStat(level, statName) {
         const numericLevel = parseInt(level, 10) || 0;
         if (numericLevel < 30) return 0;
@@ -4395,7 +5947,73 @@
         if (!normalizedStat) return 0;
 
         const effects = buildGearEffects();
-        return Number(effects.softStats[normalizedStat]) || 0;
+        const songPropagation = getSongPlannerPropagationBonuses(numericLevel);
+        const buffSoftStats = getBuffSoftStatBonuses(numericLevel).stats;
+        return (Number(effects.softStats[normalizedStat]) || 0)
+            + (Number(songPropagation.stats[normalizedStat]) || 0)
+            + (Number(buffSoftStats[normalizedStat]) || 0);
+    }
+
+    function getItemStatBonusDetailsForStat(level, statName) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return [];
+
+        const normalizedStat = normalizeStatRequirementKey(statName);
+        if (!normalizedStat) return [];
+
+        const effects = buildGearEffects();
+        const songPropagation = getSongPlannerPropagationBonuses(numericLevel);
+        const buffSoftStats = getBuffSoftStatBonuses(numericLevel);
+        const details = [];
+
+        const gearDetails = effects && effects.sourceDetails && effects.sourceDetails.softStats
+            ? effects.sourceDetails.softStats[normalizedStat]
+            : null;
+        if (Array.isArray(gearDetails)) {
+            gearDetails.forEach(entry => {
+                const value = Number(entry && entry.value) || 0;
+                if (value === 0) return;
+                details.push({
+                    label: String(entry && entry.label ? entry.label : 'Gear'),
+                    value
+                });
+            });
+        }
+
+        const songValue = Number(songPropagation && songPropagation.stats ? songPropagation.stats[normalizedStat] : 0) || 0;
+        if (songValue !== 0) {
+            details.push({
+                label: 'Song propagation',
+                value: songValue
+            });
+        }
+
+        if (buffSoftStats && Array.isArray(buffSoftStats.detail)) {
+            buffSoftStats.detail.forEach(entry => {
+                if (!entry || entry.stat !== normalizedStat) return;
+                const value = Number(entry.value) || 0;
+                if (value === 0) return;
+                details.push({
+                    label: `${entry.label}${entry.secondCast ? ' (2nd Cast)' : ''}`,
+                    value
+                });
+            });
+        }
+
+        return details;
+    }
+
+    function getExternalSaveBonusForType(level, saveType) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return 0;
+
+        const normalizedSave = String(saveType || '').trim().toLowerCase();
+        if (normalizedSave !== 'fort' && normalizedSave !== 'ref' && normalizedSave !== 'will') {
+            return 0;
+        }
+
+        const songPropagation = getSongPlannerPropagationBonuses(numericLevel);
+        return Number(songPropagation.saves[normalizedSave]) || 0;
     }
 
     function getItemGrantedFeatDetails(level = 30) {
@@ -4417,7 +6035,7 @@
             }
         }
 
-        return Array.from(effects.itemGrantedFeats.values())
+        const itemDetails = Array.from(effects.itemGrantedFeats.values())
             .map(detail => {
                 const normalizedName = typeof resolveFeatName === 'function'
                     ? resolveFeatName(detail.name)
@@ -4431,6 +6049,29 @@
                     alreadyOwned
                 };
             })
+            .sort((left, right) => left.name.localeCompare(right.name));
+
+        const songPropagation = getSongPlannerPropagationBonuses(level);
+        const songDetails = Array.isArray(songPropagation.feats)
+            ? songPropagation.feats
+                .map(detail => {
+                    const normalizedName = typeof resolveFeatName === 'function'
+                        ? resolveFeatName(detail && detail.name)
+                        : String((detail && detail.name) || '').trim();
+                    if (!normalizedName) return null;
+                    const key = String(normalizedName).toLowerCase();
+                    return {
+                        name: normalizedName,
+                        sources: Array.isArray(detail && detail.sources) ? detail.sources : ['song'],
+                        stacks: !ownedFeatSet.has(key),
+                        alreadyOwned: ownedFeatSet.has(key)
+                    };
+                })
+                .filter(Boolean)
+            : [];
+
+        return itemDetails
+            .concat(songDetails)
             .sort((left, right) => left.name.localeCompare(right.name));
     }
 
@@ -4502,6 +6143,9 @@
         return {
             selectedSlot: state.selectedSlot,
             buffs: JSON.parse(JSON.stringify(state.buffs || {})),
+            classAttackToggles: JSON.parse(JSON.stringify(state.classAttackToggles || {})),
+            classBonusOptions: JSON.parse(JSON.stringify(state.classBonusOptions || {})),
+            targeting: JSON.parse(JSON.stringify(state.targeting || {})),
             song: JSON.parse(JSON.stringify(state.song || {})),
             slots: JSON.parse(JSON.stringify(state.slots))
         };
@@ -4519,11 +6163,48 @@
             const incoming = snapshot.buffs && snapshot.buffs[def.name] ? snapshot.buffs[def.name] : null;
             state.buffs[def.name] = {
                 enabled: Boolean(incoming && incoming.enabled),
-                casterLevel: Math.max(1, Math.min(30, Math.floor(Number(incoming && incoming.casterLevel) || 30)))
+                casterLevel: Math.max(1, Math.min(30, Math.floor(Number(incoming && incoming.casterLevel) || 30))),
+                secondCast: Boolean(incoming && incoming.secondCast)
             };
         });
+        state.classAttackToggles = createDefaultClassAttackToggleState();
+        const incomingClassAttackToggles = snapshot.classAttackToggles && typeof snapshot.classAttackToggles === 'object'
+            ? snapshot.classAttackToggles
+            : null;
+        if (incomingClassAttackToggles) {
+            CLASS_ATTACK_BONUS_TOGGLE_DEFINITIONS.forEach(def => {
+                if (Object.prototype.hasOwnProperty.call(incomingClassAttackToggles, def.key)) {
+                    state.classAttackToggles[def.key] = Boolean(incomingClassAttackToggles[def.key]);
+                }
+            });
+        }
+
+        state.classBonusOptions = createDefaultClassBonusOptions();
+        const incomingClassBonusOptions = snapshot.classBonusOptions && typeof snapshot.classBonusOptions === 'object'
+            ? snapshot.classBonusOptions
+            : null;
+        if (incomingClassBonusOptions && Object.prototype.hasOwnProperty.call(incomingClassBonusOptions, 'spellswordPrimaryAttribute')) {
+            state.classBonusOptions.spellswordPrimaryAttribute = String(incomingClassBonusOptions.spellswordPrimaryAttribute || '').toLowerCase() === 'dex'
+                ? 'dex'
+                : 'str';
+        }
 
         const incomingSong = snapshot.song && typeof snapshot.song === 'object' ? snapshot.song : null;
+        const incomingTargeting = snapshot.targeting && typeof snapshot.targeting === 'object' ? snapshot.targeting : null;
+        const incomingTargets = incomingTargeting && incomingTargeting.targetConditions && typeof incomingTargeting.targetConditions === 'object'
+            ? incomingTargeting.targetConditions
+            : (incomingSong && incomingSong.targetConditions && typeof incomingSong.targetConditions === 'object' ? incomingSong.targetConditions : {});
+        const mergedTargets = createDefaultSongTargetConditions();
+        Object.keys(mergedTargets).forEach(key => {
+            mergedTargets[key] = Boolean(incomingTargets[key]);
+        });
+
+        state.targeting = {
+            alignment: String(incomingTargeting && incomingTargeting.alignment ? incomingTargeting.alignment : 'any'),
+            race: String(incomingTargeting && incomingTargeting.race ? incomingTargeting.race : ''),
+            targetConditions: mergedTargets
+        };
+
         state.song = {
             enabled: Boolean(incomingSong && incomingSong.enabled),
             name: normalizeSongNameKey(incomingSong && incomingSong.name ? incomingSong.name : 'bardic rhythm'),
@@ -4575,14 +6256,21 @@
         state.selectedSlot = 'mainHand';
         state.buffs = {};
         BUFF_DEFINITIONS.forEach(def => {
-            state.buffs[def.name] = { enabled: false, casterLevel: 30 };
+            state.buffs[def.name] = { enabled: false, casterLevel: 30, secondCast: false };
         });
+        state.classAttackToggles = createDefaultClassAttackToggleState();
+        state.classBonusOptions = createDefaultClassBonusOptions();
         state.song = {
             enabled: false,
             name: 'bardic rhythm',
             level: 30,
             useSoth: false,
             propagateToPlanner: false
+        };
+        state.targeting = {
+            alignment: 'any',
+            race: '',
+            targetConditions: createDefaultSongTargetConditions()
         };
         state.slots = {};
         SLOT_CONFIG.forEach(slot => ensureSlotState(slot.key));
@@ -4599,7 +6287,9 @@
     window.refreshGearPlannerDerivedSummary = renderSummaries;
     window.getItemGrantedFeatDetails = getItemGrantedFeatDetails;
     window.getItemSkillBonusForSkill = getItemSkillBonusForSkill;
+    window.getSongSkillBonusForSkill = getSongSkillBonusForSkill;
     window.getItemStatBonusForStat = getItemStatBonusForStat;
+    window.getItemStatBonusDetailsForStat = getItemStatBonusDetailsForStat;
     window.getExternalSaveBonusForType = getExternalSaveBonusForType;
     window.getActiveBuffObjects = () => getActiveBuffObjects(getCurrentCharacterLevel(), buildGearEffects());
 
