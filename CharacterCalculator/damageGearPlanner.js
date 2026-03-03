@@ -954,6 +954,8 @@
             specialDrawerOpen: false,
             weaponOptionsDrawerOpen: true,
             wearableOptionsDrawerOpen: true,
+            zooDrawerOpen: true,
+            lazyDrawerOpen: true,
             damageSubtab: 'planner'
         },
         buffs: {},
@@ -3086,20 +3088,28 @@
         return aliases[normalized] || normalized;
     }
 
-    function getMainHandFocusGroup() {
+    function parseFocusGroupList(rawGroupText) {
+        return String(rawGroupText || '')
+            .split(',')
+            .map(token => normalizeFocusGroupName(token))
+            .filter(Boolean)
+            .filter((value, index, array) => array.indexOf(value) === index);
+    }
+
+    function getMainHandFocusGroups() {
         const mainHandState = ensureSlotState('mainHand');
         const meta = (mainHandState && mainHandState.meta) ? mainHandState.meta : {};
-        const explicit = normalizeFocusGroupName(meta.focusGroup || '');
-        if (explicit) return explicit;
+        const explicitGroups = parseFocusGroupList(meta.focusGroup || '');
+        if (explicitGroups.length > 0) return explicitGroups;
 
-        if (meta.concussion) return 'concussion';
-        if (meta.twoHanded) return 'two-handed';
-        if (meta.polearm) return 'polearm';
-        if (meta.oneHandEdged) return 'one-handed edge';
-        if (meta.unarmed) return 'unarmed';
-        if (meta.missile) return 'missile';
-        if (meta.thrown) return 'thrown';
-        return '';
+        if (meta.concussion) return ['concussion'];
+        if (meta.twoHanded) return ['two-handed'];
+        if (meta.polearm) return ['polearm'];
+        if (meta.oneHandEdged) return ['one-handed edge'];
+        if (meta.unarmed) return ['unarmed'];
+        if (meta.missile) return ['missile'];
+        if (meta.thrown) return ['thrown'];
+        return [];
     }
 
     function getAbilityModifiersFromStats(stats) {
@@ -3306,17 +3316,21 @@
         return text === prefix || text.startsWith(`${prefix} (`);
     }
 
-    function doesWeaponFeatApply(featNameLower, focusGroup, hasWeaponOfChoice) {
+    function doesWeaponFeatApply(featNameLower, focusGroups, hasWeaponOfChoice) {
         const featGroup = parseFeatFocusGroup(featNameLower);
         if (!featGroup) return true;
         if (featGroup === 'chosen weapon') return hasWeaponOfChoice;
-        if (!focusGroup) return false;
-        return featGroup === focusGroup;
+        const groups = Array.isArray(focusGroups)
+            ? focusGroups
+            : (focusGroups ? [focusGroups] : []);
+        if (groups.length === 0) return false;
+        return groups.includes(featGroup);
     }
 
     function getWeaponFeatCombatModifiers(level, effects, baseCritProfile) {
         const featSet = getOwnedFeatNameSetAtLevel(level);
-        const focusGroup = getMainHandFocusGroup();
+        const focusGroups = getMainHandFocusGroups();
+        const focusGroup = focusGroups.join(', ');
         const hasWeaponOfChoice = featSet.has('weapon of choice');
 
         let attackBonus = 0;
@@ -3335,43 +3349,43 @@
             const featName = String(featNameLower || '').trim();
             if (!featName) return;
 
-            if (hasFeatPrefix(featName, 'weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'weapon focus') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 attackBonus += 1;
                 attackSources.push({ feat: featName, value: 1 });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'epic weapon focus') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'epic weapon focus') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 attackBonus += 2;
                 attackSources.push({ feat: featName, value: 2 });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'weapon specialization') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 damageBonus += 2;
                 damageSources.push({ feat: featName, value: 2 });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'epic weapon specialization') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'epic weapon specialization') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 damageBonus += 4;
                 damageSources.push({ feat: featName, value: 4 });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'improved critical') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 improvedCriticalCount += 1;
                 critSources.push({ feat: featName, value: 1, kind: 'improvedCritical' });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'epic improved critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'epic improved critical') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 improvedCriticalCount += 1;
                 critSources.push({ feat: featName, value: 1, kind: 'improvedCritical' });
                 return;
             }
 
-            if (hasFeatPrefix(featName, 'overwhelming critical') && doesWeaponFeatApply(featName, focusGroup, hasWeaponOfChoice)) {
+            if (hasFeatPrefix(featName, 'overwhelming critical') && doesWeaponFeatApply(featName, focusGroups, hasWeaponOfChoice)) {
                 hasOverwhelmingCritical = true;
                 critSources.push({ feat: featName, value: 1, kind: 'overwhelmingCritical' });
                 return;
@@ -4641,12 +4655,11 @@
         rootEls.buffList.appendChild(standardContainer);
 
         const zooContainer = document.createElement('div');
-        zooContainer.className = 'gear-drawer open';
+        zooContainer.className = `gear-drawer ${state.ui.zooDrawerOpen ? 'open' : ''}`;
 
         const zooHeader = document.createElement('button');
         zooHeader.type = 'button';
         zooHeader.className = 'gear-drawer-header';
-        zooHeader.setAttribute('aria-expanded', 'true');
         zooHeader.textContent = 'Zoo Spells';
 
         const zooBody = document.createElement('div');
@@ -4672,14 +4685,16 @@
         zooContainer.appendChild(zooHeader);
         zooContainer.appendChild(zooBody);
         rootEls.buffList.appendChild(zooContainer);
+        attachDrawerHeaderToggle(zooHeader, zooContainer, (isOpen) => {
+            state.ui.zooDrawerOpen = isOpen;
+        });
 
         const lazyContainer = document.createElement('div');
-        lazyContainer.className = 'gear-drawer open';
+        lazyContainer.className = `gear-drawer ${state.ui.lazyDrawerOpen ? 'open' : ''}`;
 
         const lazyHeader = document.createElement('button');
         lazyHeader.type = 'button';
         lazyHeader.className = 'gear-drawer-header';
-        lazyHeader.setAttribute('aria-expanded', 'true');
         lazyHeader.textContent = "I'm Lazy";
 
         const lazyBody = document.createElement('div');
@@ -4788,6 +4803,9 @@
         lazyContainer.appendChild(lazyHeader);
         lazyContainer.appendChild(lazyBody);
         rootEls.buffList.appendChild(lazyContainer);
+        attachDrawerHeaderToggle(lazyHeader, lazyContainer, (isOpen) => {
+            state.ui.lazyDrawerOpen = isOpen;
+        });
     }
 
     function renderClassAttackBonusEditor() {
@@ -6133,6 +6151,22 @@
         }
     }
 
+    function attachDrawerHeaderToggle(header, drawer, onToggle) {
+        if (!header || !drawer) return;
+        const syncAria = () => {
+            header.setAttribute('aria-expanded', drawer.classList.contains('open') ? 'true' : 'false');
+        };
+        syncAria();
+        header.addEventListener('click', () => {
+            const nextOpen = !drawer.classList.contains('open');
+            drawer.classList.toggle('open', nextOpen);
+            if (typeof onToggle === 'function') {
+                onToggle(nextOpen);
+            }
+            header.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        });
+    }
+
     function renderSummaries() {
         if (!rootEls || !rootEls.gearSummary) return;
         renderDamageGraphTargetEditor();
@@ -6491,12 +6525,8 @@
 
         const drawerHeaders = rootEls.gearSummary.querySelectorAll('.gear-drawer-header');
         drawerHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const drawer = header.closest('.gear-drawer');
-                if (!drawer) return;
-                const isOpen = drawer.classList.toggle('open');
-                header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            });
+            const drawer = header.closest('.gear-drawer');
+            attachDrawerHeaderToggle(header, drawer);
         });
 
         if (rootEls.damageSimBuildSummary) {
@@ -6732,10 +6762,19 @@
             ? [selectedTemplateEntry].concat(compatibleCraftedEntries.filter(entry => entry.key !== selectedTemplateEntry.key))
             : compatibleCraftedEntries;
 
+        const knownFocusGroups = new Set(WEAPON_FOCUS_GROUPS.map(group => normalizeFocusGroupName(group)).filter(Boolean));
+        const currentFocusValue = String(meta.focusGroup || '').trim();
+        const includeCustomFocusGroup = currentFocusValue
+            && parseFocusGroupList(currentFocusValue).some(group => !knownFocusGroups.has(group));
         const focusOptions = ['<option value="">-- Select focus group --</option>']
+            .concat(includeCustomFocusGroup ? [`<option value="${escapeHtml(currentFocusValue)}">${escapeHtml(currentFocusValue)}</option>`] : [])
             .concat(WEAPON_FOCUS_GROUPS.map(group => `<option value="${escapeHtml(group)}">${escapeHtml(group)}</option>`))
             .join('');
+        const knownBaseWeaponNames = new Set(BASE_WEAPON_DATA.map(weapon => String(weapon.name || '').trim().toLowerCase()).filter(Boolean));
+        const currentBaseWeaponValue = String(meta.baseWeaponChart || meta.baseWeaponType || '').trim();
+        const includeCustomBaseWeapon = currentBaseWeaponValue && !knownBaseWeaponNames.has(currentBaseWeaponValue.toLowerCase());
         const baseWeaponOptions = ['<option value="">-- Select base weapon --</option>']
+            .concat(includeCustomBaseWeapon ? [`<option value="${escapeHtml(currentBaseWeaponValue)}">${escapeHtml(currentBaseWeaponValue)}</option>`] : [])
             .concat(BASE_WEAPON_DATA.map(weapon => `<option value="${escapeHtml(weapon.name)}">${escapeHtml(weapon.name)}</option>`))
             .join('');
         const craftedTemplateOptions = craftedTemplatesLoaded
@@ -6988,26 +7027,17 @@
         const weaponOptionsDrawerBtn = section.querySelector('#drawer_weaponOptions_btn');
         const wearableOptionsDrawerBtn = section.querySelector('#drawer_wearableOptions_btn');
 
-        if (baseDrawer && baseDrawerBtn) {
-            baseDrawerBtn.addEventListener('click', () => {
-                state.ui.baseDrawerOpen = !state.ui.baseDrawerOpen;
-                baseDrawer.classList.toggle('open', state.ui.baseDrawerOpen);
-            });
-        }
+        attachDrawerHeaderToggle(baseDrawerBtn, baseDrawer, (isOpen) => {
+            state.ui.baseDrawerOpen = isOpen;
+        });
 
-        if (restrictionDrawer && restrictionDrawerBtn) {
-            restrictionDrawerBtn.addEventListener('click', () => {
-                state.ui.restrictionDrawerOpen = !state.ui.restrictionDrawerOpen;
-                restrictionDrawer.classList.toggle('open', state.ui.restrictionDrawerOpen);
-            });
-        }
+        attachDrawerHeaderToggle(restrictionDrawerBtn, restrictionDrawer, (isOpen) => {
+            state.ui.restrictionDrawerOpen = isOpen;
+        });
 
-        if (specialDrawer && specialDrawerBtn) {
-            specialDrawerBtn.addEventListener('click', () => {
-                state.ui.specialDrawerOpen = !state.ui.specialDrawerOpen;
-                specialDrawer.classList.toggle('open', state.ui.specialDrawerOpen);
-            });
-        }
+        attachDrawerHeaderToggle(specialDrawerBtn, specialDrawer, (isOpen) => {
+            state.ui.specialDrawerOpen = isOpen;
+        });
 
         const specialEditorRow = section.querySelector('#meta_special_editor_row');
         const specialKeySelect = section.querySelector('#meta_special_key');
@@ -7082,19 +7112,13 @@
             });
         }
 
-        if (weaponOptionsDrawer && weaponOptionsDrawerBtn) {
-            weaponOptionsDrawerBtn.addEventListener('click', () => {
-                state.ui.weaponOptionsDrawerOpen = !state.ui.weaponOptionsDrawerOpen;
-                weaponOptionsDrawer.classList.toggle('open', state.ui.weaponOptionsDrawerOpen);
-            });
-        }
+        attachDrawerHeaderToggle(weaponOptionsDrawerBtn, weaponOptionsDrawer, (isOpen) => {
+            state.ui.weaponOptionsDrawerOpen = isOpen;
+        });
 
-        if (wearableOptionsDrawer && wearableOptionsDrawerBtn) {
-            wearableOptionsDrawerBtn.addEventListener('click', () => {
-                state.ui.wearableOptionsDrawerOpen = !state.ui.wearableOptionsDrawerOpen;
-                wearableOptionsDrawer.classList.toggle('open', state.ui.wearableOptionsDrawerOpen);
-            });
-        }
+        attachDrawerHeaderToggle(wearableOptionsDrawerBtn, wearableOptionsDrawer, (isOpen) => {
+            state.ui.wearableOptionsDrawerOpen = isOpen;
+        });
 
         bindInput('#meta_craftedTemplate', 'craftedTemplateKey', value => value || '');
         bindInput('#meta_baseWeaponChart', 'baseWeaponChart', value => value || '');

@@ -130,6 +130,7 @@ function main() {
 
   for (const page of pages) {
     const rows = parseTableRows(page.text);
+    const sectionWeaponMetaByTableIndex = parseSectionWeaponMetaByTableIndex(page.text, page.title);
     for (const row of rows) {
       if (!row.cells || row.cells.length < 2) continue;
       const name = cleanInline(row.cells[0]);
@@ -145,6 +146,15 @@ function main() {
         sourceFile: path.basename(page.sourcePath || ''),
         slotCategory: inferTemplateSlotCategory(page.title, row.id, name),
         meta: {
+          baseWeaponChart: '',
+          baseWeaponType: '',
+          finesse: '',
+          focusGroup: '',
+          baseDamage: '',
+          critRange: '',
+          damageType: '',
+          proficiency: '',
+          ranged: false,
           classRestriction: '',
           raceRestriction: '',
           umdBypass: 0,
@@ -167,6 +177,9 @@ function main() {
         requirements: createDefaultRequirements(),
         properties: []
       };
+
+      const sectionWeaponMeta = sectionWeaponMetaByTableIndex.get(Number(row.tableIndex)) || null;
+      applySectionWeaponMetaToTemplate(template, sectionWeaponMeta);
 
       const unmatchedLines = [];
 
@@ -270,6 +283,175 @@ function inferTemplateSlotCategory(pageTitle, rowId, itemName) {
   return 'any';
 }
 
+function parseSectionWeaponMetaByTableIndex(pageText, pageTitle = '') {
+  const lines = String(pageText || '').split(/\r?\n/);
+  const map = new Map();
+  let tableIndex = -1;
+  let currentHeading = '';
+  let currentMeta = null;
+
+  const toDamageType = (value) => {
+    const text = String(value || '').trim().toLowerCase();
+    if (!text) return '';
+    if (/slashing\s+and\s+piercing/.test(text)) return 'slashing-piercing';
+    if (/bludgeoning\s+and\s+piercing/.test(text)) return 'bludgeoning-piercing';
+    if (/slashing\s+and\s+bludgeoning/.test(text)) return 'slashing-bludgeoning';
+    if (text.includes('slashing')) return 'slashing';
+    if (text.includes('piercing')) return 'piercing';
+    if (text.includes('bludgeoning')) return 'bludgeoning';
+    return text;
+  };
+
+  const isRangedSection = /ranged\s+weapons/i.test(String(pageTitle || ''));
+
+  for (const rawLine of lines) {
+    const trimmed = String(rawLine || '').trim();
+    if (!trimmed) continue;
+
+    const headingMatch = trimmed.match(/^={2,}\s*(.*?)\s*={2,}$/);
+    if (headingMatch) {
+      currentHeading = cleanInline(headingMatch[1]);
+      currentMeta = {
+        baseWeaponName: currentHeading,
+        baseDamage: '',
+        critRange: '',
+        damageType: '',
+        proficiency: '',
+        focusGroup: '',
+        ranged: isRangedSection
+      };
+      continue;
+    }
+
+    if (trimmed.startsWith('{|')) {
+      tableIndex += 1;
+      map.set(tableIndex, currentMeta ? { ...currentMeta } : null);
+      continue;
+    }
+
+    if (!currentMeta) continue;
+
+    const clean = cleanInline(trimmed);
+
+    let match = clean.match(/^Base Damage\s*:\s*(.+)$/i);
+    if (match) {
+      currentMeta.baseDamage = String(match[1] || '').trim();
+      continue;
+    }
+
+    match = clean.match(/^Base Critical Threat\s*:\s*(.+)$/i);
+    if (match) {
+      currentMeta.critRange = String(match[1] || '').trim();
+      continue;
+    }
+
+    match = clean.match(/^Base Damage Type\s*:\s*(.+)$/i);
+    if (match) {
+      currentMeta.damageType = toDamageType(match[1]);
+      continue;
+    }
+
+    match = clean.match(/^Weapon Proficiency\s*:\s*(.+)$/i);
+    if (match) {
+      currentMeta.proficiency = String(match[1] || '').trim();
+      continue;
+    }
+
+    match = clean.match(/^Weapon Focus Group\s*:\s*(.+)$/i);
+    if (match) {
+      const rawFocus = String(match[1] || '').trim();
+      const tokens = rawFocus
+        .split(',')
+        .map(value => String(value || '').trim())
+        .filter(Boolean);
+
+      const normalized = [];
+      const seen = new Set();
+      const addGroup = (label) => {
+        const text = String(label || '').trim();
+        if (!text) return;
+        const key = text.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        normalized.push(text);
+      };
+
+      tokens.forEach(token => {
+        if (/miss/i.test(token)) {
+          addGroup('Missle');
+          currentMeta.ranged = true;
+          return;
+        }
+        if (/thrown/i.test(token)) {
+          addGroup('Thrown');
+          currentMeta.ranged = true;
+          return;
+        }
+        if (/concussion/i.test(token)) {
+          addGroup('Concussion');
+          return;
+        }
+        if (/polearm/i.test(token)) {
+          addGroup('Polearm');
+          return;
+        }
+        if (/unarmed/i.test(token)) {
+          addGroup('Unarmed');
+          return;
+        }
+        if (/2\s*\-?\s*handed/i.test(token)) {
+          addGroup('Two-Handed');
+          return;
+        }
+        if (/1\s*\-?\s*h\s*edged|1\s*\-?\s*handed\s*edged/i.test(token)) {
+          addGroup('One-Handed Edge');
+          return;
+        }
+        addGroup(token);
+      });
+
+      currentMeta.focusGroup = normalized.join(', ');
+    }
+  }
+
+  return map;
+}
+
+function inferBaseWeaponNameFromItemName(itemName) {
+  const original = cleanInline(itemName || '');
+  if (!original) return '';
+
+  const withoutParen = original.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
+  const stripped = withoutParen
+    .replace(/\b(Grand\s+Masterly|Masterly|Grand|Powerful|Enhanced|Elite|Sturdy|Hardened|Enchanted)\b/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return stripped || withoutParen || original;
+}
+
+function applySectionWeaponMetaToTemplate(template, sectionMeta) {
+  if (!template || template.slotCategory !== 'weapon' || !template.meta) return;
+
+  const inferredBase = inferBaseWeaponNameFromItemName(template.itemName);
+  const sectionBase = sectionMeta && sectionMeta.baseWeaponName ? String(sectionMeta.baseWeaponName).trim() : '';
+  const baseWeaponName = inferredBase || sectionBase;
+
+  if (baseWeaponName) {
+    template.meta.baseWeaponChart = baseWeaponName;
+    template.meta.baseWeaponType = baseWeaponName;
+  }
+
+  if (sectionMeta && typeof sectionMeta === 'object') {
+    if (sectionMeta.baseDamage) template.meta.baseDamage = sectionMeta.baseDamage;
+    if (sectionMeta.critRange) template.meta.critRange = sectionMeta.critRange;
+    if (sectionMeta.damageType) template.meta.damageType = sectionMeta.damageType;
+    if (sectionMeta.proficiency) template.meta.proficiency = sectionMeta.proficiency;
+    if (sectionMeta.focusGroup) template.meta.focusGroup = sectionMeta.focusGroup;
+    if (sectionMeta.ranged) template.meta.ranged = true;
+  }
+}
+
 function extractPages(xml, sourcePath = '') {
   const pages = [];
   const pageRegex = /<page>([\s\S]*?)<\/page>/g;
@@ -296,6 +478,7 @@ function parseTableRows(pageText) {
   const lines = pageText.split(/\r?\n/);
   let inTable = false;
   let currentRow = null;
+  let tableIndex = -1;
 
   const flushRow = () => {
     if (currentRow && currentRow.cells.length > 0) {
@@ -311,6 +494,7 @@ function parseTableRows(pageText) {
 
     if (trimmed.startsWith('{|')) {
       inTable = true;
+      tableIndex += 1;
       flushRow();
       continue;
     }
@@ -328,6 +512,7 @@ function parseTableRows(pageText) {
       const idMatch = trimmed.match(/\bid\s*=\s*([^\s|]+)/i);
       currentRow = {
         id: idMatch ? idMatch[1].trim() : '',
+        tableIndex,
         cells: []
       };
       continue;
