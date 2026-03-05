@@ -4372,6 +4372,435 @@ function validateCharacter() {
     validateCharacterRealtime();
 }
 
+function getCharacterValidationDebugReport() {
+    calculateStatProgression();
+
+    const race = document.getElementById('raceSelect').value;
+    const baseStats = getStats();
+    const issues = [];
+    const levelChecks = [];
+
+    const globalChecks = [];
+    if (!race) {
+        globalChecks.push({
+            key: 'raceSelected',
+            passed: false,
+            foundWhere: 'raceSelect.value',
+            foundObject: { race: '' }
+        });
+        issues.push({ level: 0, type: 'race', message: '❌ No race selected', severity: 'error' });
+    } else {
+        globalChecks.push({
+            key: 'raceSelected',
+            passed: true,
+            foundWhere: 'raceSelect.value',
+            foundObject: { race }
+        });
+    }
+
+    for (let level = 1; level <= 30; level++) {
+        const row = levelData[level - 1] || {};
+        const selectedClass = row.class;
+        const levelStats = getStatsAtLevel(level);
+        const levelMods = getAbilityModifiers(levelStats);
+        const selectedFeats = getSelectedFeatsAtLevel(level);
+        const classChecks = [];
+        const featChecks = [];
+        const skillChecks = [];
+
+        if (selectedClass) {
+            const classInfo = classData[selectedClass];
+            if (!classInfo) {
+                classChecks.push({
+                    key: 'classExists',
+                    passed: false,
+                    foundWhere: `classData[${selectedClass}]`,
+                    foundObject: null
+                });
+                issues.push({ level, type: 'class', message: `❌ Class ${selectedClass} not found`, severity: 'error' });
+            } else {
+                classChecks.push({
+                    key: 'classExists',
+                    passed: true,
+                    foundWhere: `classData[${selectedClass}]`,
+                    foundObject: classInfo
+                });
+
+                const classReqs = classInfo.requirements || {};
+
+                if (classInfo.maxLevel) {
+                    const classLevelAtThisPoint = getClassLevelUpTo(selectedClass, level);
+                    const maxLevel = parseInt(classInfo.maxLevel, 10);
+                    const passed = classLevelAtThisPoint <= maxLevel;
+                    classChecks.push({
+                        key: 'classMaxLevel',
+                        passed,
+                        foundWhere: `classData[${selectedClass}].maxLevel`,
+                        foundObject: { maxLevel, classLevelAtThisPoint }
+                    });
+                    if (!passed) {
+                        issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} exceeds max class level ${maxLevel} (currently ${classLevelAtThisPoint})`, severity: 'error' });
+                    }
+                }
+
+                if (race && classReqs.race) {
+                    const raceRequirement = evaluateRaceRequirement(classReqs.race, race);
+                    classChecks.push({
+                        key: 'classRaceRequirement',
+                        passed: Boolean(raceRequirement && raceRequirement.valid),
+                        foundWhere: `classData[${selectedClass}].requirements.race`,
+                        foundObject: raceRequirement
+                    });
+                    if (!raceRequirement.valid) {
+                        issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires race: ${raceRequirement.summary || 'specific race requirement'}`, severity: 'error' });
+                    }
+                }
+
+                const babRequired = getClassBabRequirement(classReqs);
+                if (babRequired !== null) {
+                    const babHave = levelData[level - 1].bab;
+                    const passed = babHave >= babRequired;
+                    classChecks.push({
+                        key: 'classBabRequirement',
+                        passed,
+                        foundWhere: `classData[${selectedClass}].requirements.bab`,
+                        foundObject: { babRequired, babHave }
+                    });
+                    if (!passed) {
+                        issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires BAB +${babRequired} (have +${babHave})`, severity: 'error' });
+                    }
+                }
+
+                if (classReqs.feats) {
+                    const priorFeats = getAllOwnedFeatNamesPriorTo(level);
+                    const missingFeats = getMissingClassFeatRequirements(classReqs.feats, priorFeats);
+                    const passed = missingFeats.length === 0;
+                    classChecks.push({
+                        key: 'classFeatRequirements',
+                        passed,
+                        foundWhere: `classData[${selectedClass}].requirements.feats`,
+                        foundObject: {
+                            required: classReqs.feats,
+                            priorFeats,
+                            missingFeats
+                        }
+                    });
+                    if (!passed) {
+                        issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires feats: ${missingFeats.join(', ')}`, severity: 'error' });
+                    }
+                }
+
+                if (classReqs.stats && typeof classReqs.stats === 'object') {
+                    Object.entries(classReqs.stats).forEach(([stat, required]) => {
+                        const statKey = normalizeStatKey(stat) || String(stat || '').toLowerCase();
+                        const requiredValue = parseInt(required, 10) || 0;
+                        const statHave = Number(levelStats[statKey]) || 0;
+                        const passed = statHave >= requiredValue;
+                        classChecks.push({
+                            key: 'classStatRequirement',
+                            passed,
+                            foundWhere: `classData[${selectedClass}].requirements.stats.${stat}`,
+                            foundObject: {
+                                stat,
+                                statKey,
+                                required: requiredValue,
+                                have: statHave
+                            }
+                        });
+                        if (!passed) {
+                            issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires ${stat} ${requiredValue} (have ${statHave})`, severity: 'error' });
+                        }
+                    });
+                }
+
+                const classSkillReqs = parseClassSkillRequirements(classReqs.skills);
+                classSkillReqs.forEach(({ skill, required }) => {
+                    const effectiveSkill = getEffectiveSkillAtLevel(level, skill);
+                    const supported = effectiveSkill !== null;
+                    const passed = supported && effectiveSkill >= required;
+                    classChecks.push({
+                        key: 'classSkillRequirement',
+                        passed,
+                        foundWhere: `classData[${selectedClass}].requirements.skills`,
+                        foundObject: {
+                            skill,
+                            required,
+                            effectiveSkill,
+                            supported
+                        }
+                    });
+
+                    if (!supported) {
+                        issues.push({ level, type: 'class', message: `⚠️ Level ${level}: ${selectedClass} has unsupported skill requirement key: ${skill}`, severity: 'warning' });
+                        return;
+                    }
+
+                    if (!passed) {
+                        issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} requires ${skill} ${required} (have ${effectiveSkill})`, severity: 'error' });
+                    }
+                });
+
+                const classRequirementErrors = getClassRequirementErrors(classReqs.class, level);
+                classChecks.push({
+                    key: 'classProgressionRequirements',
+                    passed: classRequirementErrors.length === 0,
+                    foundWhere: `classData[${selectedClass}].requirements.class`,
+                    foundObject: {
+                        requirement: classReqs.class,
+                        errors: classRequirementErrors
+                    }
+                });
+                classRequirementErrors.forEach(message => {
+                    issues.push({ level, type: 'class', message: `❌ Level ${level}: ${selectedClass} ${message}`, severity: 'error' });
+                });
+            }
+        }
+
+        selectedFeats.forEach(feat => {
+            const blockedByAutoGrant = isClassAutoGrantedFeatBlockedAtLevel(level, feat);
+            if (blockedByAutoGrant) {
+                issues.push({
+                    level,
+                    type: 'feat',
+                    message: `❌ Level ${level}: ${feat} cannot be manually selected on ${selectedClass} levels because ${selectedClass} grants it via class progression`,
+                    severity: 'error'
+                });
+                featChecks.push({
+                    key: 'classAutoGrantedFeatBlocked',
+                    passed: false,
+                    foundWhere: 'isClassAutoGrantedFeatBlockedAtLevel',
+                    foundObject: {
+                        feat,
+                        selectedClass,
+                        blockedByAutoGrant: true
+                    }
+                });
+                return;
+            }
+
+            const featIssues = validateFeatRequirements(level, feat, levelStats, levelMods);
+            issues.push(...featIssues);
+            featChecks.push({
+                key: 'featRequirements',
+                passed: featIssues.length === 0,
+                foundWhere: `validateFeatRequirements(level=${level}, feat=${feat})`,
+                foundObject: {
+                    feat,
+                    issues: featIssues
+                }
+            });
+        });
+
+        const skillPointUsage = getSkillPointUsageAtLevel(level);
+        issues.push(...skillPointUsage.issues);
+        skillChecks.push({
+            key: 'skillPointUsage',
+            passed: !Array.isArray(skillPointUsage.issues) || skillPointUsage.issues.length === 0,
+            foundWhere: `getSkillPointUsageAtLevel(${level})`,
+            foundObject: skillPointUsage
+        });
+
+        const rowSkills = Array.isArray(row.skills) ? row.skills : [];
+        const selectedSkills = rowSkills
+            .map(skill => ({
+                name: String(skill && skill.skillName || '').trim(),
+                ranks: Number(skill && skill.ranks) || 0,
+                classSkill: Boolean(skill && skill.classSkill)
+            }))
+            .filter(skill => skill.name || skill.ranks > 0);
+
+        levelChecks.push({
+            level,
+            selectedClass: selectedClass || null,
+            stats: levelStats,
+            modifiers: levelMods,
+            selectedFeats,
+            selectedSkills,
+            checks: {
+                class: classChecks,
+                feats: featChecks,
+                skills: skillChecks
+            }
+        });
+    }
+
+    const classCommitment = new Map();
+    for (let levelIndex = 0; levelIndex < levelData.length; levelIndex++) {
+        const selectedClass = levelData[levelIndex].class;
+        if (!selectedClass) continue;
+        const key = selectedClass.toLowerCase();
+        if (!classCommitment.has(key)) {
+            classCommitment.set(key, {
+                className: selectedClass,
+                count: 0,
+                firstIndex: levelIndex
+            });
+        }
+        classCommitment.get(key).count += 1;
+    }
+
+    const softRuleChecks = [];
+    classCommitment.forEach(entry => {
+        const minTakePassed = entry.count >= 3;
+        softRuleChecks.push({
+            key: 'classMinTake',
+            passed: minTakePassed,
+            foundWhere: 'validateCharacterRealtime.softRule.classMinTake',
+            foundObject: entry
+        });
+        if (!minTakePassed) {
+            issues.push({
+                level: entry.firstIndex + 1,
+                type: 'class',
+                message: `⚠️ ${entry.className} is taken ${entry.count} time(s); each class must be taken at least 3 times in the 30-level build`,
+                severity: 'warning'
+            });
+        }
+
+        let firstStreak = 0;
+        for (let levelIndex = entry.firstIndex; levelIndex < levelData.length; levelIndex++) {
+            const selectedClass = levelData[levelIndex].class;
+            if (!selectedClass || selectedClass.toLowerCase() !== entry.className.toLowerCase()) break;
+            firstStreak += 1;
+        }
+
+        const firstPickPassed = firstStreak >= 3;
+        softRuleChecks.push({
+            key: 'classFirstPickStreak',
+            passed: firstPickPassed,
+            foundWhere: 'validateCharacterRealtime.softRule.classFirstPickStreak',
+            foundObject: {
+                className: entry.className,
+                firstStreak,
+                firstIndex: entry.firstIndex
+            }
+        });
+        if (!firstPickPassed) {
+            issues.push({
+                level: entry.firstIndex + 1,
+                type: 'class',
+                message: `⚠️ ${entry.className} first appears for ${firstStreak} consecutive level(s); first class pick must be 3 levels in a row`,
+                severity: 'warning'
+            });
+        }
+    });
+
+    const distinctClasses = Array.from(classCommitment.values());
+    const classCountPassed = distinctClasses.length <= 3;
+    softRuleChecks.push({
+        key: 'maxDistinctClasses',
+        passed: classCountPassed,
+        foundWhere: 'validateCharacterRealtime.softRule.maxDistinctClasses',
+        foundObject: {
+            distinctClassCount: distinctClasses.length,
+            classes: distinctClasses.map(entry => entry.className)
+        }
+    });
+    if (!classCountPassed) {
+        issues.push({ level: 1, type: 'class', message: `⚠️ Build uses ${distinctClasses.length} classes; maximum allowed is 3`, severity: 'warning' });
+    }
+
+    const commonerEntry = classCommitment.get('commoner');
+    if (commonerEntry) {
+        const level1Class = (levelData[0] && levelData[0].class) ? levelData[0].class.trim().toLowerCase() : '';
+        const level1Passed = level1Class === 'commoner';
+        softRuleChecks.push({
+            key: 'commonerAtLevel1',
+            passed: level1Passed,
+            foundWhere: 'validateCharacterRealtime.softRule.commonerAtLevel1',
+            foundObject: {
+                level1Class,
+                firstCommonerLevel: commonerEntry.firstIndex + 1
+            }
+        });
+        if (!level1Passed) {
+            issues.push({ level: commonerEntry.firstIndex + 1, type: 'class', message: '⚠️ Commoner must be taken at level 1', severity: 'warning' });
+        }
+
+        const invalidWithCommoner = distinctClasses
+            .map(entry => entry.className)
+            .filter(className => {
+                const normalized = className.toLowerCase();
+                if (normalized === 'commoner') return false;
+                return !(normalized.includes('specialist') || normalized.includes('zhent') || normalized.includes('harper'));
+            });
+        const multiclassPassed = invalidWithCommoner.length === 0;
+        softRuleChecks.push({
+            key: 'commonerMulticlassCompatibility',
+            passed: multiclassPassed,
+            foundWhere: 'validateCharacterRealtime.softRule.commonerMulticlassCompatibility',
+            foundObject: {
+                invalidWithCommoner,
+                classes: distinctClasses.map(entry => entry.className)
+            }
+        });
+        if (!multiclassPassed) {
+            issues.push({
+                level: 1,
+                type: 'class',
+                message: `⚠️ Commoner may only multiclass with Specialist and Zhent/Harper classes (invalid: ${invalidWithCommoner.join(', ')})`,
+                severity: 'warning'
+            });
+        }
+    }
+
+    const knowWhatImDoing = isKnowWhatImDoingEnabled();
+    const displayIssues = knowWhatImDoing
+        ? issues.map(issue => {
+            if (!issue || issue.severity !== 'error') return issue;
+            return {
+                ...issue,
+                severity: 'warning',
+                message: typeof issue.message === 'string'
+                    ? issue.message.replace(/^❌/u, '⚠️')
+                    : issue.message
+            };
+        })
+        : issues;
+
+    const effectiveOwnedFeatDetails = getEffectiveOwnedFeatDetailsAtLevel(30, { includeSelectedCurrentLevel: true });
+    const allSelectedClasses = levelData.map(row => String(row && row.class || '').trim()).filter(Boolean);
+
+    return {
+        generatedAt: new Date().toISOString(),
+        race,
+        knowWhatImDoing,
+        entities: {
+            baseStats,
+            catalogs: {
+                allClasses: Object.keys(classData || {}),
+                allFeats: Object.keys(featData || {}),
+                allSkills: SKILL_LIST.slice()
+            },
+            allSelectedClasses,
+            effectiveOwnedFeatDetails,
+            levelRows: levelData.map((row, index) => ({
+                level: index + 1,
+                class: row && row.class ? row.class : '',
+                selectedFeats: getSelectedFeatsAtLevel(index + 1),
+                skills: Array.isArray(row && row.skills) ? row.skills : []
+            }))
+        },
+        checks: {
+            global: globalChecks,
+            perLevel: levelChecks,
+            softRules: softRuleChecks
+        },
+        issues: {
+            raw: issues,
+            display: displayIssues,
+            summary: {
+                rawErrors: issues.filter(issue => issue && issue.severity === 'error').length,
+                rawWarnings: issues.filter(issue => issue && issue.severity === 'warning').length,
+                displayErrors: displayIssues.filter(issue => issue && issue.severity === 'error').length,
+                displayWarnings: displayIssues.filter(issue => issue && issue.severity === 'warning').length
+            }
+        }
+    };
+}
+
+window.getCharacterValidationDebugReport = getCharacterValidationDebugReport;
+
 function getCharacterSnapshot() {
     return {
         formatVersion: 1,

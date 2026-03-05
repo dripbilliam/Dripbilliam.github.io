@@ -431,6 +431,47 @@
             display: block;
         }
 
+        .gear-subtabs.nested {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            border-bottom-style: dashed;
+        }
+
+        .debug-json-tree {
+            margin-top: 6px;
+            max-height: 560px;
+            overflow: auto;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.35;
+        }
+
+        .debug-json-node {
+            margin-left: 14px;
+            border-left: 1px solid #d5dce9;
+            padding-left: 8px;
+        }
+
+        .debug-json-summary {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .debug-json-key {
+            color: #0f467f;
+            font-weight: 600;
+        }
+
+        .debug-json-type {
+            color: #6c7485;
+        }
+
+        .debug-json-leaf {
+            margin-left: 14px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
         .damage-sim-panel {
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -722,6 +763,18 @@
             color: #ffd2d8 !important;
         }
 
+        .debug-json-node {
+            border-left-color: #3f4d67;
+        }
+
+        .debug-json-key {
+            color: #9fc3ff;
+        }
+
+        .debug-json-type {
+            color: #9eabc2;
+        }
+
         .feat-label.granted-feat {
             background: #3b2b56 !important;
             border-color: #7c5eb4 !important;
@@ -912,7 +965,7 @@
                 <button type="button" id="damageGearSubtabPlanner" class="gear-subtab-btn active">Gear Planner</button>
                 <button type="button" id="damageGearSubtabBuffs" class="gear-subtab-btn">Buffs</button>
                 <button type="button" id="damageGearSubtabSongs" class="gear-subtab-btn">Songs</button>
-                <button type="button" id="damageGearSubtabClassAb" class="gear-subtab-btn">Class AB</button>
+                <button type="button" id="damageGearSubtabClassAb" class="gear-subtab-btn">Class Specific</button>
                 <button type="button" id="damageGearSubtabGraph" class="gear-subtab-btn">Damage Graph</button>
                 <button type="button" id="damageGearSubtabDebug" class="gear-subtab-btn">Debug</button>
             </div>
@@ -1062,9 +1115,9 @@
 
             <div id="damageGearClassAbPanel" class="gear-subtab-panel">
                 <div class="gear-panel">
-                    <h3 style="margin-top:0;">Class-Specific Attack Bonus Toggles</h3>
+                    <h3 style="margin-top:0;">Class Specific</h3>
                     <div id="damageClassAttackBonusList"></div>
-                    <p class="muted-note">Enable situational class AB sources you want included in attack bonus calculations.</p>
+                    <p class="muted-note">Enable situational class-specific sources you want included in combat calculations.</p>
                 </div>
             </div>
 
@@ -1075,8 +1128,20 @@
                         <button type="button" id="runGearDebugSnapshotBtn">Run Debug Snapshot</button>
                         <span class="muted-note">Runs auto-log enable + combat dump + divine_power state capture.</span>
                     </div>
-                    <div class="damage-sim-trace">
-                        <pre id="gearDebugSnapshotOutput">Run Debug Snapshot to capture current runtime wiring.</pre>
+                    <div class="gear-subtabs nested">
+                        <button type="button" id="debugSubtabSummary" class="gear-subtab-btn active">Summary</button>
+                        <button type="button" id="debugSubtabVerbose" class="gear-subtab-btn">Super Verbose</button>
+                    </div>
+                    <div id="debugSubtabSummaryPanel" class="gear-subtab-panel active">
+                        <div class="damage-sim-trace">
+                            <pre id="gearDebugSnapshotOutput">Run Debug Snapshot to capture current runtime wiring.</pre>
+                        </div>
+                    </div>
+                    <div id="debugSubtabVerbosePanel" class="gear-subtab-panel">
+                        <div class="damage-sim-trace">
+                            <div class="muted-note">Collapsible JSON view with explicit reasoning, touched systems, requirement checks, calculations, and source breakdowns.</div>
+                            <div id="gearDebugVerboseOutput" class="debug-json-tree">Run Debug Snapshot to build super verbose output.</div>
+                        </div>
                     </div>
                 </div>
             </div>
