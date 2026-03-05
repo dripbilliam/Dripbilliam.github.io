@@ -1038,8 +1038,10 @@ function normalizeSkillsArray(skills) {
     return normalized;
 }
 
-function formatStatWithModifier(value) {
-    const modifier = getSaveBonus(value);
+function formatStatWithModifier(value, modifierOverride = null) {
+    const modifier = modifierOverride === null || modifierOverride === undefined
+        ? getSaveBonus(value)
+        : (parseInt(modifierOverride, 10) || 0);
     const modifierText = modifier >= 0 ? `+${modifier}` : `${modifier}`;
     return `${value} (${modifierText})`;
 }
@@ -1275,12 +1277,105 @@ function getItemStatBonusDetailsAtLevel(level, statKey) {
         .filter(entry => entry.label && entry.value !== 0);
 }
 
+function getArmorDexCapAtLevel(level) {
+    if ((parseInt(level, 10) || 0) < 30) return null;
+    if (typeof window.getArmorDexCapForLevel !== 'function') return null;
+
+    const rawCap = window.getArmorDexCapForLevel(level);
+    if (rawCap === null || rawCap === undefined || rawCap === '') return null;
+    const parsedCap = parseInt(rawCap, 10);
+    return Number.isNaN(parsedCap) ? null : Math.max(0, parsedCap);
+}
+
+function getArmorDexCapDetailsAtLevel(level) {
+    if ((parseInt(level, 10) || 0) < 30) return [];
+    if (typeof window.getArmorDexCapDetailsForLevel !== 'function') return [];
+
+    const rawDetails = window.getArmorDexCapDetailsForLevel(level);
+    if (!Array.isArray(rawDetails)) return [];
+
+    return rawDetails
+        .map(entry => {
+            const label = String(entry && entry.label ? entry.label : '').trim();
+            const sourcePage = String(entry && entry.sourcePage ? entry.sourcePage : '').trim();
+            const value = parseStatBonusValue(entry && entry.value);
+            return {
+                label,
+                value,
+                sourcePage
+            };
+        })
+        .filter(entry => entry.label || entry.value !== 0 || entry.sourcePage);
+}
+
+function getArmorCheckPenaltyValueAtLevel(level) {
+    if ((parseInt(level, 10) || 0) < 30) return 0;
+    if (typeof window.getArmorCheckPenaltyValueForLevel !== 'function') return 0;
+    return parseStatBonusValue(window.getArmorCheckPenaltyValueForLevel(level));
+}
+
+function getArmorCheckPenaltyDetailsAtLevel(level) {
+    if ((parseInt(level, 10) || 0) < 30) return [];
+    if (typeof window.getArmorCheckPenaltyDetailsForLevel !== 'function') return [];
+
+    const rawDetails = window.getArmorCheckPenaltyDetailsForLevel(level);
+    if (!Array.isArray(rawDetails)) return [];
+
+    return rawDetails
+        .map(entry => {
+            const label = String(entry && entry.label ? entry.label : '').trim();
+            const sourcePage = String(entry && entry.sourcePage ? entry.sourcePage : '').trim();
+            const enabled = Boolean(entry && entry.enabled !== false);
+            const value = parseStatBonusValue(entry && entry.value);
+            return {
+                label,
+                value,
+                sourcePage,
+                enabled
+            };
+        })
+        .filter(entry => entry.label || entry.value !== 0 || entry.sourcePage);
+}
+
+function isArmorCheckPenaltySkill(skillName) {
+    const normalizedSkill = normalizeSkillKey(skillName);
+    if (!normalizedSkill) return false;
+
+    const abilityKeys = SKILL_ABILITY_MAP[normalizedSkill];
+    if (!Array.isArray(abilityKeys) || abilityKeys.length === 0) return false;
+    return abilityKeys.includes('dex') || abilityKeys.includes('str');
+}
+
+function getArmorCheckPenaltyForSkillAtLevel(level, skillName) {
+    if ((parseInt(level, 10) || 0) < 30) return 0;
+    if (!isArmorCheckPenaltySkill(skillName)) return 0;
+    return getArmorCheckPenaltyValueAtLevel(level);
+}
+
+function getArmorCheckPenaltySourcesForSkillAtLevel(level, skillName) {
+    if ((parseInt(level, 10) || 0) < 30) return [];
+    if (!isArmorCheckPenaltySkill(skillName)) return [];
+
+    return getArmorCheckPenaltyDetailsAtLevel(level)
+        .filter(entry => entry.enabled !== false)
+        .map(entry => {
+            const sourceBits = [entry.label];
+            if (entry.sourcePage) sourceBits.push(entry.sourcePage);
+            return {
+                name: sourceBits.filter(Boolean).join(' | ') || 'Chest armor',
+                bonus: entry.value
+            };
+        })
+        .filter(entry => entry.bonus !== 0 || entry.name);
+}
+
 function getTotalSkillBonusAtLevel(level, skillKey) {
     return getRaceSkillBonus(skillKey)
         + getFeatSkillBonusAtLevel(level, skillKey)
         + getClassSkillBonusAtLevel(level, skillKey)
-    + getItemSkillBonusAtLevel(level, skillKey)
-    + getSongSkillBonusAtLevel(level, skillKey);
+        + getItemSkillBonusAtLevel(level, skillKey)
+        + getSongSkillBonusAtLevel(level, skillKey)
+        + getArmorCheckPenaltyForSkillAtLevel(level, skillKey);
 }
 
 function getSkillAbilityBonusAtLevel(level, skillName) {
@@ -1718,6 +1813,9 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
         ? [{ name: 'Song propagation (L30)', bonus: songBonus }]
         : [];
 
+    const armorCheckPenalty = getArmorCheckPenaltyForSkillAtLevel(level, normalizedSkill);
+    const armorCheckPenaltySources = getArmorCheckPenaltySourcesForSkillAtLevel(level, normalizedSkill);
+
     const levelStats = getStatsAtLevel(level);
     const mods = getAbilityModifiers(levelStats);
     const abilityKeys = Array.isArray(SKILL_ABILITY_MAP[normalizedSkill])
@@ -1730,7 +1828,7 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
     }));
     const abilityBonus = abilitySources.reduce((sum, entry) => sum + entry.bonus, 0);
 
-    const total = raw + raceBonus + featBonus + classBonus + itemBonus + songBonus + abilityBonus;
+    const total = raw + raceBonus + featBonus + classBonus + itemBonus + songBonus + armorCheckPenalty + abilityBonus;
 
     return {
         skill: normalizedSkill,
@@ -1746,6 +1844,8 @@ function getSkillIncreaseBreakdownAtLevel(level, skillName) {
         itemSources,
         songBonus,
         songSources,
+        armorCheckPenalty,
+        armorCheckPenaltySources,
         abilityBonus,
         abilitySources,
         total
@@ -1781,6 +1881,11 @@ function getSkillIncreaseTooltipAtLevel(level, skillName) {
 
     lines.push(`Song Bonuses: ${formatSignedValue(breakdown.songBonus)}`);
     breakdown.songSources.forEach(source => {
+        lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
+    });
+
+    lines.push(`Armor Check Penalty: ${formatSignedValue(breakdown.armorCheckPenalty)}`);
+    breakdown.armorCheckPenaltySources.forEach(source => {
         lines.push(`  - ${source.name}: ${formatSignedValue(source.bonus)}`);
     });
 
@@ -3149,18 +3254,42 @@ function updateStatGrid() {
             const softValue = levelStats.softStats && typeof levelStats.softStats[statKey] === 'number'
                 ? levelStats.softStats[statKey]
                 : hardValue;
+            const dexCap = statKey === 'dex' ? getArmorDexCapAtLevel(level) : null;
+            const hardModifier = statKey === 'dex' && dexCap !== null
+                ? Math.min(getSaveBonus(hardValue), dexCap)
+                : getSaveBonus(hardValue);
+            const softModifier = statKey === 'dex' && dexCap !== null
+                ? Math.min(getSaveBonus(softValue), dexCap)
+                : getSaveBonus(softValue);
 
             const statWrap = document.createElement('div');
             statWrap.className = 'skill-cell-wrap';
 
             const hardValueLabel = document.createElement('span');
             hardValueLabel.className = 'skill-total';
-            hardValueLabel.textContent = `${formatStatWithModifier(hardValue)} /`;
+            hardValueLabel.textContent = `${formatStatWithModifier(hardValue, hardModifier)} /`;
 
             const softValueLabel = document.createElement('span');
             softValueLabel.className = 'skill-total';
-            softValueLabel.textContent = formatStatWithModifier(softValue);
+            softValueLabel.textContent = formatStatWithModifier(softValue, softModifier);
             softValueLabel.title = `${STAT_LABELS[statKey]} soft score (not used for prerequisites)`;
+
+            if (statKey === 'dex' && dexCap !== null) {
+                const dexCapDetails = getArmorDexCapDetailsAtLevel(level);
+                const detailText = dexCapDetails.length > 0
+                    ? dexCapDetails
+                        .map(entry => {
+                            const sourceBits = [entry.label];
+                            if (entry.sourcePage) sourceBits.push(entry.sourcePage);
+                            return sourceBits.filter(Boolean).join(' | ');
+                        })
+                        .filter(Boolean)
+                        .join(', ')
+                    : 'Chest armor';
+                const capText = `DEX mod capped at +${dexCap} for AC (${detailText})`;
+                hardValueLabel.title = capText;
+                softValueLabel.title = `${softValueLabel.title}\n${capText}`;
+            }
 
             statWrap.appendChild(hardValueLabel);
             statWrap.appendChild(softValueLabel);
@@ -3176,9 +3305,23 @@ function updateStatGrid() {
         const softBonusText = levelStats.softAppliedBonuses && levelStats.softAppliedBonuses.length > 0
             ? levelStats.softAppliedBonuses.join(', ')
             : '';
+        const dexCap = getArmorDexCapAtLevel(level);
+        const dexCapSource = dexCap !== null
+            ? (() => {
+                const details = getArmorDexCapDetailsAtLevel(level)
+                    .map(entry => {
+                        const sourceBits = [entry.label];
+                        if (entry.sourcePage) sourceBits.push(entry.sourcePage);
+                        return sourceBits.filter(Boolean).join(' | ');
+                    })
+                    .filter(Boolean)
+                    .join(', ');
+                return `DEX mod cap for AC +${dexCap}${details ? ` (${details})` : ''}`;
+            })()
+            : '';
 
-        sourceCell.textContent = [hardBonusText, softBonusText].filter(Boolean).join(', ')
-            ? [hardBonusText, softBonusText].filter(Boolean).join(', ')
+        sourceCell.textContent = [hardBonusText, softBonusText, dexCapSource].filter(Boolean).join(', ')
+            ? [hardBonusText, softBonusText, dexCapSource].filter(Boolean).join(', ')
             : '---';
         row.appendChild(sourceCell);
 

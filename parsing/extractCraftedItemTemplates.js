@@ -113,6 +113,18 @@ const SKILL_NAME_MAP = {
   usetraps: 'use trap'
 };
 
+const ARMOR_BASE_PROFILE_BY_TYPE = {
+  'cloth clothing armor': { baseArmor: 0, maxDexAc: null, arcaneSpellFailure: 0, armorCheckPenalty: 0 },
+  'light padded armor': { baseArmor: 1, maxDexAc: 8, arcaneSpellFailure: 5, armorCheckPenalty: 0 },
+  'light leather armor': { baseArmor: 2, maxDexAc: 6, arcaneSpellFailure: 10, armorCheckPenalty: 0 },
+  'light hide/studded leather armor': { baseArmor: 3, maxDexAc: 4, arcaneSpellFailure: 20, armorCheckPenalty: -1 },
+  'medium chain armor': { baseArmor: 4, maxDexAc: 4, arcaneSpellFailure: 20, armorCheckPenalty: -2 },
+  'medium scale/breastplate armor': { baseArmor: 5, maxDexAc: 2, arcaneSpellFailure: 30, armorCheckPenalty: -5 },
+  'heavy banded/splint armor': { baseArmor: 6, maxDexAc: 1, arcaneSpellFailure: 40, armorCheckPenalty: -7 },
+  'half plate armor': { baseArmor: 7, maxDexAc: 1, arcaneSpellFailure: 40, armorCheckPenalty: -7 },
+  'full plate armor': { baseArmor: 8, maxDexAc: 1, arcaneSpellFailure: 45, armorCheckPenalty: -8 }
+};
+
 function main() {
   const sources = XML_PATHS
     .filter(filePath => fs.existsSync(filePath))
@@ -131,6 +143,7 @@ function main() {
   for (const page of pages) {
     const rows = parseTableRows(page.text);
     const sectionWeaponMetaByTableIndex = parseSectionWeaponMetaByTableIndex(page.text, page.title);
+    const sectionArmorMetaByTableIndex = parseSectionArmorMetaByTableIndex(page.text, page.title);
     for (const row of rows) {
       if (!row.cells || row.cells.length < 2) continue;
       const name = cleanInline(row.cells[0]);
@@ -148,6 +161,11 @@ function main() {
         meta: {
           baseWeaponChart: '',
           baseWeaponType: '',
+          baseArmor: 0,
+          baseArmorType: '',
+          maxDexAc: null,
+          arcaneSpellFailure: 0,
+          armorCheckPenalty: 0,
           finesse: '',
           focusGroup: '',
           baseDamage: '',
@@ -180,6 +198,8 @@ function main() {
 
       const sectionWeaponMeta = sectionWeaponMetaByTableIndex.get(Number(row.tableIndex)) || null;
       applySectionWeaponMetaToTemplate(template, sectionWeaponMeta);
+      const sectionArmorMeta = sectionArmorMetaByTableIndex.get(Number(row.tableIndex)) || null;
+      applySectionArmorMetaToTemplate(template, sectionArmorMeta);
 
       const unmatchedLines = [];
 
@@ -417,6 +437,40 @@ function parseSectionWeaponMetaByTableIndex(pageText, pageTitle = '') {
   return map;
 }
 
+function inferArmorBaseTypeFromPageTitle(pageTitle) {
+  const title = String(pageTitle || '').trim();
+  if (!title) return '';
+
+  const match = title.match(/^Template\s*:\s*Crafting\s*:\s*(.+)$/i);
+  if (!match) return '';
+
+  const raw = String(match[1] || '').trim();
+  if (!raw) return '';
+
+  const withoutCraftDiscipline = raw.replace(/\s*:\s*[^:]+\s*$/i, '').trim();
+  return withoutCraftDiscipline || raw;
+}
+
+function parseSectionArmorMetaByTableIndex(pageText, pageTitle = '') {
+  const map = new Map();
+  const lines = String(pageText || '').split(/\r?\n/);
+  let tableIndex = -1;
+
+  const baseArmorType = inferArmorBaseTypeFromPageTitle(pageTitle);
+  const meta = baseArmorType
+    ? { baseArmorType }
+    : null;
+
+  for (const rawLine of lines) {
+    const trimmed = String(rawLine || '').trim();
+    if (!trimmed || !trimmed.startsWith('{|')) continue;
+    tableIndex += 1;
+    map.set(tableIndex, meta ? { ...meta } : null);
+  }
+
+  return map;
+}
+
 function inferBaseWeaponNameFromItemName(itemName) {
   const original = cleanInline(itemName || '');
   if (!original) return '';
@@ -450,6 +504,25 @@ function applySectionWeaponMetaToTemplate(template, sectionMeta) {
     if (sectionMeta.focusGroup) template.meta.focusGroup = sectionMeta.focusGroup;
     if (sectionMeta.ranged) template.meta.ranged = true;
   }
+}
+
+function applySectionArmorMetaToTemplate(template, sectionMeta) {
+  if (!template || !template.meta) return;
+  if (template.slotCategory !== 'chest' && template.slotCategory !== 'shield') return;
+  if (!sectionMeta || typeof sectionMeta !== 'object') return;
+
+  const armorType = String(sectionMeta.baseArmorType || '').trim();
+  if (!armorType) return;
+  template.meta.baseArmorType = armorType;
+
+  if (template.slotCategory !== 'chest') return;
+  const profile = ARMOR_BASE_PROFILE_BY_TYPE[String(armorType).trim().toLowerCase()];
+  if (!profile || typeof profile !== 'object') return;
+
+  template.meta.baseArmor = Number(profile.baseArmor) || 0;
+  template.meta.maxDexAc = profile.maxDexAc === null ? null : (Number(profile.maxDexAc) || 0);
+  template.meta.arcaneSpellFailure = Number(profile.arcaneSpellFailure) || 0;
+  template.meta.armorCheckPenalty = Number(profile.armorCheckPenalty) || 0;
 }
 
 function extractPages(xml, sourcePath = '') {

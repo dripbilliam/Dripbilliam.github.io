@@ -178,6 +178,11 @@
         thrown: false,
         ranged: false,
         baseArmor: 0,
+        baseArmorType: '',
+        maxDexAc: null,
+        arcaneSpellFailure: 0,
+        armorCheckPenalty: 0,
+        applyArmorCheckPenalty: false,
         classRestriction: '',
         minClassLevel: 0,
         raceRestriction: '',
@@ -284,11 +289,21 @@
         'uiOrder'
     ];
 
+    const BUFF_GROUP_KEYS = [
+        'id',
+        'name',
+        'label',
+        'color',
+        'uiOrder',
+        'notes'
+    ];
+
     function createBlankBuffDefinition() {
         return {
             id: '',
             name: '',
             label: '',
+            groupId: '',
             description: '',
             category: '',
             modifies: [],
@@ -320,10 +335,14 @@
                 normalized[key] = raw[key];
             }
         });
+        if (Object.prototype.hasOwnProperty.call(raw, 'groupId')) {
+            normalized.groupId = raw.groupId;
+        }
 
         normalized.id = String(normalized.id || normalized.name || `buff_${index + 1}`).trim().toLowerCase();
         normalized.name = String(normalized.name || normalized.id || `buff_${index + 1}`).trim().toLowerCase();
         normalized.label = String(normalized.label || normalized.name || `Buff ${index + 1}`).trim();
+        normalized.groupId = normalized.groupId == null ? '' : String(normalized.groupId).trim().toLowerCase();
         normalized.description = normalized.description == null ? '' : String(normalized.description).trim();
         normalized.category = normalized.category == null ? '' : String(normalized.category).trim();
         normalized.mode = String(normalized.mode || 'flat').trim().toLowerCase() || 'flat';
@@ -400,10 +419,52 @@
             maxCasterLevel: normalized.maxCasterLevel == null ? 30 : normalized.maxCasterLevel,
             hasSecondCast: normalized.hasSecondCast,
             statBuff: normalized.statBuff,
+            groupId: normalized.groupId,
             mutuallyExclusiveWith: normalized.mutuallyExclusiveWith,
             derivedEffects: normalized.derivedEffects,
             enabledByDefault: normalized.enabledByDefault,
             uiOrder: normalized.uiOrder
+        };
+    }
+
+    function createBlankBuffGroupDefinition() {
+        return {
+            id: '',
+            name: '',
+            label: '',
+            color: '',
+            uiOrder: 0,
+            notes: null
+        };
+    }
+
+    function normalizeBuffGroupRow(rawRow, index = 0) {
+        const raw = rawRow && typeof rawRow === 'object' ? rawRow : {};
+        const normalized = createBlankBuffGroupDefinition();
+        BUFF_GROUP_KEYS.forEach(key => {
+            if (Object.prototype.hasOwnProperty.call(raw, key)) {
+                normalized[key] = raw[key];
+            }
+        });
+
+        normalized.id = String(normalized.id || normalized.name || `buff_group_${index + 1}`).trim().toLowerCase();
+        normalized.name = String(normalized.name || normalized.id || `buff_group_${index + 1}`).trim().toLowerCase();
+        normalized.label = String(normalized.label || normalized.name || `Buff Group ${index + 1}`).trim();
+        normalized.color = normalized.color == null ? '' : String(normalized.color).trim();
+        normalized.uiOrder = Number.isFinite(Number(normalized.uiOrder)) ? Number(normalized.uiOrder) : index;
+        normalized.notes = normalized.notes == null ? null : String(normalized.notes).trim();
+        return normalized;
+    }
+
+    function toRuntimeBuffGroupDefinition(row, index = 0) {
+        const normalized = normalizeBuffGroupRow(row, index);
+        return {
+            id: normalized.id,
+            name: normalized.name,
+            label: normalized.label,
+            color: normalized.color,
+            uiOrder: normalized.uiOrder,
+            notes: normalized.notes
         };
     }
 
@@ -423,6 +484,12 @@
         if (normalizedType === 'setbaboverride') return ['fighterBabOverride'];
         if (normalizedType === 'setabilityminimum' && normalizedTarget === 'str') return ['strengthMinimum'];
         if (normalizedType === 'addhitpoints') return ['hitPoints'];
+        if (normalizedType === 'addarmorac') return ['armorAc'];
+        if (normalizedType === 'addshieldac') return ['shieldAc'];
+        if (normalizedType === 'addnaturalac') return ['naturalAc'];
+        if (normalizedType === 'adddeflectionac') return ['deflectionAc'];
+        if (normalizedType === 'adddodgeac') return ['dodgeAc'];
+        if (normalizedType === 'addotherac') return ['otherAc'];
         return [];
     }
 
@@ -462,21 +529,12 @@
         { id: 'eagles_splendor', name: 'eagles_splendor', label: "Eagle's Splendor", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'cha', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 120 },
         { id: 'owls_wisdom', name: 'owls_wisdom', label: "Owl's Wisdom", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'wis', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 130 },
         { id: 'cats_grace', name: 'cats_grace', label: "Cat's Grace", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'dex', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 140 },
+        { id: 'barkskin', name: 'barkskin', label: 'Barkskin', description: 'Natural AC bonus', category: 'spell', modifies: ['naturalAc'], mode: 'flat', value: 1, hasCasterLevel: true, minCasterLevel: 1, maxCasterLevel: 6, hasSecondCast: false, secondCastMode: null, secondCastValue: null, statBuff: null, mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 145 },
         { id: 'foxes_cunning', name: 'foxes_cunning', label: "Fox's Cunning", description: '', category: 'spell', modifies: ['softStatBonus'], mode: 'flat', value: 0, hasCasterLevel: false, minCasterLevel: null, maxCasterLevel: null, hasSecondCast: true, secondCastMode: null, secondCastValue: null, statBuff: 'int', mutuallyExclusiveWith: [], requiresFeat: null, requiresClass: null, requiresClassLevel: null, notes: null, enabledByDefault: false, uiOrder: 150 }
     ];
 
-    let BUFF_DEFINITIONS = DEFAULT_BUFF_DEFINITION_ROWS
-        .map((row, index) => toRuntimeBuffDefinition(row, index))
-        .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
-
-    const ZOO_SPELL_BUFF_NAMES = new Set([
-        'bulls_strength',
-        'bears_endurance',
-        'eagles_splendor',
-        'owls_wisdom',
-        'cats_grace',
-        'foxes_cunning'
-    ]);
+    let BUFF_DEFINITIONS = [];
+    let BUFF_GROUP_DEFINITIONS = [];
 
     const CLASS_ATTACK_RULE_KEYS = [
         'id',
@@ -954,7 +1012,7 @@
             specialDrawerOpen: false,
             weaponOptionsDrawerOpen: true,
             wearableOptionsDrawerOpen: true,
-            zooDrawerOpen: true,
+            buffGroupDrawerOpen: {},
             lazyDrawerOpen: true,
             damageSubtab: 'planner'
         },
@@ -993,7 +1051,14 @@
 
         requestAnimationFrame(() => {
             pendingGearRefresh = false;
-            renderSummaries();
+
+            if (typeof window.calculateStatProgression === 'function') {
+                try {
+                    window.calculateStatProgression();
+                } catch {
+                    // no-op
+                }
+            }
 
             if (typeof window.updateGrid === 'function') {
                 try {
@@ -1018,6 +1083,8 @@
                     // no-op
                 }
             }
+
+            renderSummaries();
         });
     }
 
@@ -1867,6 +1934,7 @@
             '/CharacterCalculator/combatData/buffs.json',
             '/combatData/buffs.json'
         ];
+        const errors = [];
 
         for (const url of candidates) {
             try {
@@ -1876,12 +1944,21 @@
                 const rows = Array.isArray(json)
                     ? json
                     : (json && Array.isArray(json.items) ? json.items : []);
-                if (!Array.isArray(rows) || rows.length === 0) continue;
-                if (!hasRequiredUniformKeys(rows, BUFF_DEFINITION_KEYS)) {
+                const groupRows = json && Array.isArray(json.groups) ? json.groups : [];
+                if (!Array.isArray(rows) || rows.length === 0) {
+                    errors.push(`${url}: missing/empty items array`);
+                    continue;
+                }
+                const hasRequiredBuffKeys = rows.every(row => {
+                    if (!row || typeof row !== 'object' || Array.isArray(row)) return false;
+                    return BUFF_DEFINITION_KEYS.every(key => Object.prototype.hasOwnProperty.call(row, key));
+                });
+                if (!hasRequiredBuffKeys) {
                     plannerDebugLog('Rejected combat buff definitions: non-uniform keys', {
                         url,
                         expectedKeys: BUFF_DEFINITION_KEYS
                     });
+                    errors.push(`${url}: missing required keys`);
                     continue;
                 }
 
@@ -1890,24 +1967,63 @@
                     .filter(def => def && def.name)
                     .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
 
+                const explicitGroups = hasRequiredUniformKeys(groupRows, BUFF_GROUP_KEYS)
+                    ? groupRows
+                        .map((row, index) => toRuntimeBuffGroupDefinition(row, index))
+                        .filter(group => group && group.id)
+                    : [];
+                const groupMap = new Map(explicitGroups.map(group => [group.id, group]));
+
+                BUFF_DEFINITIONS.forEach((def, index) => {
+                    if (!def || !def.name) return;
+                    if (!def.groupId) {
+                        def.groupId = String(def.category || '').trim().toLowerCase();
+                    }
+                    if (!def.groupId) {
+                        def.groupId = 'other';
+                    }
+
+                    if (!groupMap.has(def.groupId)) {
+                        const source = String(def.groupId || '').trim();
+                        const fallbackLabel = source
+                            ? source.split(/[_\s-]+/).map(part => part ? `${part.charAt(0).toUpperCase()}${part.slice(1)}` : '').join(' ')
+                            : 'Other';
+                        groupMap.set(def.groupId, {
+                            id: def.groupId,
+                            name: def.groupId,
+                            label: fallbackLabel || 'Other',
+                            color: '',
+                            uiOrder: 1000 + index,
+                            notes: null
+                        });
+                    }
+                });
+
+                BUFF_GROUP_DEFINITIONS = Array.from(groupMap.values())
+                    .sort((left, right) => {
+                        const leftOrder = Number(left && left.uiOrder) || 0;
+                        const rightOrder = Number(right && right.uiOrder) || 0;
+                        if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+                        return String(left && left.label || '').localeCompare(String(right && right.label || ''));
+                    });
+
                 if (BUFF_DEFINITIONS.length > 0) {
                     plannerDebugLog('Loaded combat buff definitions from JSON', {
                         url,
-                        count: BUFF_DEFINITIONS.length
+                        count: BUFF_DEFINITIONS.length,
+                        groups: BUFF_GROUP_DEFINITIONS.length
                     });
                     return;
                 }
             } catch (error) {
+                errors.push(`${url}: fetch/parse failure`);
                 continue;
             }
         }
 
-        BUFF_DEFINITIONS = DEFAULT_BUFF_DEFINITION_ROWS
-            .map((row, index) => toRuntimeBuffDefinition(row, index))
-            .sort((left, right) => (Number(left.uiOrder) || 0) - (Number(right.uiOrder) || 0));
-        plannerDebugLog('Using built-in combat buff definitions fallback', {
-            count: BUFF_DEFINITIONS.length
-        });
+        BUFF_DEFINITIONS = [];
+        BUFF_GROUP_DEFINITIONS = [];
+        throw new Error(`Unable to load required buff definitions from combatData/buffs.json. ${errors.join(' | ')}`);
     }
 
     async function loadClassAttackRuleDefinitions() {
@@ -1973,6 +2089,63 @@
         });
 
         return seeded;
+    }
+
+    function buildBuffMutualExclusionAdjacency(definitions) {
+        const defs = Array.isArray(definitions) ? definitions : [];
+        const byName = new Map();
+        defs.forEach(def => {
+            const name = String(def && def.name || '').trim().toLowerCase();
+            if (!name) return;
+            byName.set(name, def);
+        });
+
+        const adjacency = new Map();
+        byName.forEach((_, key) => adjacency.set(key, new Set()));
+
+        byName.forEach((def, key) => {
+            const excludes = Array.isArray(def && def.mutuallyExclusiveWith) ? def.mutuallyExclusiveWith : [];
+            excludes.forEach(raw => {
+                const excluded = String(raw || '').trim().toLowerCase();
+                if (!excluded || !byName.has(excluded) || excluded === key) return;
+                adjacency.get(key).add(excluded);
+                adjacency.get(excluded).add(key);
+            });
+        });
+
+        return adjacency;
+    }
+
+    function getBuffUiLockState(featSet) {
+        const normalizedFeatSet = featSet instanceof Set ? featSet : new Set();
+        const adjacency = buildBuffMutualExclusionAdjacency(BUFF_DEFINITIONS);
+        const output = new Map();
+
+        adjacency.forEach((blockedSet, buffName) => {
+            const lockers = [];
+            blockedSet.forEach(sourceName => {
+                if (sourceName === buffName) return;
+                const sourceState = state.buffs && state.buffs[sourceName];
+                if (!sourceState || !sourceState.enabled) return;
+                const sourceDef = BUFF_DEFINITIONS.find(def => String(def && def.name || '').trim().toLowerCase() === sourceName);
+                if (sourceDef && sourceDef.requiresFeat && !normalizedFeatSet.has(String(sourceDef.requiresFeat).toLowerCase())) {
+                    return;
+                }
+                if (sourceDef && sourceDef.label) {
+                    lockers.push(sourceDef.label);
+                } else {
+                    lockers.push(sourceName);
+                }
+            });
+            if (lockers.length > 0) {
+                output.set(buffName, lockers);
+            }
+        });
+
+        return {
+            lockedBy: output,
+            adjacency
+        };
     }
 
     function initializeClassAttackToggleStateFromDefinitions(existingToggleState = null) {
@@ -2180,6 +2353,7 @@
         rootEls.offHandType.addEventListener('change', () => {
             const slot = ensureSlotState('offHand');
             slot.offHandType = rootEls.offHandType.value;
+            renderEditor();
             renderSummaries();
         });
 
@@ -2734,6 +2908,10 @@
 
     function buildGearEffects() {
         const effects = {
+            acBase: {
+                armor: 0,
+                shield: 0
+            },
             acBuckets: {
                 armor: [],
                 shield: [],
@@ -2767,6 +2945,10 @@
                 critDamageBonus: [],
                 saveBonus: { fort: [], ref: [], will: [] },
                 softStats: { str: [], dex: [], con: [], int: [], wis: [], cha: [] },
+                acBase: {
+                    armor: [],
+                    shield: []
+                },
                 acBuckets: {
                     armor: [],
                     shield: [],
@@ -2792,6 +2974,21 @@
 
         SLOT_CONFIG.forEach(slot => {
             const slotState = ensureSlotState(slot.key);
+            const slotMeta = slotState && slotState.meta && typeof slotState.meta === 'object'
+                ? slotState.meta
+                : {};
+            const slotBaseArmor = Math.max(0, Number(slotMeta.baseArmor) || 0);
+            const slotAcType = getArmorTypeForSlot(slot.key);
+            if (slotBaseArmor > 0 && (slotAcType === 'armor' || slotAcType === 'shield')) {
+                effects.acBase[slotAcType] = Math.max(Number(effects.acBase[slotAcType]) || 0, slotBaseArmor);
+                if (effects.sourceDetails && effects.sourceDetails.acBase && Array.isArray(effects.sourceDetails.acBase[slotAcType])) {
+                    const sourceItemName = String(slotState.name || slot.label || slot.key || 'item').trim();
+                    effects.sourceDetails.acBase[slotAcType].push({
+                        label: `${sourceItemName} • base armor`,
+                        value: slotBaseArmor
+                    });
+                }
+            }
             slotState.properties.forEach(property => {
                 enforceInnateOnlyProperty(property);
                 const p = property.params || {};
@@ -2855,22 +3052,41 @@
         return effects;
     }
 
-    function computeStackedAc(effects) {
-        const armor = Math.max(0, ...effects.acBuckets.armor);
-        const shield = Math.max(0, ...effects.acBuckets.shield);
+    function computeStackedAc(effects, level = null) {
+        const numericLevel = Math.max(1, Math.min(30, parseInt(level, 10) || getCurrentCharacterLevel()));
+        const armorBase = Math.max(0, Number(effects && effects.acBase ? effects.acBase.armor : 0) || 0);
+        const shieldBase = Math.max(0, Number(effects && effects.acBase ? effects.acBase.shield : 0) || 0);
+        const armorModifier = Math.max(0, ...effects.acBuckets.armor);
+        const shieldModifier = Math.max(0, ...effects.acBuckets.shield);
+        const armor = armorBase + armorModifier;
+        const shield = shieldBase + shieldModifier;
         const natural = Math.max(0, ...effects.acBuckets.natural);
         const deflection = Math.max(0, ...effects.acBuckets.deflection);
         const dodge = Math.min(20, effects.acBuckets.dodge.reduce((sum, value) => sum + value, 0));
         const other = effects.acBuckets.other.reduce((sum, value) => sum + value, 0);
+        const softStats = getCharacterSoftStatsAtLevel(numericLevel);
+        const mods = getAbilityModifiersFromStats(softStats);
+        const dexModRaw = Number(mods.dex) || 0;
+        const dexCap = getArmorDexCapForLevel(numericLevel);
+        const dexMod = dexCap === null ? dexModRaw : Math.min(dexModRaw, dexCap);
+        const baseAc = 10;
 
         return {
+            baseAc,
+            armorBase,
+            shieldBase,
+            armorModifier,
+            shieldModifier,
             armor,
             shield,
             natural,
             deflection,
             dodge,
             other,
-            total: armor + shield + natural + deflection + dodge + other
+            dexModRaw,
+            dexCap,
+            dexMod,
+            total: baseAc + armor + shield + natural + deflection + dodge + dexMod + other
         };
     }
 
@@ -3183,7 +3399,9 @@
         }
         const mods = getAbilityModifiersFromStats(normalizedStats);
         const strMod = Number(mods.str) || 0;
-        const dexMod = Number(mods.dex) || 0;
+        const dexModRaw = Number(mods.dex) || 0;
+        const dexCap = getArmorDexCapForLevel(numericLevel);
+        const dexMod = dexCap === null ? dexModRaw : Math.min(dexModRaw, dexCap);
 
         const featSet = getOwnedFeatNameSetAtLevel(numericLevel);
         const hasWeaponFinesse = featSet.has('weapon finesse');
@@ -3209,7 +3427,9 @@
 
         return {
             strMod,
+            dexModRaw,
             dexMod,
+            dexCap,
             attackAbility,
             attackAbilityMod: attackAbility === 'dex' ? dexMod : strMod,
             damageAbilityMod,
@@ -4128,6 +4348,36 @@
                 return;
             }
 
+            if (key === 'armorac') {
+                out.acBonuses.armor += numericValue;
+                out.detail.acArmor.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'shieldac') {
+                out.acBonuses.shield += numericValue;
+                out.detail.acShield.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'naturalac') {
+                out.acBonuses.natural += numericValue;
+                out.detail.acNatural.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'deflectionac') {
+                out.acBonuses.deflection += numericValue;
+                out.detail.acDeflection.push({ label, value: numericValue });
+                return;
+            }
+
+            if (key === 'otherac') {
+                out.acBonuses.other += numericValue;
+                out.detail.acOther.push({ label, value: numericValue });
+                return;
+            }
+
             if (key === 'extraapr') {
                 out.extraHighestAbAttacks += numericValue;
                 out.detail.attack.push({ label: `${label} (extra APR at highest AB)`, value: 0 });
@@ -4149,6 +4399,7 @@
 
     function computeBuffEffects(level, effects) {
         const featSet = getOwnedFeatNameSetAtLevel(level);
+        const acValueModifierKeys = new Set(['armorac', 'shieldac', 'naturalac', 'deflectionac', 'dodgeac', 'otherac']);
         const out = {
             cappedAttackBonusFromBuffs: 0,
             uncappedAttackBonus: 0,
@@ -4157,6 +4408,7 @@
             damageBonus: 0,
             saveBonus: { fort: 0, ref: 0, will: 0 },
             dodgeAcBonus: 0,
+            acBonuses: { armor: 0, shield: 0, natural: 0, deflection: 0, other: 0 },
             hpBonus: 0,
             overrideBab: null,
             strOverrideMin: null,
@@ -4168,14 +4420,83 @@
                 saveRef: [],
                 saveWill: [],
                 dodgeAc: [],
+                acArmor: [],
+                acShield: [],
+                acNatural: [],
+                acDeflection: [],
+                acOther: [],
                 hp: [],
                 bab: [],
                 strFloor: []
             }
         };
 
-        const isEnabled = (name) => Boolean(state.buffs && state.buffs[name] && state.buffs[name].enabled);
-        const casterLevelFor = (name) => Math.max(1, Math.floor(Number(state.buffs && state.buffs[name] ? state.buffs[name].casterLevel : 30) || 1));
+        const getResolvedEnabledBuffNameSet = () => {
+            const activeDefs = BUFF_DEFINITIONS.filter(def => {
+                if (!def || !def.name) return false;
+                const config = state.buffs && state.buffs[def.name];
+                if (!config || !config.enabled) return false;
+                if (def.requiresFeat && !featSet.has(String(def.requiresFeat).toLowerCase())) return false;
+                return true;
+            });
+
+            const byName = new Map(
+                activeDefs.map(def => [String(def.name || '').trim().toLowerCase(), def])
+            );
+            const allAdjacency = buildBuffMutualExclusionAdjacency(BUFF_DEFINITIONS);
+            const adjacency = new Map();
+            byName.forEach((_, key) => {
+                const fullNeighbors = allAdjacency.get(key) || new Set();
+                const activeNeighbors = new Set(Array.from(fullNeighbors).filter(neighbor => byName.has(neighbor)));
+                adjacency.set(key, activeNeighbors);
+            });
+
+            const visited = new Set();
+            const winners = new Set();
+            const pickWinner = (defs) => defs
+                .slice()
+                .sort((left, right) => {
+                    const leftOrder = Number(left && left.uiOrder) || 0;
+                    const rightOrder = Number(right && right.uiOrder) || 0;
+                    if (leftOrder !== rightOrder) return rightOrder - leftOrder;
+                    return String(left && left.name || '').localeCompare(String(right && right.name || ''));
+                })[0];
+
+            byName.forEach((def, startKey) => {
+                if (visited.has(startKey)) return;
+                const stack = [startKey];
+                const component = [];
+
+                while (stack.length > 0) {
+                    const key = stack.pop();
+                    if (visited.has(key)) continue;
+                    visited.add(key);
+                    const nodeDef = byName.get(key);
+                    if (nodeDef) component.push(nodeDef);
+                    const neighbors = adjacency.get(key);
+                    if (neighbors) {
+                        neighbors.forEach(neighbor => {
+                            if (!visited.has(neighbor)) stack.push(neighbor);
+                        });
+                    }
+                }
+
+                const winner = pickWinner(component);
+                if (winner && winner.name) winners.add(String(winner.name).trim().toLowerCase());
+            });
+
+            return winners;
+        };
+
+        const resolvedEnabledBuffNames = getResolvedEnabledBuffNameSet();
+        const isEnabled = (name) => resolvedEnabledBuffNames.has(String(name || '').trim().toLowerCase());
+        const casterLevelFor = (name) => {
+            const def = BUFF_DEFINITIONS.find(entry => String(entry && entry.name || '').trim().toLowerCase() === String(name || '').trim().toLowerCase());
+            const min = Math.max(1, Math.floor(Number(def && def.minCasterLevel) || 1));
+            const max = Math.max(min, Math.floor(Number(def && def.maxCasterLevel) || 30));
+            const raw = Number(state.buffs && state.buffs[name] ? state.buffs[name].casterLevel : max);
+            return Math.max(min, Math.min(max, Math.floor(raw) || min));
+        };
 
         ensureLazyProxyState();
         if (state.lazyProxy.enabled) {
@@ -4208,9 +4529,15 @@
             }
 
             let appliedValue = Number(def.value) || 0;
+            const modifies = Array.isArray(def.modifies)
+                ? def.modifies.map(modifier => String(modifier || '').trim().toLowerCase()).filter(Boolean)
+                : [];
+            const hasDataDrivenAcValueModifier = modifies.some(modifier => acValueModifierKeys.has(modifier));
             if (name === 'divine_favor') {
                 const cl = casterLevelFor('divine_favor');
                 appliedValue = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
+            } else if (def.hasCasterLevel && hasDataDrivenAcValueModifier) {
+                appliedValue = casterLevelFor(def.name);
             }
 
             applyStandardBuffModifiersToComputedOut(out, def, appliedValue);
@@ -4282,18 +4609,78 @@
 
     function getActiveBuffObjects(level, effects) {
         const featSet = getOwnedFeatNameSetAtLevel(level);
+        const acValueModifierKeys = new Set(['armorac', 'shieldac', 'naturalac', 'deflectionac', 'dodgeac', 'otherac']);
         const output = [];
+        const activeDefs = BUFF_DEFINITIONS.filter(def => {
+            if (!def || !def.name) return false;
+            const config = state.buffs && state.buffs[def.name];
+            if (!config || !config.enabled) return false;
+            if (def.requiresFeat && !featSet.has(String(def.requiresFeat).toLowerCase())) return false;
+            return true;
+        });
+
+        const byName = new Map(activeDefs.map(def => [String(def.name || '').trim().toLowerCase(), def]));
+        const allAdjacency = buildBuffMutualExclusionAdjacency(BUFF_DEFINITIONS);
+        const adjacency = new Map();
+        byName.forEach((_, key) => {
+            const fullNeighbors = allAdjacency.get(key) || new Set();
+            const activeNeighbors = new Set(Array.from(fullNeighbors).filter(neighbor => byName.has(neighbor)));
+            adjacency.set(key, activeNeighbors);
+        });
+
+        const resolvedEnabledBuffNames = new Set();
+        const visited = new Set();
+        byName.forEach((_, startKey) => {
+            if (visited.has(startKey)) return;
+            const stack = [startKey];
+            const component = [];
+            while (stack.length > 0) {
+                const key = stack.pop();
+                if (visited.has(key)) continue;
+                visited.add(key);
+                const node = byName.get(key);
+                if (node) component.push(node);
+                const neighbors = adjacency.get(key);
+                if (neighbors) {
+                    neighbors.forEach(neighbor => {
+                        if (!visited.has(neighbor)) stack.push(neighbor);
+                    });
+                }
+            }
+
+            const winner = component
+                .slice()
+                .sort((left, right) => {
+                    const leftOrder = Number(left && left.uiOrder) || 0;
+                    const rightOrder = Number(right && right.uiOrder) || 0;
+                    if (leftOrder !== rightOrder) return rightOrder - leftOrder;
+                    return String(left && left.name || '').localeCompare(String(right && right.name || ''));
+                })[0];
+
+            if (winner && winner.name) {
+                resolvedEnabledBuffNames.add(String(winner.name).trim().toLowerCase());
+            }
+        });
 
         BUFF_DEFINITIONS.forEach(def => {
             const config = state.buffs && state.buffs[def.name];
             if (!config || !config.enabled) return;
+            if (!resolvedEnabledBuffNames.has(String(def.name || '').trim().toLowerCase())) return;
             if (def.requiresFeat && !featSet.has(String(def.requiresFeat).toLowerCase())) return;
 
             let value = Number(def.value) || 0;
+            const modifies = Array.isArray(def.modifies)
+                ? def.modifies.map(modifier => String(modifier || '').trim().toLowerCase()).filter(Boolean)
+                : [];
+            const hasDataDrivenAcValueModifier = modifies.some(modifier => acValueModifierKeys.has(modifier));
 
             if (def.name === 'divine_favor') {
                 const cl = Math.max(1, Math.floor(Number(config.casterLevel) || 1));
                 value = Math.max(1, Math.min(5, Math.floor(cl / 3) || 1));
+            } else if (def.hasCasterLevel && hasDataDrivenAcValueModifier) {
+                const min = Math.max(1, Math.floor(Number(def.minCasterLevel) || 1));
+                const max = Math.max(min, Math.floor(Number(def.maxCasterLevel) || 30));
+                value = Math.max(min, Math.min(max, Math.floor(Number(config.casterLevel) || min)));
             } else if (def.name === 'blood_frenzy') {
                 const hasSf = featSet.has('spell focus: transmutation');
                 const hasGsf = featSet.has('greater spell focus: transmutation');
@@ -4582,18 +4969,46 @@
         if (!rootEls || !rootEls.buffList) return;
 
         ensureLazyProxyState();
+        state.ui.buffGroupDrawerOpen = state.ui && state.ui.buffGroupDrawerOpen && typeof state.ui.buffGroupDrawerOpen === 'object'
+            ? state.ui.buffGroupDrawerOpen
+            : {};
+
+        const base = getBaseDerivedSummary();
+        const summaryLevel = Math.max(1, Math.floor(Number(base && base.level) || 1));
+        const featSet = getOwnedFeatNameSetAtLevel(summaryLevel);
+        const acValueModifierKeys = new Set(['armorac', 'shieldac', 'naturalac', 'deflectionac', 'dodgeac', 'otherac']);
+        const lockState = getBuffUiLockState(featSet);
+        const exclusionAdjacency = lockState.adjacency;
+        const lockedBy = lockState.lockedBy;
 
         rootEls.buffList.innerHTML = '';
 
         const renderBuffRow = (def, targetContainer) => {
             const row = document.createElement('div');
             row.className = 'gear-field-row';
+            const normalizedName = String(def && def.name || '').trim().toLowerCase();
+            const lockSources = Array.isArray(lockedBy.get(normalizedName)) ? lockedBy.get(normalizedName) : [];
+            const currentlyEnabled = Boolean(state.buffs[def.name] && state.buffs[def.name].enabled);
+            const isLocked = lockSources.length > 0;
 
             const toggle = document.createElement('input');
             toggle.type = 'checkbox';
-            toggle.checked = Boolean(state.buffs[def.name] && state.buffs[def.name].enabled);
+            toggle.checked = currentlyEnabled;
+            toggle.disabled = isLocked && !currentlyEnabled;
+            if (toggle.disabled) {
+                toggle.title = `Disabled by: ${lockSources.join(', ')}`;
+            }
             toggle.addEventListener('change', () => {
                 state.buffs[def.name].enabled = Boolean(toggle.checked);
+                if (toggle.checked) {
+                    const conflicts = exclusionAdjacency.get(normalizedName) || new Set();
+                    conflicts.forEach(conflictName => {
+                        if (state.buffs && state.buffs[conflictName]) {
+                            state.buffs[conflictName].enabled = false;
+                        }
+                    });
+                }
+                renderBuffsEditor();
                 scheduleGearRefreshAndValidation();
             });
 
@@ -4606,27 +5021,41 @@
             row.appendChild(label);
 
             if (def.hasCasterLevel) {
+                const clWrap = document.createElement('span');
+                clWrap.style.display = 'inline-flex';
+                clWrap.style.alignItems = 'center';
+                clWrap.style.gap = '6px';
+
                 const clLabel = document.createElement('label');
-                clLabel.textContent = 'Caster Lvl';
-                clLabel.style.minWidth = '80px';
+                const modifies = Array.isArray(def.modifies)
+                    ? def.modifies.map(modifier => String(modifier || '').trim().toLowerCase()).filter(Boolean)
+                    : [];
+                const usesAcValueSelector = modifies.some(modifier => acValueModifierKeys.has(modifier));
+                clLabel.textContent = usesAcValueSelector ? 'Value' : 'Caster Lvl';
 
                 const clInput = document.createElement('input');
                 clInput.type = 'number';
                 clInput.min = String(def.minCasterLevel || 1);
                 clInput.max = String(def.maxCasterLevel || 30);
                 clInput.step = '1';
-                clInput.value = String(state.buffs[def.name].casterLevel || 30);
+                clInput.style.width = '86px';
+                clInput.style.flex = '0 0 86px';
+                clInput.disabled = toggle.disabled;
+                const min = Number(def.minCasterLevel || 1);
+                const max = Number(def.maxCasterLevel || 30);
+                const initial = Math.max(min, Math.min(max, Math.floor(Number(state.buffs[def.name].casterLevel) || min)));
+                state.buffs[def.name].casterLevel = initial;
+                clInput.value = String(initial);
                 clInput.addEventListener('input', () => {
-                    const min = Number(def.minCasterLevel || 1);
-                    const max = Number(def.maxCasterLevel || 30);
                     const parsed = Math.max(min, Math.min(max, Math.floor(Number(clInput.value) || min)));
                     state.buffs[def.name].casterLevel = parsed;
                     clInput.value = String(parsed);
                     scheduleGearRefreshAndValidation();
                 });
 
-                row.appendChild(clLabel);
-                row.appendChild(clInput);
+                clWrap.appendChild(clLabel);
+                clWrap.appendChild(clInput);
+                row.appendChild(clWrap);
             }
 
             if (def.hasSecondCast) {
@@ -4637,6 +5066,7 @@
                 const secondCastToggle = document.createElement('input');
                 secondCastToggle.type = 'checkbox';
                 secondCastToggle.checked = Boolean(state.buffs[def.name].secondCast);
+                secondCastToggle.disabled = toggle.disabled;
                 secondCastToggle.addEventListener('change', () => {
                     state.buffs[def.name].secondCast = Boolean(secondCastToggle.checked);
                     scheduleGearRefreshAndValidation();
@@ -4646,48 +5076,92 @@
                 row.appendChild(secondCastToggle);
             }
 
+            if (toggle.disabled) {
+                const lockNote = document.createElement('span');
+                lockNote.className = 'muted-note';
+                lockNote.textContent = `Locked by ${lockSources.join(', ')}`;
+                row.appendChild(lockNote);
+            }
+
             targetContainer.appendChild(row);
         };
 
-        const standardContainer = document.createElement('div');
-        const standardBuffDefs = BUFF_DEFINITIONS.filter(def => !ZOO_SPELL_BUFF_NAMES.has(def.name));
-        standardBuffDefs.forEach(def => renderBuffRow(def, standardContainer));
-        rootEls.buffList.appendChild(standardContainer);
-
-        const zooContainer = document.createElement('div');
-        zooContainer.className = `gear-drawer ${state.ui.zooDrawerOpen ? 'open' : ''}`;
-
-        const zooHeader = document.createElement('button');
-        zooHeader.type = 'button';
-        zooHeader.className = 'gear-drawer-header';
-        zooHeader.textContent = 'Zoo Spells';
-
-        const zooBody = document.createElement('div');
-        zooBody.className = 'gear-drawer-body';
-
-        const base = getBaseDerivedSummary();
-        const summaryLevel = Math.max(1, Math.floor(Number(base && base.level) || 1));
-        const zooSoftBuff = getBuffSoftStatBonuses(summaryLevel);
-        const perCastBonus = Number(zooSoftBuff.baseBonus) || 4;
-        const transmutationSummary = document.createElement('div');
-        transmutationSummary.className = 'muted-note';
-        transmutationSummary.textContent = [
-            `Transmutation scaling at L${summaryLevel}: per cast +${perCastBonus}`,
-            `Greater Spell Focus: Transmutation ${zooSoftBuff.hasGsfTransmutation ? 'active (+1 tier)' : 'inactive'}`,
-            `Epic Spell Focus: Transmutation ${zooSoftBuff.hasEsfTransmutation ? 'active (+2 tier)' : 'inactive'}`,
-            'Second Cast toggle: +1 additional bonus'
-        ].join(' | ');
-        zooBody.appendChild(transmutationSummary);
-
-        const zooBuffDefs = BUFF_DEFINITIONS.filter(def => ZOO_SPELL_BUFF_NAMES.has(def.name));
-        zooBuffDefs.forEach(def => renderBuffRow(def, zooBody));
-
-        zooContainer.appendChild(zooHeader);
-        zooContainer.appendChild(zooBody);
-        rootEls.buffList.appendChild(zooContainer);
-        attachDrawerHeaderToggle(zooHeader, zooContainer, (isOpen) => {
-            state.ui.zooDrawerOpen = isOpen;
+        const buffsByGroup = new Map();
+        BUFF_GROUP_DEFINITIONS.forEach(group => {
+            buffsByGroup.set(String(group && group.id || '').trim().toLowerCase(), []);
         });
+
+        BUFF_DEFINITIONS.forEach(def => {
+            const groupId = String(def && def.groupId || '').trim().toLowerCase() || 'other';
+            if (!buffsByGroup.has(groupId)) {
+                buffsByGroup.set(groupId, []);
+                BUFF_GROUP_DEFINITIONS.push({
+                    id: groupId,
+                    name: groupId,
+                    label: groupId,
+                    color: '',
+                    uiOrder: 9999,
+                    notes: null
+                });
+            }
+            buffsByGroup.get(groupId).push(def);
+        });
+
+        BUFF_GROUP_DEFINITIONS
+            .slice()
+            .sort((left, right) => {
+                const leftOrder = Number(left && left.uiOrder) || 0;
+                const rightOrder = Number(right && right.uiOrder) || 0;
+                if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+                return String(left && left.label || '').localeCompare(String(right && right.label || ''));
+            })
+            .forEach(group => {
+                const groupId = String(group && group.id || '').trim().toLowerCase();
+                const groupBuffs = buffsByGroup.get(groupId) || [];
+                if (!groupBuffs.length) return;
+
+                const isOpen = Object.prototype.hasOwnProperty.call(state.ui.buffGroupDrawerOpen, groupId)
+                    ? Boolean(state.ui.buffGroupDrawerOpen[groupId])
+                    : true;
+
+                const drawer = document.createElement('div');
+                drawer.className = `gear-drawer ${isOpen ? 'open' : ''}`;
+
+                const header = document.createElement('button');
+                header.type = 'button';
+                header.className = 'gear-drawer-header';
+                header.textContent = group.label || group.name || groupId;
+                if (group.color) {
+                    header.style.borderLeft = `4px solid ${group.color}`;
+                }
+
+                const body = document.createElement('div');
+                body.className = 'gear-drawer-body';
+
+                if (groupId === 'zoo_spells') {
+                    const zooSoftBuff = getBuffSoftStatBonuses(summaryLevel);
+                    const perCastBonus = Number(zooSoftBuff.baseBonus) || 4;
+                    const transmutationSummary = document.createElement('div');
+                    transmutationSummary.className = 'muted-note';
+                    transmutationSummary.textContent = [
+                        `Transmutation scaling at L${summaryLevel}: per cast +${perCastBonus}`,
+                        `Greater Spell Focus: Transmutation ${zooSoftBuff.hasGsfTransmutation ? 'active (+1 tier)' : 'inactive'}`,
+                        `Epic Spell Focus: Transmutation ${zooSoftBuff.hasEsfTransmutation ? 'active (+2 tier)' : 'inactive'}`,
+                        'Second Cast toggle: +1 additional bonus'
+                    ].join(' | ');
+                    body.appendChild(transmutationSummary);
+                }
+
+                groupBuffs.forEach(def => renderBuffRow(def, body));
+
+                drawer.appendChild(header);
+                drawer.appendChild(body);
+                rootEls.buffList.appendChild(drawer);
+
+                attachDrawerHeaderToggle(header, drawer, (nextOpen) => {
+                    state.ui.buffGroupDrawerOpen[groupId] = nextOpen;
+                });
+            });
 
         const lazyContainer = document.createElement('div');
         lazyContainer.className = `gear-drawer ${state.ui.lazyDrawerOpen ? 'open' : ''}`;
@@ -5066,6 +5540,35 @@
         if (Number(buffEffects.dodgeAcBonus) !== 0) {
             effects.acBuckets.dodge.push(Number(buffEffects.dodgeAcBonus));
         }
+        const applyTypedBuffAc = (bucketKey, totalValue, detailList) => {
+            const amount = Number(totalValue) || 0;
+            if (amount === 0) return;
+            if (!effects.acBuckets || !Array.isArray(effects.acBuckets[bucketKey])) return;
+
+            effects.acBuckets[bucketKey].push(amount);
+
+            if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets[bucketKey])) {
+                const details = Array.isArray(detailList) ? detailList : [];
+                if (details.length > 0) {
+                    details.forEach(entry => {
+                        effects.sourceDetails.acBuckets[bucketKey].push({
+                            label: String(entry && entry.label ? entry.label : 'Buff'),
+                            value: Number(entry && entry.value) || 0
+                        });
+                    });
+                } else {
+                    effects.sourceDetails.acBuckets[bucketKey].push({
+                        label: `Buff ${bucketKey}`,
+                        value: amount
+                    });
+                }
+            }
+        };
+        applyTypedBuffAc('armor', buffEffects.acBonuses && buffEffects.acBonuses.armor, buffEffects.detail && buffEffects.detail.acArmor);
+        applyTypedBuffAc('shield', buffEffects.acBonuses && buffEffects.acBonuses.shield, buffEffects.detail && buffEffects.detail.acShield);
+        applyTypedBuffAc('natural', buffEffects.acBonuses && buffEffects.acBonuses.natural, buffEffects.detail && buffEffects.detail.acNatural);
+        applyTypedBuffAc('deflection', buffEffects.acBonuses && buffEffects.acBonuses.deflection, buffEffects.detail && buffEffects.detail.acDeflection);
+        applyTypedBuffAc('other', buffEffects.acBonuses && buffEffects.acBonuses.other, buffEffects.detail && buffEffects.detail.acOther);
         if (Number(songEffects.dodgeAcBonus) !== 0) {
             effects.acBuckets.dodge.push(Number(songEffects.dodgeAcBonus));
         }
@@ -5084,7 +5587,7 @@
             }
         }
 
-        const ac = computeStackedAc(effects);
+        const ac = computeStackedAc(effects, base.level);
         const abilityCombatMods = getWeaponAbilityModifiers(base.level, {
             strOverrideMin: buffEffects.strOverrideMin,
             mightyCap: effects.mightyCap
@@ -6394,11 +6897,15 @@
         ];
 
         const acDetailLines = [
-            `Armor bucket (max): ${formatSigned(derived.ac.armor)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.armor).join(' | ')}`,
-            `Shield bucket (max): ${formatSigned(derived.ac.shield)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.shield).join(' | ')}`,
+            `Base AC: ${formatSigned(derived.ac.baseAc)}`,
+            `DEX mod: ${formatSigned(derived.ac.dexMod)}${derived.ac.dexCap === null ? '' : ` (raw ${formatSigned(derived.ac.dexModRaw)} capped at +${derived.ac.dexCap})`}`,
+            `Armor bucket (base + max): ${formatSigned(derived.ac.armor)} = base ${formatSigned(derived.ac.armorBase)} + max mod ${formatSigned(derived.ac.armorModifier)} | base ${formatEntryLines(effects.sourceDetails.acBase && effects.sourceDetails.acBase.armor).join(' | ')} | mods ${formatEntryLines(effects.sourceDetails.acBuckets.armor).join(' | ')}`,
+            `Shield bucket (base + max): ${formatSigned(derived.ac.shield)} = base ${formatSigned(derived.ac.shieldBase)} + max mod ${formatSigned(derived.ac.shieldModifier)} | base ${formatEntryLines(effects.sourceDetails.acBase && effects.sourceDetails.acBase.shield).join(' | ')} | mods ${formatEntryLines(effects.sourceDetails.acBuckets.shield).join(' | ')}`,
             `Natural bucket (max): ${formatSigned(derived.ac.natural)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.natural).join(' | ')}`,
             `Deflection bucket (max): ${formatSigned(derived.ac.deflection)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.deflection).join(' | ')}`,
-            `Dodge bucket (sum, cap +20): ${formatSigned(derived.ac.dodge)} | gear ${formatEntryLines(effects.sourceDetails.acBuckets.dodge).join(' | ')} | buffs ${formatEntryLines(snapshot.buffEffects.detail.dodgeAc).join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.dodgeAc).join(' | ')} | feats ${formatEntryLines(featCombatMods.acSources).join(' | ')} | class ${formatEntryLines(snapshot.classHardAttack.dodgeSources).join(' | ')}`
+            `Dodge bucket (sum, cap +20): ${formatSigned(derived.ac.dodge)} | gear ${formatEntryLines(effects.sourceDetails.acBuckets.dodge).join(' | ')} | buffs ${formatEntryLines(snapshot.buffEffects.detail.dodgeAc).join(' | ')} | song ${formatEntryLines(snapshot.songEffects.detail.dodgeAc).join(' | ')} | feats ${formatEntryLines(featCombatMods.acSources).join(' | ')} | class ${formatEntryLines(snapshot.classHardAttack.dodgeSources).join(' | ')}`,
+            `Other bucket (sum, no cap): ${formatSigned(derived.ac.other)} | sources ${formatEntryLines(effects.sourceDetails.acBuckets.other).join(' | ')}`,
+            `Total AC: ${formatSigned(derived.ac.total)} = 10 + armor ${formatSigned(derived.ac.armor)} + shield ${formatSigned(derived.ac.shield)} + dodge ${formatSigned(derived.ac.dodge)} + natural ${formatSigned(derived.ac.natural)} + deflection ${formatSigned(derived.ac.deflection)} + dex ${formatSigned(derived.ac.dexMod)} + other ${formatSigned(derived.ac.other)}`
         ];
 
         const spellResistanceLines = [
@@ -6791,8 +7298,11 @@
         const baseDamageTypeOptions = BASE_WEAPON_DAMAGE_TYPES
             .map(type => `<option value="${escapeHtml(type)}">${escapeHtml(type)}</option>`)
             .join('');
-        const showWeaponOptions = state.selectedSlot === 'mainHand' || state.selectedSlot === 'offHand';
+        const isOffHandWeaponMode = state.selectedSlot === 'offHand' && slotState.offHandType === 'weapon';
+        const isOffHandShieldMode = state.selectedSlot === 'offHand' && slotState.offHandType !== 'weapon';
+        const showWeaponOptions = state.selectedSlot === 'mainHand' || isOffHandWeaponMode;
         const showWearableOptions = !showWeaponOptions;
+        const showExtendedArmorFields = state.selectedSlot === 'chest' || isOffHandShieldMode;
 
         const section = document.createElement('div');
         section.innerHTML = `
@@ -6855,6 +7365,33 @@
                                 <label style="min-width:90px; font-weight:bold;">Base Armor</label>
                                 <input id="meta_baseArmor" type="number" min="0" step="1" value="${Number(meta.baseArmor) || 0}">
                             </div>
+                            ${showExtendedArmorFields ? `
+                            <div class="gear-field-row">
+                                <label style="min-width:90px; font-weight:bold;" title="Maximum DEX modifier applied to AC from chest armor">Max Dex AC</label>
+                                <input id="meta_maxDexAc" type="number" min="0" step="1" value="${meta.maxDexAc === null || meta.maxDexAc === undefined ? '' : (Number(meta.maxDexAc) || 0)}" placeholder="blank = unlimited">
+                            </div>
+                            <div class="gear-field-row">
+                                <label style="min-width:90px; font-weight:bold;" title="Armor Check Penalty applied to STR/DEX skills at level 30">ACP</label>
+                                <input id="meta_armorCheckPenalty" type="number" step="1" value="${Number(meta.armorCheckPenalty) || 0}">
+                                <label style="min-width:80px; font-weight:bold;">Apply ACP</label>
+                                <label><input id="meta_applyArmorCheckPenalty" type="checkbox" ${meta.applyArmorCheckPenalty === true ? 'checked' : ''}> Enabled</label>
+                            </div>
+                            <div class="muted-note" title="Derived from crafted template metadata where available.">
+                                ${escapeHtml((() => {
+                                    const notes = [];
+                                    if (meta.baseArmorType) {
+                                        notes.push(`Type: ${meta.baseArmorType}`);
+                                    }
+                                    if (selectedTemplateEntry && selectedTemplateEntry.template) {
+                                        const sourcePage = String(selectedTemplateEntry.template.sourcePage || '').trim();
+                                        if (sourcePage) {
+                                            notes.push(`Source: ${sourcePage}`);
+                                        }
+                                    }
+                                    return notes.length > 0 ? notes.join(' | ') : 'Source: Manual entry';
+                                })())}
+                            </div>
+                            ` : ''}
                         </div>
                     </div>
                     ` : ''}
@@ -6954,14 +7491,22 @@
         };
         syncTagCheckboxes();
 
-        const bindInput = (selector, key, parser = (value) => value) => {
+        const bindInput = (selector, key, parser = (value) => value, options = {}) => {
+            const live = Boolean(options && options.live);
             const input = section.querySelector(selector);
             if (!input) return;
-            input.addEventListener('change', () => {
+
+            const applyValue = () => {
                 meta[key] = parser(input.value);
                 slotState.meta = meta;
                 scheduleGearRefreshAndValidation();
-            });
+            };
+
+            input.addEventListener('change', applyValue);
+
+            if (live) {
+                input.addEventListener('input', applyValue);
+            }
         };
 
         const bindCheckbox = (selector, key) => {
@@ -7129,7 +7674,20 @@
         bindInput('#meta_baseDamage', 'baseDamage', value => value || '');
         bindInput('#meta_critRange', 'critRange', value => value || '');
         bindInput('#meta_damageType', 'damageType', value => normalizeBaseDamageType(value));
-        bindInput('#meta_baseArmor', 'baseArmor', value => Math.max(0, parseInt(value, 10) || 0));
+        bindInput('#meta_baseArmor', 'baseArmor', value => Math.max(0, parseInt(value, 10) || 0), { live: true });
+        bindInput('#meta_maxDexAc', 'maxDexAc', value => {
+            const text = String(value === null || value === undefined ? '' : value).trim();
+            if (!text) return null;
+            const parsed = parseInt(text, 10);
+            if (Number.isNaN(parsed)) return null;
+            return Math.max(0, parsed);
+        }, { live: true });
+        bindInput('#meta_armorCheckPenalty', 'armorCheckPenalty', value => {
+            const parsed = parseInt(String(value || '').trim(), 10);
+            if (Number.isNaN(parsed)) return 0;
+            return parsed > 0 ? -parsed : parsed;
+        }, { live: true });
+        bindCheckbox('#meta_applyArmorCheckPenalty', 'applyArmorCheckPenalty');
         bindCheckbox('#meta_ranged', 'ranged');
         bindInput('#meta_classRestriction', 'classRestriction', value => value || '');
         bindInput('#meta_minClassLevel', 'minClassLevel', value => Math.max(0, parseInt(value, 10) || 0));
@@ -7151,6 +7709,92 @@
         if (!templateKey) return null;
         const entry = craftedTemplateLookup.get(templateKey);
         return entry && entry.template ? entry.template : null;
+    }
+
+    function getChestArmorMeta() {
+        const chestState = ensureSlotState('chest');
+        const chestMeta = chestState && chestState.meta && typeof chestState.meta === 'object'
+            ? chestState.meta
+            : getDefaultItemMeta();
+        const chestTemplate = getTemplateForSlot(chestState);
+        return {
+            slotState: chestState,
+            meta: chestMeta,
+            template: chestTemplate
+        };
+    }
+
+    function getChestArmorSourceLabel() {
+        const chestState = ensureSlotState('chest');
+        const chestName = String(chestState && chestState.name ? chestState.name : '').trim();
+        if (chestName) return chestName;
+        const template = getTemplateForSlot(chestState);
+        const itemName = String(template && template.itemName ? template.itemName : '').trim();
+        return itemName || 'Chest armor';
+    }
+
+    function getArmorDexCapForLevel(level) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return null;
+
+        const chest = getChestArmorMeta();
+        if (!chest || !chest.meta || chest.meta.applyArmorCheckPenalty !== true) return null;
+        const rawCap = chest && chest.meta ? chest.meta.maxDexAc : null;
+        if (rawCap === null || rawCap === undefined || rawCap === '') return null;
+
+        const parsedCap = parseInt(rawCap, 10);
+        if (Number.isNaN(parsedCap)) return null;
+        return Math.max(0, parsedCap);
+    }
+
+    function getArmorDexCapDetailsForLevel(level) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return [];
+
+        const cap = getArmorDexCapForLevel(numericLevel);
+        if (cap === null) return [];
+
+        const chest = getChestArmorMeta();
+        const sourcePage = String(chest && chest.template && chest.template.sourcePage ? chest.template.sourcePage : '').trim();
+        const armorType = String(chest && chest.meta && chest.meta.baseArmorType ? chest.meta.baseArmorType : '').trim();
+        const sourceName = getChestArmorSourceLabel();
+        const labelBits = [sourceName, armorType].filter(Boolean);
+        return [{
+            label: labelBits.join(' | ') || 'Chest armor',
+            value: cap,
+            sourcePage
+        }];
+    }
+
+    function getArmorCheckPenaltyValueForLevel(level) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return 0;
+
+        const chest = getChestArmorMeta();
+        if (!chest || !chest.meta || chest.meta.applyArmorCheckPenalty !== true) return 0;
+
+        const parsedPenalty = parseInt(chest.meta.armorCheckPenalty, 10);
+        if (Number.isNaN(parsedPenalty)) return 0;
+        return parsedPenalty > 0 ? -parsedPenalty : parsedPenalty;
+    }
+
+    function getArmorCheckPenaltyDetailsForLevel(level) {
+        const numericLevel = parseInt(level, 10) || 0;
+        if (numericLevel < 30) return [];
+
+        const chest = getChestArmorMeta();
+        const sourcePage = String(chest && chest.template && chest.template.sourcePage ? chest.template.sourcePage : '').trim();
+        const armorType = String(chest && chest.meta && chest.meta.baseArmorType ? chest.meta.baseArmorType : '').trim();
+        const sourceName = getChestArmorSourceLabel();
+        const labelBits = [sourceName, armorType].filter(Boolean);
+        const penalty = getArmorCheckPenaltyValueForLevel(numericLevel);
+
+        return [{
+            label: labelBits.join(' | ') || 'Chest armor',
+            value: penalty,
+            enabled: Boolean(chest && chest.meta && chest.meta.applyArmorCheckPenalty !== false),
+            sourcePage
+        }];
     }
 
     function normalizeStatRequirementKey(statName) {
@@ -7844,6 +8488,10 @@
     window.getSongSkillBonusForSkill = getSongSkillBonusForSkill;
     window.getItemStatBonusForStat = getItemStatBonusForStat;
     window.getItemStatBonusDetailsForStat = getItemStatBonusDetailsForStat;
+    window.getArmorDexCapForLevel = getArmorDexCapForLevel;
+    window.getArmorDexCapDetailsForLevel = getArmorDexCapDetailsForLevel;
+    window.getArmorCheckPenaltyValueForLevel = getArmorCheckPenaltyValueForLevel;
+    window.getArmorCheckPenaltyDetailsForLevel = getArmorCheckPenaltyDetailsForLevel;
     window.getExternalSaveBonusForType = getExternalSaveBonusForType;
     window.getActiveBuffObjects = () => getActiveBuffObjects(getCurrentCharacterLevel(), buildGearEffects());
 

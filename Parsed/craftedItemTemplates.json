@@ -3784,7 +3784,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -3842,7 +3846,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -3900,7 +3908,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -3966,7 +3978,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -4047,7 +4063,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -4120,7 +4140,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -26043,7 +26067,11 @@
         "notes": [
           "Only usable while mounted"
         ]
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -26729,7 +26757,11 @@
         "notes": [
           "Only usable while mounted"
         ]
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -43923,7 +43955,11 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -49866,7 +49902,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -49915,7 +49956,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -49973,7 +50019,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50039,7 +50090,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50113,7 +50169,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50195,7 +50256,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50285,7 +50351,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50391,7 +50462,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50587,7 +50663,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50689,7 +50770,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50799,7 +50885,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50885,7 +50976,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -50961,7 +51057,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51040,7 +51141,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51125,7 +51231,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51232,7 +51343,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51361,7 +51477,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51465,7 +51586,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51569,7 +51695,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51671,7 +51802,12 @@
         "notes": [
           "Immunity Damage Type: Physical 10%"
         ]
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51806,7 +51942,12 @@
         "notes": [
           "Immunity Damage Type: Fire, Cold, Acid, Electricity [5%]"
         ]
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -51896,7 +52037,12 @@
           "Passive Concealment 30%",
           "Mundane"
         ]
-      }
+      },
+      "baseArmorType": "Cloth Clothing Armor",
+      "baseArmor": 0,
+      "maxDexAc": null,
+      "arcaneSpellFailure": 0,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -54239,7 +54385,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54288,7 +54439,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54346,7 +54502,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54412,7 +54573,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54493,7 +54659,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54559,7 +54730,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54638,7 +54814,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54714,7 +54895,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54798,7 +54984,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54896,7 +55087,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -54990,7 +55186,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Full Plate Armor",
+      "baseArmor": 8,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 45,
+      "armorCheckPenalty": -8
     },
     "requirements": {
       "level": null,
@@ -56041,7 +56242,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56090,7 +56296,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56148,7 +56359,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56214,7 +56430,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56295,7 +56516,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56361,7 +56587,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56435,7 +56666,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56533,7 +56769,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56609,7 +56850,12 @@
         "notes": [
           "Cooldown Reduction : Knight Ability [Oath of Wrath] -1 Turn"
         ]
-      }
+      },
+      "baseArmorType": "Half Plate Armor",
+      "baseArmor": 7,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56709,7 +56955,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56758,7 +57009,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56816,7 +57072,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56882,7 +57143,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -56963,7 +57229,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -57021,7 +57292,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -57087,7 +57363,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Heavy Banded/Splint Armor",
+      "baseArmor": 6,
+      "maxDexAc": 1,
+      "arcaneSpellFailure": 40,
+      "armorCheckPenalty": -7
     },
     "requirements": {
       "level": null,
@@ -58245,7 +58526,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58294,7 +58576,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58359,7 +58642,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58424,7 +58708,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58489,7 +58774,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58547,7 +58833,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58605,7 +58892,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58671,7 +58959,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58752,7 +59041,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58818,7 +59108,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58886,7 +59177,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -58951,7 +59243,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -59037,7 +59330,8 @@
         "notes": [
           "Armor bonus vs target uses deflection AC modifier"
         ]
-      }
+      },
+      "baseArmorType": "Large Shield"
     },
     "requirements": {
       "level": null,
@@ -59119,7 +59413,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59168,7 +59467,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59226,7 +59530,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59296,7 +59605,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59372,7 +59686,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59454,7 +59773,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59520,7 +59844,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": 21,
@@ -59604,7 +59933,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59674,7 +60008,12 @@
           "Immunity Damage Type: Slashing [5%]",
           "Divine Shield is ineffective while wearing this armour."
         ]
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": 21,
@@ -59777,7 +60116,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59899,7 +60243,12 @@
         "notes": [
           "Only craftable by : Aquatic Elf"
         ]
-      }
+      },
+      "baseArmorType": "Light Hide/Studded Leather Armor",
+      "baseArmor": 3,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -1
     },
     "requirements": {
       "level": null,
@@ -59984,7 +60333,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60033,7 +60387,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60091,7 +60450,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60157,7 +60521,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60247,7 +60616,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60341,7 +60715,12 @@
         "notes": [
           "Passive Concealment 30%"
         ]
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60407,7 +60786,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60495,7 +60879,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Leather Armor",
+      "baseArmor": 2,
+      "maxDexAc": 6,
+      "arcaneSpellFailure": 10,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60628,7 +61017,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60677,7 +61071,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60735,7 +61134,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60793,7 +61197,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60851,7 +61260,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -60952,7 +61366,12 @@
         "notes": [
           "Armor bonus vs target uses deflection AC modifier"
         ]
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -61119,7 +61538,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -61210,7 +61634,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -61287,7 +61716,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -61374,7 +61808,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Light Padded Armor",
+      "baseArmor": 1,
+      "maxDexAc": 8,
+      "arcaneSpellFailure": 5,
+      "armorCheckPenalty": 0
     },
     "requirements": {
       "level": null,
@@ -61505,7 +61944,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61554,7 +61998,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61612,7 +62061,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61678,7 +62132,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61759,7 +62218,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61817,7 +62281,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -61885,7 +62354,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -62002,7 +62476,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -62119,7 +62598,12 @@
         "notes": [
           "DEV Note: Elven chain counts as light armor for most interactions with an exception for base game behavior like ranger dual wield."
         ]
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -62237,7 +62721,12 @@
         "notes": [
           "Armor bonus vs target uses deflection AC modifier"
         ]
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -62382,7 +62871,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Chain Armor",
+      "baseArmor": 4,
+      "maxDexAc": 4,
+      "arcaneSpellFailure": 20,
+      "armorCheckPenalty": -2
     },
     "requirements": {
       "level": null,
@@ -62456,7 +62950,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62505,7 +63004,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62563,7 +63067,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62629,7 +63138,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62710,7 +63224,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62768,7 +63287,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62836,7 +63360,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -62946,7 +63475,12 @@
         "notes": [
           "Cannot use Divine Shield whilst wearing this Armour"
         ]
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -63042,7 +63576,12 @@
           "Immunity Damage Type: Entropy 10%",
           "Divine Shield is ineffective while wearing this armour."
         ]
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -63134,7 +63673,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -63216,7 +63760,12 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Medium Scale/Breastplate Armor",
+      "baseArmor": 5,
+      "maxDexAc": 2,
+      "arcaneSpellFailure": 30,
+      "armorCheckPenalty": -5
     },
     "requirements": {
       "level": null,
@@ -63552,7 +64101,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63601,7 +64151,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63659,7 +64210,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63717,7 +64269,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63783,7 +64336,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63849,7 +64403,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63930,7 +64485,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -63996,7 +64552,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Small Shield"
     },
     "requirements": {
       "level": null,
@@ -64062,7 +64619,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64111,7 +64669,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64169,7 +64728,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64227,7 +64787,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64293,7 +64854,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64374,7 +64936,8 @@
         "touchAttack": false,
         "ammoNotes": [],
         "notes": []
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": null,
@@ -64443,7 +65006,8 @@
           "Material: Adamantine, Iron, Mithral, Steel",
           "Quality: Masterwork"
         ]
-      }
+      },
+      "baseArmorType": "Tower Shield"
     },
     "requirements": {
       "level": 21,

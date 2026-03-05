@@ -1,6 +1,32 @@
 {
   "schemaVersion": "1.0.0",
   "entityType": "combat-buffs",
+  "groups": [
+    {
+      "id": "spell",
+      "name": "spell",
+      "label": "Spells",
+      "color": "",
+      "uiOrder": 10,
+      "notes": null
+    },
+    {
+      "id": "zoo_spells",
+      "name": "zoo_spells",
+      "label": "Zoo Spells",
+      "color": "",
+      "uiOrder": 20,
+      "notes": null
+    },
+    {
+      "id": "mage_armors",
+      "name": "mage_armors",
+      "label": "Mage Armor",
+      "color": "",
+      "uiOrder": 30,
+      "notes": null
+    }
+  ],
   "items": [
     {
       "id": "aid",
@@ -298,6 +324,7 @@
       "id": "bulls_strength",
       "name": "bulls_strength",
       "label": "Bull's Strength",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
@@ -325,6 +352,7 @@
       "id": "bears_endurance",
       "name": "bears_endurance",
       "label": "Bear's Endurance",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
@@ -352,6 +380,7 @@
       "id": "eagles_splendor",
       "name": "eagles_splendor",
       "label": "Eagle's Splendor",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
@@ -379,6 +408,7 @@
       "id": "owls_wisdom",
       "name": "owls_wisdom",
       "label": "Owl's Wisdom",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
@@ -406,6 +436,7 @@
       "id": "cats_grace",
       "name": "cats_grace",
       "label": "Cat's Grace",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
@@ -430,9 +461,139 @@
       "derivedEffects": []
     },
     {
+      "id": "barkskin",
+      "name": "barkskin",
+      "label": "Barkskin",
+      "description": "Natural AC bonus",
+      "category": "spell",
+      "modifies": [
+        "naturalAc"
+      ],
+      "mode": "flat",
+      "value": 1,
+      "hasCasterLevel": true,
+      "minCasterLevel": 1,
+      "maxCasterLevel": 6,
+      "hasSecondCast": false,
+      "secondCastMode": null,
+      "secondCastValue": null,
+      "statBuff": null,
+      "mutuallyExclusiveWith": [],
+      "requiresFeat": null,
+      "requiresClass": null,
+      "requiresClassLevel": null,
+      "notes": null,
+      "enabledByDefault": false,
+      "uiOrder": 145,
+      "derivedEffects": []
+    },
+    {
+      "id": "mage_armor",
+      "name": "mage_armor",
+      "label": "Mage Armor",
+      "groupId": "mage_armors",
+      "description": "Tier 1 mage armor package",
+      "category": "spell",
+      "modifies": [
+        "naturalAc",
+        "dodgeAc",
+        "deflectionAc",
+        "armorAc"
+      ],
+      "mode": "flat",
+      "value": 1,
+      "hasCasterLevel": false,
+      "minCasterLevel": null,
+      "maxCasterLevel": null,
+      "hasSecondCast": false,
+      "secondCastMode": null,
+      "secondCastValue": null,
+      "statBuff": null,
+      "mutuallyExclusiveWith": [
+        "greater_mage_armor",
+        "epic_mage_armor"
+      ],
+      "requiresFeat": null,
+      "requiresClass": null,
+      "requiresClassLevel": null,
+      "notes": null,
+      "enabledByDefault": false,
+      "uiOrder": 146,
+      "derivedEffects": []
+    },
+    {
+      "id": "greater_mage_armor",
+      "name": "greater_mage_armor",
+      "label": "Greater Mage Armor",
+      "groupId": "mage_armors",
+      "description": "Tier 2 mage armor package",
+      "category": "spell",
+      "modifies": [
+        "naturalAc",
+        "dodgeAc",
+        "deflectionAc",
+        "armorAc"
+      ],
+      "mode": "flat",
+      "value": 2,
+      "hasCasterLevel": false,
+      "minCasterLevel": null,
+      "maxCasterLevel": null,
+      "hasSecondCast": false,
+      "secondCastMode": null,
+      "secondCastValue": null,
+      "statBuff": null,
+      "mutuallyExclusiveWith": [
+        "mage_armor",
+        "epic_mage_armor"
+      ],
+      "requiresFeat": null,
+      "requiresClass": null,
+      "requiresClassLevel": null,
+      "notes": null,
+      "enabledByDefault": false,
+      "uiOrder": 147,
+      "derivedEffects": []
+    },
+    {
+      "id": "epic_mage_armor",
+      "name": "epic_mage_armor",
+      "label": "Epic Mage Armor",
+      "groupId": "mage_armors",
+      "description": "Tier 3 mage armor package",
+      "category": "spell",
+      "modifies": [
+        "naturalAc",
+        "dodgeAc",
+        "deflectionAc",
+        "armorAc"
+      ],
+      "mode": "flat",
+      "value": 5,
+      "hasCasterLevel": false,
+      "minCasterLevel": null,
+      "maxCasterLevel": null,
+      "hasSecondCast": false,
+      "secondCastMode": null,
+      "secondCastValue": null,
+      "statBuff": null,
+      "mutuallyExclusiveWith": [
+        "mage_armor",
+        "greater_mage_armor"
+      ],
+      "requiresFeat": null,
+      "requiresClass": null,
+      "requiresClassLevel": null,
+      "notes": null,
+      "enabledByDefault": false,
+      "uiOrder": 148,
+      "derivedEffects": []
+    },
+    {
       "id": "foxes_cunning",
       "name": "foxes_cunning",
       "label": "Fox's Cunning",
+      "groupId": "zoo_spells",
       "description": "",
       "category": "spell",
       "modifies": [
