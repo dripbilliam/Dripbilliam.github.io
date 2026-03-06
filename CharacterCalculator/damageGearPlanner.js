@@ -894,6 +894,14 @@
         };
     }
 
+    function createDefaultSkillAcState() {
+        return {
+            tumbleEnabled: false,
+            rideEnabled: false,
+            parryEnabled: false
+        };
+    }
+
     function ensureLazyProxyState() {
         if (!state.lazyProxy || typeof state.lazyProxy !== 'object') {
             state.lazyProxy = createDefaultLazyProxyState();
@@ -956,6 +964,37 @@
                 ? selected
                 : def.defaultValue;
         });
+    }
+
+    function ensureSkillAcState() {
+        if (!state.skillAc || typeof state.skillAc !== 'object') {
+            state.skillAc = createDefaultSkillAcState();
+            return;
+        }
+
+        if (typeof state.skillAc.tumbleEnabled !== 'boolean') {
+            state.skillAc.tumbleEnabled = false;
+        }
+        if (typeof state.skillAc.rideEnabled !== 'boolean') {
+            state.skillAc.rideEnabled = false;
+        }
+        if (typeof state.skillAc.parryEnabled !== 'boolean') {
+            state.skillAc.parryEnabled = false;
+        }
+
+        if (state.skillAc.tumbleEnabled && state.skillAc.rideEnabled) {
+            state.skillAc.tumbleEnabled = false;
+        }
+
+        if (typeof state.skillAc.mounted === 'boolean') {
+            const hasExplicitToggle = Object.prototype.hasOwnProperty.call(state.skillAc, 'tumbleEnabled')
+                || Object.prototype.hasOwnProperty.call(state.skillAc, 'rideEnabled');
+            if (!hasExplicitToggle) {
+                state.skillAc.rideEnabled = Boolean(state.skillAc.mounted);
+                state.skillAc.tumbleEnabled = !state.skillAc.rideEnabled;
+            }
+            delete state.skillAc.mounted;
+        }
     }
 
     function normalizeBaseDamageType(rawType) {
@@ -1051,12 +1090,14 @@
             classRuleDrawerOpen: {},
             lazyDrawerOpen: true,
             damageSubtab: 'planner',
-            debugSubtab: 'summary'
+            debugSubtab: 'summary',
+            debugPresetIndex: 0
         },
         buffs: {},
         lazyProxy: createDefaultLazyProxyState(),
         classAttackToggles: createDefaultClassAttackToggleState(),
         classBonusOptions: createDefaultClassBonusOptions(),
+        skillAc: createDefaultSkillAcState(),
         targeting: {
             alignment: 'any',
             race: '',
@@ -1076,6 +1117,7 @@
     let craftedTemplateEntries = [];
     let craftedTemplateLookup = new Map();
     let craftedTemplatesLoaded = false;
+    let debugClassPresetEntries = [];
     let pendingGearRefresh = false;
     let softErrorSlotKeys = new Set();
     let lastCombatDebugSnapshot = null;
@@ -1275,6 +1317,140 @@
         }
 
         setCraftedTemplates([]);
+    }
+
+    function normalizeDebugClassPresetRows(rows) {
+        if (!Array.isArray(rows)) return [];
+        return rows
+            .map((row, index) => {
+                if (!row || typeof row !== 'object') return null;
+                const name = String(row.name || '').trim();
+                const description = String(row.description || '').trim();
+                const encodedSave = String(row.encodedSave || row.save || row.code || '').trim();
+                if (!name || !encodedSave) return null;
+                return {
+                    id: String(row.id || `${name}-${index}`),
+                    name,
+                    description,
+                    encodedSave
+                };
+            })
+            .filter(Boolean);
+    }
+
+    function setDebugClassPresets(rows) {
+        debugClassPresetEntries = normalizeDebugClassPresetRows(rows);
+        const maxIndex = Math.max(0, debugClassPresetEntries.length - 1);
+        const nextIndex = Number(state.ui.debugPresetIndex) || 0;
+        state.ui.debugPresetIndex = Math.min(Math.max(0, nextIndex), maxIndex);
+        renderDebugClassPresetEditor();
+    }
+
+    async function loadDebugClassPresets() {
+        const candidates = [
+            './debugPresets/classPresets.json',
+            '/CharacterCalculator/debugPresets/classPresets.json',
+            '/debugPresets/classPresets.json'
+        ];
+
+        for (const url of candidates) {
+            try {
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) continue;
+                const json = await response.json();
+                if (Array.isArray(json)) {
+                    setDebugClassPresets(json);
+                    if (rootEls && rootEls.debugClassPresetStatus) {
+                        rootEls.debugClassPresetStatus.textContent = `Loaded ${debugClassPresetEntries.length} preset(s).`;
+                    }
+                    return;
+                }
+            } catch {
+                continue;
+            }
+        }
+
+        setDebugClassPresets([]);
+        if (rootEls && rootEls.debugClassPresetStatus) {
+            rootEls.debugClassPresetStatus.textContent = 'No presets loaded (debugPresets/classPresets.json not found).';
+        }
+    }
+
+    function renderDebugClassPresetEditor() {
+        if (!rootEls) return;
+
+        const select = rootEls.debugClassPresetSelect;
+        const descriptionEl = rootEls.debugClassPresetDescription;
+
+        if (select) {
+            select.innerHTML = '';
+            if (!debugClassPresetEntries.length) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No presets available';
+                select.appendChild(option);
+                select.disabled = true;
+            } else {
+                debugClassPresetEntries.forEach((preset, index) => {
+                    const option = document.createElement('option');
+                    option.value = String(index);
+                    option.textContent = preset.name;
+                    select.appendChild(option);
+                });
+                select.disabled = false;
+                const selectedIndex = Math.min(Math.max(0, Number(state.ui.debugPresetIndex) || 0), debugClassPresetEntries.length - 1);
+                state.ui.debugPresetIndex = selectedIndex;
+                select.value = String(selectedIndex);
+            }
+        }
+
+        const selectedPreset = debugClassPresetEntries[Number(state.ui.debugPresetIndex) || 0] || null;
+        if (descriptionEl) {
+            descriptionEl.textContent = selectedPreset
+                ? (selectedPreset.description || 'No description provided.')
+                : 'No preset description available.';
+        }
+    }
+
+    async function applySelectedDebugClassPreset() {
+        const preset = debugClassPresetEntries[Number(state.ui.debugPresetIndex) || 0];
+        if (!preset) {
+            if (rootEls && rootEls.debugClassPresetStatus) {
+                rootEls.debugClassPresetStatus.textContent = 'No preset selected.';
+            }
+            return;
+        }
+
+        if (typeof window.decodeCharacterFromShareText !== 'function' || typeof window.applyCharacterSnapshot !== 'function') {
+            if (rootEls && rootEls.debugClassPresetStatus) {
+                rootEls.debugClassPresetStatus.textContent = 'Cannot load preset: share import helpers are unavailable.';
+            }
+            return;
+        }
+
+        if (rootEls && rootEls.debugClassPresetStatus) {
+            rootEls.debugClassPresetStatus.textContent = `Loading preset: ${preset.name}...`;
+        }
+
+        try {
+            const parsed = await window.decodeCharacterFromShareText(preset.encodedSave);
+            window.applyCharacterSnapshot(parsed);
+
+            if (typeof window.getCharacterSnapshot === 'function') {
+                localStorage.setItem('dnd_character', JSON.stringify(window.getCharacterSnapshot()));
+            }
+
+            renderSummaries();
+
+            if (rootEls && rootEls.debugClassPresetStatus) {
+                rootEls.debugClassPresetStatus.textContent = `Loaded preset: ${preset.name}`;
+            }
+        } catch (error) {
+            if (rootEls && rootEls.debugClassPresetStatus) {
+                const message = error && error.message ? error.message : 'Unknown import error';
+                rootEls.debugClassPresetStatus.textContent = `Failed to load preset: ${message}`;
+            }
+        }
     }
 
     async function loadBardSongTables() {
@@ -2356,9 +2532,15 @@
             gearDebugOutput: document.getElementById('gearDebugSnapshotOutput'),
             debugSubtabSummaryBtn: document.getElementById('debugSubtabSummary'),
             debugSubtabVerboseBtn: document.getElementById('debugSubtabVerbose'),
+            debugSubtabPresetsBtn: document.getElementById('debugSubtabPresets'),
             debugSubtabSummaryPanel: document.getElementById('debugSubtabSummaryPanel'),
             debugSubtabVerbosePanel: document.getElementById('debugSubtabVerbosePanel'),
-            gearDebugVerboseOutput: document.getElementById('gearDebugVerboseOutput')
+            debugSubtabPresetsPanel: document.getElementById('debugSubtabPresetsPanel'),
+            gearDebugVerboseOutput: document.getElementById('gearDebugVerboseOutput'),
+            debugClassPresetSelect: document.getElementById('debugClassPresetSelect'),
+            loadDebugClassPresetBtn: document.getElementById('loadDebugClassPresetBtn'),
+            debugClassPresetDescription: document.getElementById('debugClassPresetDescription'),
+            debugClassPresetStatus: document.getElementById('debugClassPresetStatus')
         };
 
         if (!rootEls.paperDoll) return;
@@ -2423,6 +2605,24 @@
             rootEls.debugSubtabVerboseBtn.addEventListener('click', () => switchDebugSubtab('verbose'));
         }
 
+        if (rootEls.debugSubtabPresetsBtn) {
+            rootEls.debugSubtabPresetsBtn.addEventListener('click', () => switchDebugSubtab('presets'));
+        }
+
+        if (rootEls.debugClassPresetSelect) {
+            rootEls.debugClassPresetSelect.addEventListener('change', () => {
+                const nextIndex = Number(rootEls.debugClassPresetSelect.value);
+                state.ui.debugPresetIndex = Number.isFinite(nextIndex) ? nextIndex : 0;
+                renderDebugClassPresetEditor();
+            });
+        }
+
+        if (rootEls.loadDebugClassPresetBtn) {
+            rootEls.loadDebugClassPresetBtn.addEventListener('click', () => {
+                applySelectedDebugClassPreset();
+            });
+        }
+
         if (rootEls.damageSimRunBtn) {
             rootEls.damageSimRunBtn.addEventListener('click', () => {
                 runDamageSimulationGraph();
@@ -2438,6 +2638,9 @@
                 runGearDebugSnapshotCapture();
             });
         }
+
+        await loadDebugClassPresets();
+        renderDebugClassPresetEditor();
 
         switchDebugSubtab(state.ui.debugSubtab || 'summary');
 
@@ -3023,6 +3226,9 @@
                 dodge: [],
                 other: []
             },
+            flatFootedExclusions: {
+                other: 0
+            },
             saveBonus: { fort: 0, ref: 0, will: 0 },
             attackBonus: 0,
             enhancementAttackBonus: 0,
@@ -3058,6 +3264,9 @@
                     natural: [],
                     deflection: [],
                     dodge: [],
+                    other: []
+                },
+                flatFootedExclusions: {
                     other: []
                 },
                 spellResistance: [],
@@ -3167,6 +3376,8 @@
         const deflection = Math.max(0, ...effects.acBuckets.deflection);
         const dodge = Math.min(20, effects.acBuckets.dodge.reduce((sum, value) => sum + value, 0));
         const other = effects.acBuckets.other.reduce((sum, value) => sum + value, 0);
+        const excludedOtherFlatFooted = Math.max(0, Number(effects && effects.flatFootedExclusions ? effects.flatFootedExclusions.other : 0) || 0);
+        const otherInFlatFooted = other - excludedOtherFlatFooted;
         const softStats = getCharacterSoftStatsAtLevel(numericLevel);
         const mods = getAbilityModifiersFromStats(softStats);
         const dexModRaw = Number(mods.dex) || 0;
@@ -3180,8 +3391,8 @@
         const flatFootedDex = hasDexRetainFlatFootedFeat ? dexMod : 0;
         const baseAc = 10;
         const touch = baseAc + deflection + dodge + dexMod + other;
-        const flatFooted = baseAc + armor + shield + natural + deflection + other + flatFootedDex;
-        const touchFlatFooted = baseAc + deflection + other + flatFootedDex;
+        const flatFooted = baseAc + armor + shield + natural + deflection + otherInFlatFooted + flatFootedDex;
+        const touchFlatFooted = baseAc + deflection + otherInFlatFooted + flatFootedDex;
 
         return {
             baseAc,
@@ -3195,6 +3406,8 @@
             deflection,
             dodge,
             other,
+            excludedOtherFlatFooted,
+            otherInFlatFooted,
             dexModRaw,
             dexCap,
             dexMod,
@@ -5170,6 +5383,7 @@
         if (!rootEls || !rootEls.buffList) return;
 
         ensureLazyProxyState();
+        ensureSkillAcState();
         state.ui.buffGroupDrawerOpen = state.ui && state.ui.buffGroupDrawerOpen && typeof state.ui.buffGroupDrawerOpen === 'object'
             ? state.ui.buffGroupDrawerOpen
             : {};
@@ -5363,6 +5577,92 @@
                     state.ui.buffGroupDrawerOpen[groupId] = nextOpen;
                 });
             });
+
+        const skillAcGroupId = 'skill_ac_group';
+        const skillAcBonuses = getSkillAcBonusesAtLevel30(base);
+        const skillAcOpen = Object.prototype.hasOwnProperty.call(state.ui.buffGroupDrawerOpen, skillAcGroupId)
+            ? Boolean(state.ui.buffGroupDrawerOpen[skillAcGroupId])
+            : true;
+
+        const skillDrawer = document.createElement('div');
+        skillDrawer.className = `gear-drawer ${skillAcOpen ? 'open' : ''}`;
+
+        const skillHeader = document.createElement('button');
+        skillHeader.type = 'button';
+        skillHeader.className = 'gear-drawer-header';
+        skillHeader.textContent = 'Skill AC (L30 Hard Ranks)';
+
+        const skillBody = document.createElement('div');
+        skillBody.className = 'gear-drawer-body';
+
+        const addSkillToggleRow = (key, labelText, mutuallyExclusiveKey = null) => {
+            const row = document.createElement('div');
+            row.className = 'gear-field-row';
+
+            const toggle = document.createElement('input');
+            toggle.type = 'checkbox';
+            toggle.checked = Boolean(state.skillAc[key]);
+            toggle.addEventListener('change', () => {
+                const nextValue = Boolean(toggle.checked);
+                state.skillAc[key] = nextValue;
+                if (nextValue && mutuallyExclusiveKey) {
+                    state.skillAc[mutuallyExclusiveKey] = false;
+                }
+                renderBuffsEditor();
+                scheduleGearRefreshAndValidation();
+            });
+
+            const label = document.createElement('label');
+            label.style.minWidth = '220px';
+            label.style.fontWeight = 'bold';
+            label.textContent = labelText;
+
+            row.appendChild(toggle);
+            row.appendChild(label);
+            skillBody.appendChild(row);
+        };
+
+        addSkillToggleRow('tumbleEnabled', 'Enable Tumble AC', 'rideEnabled');
+        addSkillToggleRow('rideEnabled', 'Enable Ride AC', 'tumbleEnabled');
+        addSkillToggleRow('parryEnabled', 'Enable Parry AC');
+
+        const lines = [
+            `Hard ranks @ L30 — Tumble ${skillAcBonuses.hardRanks.tumble}, Ride ${skillAcBonuses.hardRanks.ride}, Parry ${skillAcBonuses.hardRanks.parry}`,
+            `Tumble → Other AC: +${skillAcBonuses.tumble.bonus} (enabled ${skillAcBonuses.toggles.tumbleEnabled ? 'yes' : 'no'}; formula ⌊${skillAcBonuses.hardRanks.tumble}/5⌋; excluded when flat-footed)`,
+            `Ride → Dodge AC: +${skillAcBonuses.ride.bonus} (enabled ${skillAcBonuses.toggles.rideEnabled ? 'yes' : 'no'}; formula ⌊(${skillAcBonuses.hardRanks.ride} + Cavalier ${skillAcBonuses.ride.cavalierLevel})/7⌋, cap +4)`
+        ];
+
+        if (!skillAcBonuses.ride.validation.passed && skillAcBonuses.ride.validation.failedBy) {
+            lines.push(`Ride validation: failed (${skillAcBonuses.ride.validation.failedBy})`);
+        } else {
+            lines.push('Ride validation: passed');
+        }
+
+        const parryReq = skillAcBonuses.parry.requirements;
+        lines.push(
+            `Parry → Shield AC: +${skillAcBonuses.parry.bonus} (enabled ${skillAcBonuses.toggles.parryEnabled ? 'yes' : 'no'}; tier ${skillAcBonuses.parry.rankTier}, BAB cap ${skillAcBonuses.parry.babCap}; reqs: off-hand empty ${parryReq.offHandEmpty ? 'yes' : 'no'}, monk levels ${parryReq.noMonkLevels ? 'none' : 'present'}, weapon allowed ${parryReq.weaponAllowed ? 'yes' : 'no'})`
+        );
+
+        if (!skillAcBonuses.parry.validation.passed && Array.isArray(skillAcBonuses.parry.validation.failedBy) && skillAcBonuses.parry.validation.failedBy.length > 0) {
+            lines.push(`Parry validation: failed (${skillAcBonuses.parry.validation.failedBy.join('; ')})`);
+        } else {
+            lines.push('Parry validation: passed');
+        }
+
+        lines.forEach(text => {
+            const note = document.createElement('div');
+            note.className = 'muted-note';
+            note.textContent = text;
+            skillBody.appendChild(note);
+        });
+
+        skillDrawer.appendChild(skillHeader);
+        skillDrawer.appendChild(skillBody);
+        rootEls.buffList.appendChild(skillDrawer);
+
+        attachDrawerHeaderToggle(skillHeader, skillDrawer, (nextOpen) => {
+            state.ui.buffGroupDrawerOpen[skillAcGroupId] = nextOpen;
+        });
 
         const lazyContainer = document.createElement('div');
         lazyContainer.className = `gear-drawer ${state.ui.lazyDrawerOpen ? 'open' : ''}`;
@@ -5867,6 +6167,48 @@
             }
         }
 
+        const skillAcBonuses = getSkillAcBonusesAtLevel30(base);
+        const tumbleOther = Math.max(0, Number(skillAcBonuses && skillAcBonuses.tumble ? skillAcBonuses.tumble.bonus : 0) || 0);
+        const rideDodge = Math.max(0, Number(skillAcBonuses && skillAcBonuses.ride ? skillAcBonuses.ride.bonus : 0) || 0);
+        const parryShield = Math.max(0, Number(skillAcBonuses && skillAcBonuses.parry ? skillAcBonuses.parry.bonus : 0) || 0);
+
+        if (tumbleOther > 0) {
+            effects.acBuckets.other.push(tumbleOther);
+            effects.flatFootedExclusions.other += tumbleOther;
+            if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets.other)) {
+                effects.sourceDetails.acBuckets.other.push({
+                    label: 'Skill AC • Tumble hard ranks (L30)',
+                    value: tumbleOther
+                });
+            }
+            if (effects.sourceDetails && effects.sourceDetails.flatFootedExclusions && Array.isArray(effects.sourceDetails.flatFootedExclusions.other)) {
+                effects.sourceDetails.flatFootedExclusions.other.push({
+                    label: 'Tumble bonus excluded while flat-footed',
+                    value: tumbleOther
+                });
+            }
+        }
+
+        if (rideDodge > 0) {
+            effects.acBuckets.dodge.push(rideDodge);
+            if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets.dodge)) {
+                effects.sourceDetails.acBuckets.dodge.push({
+                    label: 'Skill AC • Ride hard ranks (mounted)',
+                    value: rideDodge
+                });
+            }
+        }
+
+        if (parryShield > 0) {
+            effects.acBuckets.shield.push(parryShield);
+            if (effects.sourceDetails && effects.sourceDetails.acBuckets && Array.isArray(effects.sourceDetails.acBuckets.shield)) {
+                effects.sourceDetails.acBuckets.shield.push({
+                    label: 'Skill AC • Parry hard ranks',
+                    value: parryShield
+                });
+            }
+        }
+
         const ac = computeStackedAc(effects, base.level);
         const abilityCombatMods = getWeaponAbilityModifiers(base.level, {
             strOverrideMin: buffEffects.strOverrideMin,
@@ -5972,7 +6314,8 @@
             averageHitDamage,
             averageCritHitDamage,
             averageCritOnlyBonus,
-            critProfile
+            critProfile,
+            skillAcBonuses
         };
     }
 
@@ -6521,9 +6864,12 @@
     }
 
     function switchDebugSubtab(tabName) {
-        const targetTab = String(tabName || '').trim().toLowerCase() === 'verbose'
+        const normalized = String(tabName || '').trim().toLowerCase();
+        const targetTab = normalized === 'verbose'
             ? 'verbose'
-            : 'summary';
+            : normalized === 'presets'
+                ? 'presets'
+                : 'summary';
         state.ui.debugSubtab = targetTab;
 
         if (rootEls.debugSubtabSummaryBtn) {
@@ -6532,11 +6878,17 @@
         if (rootEls.debugSubtabVerboseBtn) {
             rootEls.debugSubtabVerboseBtn.classList.toggle('active', targetTab === 'verbose');
         }
+        if (rootEls.debugSubtabPresetsBtn) {
+            rootEls.debugSubtabPresetsBtn.classList.toggle('active', targetTab === 'presets');
+        }
         if (rootEls.debugSubtabSummaryPanel) {
             rootEls.debugSubtabSummaryPanel.classList.toggle('active', targetTab === 'summary');
         }
         if (rootEls.debugSubtabVerbosePanel) {
             rootEls.debugSubtabVerbosePanel.classList.toggle('active', targetTab === 'verbose');
+        }
+        if (rootEls.debugSubtabPresetsPanel) {
+            rootEls.debugSubtabPresetsPanel.classList.toggle('active', targetTab === 'presets');
         }
     }
 
@@ -6666,10 +7018,6 @@
         const abilityCombatMods = snapshot && snapshot.abilityCombatMods ? snapshot.abilityCombatMods : {};
         const ac = derived && derived.ac ? derived.ac : {};
         const combatDebug = combined && combined.combat_debug_snapshot ? combined.combat_debug_snapshot : {};
-        const projectValidation = typeof window.getCharacterValidationDebugReport === 'function'
-            ? window.getCharacterValidationDebugReport()
-            : null;
-
         const attackCalc = {
             formula: 'effectiveBab + cappedAttack + featAttack + classAttack + songAttack + uncappedBuffAttack + abilityAttackMod',
             inputs: {
@@ -6724,26 +7072,12 @@
             }
         ];
 
+        const projectValidation = typeof window.getCharacterValidationDebugReport === 'function'
+            ? window.getCharacterValidationDebugReport()
+            : null;
+
         return {
             generatedAt: new Date().toISOString(),
-            intent: {
-                whatItDoes: [
-                    'Builds a complete combat snapshot from base stats, gear effects, buffs, song effects, feat modifiers, and class-specific modifiers.',
-                    'Computes attack bonus sequence, damage model, crit profile, saves, HP, spell resistance, and AC variants.',
-                    'Captures debug verification nodes for wiring and key buff requirement checks.'
-                ],
-                whyItDoesIt: [
-                    'To explain final combat numbers with explicit dependencies and source traces.',
-                    'To verify runtime requirements before trusting derived outputs.',
-                    'To expose formula inputs and outputs for debugging regressions quickly.'
-                ],
-                touches: [
-                    'state.slots (item meta + properties)',
-                    'state.buffs / state.song / state.classAttackToggles / state.classBonusOptions',
-                    'combat definition registries (buff rules, class rules, song data)',
-                    'derived combat pipeline (buildGearEffects -> getCombatSnapshot -> renderSummaries)'
-                ]
-            },
             requirements: {
                 checks: requirementChecks,
                 plannerContext: {
@@ -6752,8 +7086,6 @@
                 }
             },
             projectValidation: {
-                available: Boolean(projectValidation),
-                source: 'window.getCharacterValidationDebugReport() from characterPlanner.js',
                 fullReport: projectValidation
             },
             calculations: {
@@ -6763,8 +7095,8 @@
                     formulas: {
                         total: '10 + armor + shield + natural + deflection + dodge + dex + other',
                         touch: '10 + deflection + dodge + dex + other',
-                        flatFooted: '10 + armor + shield + natural + deflection + other + flatFootedDex',
-                        touchFlatFooted: '10 + deflection + other + flatFootedDex'
+                        flatFooted: '10 + armor + shield + natural + deflection + otherInFlatFooted + flatFootedDex',
+                        touchFlatFooted: '10 + deflection + otherInFlatFooted + flatFootedDex'
                     },
                     components: {
                         armor: Number(ac.armor) || 0,
@@ -6774,7 +7106,9 @@
                         dodge: Number(ac.dodge) || 0,
                         dex: Number(ac.dexMod) || 0,
                         flatFootedDex: Number(ac.flatFootedDex) || 0,
-                        other: Number(ac.other) || 0
+                        other: Number(ac.other) || 0,
+                        excludedOtherFlatFooted: Number(ac.excludedOtherFlatFooted) || 0,
+                        otherInFlatFooted: Number(ac.otherInFlatFooted) || 0
                     },
                     results: {
                         total: Number(ac.total) || 0,
@@ -7534,7 +7868,7 @@
             {
                 key: 'Other bucket',
                 value: formatSigned(derived.ac.other),
-                valueTooltip: `Uncapped sum from ${formatEntryLines(effects.sourceDetails.acBuckets.other).join(' | ')}`
+                valueTooltip: `Uncapped sum from ${formatEntryLines(effects.sourceDetails.acBuckets.other).join(' | ')}${derived.ac.excludedOtherFlatFooted > 0 ? ` | flat-footed exclusion ${formatSigned(-derived.ac.excludedOtherFlatFooted)} (e.g. tumble)` : ''}`
             }
         ];
 
@@ -8466,6 +8800,196 @@
         }];
     }
 
+    function getHardSkillRankAtLevel30(skillName) {
+        const getter = typeof getRawSkillAtLevel === 'function'
+            ? getRawSkillAtLevel
+            : (typeof window !== 'undefined' && typeof window.getRawSkillAtLevel === 'function'
+                ? window.getRawSkillAtLevel
+                : null);
+        if (!getter) return 0;
+
+        const raw = Number(getter(30, skillName)) || 0;
+        return Math.max(0, Math.floor(raw));
+    }
+
+    function getClassLevelAtLevel30(className) {
+        const getter = typeof getClassLevelUpTo === 'function'
+            ? getClassLevelUpTo
+            : (typeof window !== 'undefined' && typeof window.getClassLevelUpTo === 'function'
+                ? window.getClassLevelUpTo
+                : null);
+        if (!getter) return 0;
+
+        const raw = Number(getter(className, 30)) || 0;
+        return Math.max(0, Math.floor(raw));
+    }
+
+    function getOwnedFeatSetAtLevel30Normalized() {
+        const getter = typeof getOwnedFeatNameSetAtLevel === 'function'
+            ? getOwnedFeatNameSetAtLevel
+            : (typeof window !== 'undefined' && typeof window.getOwnedFeatNameSetAtLevel === 'function'
+                ? window.getOwnedFeatNameSetAtLevel
+                : null);
+
+        const rawSet = getter ? getter(30) : new Set();
+        return new Set(Array.from(rawSet || []).map(name => String(name || '').trim().toLowerCase()).filter(Boolean));
+    }
+
+    function isOffHandEffectivelyEmpty() {
+        const offHand = ensureSlotState('offHand');
+        if (!offHand) return true;
+        if (String(offHand.name || '').trim()) return false;
+        if (Array.isArray(offHand.properties) && offHand.properties.length > 0) return false;
+
+        const meta = offHand.meta && typeof offHand.meta === 'object' ? offHand.meta : {};
+        if (String(meta.craftedTemplateKey || '').trim()) return false;
+        if (String(meta.baseWeaponChart || meta.baseWeaponType || '').trim()) return false;
+        if (Math.max(0, Number(meta.baseArmor) || 0) > 0) return false;
+        return true;
+    }
+
+    function isParryBlockedByWeapon(mainHandMeta, mainHandState) {
+        const weaponName = String(
+            (mainHandMeta && (mainHandMeta.baseWeaponChart || mainHandMeta.baseWeaponType))
+            || (mainHandState && mainHandState.name)
+            || ''
+        ).trim().toLowerCase();
+        return /bow|crossbow|sling/.test(weaponName);
+    }
+
+    function evaluateWeaponProficiencyFeatRequirement(featSet, mainHandMeta, mainHandState) {
+        const normalizedFeatSet = featSet instanceof Set ? featSet : new Set();
+        const proficiencyText = String(mainHandMeta && mainHandMeta.proficiency || '').trim().toLowerCase();
+        const weaponName = String(
+            (mainHandMeta && (mainHandMeta.baseWeaponChart || mainHandMeta.baseWeaponType))
+            || (mainHandState && mainHandState.name)
+            || ''
+        ).trim().toLowerCase();
+
+        const candidates = new Set();
+        proficiencyText
+            .split(/[\/,|]/)
+            .map(token => token.trim().toLowerCase())
+            .filter(Boolean)
+            .forEach(token => {
+                if (token === 'simple' || token === 'martial' || token === 'exotic' || token === 'primitive') {
+                    candidates.add(`weapon proficiency (${token})`);
+                }
+            });
+
+        if (weaponName) {
+            candidates.add(`weapon proficiency (${weaponName})`);
+        }
+
+        const candidateList = Array.from(candidates);
+        const matchedFeat = candidateList.find(candidate => normalizedFeatSet.has(candidate)) || null;
+
+        return {
+            passed: Boolean(matchedFeat),
+            candidates: candidateList,
+            matchedFeat,
+            weaponName,
+            proficiencyText
+        };
+    }
+
+    function getSkillAcBonusesAtLevel30(base = null) {
+        ensureSkillAcState();
+
+        const hardTumble = getHardSkillRankAtLevel30('tumble');
+        const hardRide = getHardSkillRankAtLevel30('ride');
+        const hardParry = getHardSkillRankAtLevel30('parry');
+        const cavalierLevel = getClassLevelAtLevel30('cavalier');
+        const monkLevel = getClassLevelAtLevel30('monk');
+        const tumbleEnabled = Boolean(state.skillAc && state.skillAc.tumbleEnabled);
+        const rideEnabled = Boolean(state.skillAc && state.skillAc.rideEnabled);
+        const parryEnabled = Boolean(state.skillAc && state.skillAc.parryEnabled);
+        const featSet = getOwnedFeatSetAtLevel30Normalized();
+        const hasMountedCombat = featSet.has('mounted combat');
+
+        const tumbleOtherRaw = Math.floor(hardTumble / 5);
+        const tumbleOtherBonus = tumbleEnabled && !rideEnabled ? Math.max(0, tumbleOtherRaw) : 0;
+
+        const rideRaw = Math.floor((hardRide + cavalierLevel) / 7);
+        const rideDodgeBonus = (rideEnabled && hasMountedCombat)
+            ? Math.min(4, Math.max(0, rideRaw))
+            : 0;
+
+        const baseBab = Math.max(0, Number(base && base.bab) || 0);
+        const parryRankTier = Math.floor(hardParry / 5);
+        const parryBabCap = baseBab >= 21 ? 6 : (baseBab >= 20 ? 4 : (baseBab >= 15 ? 3 : (baseBab >= 10 ? 2 : (baseBab >= 5 ? 1 : 0))));
+
+        const mainHandState = ensureSlotState('mainHand');
+        const mainHandMeta = mainHandState && mainHandState.meta && typeof mainHandState.meta === 'object'
+            ? mainHandState.meta
+            : {};
+        const offHandEmpty = isOffHandEffectivelyEmpty();
+        const weaponAllowed = !isParryBlockedByWeapon(mainHandMeta, mainHandState);
+        const noMonkLevels = monkLevel === 0;
+
+        const parryRequirementsMet = offHandEmpty && weaponAllowed && noMonkLevels;
+        const parryShieldBonus = (parryEnabled && parryRequirementsMet)
+            ? Math.max(0, Math.min(parryRankTier, parryBabCap))
+            : 0;
+
+        return {
+            levelIndexed: 30,
+            toggles: {
+                tumbleEnabled,
+                rideEnabled,
+                parryEnabled
+            },
+            hardRanks: {
+                tumble: hardTumble,
+                ride: hardRide,
+                parry: hardParry
+            },
+            ride: {
+                hasMountedCombat,
+                cavalierLevel,
+                formulaRaw: rideRaw,
+                bonus: rideDodgeBonus,
+                maxBonus: 4,
+                validation: {
+                    enabled: rideEnabled,
+                    passed: rideEnabled ? hasMountedCombat : true,
+                    failedBy: rideEnabled && !hasMountedCombat ? 'Mounted Combat feat missing' : null
+                }
+            },
+            tumble: {
+                formulaRaw: tumbleOtherRaw,
+                bonus: tumbleOtherBonus,
+                validation: {
+                    enabled: tumbleEnabled,
+                    passed: tumbleEnabled ? !rideEnabled : true,
+                    failedBy: tumbleEnabled && rideEnabled ? 'Ride is enabled (mutually exclusive)' : null
+                }
+            },
+            parry: {
+                baseBab,
+                rankTier: parryRankTier,
+                babCap: parryBabCap,
+                bonus: parryShieldBonus,
+                validation: {
+                    enabled: parryEnabled,
+                    passed: parryEnabled ? parryRequirementsMet : true,
+                    failedBy: !parryEnabled
+                        ? null
+                        : [
+                            offHandEmpty ? null : 'Off-hand is not empty',
+                            noMonkLevels ? null : 'Monk levels present',
+                            weaponAllowed ? null : 'Weapon is bow/crossbow/sling'
+                        ].filter(Boolean)
+                },
+                requirements: {
+                    offHandEmpty,
+                    noMonkLevels,
+                    weaponAllowed
+                }
+            }
+        };
+    }
+
     function normalizeStatRequirementKey(statName) {
         const raw = String(statName || '').trim().toLowerCase();
         const aliases = {
@@ -8966,12 +9490,14 @@
 
     function getGearPlannerSnapshot() {
         ensureLazyProxyState();
+        ensureSkillAcState();
         return {
             selectedSlot: state.selectedSlot,
             buffs: JSON.parse(JSON.stringify(state.buffs || {})),
             lazyProxy: JSON.parse(JSON.stringify(state.lazyProxy || {})),
             classAttackToggles: JSON.parse(JSON.stringify(state.classAttackToggles || {})),
             classBonusOptions: JSON.parse(JSON.stringify(state.classBonusOptions || {})),
+            skillAc: JSON.parse(JSON.stringify(state.skillAc || {})),
             targeting: JSON.parse(JSON.stringify(state.targeting || {})),
             song: JSON.parse(JSON.stringify(state.song || {})),
             slots: JSON.parse(JSON.stringify(state.slots))
@@ -9027,6 +9553,31 @@
             });
         }
         ensureClassBonusOptionsState();
+
+        state.skillAc = createDefaultSkillAcState();
+        const incomingSkillAc = snapshot.skillAc && typeof snapshot.skillAc === 'object'
+            ? snapshot.skillAc
+            : null;
+        if (incomingSkillAc) {
+            if (Object.prototype.hasOwnProperty.call(incomingSkillAc, 'tumbleEnabled')) {
+                state.skillAc.tumbleEnabled = Boolean(incomingSkillAc.tumbleEnabled);
+            }
+            if (Object.prototype.hasOwnProperty.call(incomingSkillAc, 'rideEnabled')) {
+                state.skillAc.rideEnabled = Boolean(incomingSkillAc.rideEnabled);
+            }
+            if (Object.prototype.hasOwnProperty.call(incomingSkillAc, 'parryEnabled')) {
+                state.skillAc.parryEnabled = Boolean(incomingSkillAc.parryEnabled);
+            }
+
+            if (!Object.prototype.hasOwnProperty.call(incomingSkillAc, 'tumbleEnabled')
+                && !Object.prototype.hasOwnProperty.call(incomingSkillAc, 'rideEnabled')
+                && Object.prototype.hasOwnProperty.call(incomingSkillAc, 'mounted')) {
+                state.skillAc.rideEnabled = Boolean(incomingSkillAc.mounted);
+                state.skillAc.tumbleEnabled = !state.skillAc.rideEnabled;
+                state.skillAc.parryEnabled = true;
+            }
+        }
+        ensureSkillAcState();
 
         const incomingSong = snapshot.song && typeof snapshot.song === 'object' ? snapshot.song : null;
         const incomingTargeting = snapshot.targeting && typeof snapshot.targeting === 'object' ? snapshot.targeting : null;
@@ -9097,6 +9648,7 @@
         state.lazyProxy = createDefaultLazyProxyState();
         state.classAttackToggles = createDefaultClassAttackToggleState();
         state.classBonusOptions = createDefaultClassBonusOptions();
+        state.skillAc = createDefaultSkillAcState();
         state.song = {
             enabled: false,
             name: 'bardic rhythm',

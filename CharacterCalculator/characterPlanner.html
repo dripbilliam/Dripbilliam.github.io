@@ -516,6 +516,26 @@
             font-size: 11px;
         }
 
+        .debug-presets-panel {
+            border: 1px solid #2f3f5c;
+            background: #1a2233;
+            border-radius: 4px;
+            padding: 8px;
+            color: #dbe7ff;
+        }
+
+        .debug-presets-description {
+            min-height: 32px;
+        }
+
+        .debug-presets-panel label {
+            color: #dbe7ff;
+        }
+
+        .debug-presets-panel .muted-note {
+            color: #9fb5d8;
+        }
+
         .gear-drawer {
             border: 1px solid #d7e6f7;
             border-radius: 4px;
@@ -1126,11 +1146,11 @@
                     <h3 style="margin-top:0;">Combat Debug</h3>
                     <div class="gear-field-row">
                         <button type="button" id="runGearDebugSnapshotBtn">Run Debug Snapshot</button>
-                        <span class="muted-note">Runs auto-log enable + combat dump + divine_power state capture.</span>
                     </div>
                     <div class="gear-subtabs nested">
                         <button type="button" id="debugSubtabSummary" class="gear-subtab-btn active">Summary</button>
                         <button type="button" id="debugSubtabVerbose" class="gear-subtab-btn">Super Verbose</button>
+                        <button type="button" id="debugSubtabPresets" class="gear-subtab-btn">Presets</button>
                     </div>
                     <div id="debugSubtabSummaryPanel" class="gear-subtab-panel active">
                         <div class="damage-sim-trace">
@@ -1139,8 +1159,18 @@
                     </div>
                     <div id="debugSubtabVerbosePanel" class="gear-subtab-panel">
                         <div class="damage-sim-trace">
-                            <div class="muted-note">Collapsible JSON view with explicit reasoning, touched systems, requirement checks, calculations, and source breakdowns.</div>
                             <div id="gearDebugVerboseOutput" class="debug-json-tree">Run Debug Snapshot to build super verbose output.</div>
+                        </div>
+                    </div>
+                    <div id="debugSubtabPresetsPanel" class="gear-subtab-panel">
+                        <div class="debug-presets-panel">
+                            <div class="gear-field-row">
+                                <label for="debugClassPresetSelect">Loadable class presets</label>
+                                <select id="debugClassPresetSelect"></select>
+                                <button type="button" id="loadDebugClassPresetBtn">Load Preset</button>
+                            </div>
+                            <div id="debugClassPresetDescription" class="muted-note debug-presets-description"></div>
+                            <div id="debugClassPresetStatus" class="muted-note">Preset list pending load.</div>
                         </div>
                     </div>
                 </div>
