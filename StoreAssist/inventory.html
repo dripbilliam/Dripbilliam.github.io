@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Gnomes Shopkeeping - Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>Inventory Catalog</h1>
+      <p>Costs and location-specific pricing/reorder settings</p>
+    </header>
+
+    <nav class="top-nav" aria-label="StoreAssist Sections">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="spells.html">Spells</a>
+      <a class="nav-link" href="craft.html">Craft Queue</a>
+      <a class="nav-link active" href="inventory.html">Inventory</a>
+      <a class="nav-link" href="placement.html">Pricing Planner</a>
+      <a class="nav-link" href="orders.html">Special Orders</a>
+      <a class="nav-link" href="settings.html">Settings</a>
+    </nav>
+
+    <main>
+      <section id="inventoryBrowsePage">
+        <div class="panel-head">
+          <h2>Inventory</h2>
+          <div class="toolbar">
+            <input id="inventorySearchInput" type="search" placeholder="Search items by name" />
+            <label class="inline-toggle"><input id="showAllInventoryToggle" type="checkbox" /> Show All Items</label>
+            <button id="addInventoryItemBtn">Add Inventory Item</button>
+          </div>
+        </div>
+
+        <section class="inventory-list-panel">
+          <h3>Items</h3>
+          <div id="inventoryItemList" class="inventory-item-list"></div>
+        </section>
+
+        <h3>Low Stock</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Location</th><th>QoH</th><th>PAR Target</th></tr></thead>
+            <tbody id="lowStockRows"></tbody>
+          </table>
+        </div>
+
+        <h3>QoH With No Price</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Location</th><th>QoH</th><th>Price</th></tr></thead>
+            <tbody id="unpricedStockRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="inventoryEditorPage" hidden>
+        <div class="panel-head">
+          <h2 id="itemModalTitle">Edit Item</h2>
+          <div class="toolbar">
+            <button id="closeItemModalBtn" class="secondary" type="button">Back to Inventory</button>
+          </div>
+        </div>
+
+        <div id="inventoryDetail" class="inventory-detail">
+          <div class="inventory-editor-shell">
+            <div class="editor-main">
+                <section class="editor-section">
+                  <h3 class="editor-title">Item Setup</h3>
+                  <div class="calc-grid three-col">
+                    <label>Item Name<input id="itemNameInput" type="text" /></label>
+                    <label>Type
+                      <select id="itemTypeInput">
+                        <option value="crafted-spell">Crafted (Spell Based)</option>
+                        <option value="crafted">Crafted</option>
+                        <option value="found">Found</option>
+                      </select>
+                    </label>
+                    <label>Unit Cost<input id="itemUnitCostInput" type="number" min="0" step="1" /></label>
+                    <label class="check-field"><input id="itemStackableInput" type="checkbox" /> Stackable listing</label>
+                    <label>Stack Count<input id="itemStackCountInput" type="number" min="1" step="1" /></label>
+                  </div>
+                </section>
+
+                <section id="spellBasedFields" class="editor-section">
+                  <h3 class="editor-title">Spell Details</h3>
+                  <div class="calc-grid three-col">
+                    <label>Spell<select id="itemSpellInput"></select></label>
+                    <label>Spell Craft Type
+                      <select id="itemSpellCraftKindInput">
+                        <option value="potion">Potion</option>
+                        <option value="wand">Wand</option>
+                        <option value="scroll">Scroll</option>
+                      </select>
+                    </label>
+                    <label id="itemWandCapOverrideWrap" class="check-field"><input id="itemWandCapOverrideInput" type="checkbox" /> Ignore 5,000 wand cap in Pricing Planner</label>
+                  </div>
+                </section>
+
+                <section id="craftedFields" class="editor-section">
+                  <h3 class="editor-title">Crafting Details</h3>
+                  <div class="calc-grid three-col">
+                    <label>Crafting Points Required<input id="itemCraftPointsInput" type="number" min="0" step="1" /></label>
+                    <label>Craft DC<input id="itemCraftDcInput" type="number" min="0" step="1" /></label>
+                    <label>Craft Output Qty<input id="itemCraftOutputQtyInput" type="number" min="1" step="1" value="1" /></label>
+                    <label class="check-field"><input id="itemDisableDerivedCostInput" type="checkbox" /> Disable Derived Costing</label>
+                    <label>Profession
+                      <select id="itemProfessionInput">
+                        <option value="">Select Profession</option>
+                        <option value="smithing">Smithing</option>
+                        <option value="herbalism">Herbalism</option>
+                        <option value="alchemy">Alchemy</option>
+                        <option value="carpentry">Carpentry</option>
+                        <option value="tailoring">Tailoring</option>
+                        <option value="artistry">Artistry</option>
+                      </select>
+                    </label>
+                  </div>
+                  <p class="hint">Derived Unit Cost: <strong id="itemDerivedCostValue">0</strong> (components + crafting points, divided by output qty)</p>
+                  <p class="hint">Craft Point Cost (Per Unit): <strong id="itemCraftPointCostValue">0</strong> (<span id="itemCraftPointCostFormula">0 x 0 / 1</span>)</p>
+                </section>
+
+                <section class="editor-section">
+                  <div class="panel-head compact-head">
+                    <h3 id="recipeTitle" class="editor-title">Recipe / Child Items</h3>
+                    <div class="toolbar">
+                      <button id="addChildItemBtn" class="secondary" type="button">Add Child Item</button>
+                    </div>
+                  </div>
+                  <div class="table-wrap" id="childItemsWrap">
+                    <table>
+                      <thead>
+                        <tr><th>Child Item</th><th>Qty</th><th>Unit Cost</th><th>Line Cost</th><th>Actions</th></tr>
+                      </thead>
+                      <tbody id="childItemRows"></tbody>
+                    </table>
+                  </div>
+                </section>
+
+                <section class="editor-section">
+                  <label>Item Notes<textarea id="itemNotesInput" rows="3"></textarea></label>
+                </section>
+
+                <section class="editor-section">
+                  <h3 class="editor-title">QoH by Location</h3>
+                  <div class="table-wrap">
+                    <table>
+                      <thead><tr><th>Location</th><th>QoH</th><th>Tax</th><th>Price</th><th>Margin %</th><th>PAR Target</th><th>Disable PAR</th></tr></thead>
+                      <tbody id="itemLocationRows"></tbody>
+                    </table>
+                  </div>
+                </section>
+            </div>
+
+            <aside class="editor-side">
+              <article class="card">
+                <h3>Item Snapshot</h3>
+                <p><strong id="itemTotalQty">0</strong> total units</p>
+                <p><strong id="itemListingCount">0</strong> estimated listings</p>
+                <p><strong id="itemCostValue">0</strong> cost value</p>
+                <p><strong id="itemRetailValue">0</strong> retail value</p>
+              </article>
+              <article class="card">
+                <h3>Reorder Signal</h3>
+                <p id="itemReorderSignal">Stock healthy</p>
+              </article>
+              <div class="card">
+                <h3>Actions</h3>
+                <div class="toolbar stack-toolbar">
+                  <button id="duplicateInventoryItemBtn" class="secondary">Duplicate Item</button>
+                  <button id="deleteInventoryItemBtn" class="danger">Delete Item</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/inventory-page.js"></script>
+</body>
+</html>

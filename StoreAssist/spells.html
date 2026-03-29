@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Gnomes Shopkeeping - Spells</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>Spell Cost Source</h1>
+      <p>Craft inputs for inventory and orders</p>
+    </header>
+
+    <nav class="top-nav" aria-label="StoreAssist Sections">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link active" href="spells.html">Spells</a>
+      <a class="nav-link" href="craft.html">Craft Queue</a>
+      <a class="nav-link" href="inventory.html">Inventory</a>
+      <a class="nav-link" href="placement.html">Pricing Planner</a>
+      <a class="nav-link" href="orders.html">Special Orders</a>
+      <a class="nav-link" href="settings.html">Settings</a>
+    </nav>
+
+    <main>
+      <div class="panel-head">
+        <h2>Spell Cost Table</h2>
+        <div class="toolbar">
+          <input id="spellSearchInput" type="search" placeholder="Search spells" aria-label="Search Spells" />
+          <button id="addSpellBtn">Add Spell</button>
+          <select id="autogenClassSelect" aria-label="Class Filter for Auto Generate"></select>
+          <button id="autogenItemsBtn">Auto-Generate Craft Items</button>
+        </div>
+      </div>
+      <p class="hint">Spell data maintenance tools (Backload, Seed, Delete All) are in Settings.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Spell</th>
+              <th>Innate Level</th>
+              <th>Caster Level</th>
+              <th>Potion Gold / Prep</th>
+              <th>Wand Gold / Prep</th>
+              <th>Scroll Gold / Prep</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="spellRows"></tbody>
+        </table>
+      </div>
+
+      <div id="spellModal" class="modal-overlay" hidden>
+        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="spellModalTitle">
+          <div class="panel-head compact-head">
+            <h3 id="spellModalTitle">Edit Spell</h3>
+            <div class="toolbar">
+              <button id="closeSpellModalBtn" class="secondary" type="button">Close</button>
+            </div>
+          </div>
+
+          <div class="calc-grid three-col">
+            <label>
+              Spell
+              <input id="spellNameInput" type="text" />
+            </label>
+            <label>
+              Innate Level
+              <input id="spellInnateLevelInput" type="number" min="0" max="9" />
+            </label>
+            <label>
+              Caster Level
+              <input id="spellCasterLevelInput" type="number" min="0" />
+            </label>
+            <label>
+              Classes
+              <input id="spellClassesInput" type="text" placeholder="Druid, Cleric" />
+            </label>
+            <label>
+              Potion Gold / Prep
+              <input id="spellPotionGoldInput" type="number" min="0" />
+            </label>
+            <label>
+              Wand Gold / Prep
+              <input id="spellWandGoldInput" type="number" min="0" />
+            </label>
+            <label>
+              Scroll Gold / Prep
+              <input id="spellScrollGoldInput" type="number" min="0" />
+            </label>
+          </div>
+
+          <div class="toolbar top-gap">
+            <button id="saveSpellBtn" type="button">Save Spell</button>
+            <button id="saveAndPushSpellBtn" class="secondary" type="button">Save + Push Costs to Items</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="storage-tools">
+        <h3>Backup</h3>
+        <div class="toolbar">
+          <button id="exportBtn">Export JSON</button>
+          <label class="file-pick">Import JSON
+            <input id="importInput" type="file" accept="application/json" />
+          </label>
+          <button id="clearAllBtn" class="danger">Clear All Data</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/spells-page.js"></script>
+</body>
+</html>

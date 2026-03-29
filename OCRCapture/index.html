@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixture Extract</title>
+    <style>
+        :root {
+            --bg-deep: #0e1a2b;
+            --bg-mid: #183756;
+            --panel: rgba(8, 19, 34, 0.85);
+            --panel-border: #2f5d82;
+            --accent: #78c4ff;
+            --accent-strong: #3ea2f5;
+            --text-main: #eaf6ff;
+            --text-subtle: #b7d2e8;
+            --warn: #ffd27a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text-main);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(120, 196, 255, 0.2), transparent 42%),
+                radial-gradient(circle at 90% 5%, rgba(62, 162, 245, 0.25), transparent 38%),
+                linear-gradient(135deg, var(--bg-deep), var(--bg-mid));
+            padding: 16px;
+        }
+
+        .wrap {
+            width: min(1720px, calc(100vw - 32px));
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 14px;
+            padding: 18px;
+            backdrop-filter: blur(3px);
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 0;
+            color: var(--text-subtle);
+            line-height: 1.5;
+        }
+
+        .controls {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-top: 18px;
+        }
+
+        button,
+        input[type="file"] {
+            border: 1px solid #3a6a91;
+            background: rgba(21, 53, 82, 0.75);
+            color: var(--text-main);
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.98rem;
+        }
+
+        button {
+            cursor: pointer;
+            transition: transform 120ms ease, background 180ms ease;
+        }
+
+        button:hover:not(:disabled) {
+            background: rgba(62, 162, 245, 0.28);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .viewer-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .viewer-shell {
+            border: 1px solid #355b7a;
+            border-radius: 12px;
+            background: rgba(9, 22, 40, 0.82);
+            overflow: hidden;
+            min-height: 320px;
+            display: grid;
+            align-content: start;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid #2b4b65;
+            font-size: 0.95rem;
+            color: var(--text-subtle);
+        }
+
+        #livePreview,
+        #snapshotCanvas {
+            width: 100%;
+            max-height: 420px;
+            background: #040c16;
+        }
+
+        #livePreview {
+            display: none;
+            position: fixed;
+            left: -99999px;
+            top: -99999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #snapshotCanvas {
+            display: block;
+            width: auto;
+            height: auto;
+            max-height: none;
+            max-width: none;
+            touch-action: none;
+        }
+
+        .canvas-stage {
+            overflow: auto;
+            max-height: 68vh;
+            min-height: 320px;
+            background: #040c16;
+            border-top: 1px solid #2b4b65;
+        }
+
+        .canvas-stage-inner {
+            padding: 8px;
+            min-width: max-content;
+        }
+
+        .editor-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: rgba(3, 10, 18, 0.78);
+            z-index: 30;
+        }
+
+        .editor-modal[hidden] {
+            display: none;
+        }
+
+        .editor-dialog {
+            width: min(1500px, 98vw);
+            max-height: 95vh;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 10px;
+            border: 1px solid #355b7a;
+            border-radius: 12px;
+            padding: 12px;
+            background: rgba(9, 22, 40, 0.97);
+        }
+
+        .editor-workbench {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 250px;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .editor-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: auto;
+            padding-right: 2px;
+        }
+
+        .editor-sidebar .control-group {
+            border: 1px solid #355b7a;
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(15, 34, 58, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .editor-sidebar .control-group-title {
+            color: var(--text-subtle);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .editor-sidebar button {
+            width: 100%;
+            text-align: left;
+        }
+
+        .editor-sidebar label {
+            color: var(--text-subtle);
+            font-size: 0.85rem;
+        }
+
+        .editor-sidebar input[type="range"] {
+            width: 100%;
+        }
+
+        #editorCanvas {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            background: #040c16;
+            touch-action: none;
+        }
+
+        #ocrOutput {
+            width: 100%;
+            min-height: 280px;
+            resize: vertical;
+            border: 0;
+            background: #051122;
+            color: #d8eeff;
+            padding: 12px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
+
+        .status {
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #3f6c8f;
+            background: rgba(19, 46, 74, 0.7);
+            color: var(--text-subtle);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .status.warn {
+            border-color: #9b7836;
+            background: rgba(99, 70, 24, 0.45);
+            color: var(--warn);
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .row label {
+            color: var(--text-subtle);
+            font-size: 0.9rem;
+        }
+
+        .row input[type="range"] {
+            width: min(260px, 65vw);
+        }
+
+        .value-badge {
+            border: 1px solid #3a6a91;
+            border-radius: 999px;
+            padding: 4px 8px;
+            font-size: 0.82rem;
+            color: var(--text-main);
+            background: rgba(21, 53, 82, 0.65);
+        }
+
+        .small-note {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: #a8cae2;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        @media (max-width: 980px) {
+            .viewer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .editor-workbench {
+                grid-template-columns: 1fr;
+            }
+
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="panel">
+            <h1>Fixture Extract</h1>
+            <div class="controls">
+                <button id="startShareBtn" type="button">Capture Snapshot</button>
+                <button id="openEditorBtn" type="button" disabled>Open Image Editor</button>
+                <button id="runOcrBtn" type="button" disabled>Run OCR</button>
+                <button id="appendOcrBtn" type="button" disabled>Append OCR</button>
+                <button id="copyBtn" type="button" disabled>Copy Text</button>
+                <input id="imageUpload" type="file" accept="image/png,image/jpeg,image/webp" />
+            </div>
+            <div class="row">
+                <label><input id="useCropOnCapture" type="checkbox" checked /> reuse last crop</label>
+            </div>
+            <div id="status" class="status">Ready. Start by sharing a window or uploading an image.</div>
+        </section>
+
+        <div class="workspace-grid">
+            <section class="viewer-grid">
+                <article class="viewer-shell">
+                    <div class="viewer-header">
+                        <span>Captured Image</span>
+                        <span id="captureInfo">No capture yet</span>
+                    </div>
+                    <div id="canvasStage" class="canvas-stage">
+                        <div class="canvas-stage-inner">
+                            <canvas id="snapshotCanvas" width="1280" height="720"></canvas>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="panel">
+                <div class="viewer-header">
+                    <span>OCR Output</span>
+                </div>
+                <textarea id="ocrOutput" placeholder="Recognized text will appear here..."></textarea>
+                <div class="row">
+                    <label for="langSelect">Language:</label>
+                    <select id="langSelect">
+                        <option value="eng" selected>English (eng)</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="temperatureRange">Temperature</label>
+                    <input id="temperatureRange" type="range" min="-100" max="100" value="100" />
+                    <span id="temperatureValue" class="value-badge">100</span>
+                    <label><input id="thresholdToggle" type="checkbox" checked /> Strong threshold</label>
+                    <label><input id="grayscaleToggle" type="checkbox" /> Grayscale</label>
+                </div>
+                <div class="row">
+                    <label for="colorModeSelect">Color Target</label>
+                    <select id="colorModeSelect">
+                        <option value="off">Off</option>
+                        <option value="titles">Titles</option>
+                        <option value="normal" selected>Normal Text</option>
+                        <option value="authors">Author Names</option>
+                        <option value="all">All Target Colors</option>
+                    </select>
+                    <label for="colorToleranceRange">Tolerance</label>
+                    <input id="colorToleranceRange" type="range" min="10" max="255" value="210" />
+                    <span id="colorToleranceValue" class="value-badge">210</span>
+                    <label><input id="colorKeepShadeToggle" type="checkbox" checked /> Keep matched color</label>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <video id="livePreview" autoplay playsinline muted></video>
+
+    <div id="editorModal" class="editor-modal" hidden>
+        <div class="editor-dialog">
+            <div class="viewer-header">
+                <span>Image Editor</span>
+                <span>Crop, cut noise, undo (3)</span>
+            </div>
+            <div class="editor-workbench">
+                <div id="editorCanvasStage" class="canvas-stage">
+                    <div class="canvas-stage-inner">
+                        <canvas id="editorCanvas" width="1280" height="720"></canvas>
+                    </div>
+                </div>
+                <aside class="editor-sidebar">
+                    <div class="control-group">
+                        <span class="control-group-title">Selection Tools</span>
+                        <button id="cropModeBtn" type="button" disabled>Start Crop Select</button>
+                        <button id="applyCropBtn" type="button" disabled>Apply Crop</button>
+                        <button id="cutSelectionBtn" type="button" disabled>Cut Selected Chunk</button>
+                        <button id="clearCropBtn" type="button" disabled>Clear Crop</button>
+                        <button id="undoEditBtn" type="button" disabled>Undo</button>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-group-title">View</span>
+                        <label for="zoomRange">Edit Zoom</label>
+                        <input id="zoomRange" type="range" min="25" max="600" value="100" />
+                        <span id="zoomValue" class="value-badge">1.00x</span>
+                        <button id="fitZoomBtn" type="button" disabled>Fit Width</button>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-group-title">Finish</span>
+                        <button id="closeEditorBtn" type="button">Done Editing</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script>
+        const startShareBtn = document.getElementById('startShareBtn');
+        const openEditorBtn = document.getElementById('openEditorBtn');
+        const runOcrBtn = document.getElementById('runOcrBtn');
+        const appendOcrBtn = document.getElementById('appendOcrBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const imageUpload = document.getElementById('imageUpload');
+        const cropModeBtn = document.getElementById('cropModeBtn');
+        const applyCropBtn = document.getElementById('applyCropBtn');
+        const cutSelectionBtn = document.getElementById('cutSelectionBtn');
+        const clearCropBtn = document.getElementById('clearCropBtn');
+        const undoEditBtn = document.getElementById('undoEditBtn');
+        const closeEditorBtn = document.getElementById('closeEditorBtn');
+        const zoomRange = document.getElementById('zoomRange');
+        const zoomValue = document.getElementById('zoomValue');
+        const fitZoomBtn = document.getElementById('fitZoomBtn');
+        const useCropOnCapture = document.getElementById('useCropOnCapture');
+        const temperatureRange = document.getElementById('temperatureRange');
+        const temperatureValue = document.getElementById('temperatureValue');
+        const thresholdToggle = document.getElementById('thresholdToggle');
+        const grayscaleToggle = document.getElementById('grayscaleToggle');
+        const colorModeSelect = document.getElementById('colorModeSelect');
+        const colorToleranceRange = document.getElementById('colorToleranceRange');
+        const colorToleranceValue = document.getElementById('colorToleranceValue');
+        const colorKeepShadeToggle = document.getElementById('colorKeepShadeToggle');
+        const statusEl = document.getElementById('status');
+        const livePreview = document.getElementById('livePreview');
+        const canvasStage = document.getElementById('canvasStage');
+        const editorCanvasStage = document.getElementById('editorCanvasStage');
+        const editorModal = document.getElementById('editorModal');
+        const snapshotCanvas = document.getElementById('snapshotCanvas');
+        const editorCanvas = document.getElementById('editorCanvas');
+        const ocrOutput = document.getElementById('ocrOutput');
+        const captureInfo = document.getElementById('captureInfo');
+        const langSelect = document.getElementById('langSelect');
+
+        const ctx = snapshotCanvas.getContext('2d');
+        const editorCtx = editorCanvas.getContext('2d');
+        const sourceCanvas = document.createElement('canvas');
+        const sourceCtx = sourceCanvas.getContext('2d');
+        let activeStream = null;
+        let isCapturingSnapshot = false;
+        let editorModalOpen = false;
+        let cropModeEnabled = false;
+        let isSelecting = false;
+        let selection = null;
+        let selectionNormalized = null;
+        let lastCaptureCropNormalized = null;
+        let dragStart = null;
+        let canvasZoom = 1;
+        const undoStack = [];
+        const MAX_UNDO = 3;
+        const TITLE_COLORS = ['#feeba6', '#cdbe86', '#897f5a'];
+        const NORMAL_COLORS = ['#8f8f8f', '#ffffff', '#a4a4a4', '#575757'];
+        const AUTHOR_COLORS = ['#1e90ff', '#145ea6', '#166cbf'];
+
+        function clamp(value, min, max) {
+            return Math.min(max, Math.max(min, value));
+        }
+
+        function hexToRgb(hex) {
+            const clean = hex.replace('#', '').trim();
+            return {
+                r: parseInt(clean.slice(0, 2), 16),
+                g: parseInt(clean.slice(2, 4), 16),
+                b: parseInt(clean.slice(4, 6), 16)
+            };
+        }
+
+        function getPaletteByMode() {
+            const mode = colorModeSelect.value;
+            if (mode === 'titles') {
+                return TITLE_COLORS.map(hexToRgb);
+            }
+            if (mode === 'normal') {
+                return NORMAL_COLORS.map(hexToRgb);
+            }
+            if (mode === 'authors') {
+                return AUTHOR_COLORS.map(hexToRgb);
+            }
+            if (mode === 'all') {
+                return TITLE_COLORS.concat(NORMAL_COLORS, AUTHOR_COLORS).map(hexToRgb);
+            }
+            return [];
+        }
+
+        function applyColorTargetMask(imageData, palette, tolerance, keepShade) {
+            if (!palette.length) {
+                return imageData;
+            }
+
+            const data = imageData.data;
+            const toleranceSq = tolerance * tolerance;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+
+                let minDistanceSq = Number.POSITIVE_INFINITY;
+                for (let p = 0; p < palette.length; p += 1) {
+                    const pr = palette[p].r;
+                    const pg = palette[p].g;
+                    const pb = palette[p].b;
+                    const dr = r - pr;
+                    const dg = g - pg;
+                    const db = b - pb;
+                    const distanceSq = (dr * dr) + (dg * dg) + (db * db);
+                    if (distanceSq < minDistanceSq) {
+                        minDistanceSq = distanceSq;
+                    }
+                }
+
+                if (minDistanceSq <= toleranceSq) {
+                    if (!keepShade) {
+                        data[i] = 255;
+                        data[i + 1] = 255;
+                        data[i + 2] = 255;
+                    }
+                } else {
+                    data[i] = 0;
+                    data[i + 1] = 0;
+                    data[i + 2] = 0;
+                }
+            }
+
+            return imageData;
+        }
+
+        function setStatus(message, isWarn = false) {
+            statusEl.textContent = message;
+            statusEl.classList.toggle('warn', isWarn);
+        }
+
+        function updateCanvasDisplaySize() {
+            const drawWidth = editorCanvas.width || 1;
+            const drawHeight = editorCanvas.height || 1;
+            const displayWidth = Math.max(1, Math.round(drawWidth * canvasZoom));
+            const displayHeight = Math.max(1, Math.round(drawHeight * canvasZoom));
+            editorCanvas.style.width = displayWidth + 'px';
+            editorCanvas.style.height = displayHeight + 'px';
+            zoomValue.textContent = canvasZoom.toFixed(2) + 'x';
+        }
+
+        function setCanvasZoom(nextZoom) {
+            canvasZoom = clamp(nextZoom, 0.25, 6);
+            updateCanvasDisplaySize();
+        }
+
+        function fitCanvasWidth() {
+            if (!hasSourceImage()) {
+                return;
+            }
+            const stageWidth = Math.max(1, editorCanvasStage.clientWidth - 20);
+            const fit = stageWidth / sourceCanvas.width;
+            setCanvasZoom(clamp(fit, 0.25, 6));
+            zoomRange.value = String(Math.round(canvasZoom * 100));
+        }
+
+        function openEditorModal() {
+            if (!hasSourceImage()) {
+                return;
+            }
+            editorModal.hidden = false;
+            editorModalOpen = true;
+            renderEditorCanvas();
+            fitCanvasWidth();
+            updateControls();
+        }
+
+        function closeEditorModal() {
+            editorModal.hidden = true;
+            editorModalOpen = false;
+            cropModeEnabled = false;
+            isSelecting = false;
+            renderPreview();
+            updateControls();
+        }
+
+        function pushUndoState() {
+            if (!hasSourceImage()) {
+                return;
+            }
+            const state = {
+                width: sourceCanvas.width,
+                height: sourceCanvas.height,
+                imageData: sourceCtx.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height)
+            };
+            undoStack.push(state);
+            if (undoStack.length > MAX_UNDO) {
+                undoStack.shift();
+            }
+            updateControls();
+        }
+
+        function undoEdit() {
+            const previous = undoStack.pop();
+            if (!previous) {
+                setStatus('Nothing to undo.', true);
+                return;
+            }
+            sourceCanvas.width = previous.width;
+            sourceCanvas.height = previous.height;
+            sourceCtx.putImageData(previous.imageData, 0, 0);
+            selection = null;
+            selectionNormalized = null;
+            renderEditorCanvas();
+            renderPreview();
+            setStatus('Undo applied.');
+            updateControls();
+        }
+
+        function updateControls() {
+            const sharing = Boolean(activeStream);
+            const captured = hasSourceImage();
+            startShareBtn.disabled = isCapturingSnapshot || sharing;
+            openEditorBtn.disabled = !captured;
+            runOcrBtn.disabled = !captured;
+            appendOcrBtn.disabled = !captured;
+            copyBtn.disabled = !ocrOutput.value.trim();
+            cropModeBtn.disabled = !captured;
+            applyCropBtn.disabled = !captured || !selectionNormalized;
+            cutSelectionBtn.disabled = !captured || !selectionNormalized;
+            clearCropBtn.disabled = !selection;
+            fitZoomBtn.disabled = !captured;
+            undoEditBtn.disabled = undoStack.length === 0;
+            cropModeBtn.textContent = cropModeEnabled ? 'Exit Crop Select' : 'Start Crop Select';
+            editorCanvas.style.cursor = cropModeEnabled ? 'crosshair' : 'default';
+            closeEditorBtn.textContent = editorModalOpen ? 'Done Editing' : 'Close';
+        }
+
+        function hasSourceImage() {
+            return sourceCanvas.width > 0 && sourceCanvas.height > 0;
+        }
+
+        function hasCapture() {
+            const pixels = ctx.getImageData(0, 0, snapshotCanvas.width, snapshotCanvas.height).data;
+            for (let i = 0; i < pixels.length; i += 4) {
+                if (pixels[i] !== 0 || pixels[i + 1] !== 0 || pixels[i + 2] !== 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function resetCanvas() {
+            sourceCanvas.width = 0;
+            sourceCanvas.height = 0;
+            snapshotCanvas.width = 1280;
+            snapshotCanvas.height = 720;
+            ctx.fillStyle = '#040c16';
+            ctx.fillRect(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+            selection = null;
+            selectionNormalized = null;
+            undoStack.length = 0;
+            captureInfo.textContent = 'No capture yet';
+            updateCanvasDisplaySize();
+            renderEditorCanvas();
+            updateControls();
+        }
+
+        function setSourceFromDrawable(drawable, width, height, options = {}) {
+            const shouldOpenEditor = options.openEditor !== false;
+            const clearUndo = options.clearUndo !== false;
+            sourceCanvas.width = width;
+            sourceCanvas.height = height;
+            sourceCtx.drawImage(drawable, 0, 0, width, height);
+            selection = null;
+            selectionNormalized = null;
+            cropModeEnabled = false;
+            if (clearUndo) {
+                undoStack.length = 0;
+            }
+            renderEditorCanvas();
+            renderPreview();
+            if (shouldOpenEditor) {
+                openEditorModal();
+            }
+        }
+
+        function getTemperature() {
+            return Number(temperatureRange.value || 0);
+        }
+
+        function renderPreview() {
+            if (!hasSourceImage()) {
+                ctx.fillStyle = '#040c16';
+                ctx.fillRect(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+                return;
+            }
+
+            snapshotCanvas.width = sourceCanvas.width;
+            snapshotCanvas.height = sourceCanvas.height;
+            updateCanvasDisplaySize();
+
+            const temp = getTemperature();
+            const contrast = clamp(100 + Math.round(temp * 0.75), 30, 260);
+            const brightness = clamp(100 + Math.round(temp * 0.25), 55, 180);
+            const grayPart = grayscaleToggle.checked ? 'grayscale(100%)' : 'grayscale(0%)';
+
+            ctx.filter = 'contrast(' + contrast + '%) brightness(' + brightness + '%) ' + grayPart;
+            ctx.drawImage(sourceCanvas, 0, 0);
+            ctx.filter = 'none';
+
+            const palette = getPaletteByMode();
+            if (palette.length) {
+                const imageData = ctx.getImageData(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+                let tolerance = Number(colorToleranceRange.value || 72);
+                // Author-name blues can vary heavily due to post-processing and UI effects.
+                if (colorModeSelect.value === 'authors') {
+                    tolerance = clamp(tolerance + 35, 10, 255);
+                }
+                const keepShade = colorKeepShadeToggle.checked;
+                const maskedData = applyColorTargetMask(imageData, palette, tolerance, keepShade);
+                ctx.putImageData(maskedData, 0, 0);
+            }
+
+            const thresholdOn = thresholdToggle.checked || temp >= 45;
+            if (thresholdOn) {
+                const imageData = ctx.getImageData(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+                const data = imageData.data;
+                const threshold = clamp(160 - Math.round(temp * 0.5), 75, 210);
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const luminance = (data[i] * 0.299) + (data[i + 1] * 0.587) + (data[i + 2] * 0.114);
+                    const bw = luminance >= threshold ? 255 : 0;
+                    data[i] = bw;
+                    data[i + 1] = bw;
+                    data[i + 2] = bw;
+                }
+
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            drawSelectionOverlay();
+            updateControls();
+        }
+
+        function renderEditorCanvas() {
+            const width = hasSourceImage() ? sourceCanvas.width : 1280;
+            const height = hasSourceImage() ? sourceCanvas.height : 720;
+            editorCanvas.width = width;
+            editorCanvas.height = height;
+            updateCanvasDisplaySize();
+
+            editorCtx.fillStyle = '#040c16';
+            editorCtx.fillRect(0, 0, width, height);
+            if (!hasSourceImage()) {
+                return;
+            }
+
+            editorCtx.drawImage(sourceCanvas, 0, 0);
+
+            if (!selection) {
+                return;
+            }
+
+            const x = Math.min(selection.x, selection.x + selection.w);
+            const y = Math.min(selection.y, selection.y + selection.h);
+            const w = Math.abs(selection.w);
+            const h = Math.abs(selection.h);
+
+            if (w < 2 || h < 2) {
+                return;
+            }
+
+            editorCtx.save();
+            editorCtx.fillStyle = 'rgba(0, 0, 0, 0.38)';
+            editorCtx.beginPath();
+            editorCtx.rect(0, 0, editorCanvas.width, editorCanvas.height);
+            editorCtx.rect(x, y, w, h);
+            editorCtx.fill('evenodd');
+
+            editorCtx.setLineDash([8, 4]);
+            editorCtx.lineWidth = 2;
+            editorCtx.strokeStyle = '#78c4ff';
+            editorCtx.strokeRect(x + 0.5, y + 0.5, w, h);
+            editorCtx.restore();
+        }
+
+        function drawSelectionOverlay() {
+            if (!selection) {
+                return;
+            }
+
+            const x = Math.min(selection.x, selection.x + selection.w);
+            const y = Math.min(selection.y, selection.y + selection.h);
+            const w = Math.abs(selection.w);
+            const h = Math.abs(selection.h);
+
+            if (w < 2 || h < 2) {
+                return;
+            }
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.42)';
+            ctx.beginPath();
+            ctx.rect(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+            ctx.rect(x, y, w, h);
+            ctx.fill('evenodd');
+
+            ctx.setLineDash([8, 4]);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#78c4ff';
+            ctx.strokeRect(x + 0.5, y + 0.5, w, h);
+            ctx.restore();
+        }
+
+        function syncSelectionNormalized() {
+            if (!selection || editorCanvas.width === 0 || editorCanvas.height === 0) {
+                selectionNormalized = null;
+                return;
+            }
+
+            const x = Math.min(selection.x, selection.x + selection.w);
+            const y = Math.min(selection.y, selection.y + selection.h);
+            const w = Math.abs(selection.w);
+            const h = Math.abs(selection.h);
+
+            // Allow razor-thin selections (1px) for edge cleanup.
+            if (w < 1 || h < 1) {
+                selectionNormalized = null;
+                return;
+            }
+
+            selectionNormalized = {
+                x: x / editorCanvas.width,
+                y: y / editorCanvas.height,
+                w: w / editorCanvas.width,
+                h: h / editorCanvas.height
+            };
+        }
+
+        function saveSelectionAsCaptureRegion() {
+            if (!selectionNormalized) {
+                return;
+            }
+            lastCaptureCropNormalized = { ...selectionNormalized };
+        }
+
+        function canvasCoords(event) {
+            const rect = editorCanvas.getBoundingClientRect();
+            const scaleX = editorCanvas.width / rect.width;
+            const scaleY = editorCanvas.height / rect.height;
+
+            return {
+                x: clamp((event.clientX - rect.left) * scaleX, 0, editorCanvas.width),
+                y: clamp((event.clientY - rect.top) * scaleY, 0, editorCanvas.height)
+            };
+        }
+
+        function applyCropToSource() {
+            if (!selectionNormalized || !hasSourceImage()) {
+                return;
+            }
+
+            // Explicit crop is treated as the intended reusable capture region.
+            saveSelectionAsCaptureRegion();
+
+            const x = Math.max(0, Math.floor(Math.min(selection.x, selection.x + selection.w)));
+            const y = Math.max(0, Math.floor(Math.min(selection.y, selection.y + selection.h)));
+            const endX = Math.min(sourceCanvas.width, Math.ceil(Math.max(selection.x, selection.x + selection.w)));
+            const endY = Math.min(sourceCanvas.height, Math.ceil(Math.max(selection.y, selection.y + selection.h)));
+            const w = Math.max(1, endX - x);
+            const h = Math.max(1, endY - y);
+
+            if (w < 8 || h < 8) {
+                setStatus('Crop area is too small.', true);
+                return;
+            }
+
+            const cropped = document.createElement('canvas');
+            cropped.width = w;
+            cropped.height = h;
+            const croppedCtx = cropped.getContext('2d');
+            pushUndoState();
+            croppedCtx.drawImage(sourceCanvas, x, y, w, h, 0, 0, w, h);
+
+            setSourceFromDrawable(cropped, w, h, { openEditor: true, clearUndo: false });
+            captureInfo.textContent = w + 'x' + h + ' cropped image';
+            setStatus('Crop applied.');
+        }
+
+        function cutSelectionFromSource() {
+            if (!selectionNormalized || !hasSourceImage()) {
+                return;
+            }
+
+            const x = Math.max(0, Math.floor(Math.min(selection.x, selection.x + selection.w)));
+            const y = Math.max(0, Math.floor(Math.min(selection.y, selection.y + selection.h)));
+            const endX = Math.min(sourceCanvas.width, Math.ceil(Math.max(selection.x, selection.x + selection.w)));
+            const endY = Math.min(sourceCanvas.height, Math.ceil(Math.max(selection.y, selection.y + selection.h)));
+            const w = Math.max(1, endX - x);
+            const h = Math.max(1, endY - y);
+
+            pushUndoState();
+            sourceCtx.fillStyle = '#000000';
+            sourceCtx.fillRect(x, y, w, h);
+            selection = null;
+            selectionNormalized = null;
+            renderEditorCanvas();
+            renderPreview();
+            setStatus('Selected chunk removed from image.');
+        }
+
+        function stopSharing() {
+            if (activeStream) {
+                activeStream.getTracks().forEach((track) => track.stop());
+                activeStream = null;
+            }
+            livePreview.srcObject = null;
+            updateControls();
+        }
+
+        async function captureSnapshot() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+                setStatus('This browser does not support screen capture.', true);
+                return;
+            }
+
+            try {
+                isCapturingSnapshot = true;
+                updateControls();
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: {
+                        frameRate: { ideal: 30, max: 60 }
+                    },
+                    audio: false
+                });
+
+                if (activeStream) {
+                    stopSharing();
+                }
+
+                activeStream = stream;
+                const [videoTrack] = stream.getVideoTracks();
+                if (videoTrack) {
+                    videoTrack.addEventListener('ended', () => {
+                        stopSharing();
+                        if (isCapturingSnapshot) {
+                            setStatus('Snapshot capture ended.');
+                        }
+                    });
+                }
+
+                livePreview.srcObject = stream;
+                await livePreview.play();
+
+                // Give the browser a couple of frames so videoWidth/videoHeight are available.
+                await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+                const width = livePreview.videoWidth;
+                const height = livePreview.videoHeight;
+                if (!width || !height) {
+                    stopSharing();
+                    setStatus('No video frame available yet. Try snapshot again.', true);
+                    return;
+                }
+
+                const cropArea = lastCaptureCropNormalized || selectionNormalized;
+                if (useCropOnCapture.checked && cropArea) {
+                    const srcX = clamp(Math.floor(cropArea.x * width), 0, width - 1);
+                    const srcY = clamp(Math.floor(cropArea.y * height), 0, height - 1);
+                    const srcW = clamp(Math.floor(cropArea.w * width), 8, width - srcX);
+                    const srcH = clamp(Math.floor(cropArea.h * height), 8, height - srcY);
+
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = srcW;
+                    tempCanvas.height = srcH;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCtx.drawImage(livePreview, srcX, srcY, srcW, srcH, 0, 0, srcW, srcH);
+                    setSourceFromDrawable(tempCanvas, srcW, srcH);
+                    captureInfo.textContent = srcW + 'x' + srcH + ' cropped snapshot captured';
+                    setStatus('Snapshot captured with saved crop area. Editor opened.');
+                } else {
+                    setSourceFromDrawable(livePreview, width, height);
+                    captureInfo.textContent = width + 'x' + height + ' snapshot captured';
+                    setStatus('Snapshot captured. Editor opened.');
+                }
+
+                stopSharing();
+            } catch (error) {
+                setStatus('Snapshot was blocked or cancelled. Try again.', true);
+            } finally {
+                isCapturingSnapshot = false;
+                updateControls();
+            }
+        }
+
+        function loadUploadedImage(file) {
+            const image = new Image();
+            const blobUrl = URL.createObjectURL(file);
+
+            image.onload = () => {
+                setSourceFromDrawable(image, image.width, image.height);
+                captureInfo.textContent = image.width + 'x' + image.height + ' uploaded image';
+                runOcrBtn.disabled = false;
+                setStatus('Image loaded. Ready for OCR.');
+                URL.revokeObjectURL(blobUrl);
+            };
+
+            image.onerror = () => {
+                setStatus('Failed to load image file.', true);
+                URL.revokeObjectURL(blobUrl);
+            };
+
+            image.src = blobUrl;
+        }
+
+        function normalizeLine(line) {
+            return String(line || '')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .toLowerCase();
+        }
+
+        function findLineOverlap(existingText, incomingText) {
+            const existingLines = String(existingText || '')
+                .split(/\r?\n/)
+                .map((line) => line.trim())
+                .filter(Boolean);
+            const incomingLines = String(incomingText || '')
+                .split(/\r?\n/)
+                .map((line) => line.trim())
+                .filter(Boolean);
+
+            if (!existingLines.length || !incomingLines.length) {
+                return { overlapCount: 0, incomingLines };
+            }
+
+            const maxOverlap = Math.min(existingLines.length, incomingLines.length, 30);
+            for (let size = maxOverlap; size >= 1; size -= 1) {
+                let matches = true;
+                for (let i = 0; i < size; i += 1) {
+                    const a = normalizeLine(existingLines[existingLines.length - size + i]);
+                    const b = normalizeLine(incomingLines[i]);
+                    if (!a || !b || a !== b) {
+                        matches = false;
+                        break;
+                    }
+                }
+                if (matches) {
+                    return {
+                        overlapCount: size,
+                        incomingLines: incomingLines.slice(size)
+                    };
+                }
+            }
+
+            return { overlapCount: 0, incomingLines };
+        }
+
+        function mergeRecognizedText(existingText, incomingText) {
+            const existing = String(existingText || '').trim();
+            const incoming = String(incomingText || '').trim();
+
+            if (!existing) {
+                return { merged: incoming, overlapCount: 0 };
+            }
+            if (!incoming) {
+                return { merged: existing, overlapCount: 0 };
+            }
+
+            const overlap = findLineOverlap(existing, incoming);
+            const remainder = overlap.incomingLines.join('\n').trim();
+            if (!remainder) {
+                return { merged: existing, overlapCount: overlap.overlapCount };
+            }
+
+            return {
+                merged: existing + '\n' + remainder,
+                overlapCount: overlap.overlapCount
+            };
+        }
+
+        async function runOcr(options = {}) {
+            if (!hasSourceImage()) {
+                setStatus('No captured image to process.', true);
+                return;
+            }
+
+            const appendMode = options.append === true;
+            renderPreview();
+            runOcrBtn.disabled = true;
+            appendOcrBtn.disabled = true;
+            setStatus('OCR in progress... this can take several seconds.');
+
+            try {
+                const language = langSelect.value;
+                const result = await Tesseract.recognize(snapshotCanvas, language, {
+                    logger: (message) => {
+                        if (message && message.status) {
+                            const progress = message.progress ? ' ' + Math.round(message.progress * 100) + '%' : '';
+                            setStatus('OCR: ' + message.status + progress);
+                        }
+                    }
+                });
+
+                const recognizedText = (result.data && result.data.text ? result.data.text : '').trim();
+                if (appendMode) {
+                    const merged = mergeRecognizedText(ocrOutput.value, recognizedText);
+                    ocrOutput.value = merged.merged;
+                    if (merged.overlapCount > 0) {
+                        setStatus('OCR append complete. Removed ' + merged.overlapCount + ' repeated line(s).');
+                    } else {
+                        setStatus('OCR append complete. No repeated overlap detected.');
+                    }
+                } else {
+                    ocrOutput.value = recognizedText;
+                    setStatus('OCR complete. Review and copy text below.');
+                }
+                copyBtn.disabled = !ocrOutput.value;
+            } catch (error) {
+                setStatus('OCR failed. Try a clearer image or higher contrast.', true);
+            } finally {
+                runOcrBtn.disabled = !hasSourceImage();
+                appendOcrBtn.disabled = !hasSourceImage();
+            }
+        }
+
+        async function copyText() {
+            const text = ocrOutput.value.trim();
+            if (!text) {
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(text);
+                setStatus('OCR text copied to clipboard.');
+            } catch (error) {
+                setStatus('Clipboard copy failed. Select and copy manually.', true);
+            }
+        }
+
+        startShareBtn.addEventListener('click', captureSnapshot);
+        runOcrBtn.addEventListener('click', () => runOcr({ append: false }));
+        appendOcrBtn.addEventListener('click', () => runOcr({ append: true }));
+        copyBtn.addEventListener('click', copyText);
+        openEditorBtn.addEventListener('click', openEditorModal);
+        closeEditorBtn.addEventListener('click', closeEditorModal);
+        undoEditBtn.addEventListener('click', undoEdit);
+
+        cropModeBtn.addEventListener('click', () => {
+            cropModeEnabled = !cropModeEnabled;
+            setStatus(cropModeEnabled ? 'Crop mode enabled. Drag on captured image to select region.' : 'Crop mode disabled.');
+            renderEditorCanvas();
+            renderPreview();
+        });
+
+        applyCropBtn.addEventListener('click', applyCropToSource);
+        cutSelectionBtn.addEventListener('click', cutSelectionFromSource);
+
+        clearCropBtn.addEventListener('click', () => {
+            selection = null;
+            selectionNormalized = null;
+            renderEditorCanvas();
+            renderPreview();
+            setStatus('Crop selection cleared. Saved crop area remains available for next snapshot.');
+        });
+
+        temperatureRange.addEventListener('input', () => {
+            temperatureValue.textContent = temperatureRange.value;
+            renderPreview();
+        });
+
+        zoomRange.addEventListener('input', () => {
+            setCanvasZoom(Number(zoomRange.value) / 100);
+        });
+
+        fitZoomBtn.addEventListener('click', fitCanvasWidth);
+
+        colorToleranceRange.addEventListener('input', () => {
+            colorToleranceValue.textContent = colorToleranceRange.value;
+            renderPreview();
+        });
+
+        thresholdToggle.addEventListener('change', renderPreview);
+        grayscaleToggle.addEventListener('change', renderPreview);
+        colorModeSelect.addEventListener('change', renderPreview);
+        colorKeepShadeToggle.addEventListener('change', renderPreview);
+
+        editorCanvas.addEventListener('pointerdown', (event) => {
+            if (!cropModeEnabled || !hasSourceImage()) {
+                return;
+            }
+
+            isSelecting = true;
+            editorCanvas.setPointerCapture(event.pointerId);
+            dragStart = canvasCoords(event);
+            selection = { x: dragStart.x, y: dragStart.y, w: 0, h: 0 };
+            syncSelectionNormalized();
+            renderEditorCanvas();
+            renderPreview();
+        });
+
+        editorCanvas.addEventListener('pointermove', (event) => {
+            if (!isSelecting || !dragStart || !selection) {
+                return;
+            }
+
+            const point = canvasCoords(event);
+            selection.w = point.x - dragStart.x;
+            selection.h = point.y - dragStart.y;
+            syncSelectionNormalized();
+            renderEditorCanvas();
+            renderPreview();
+        });
+
+        function endSelection(event) {
+            if (!isSelecting) {
+                return;
+            }
+
+            isSelecting = false;
+            dragStart = null;
+            if (selection && (Math.abs(selection.w) < 1 || Math.abs(selection.h) < 1)) {
+                selection = null;
+                selectionNormalized = null;
+            } else {
+                syncSelectionNormalized();
+            }
+
+            if (event && editorCanvas.hasPointerCapture(event.pointerId)) {
+                editorCanvas.releasePointerCapture(event.pointerId);
+            }
+
+            renderEditorCanvas();
+            renderPreview();
+        }
+
+        editorCanvas.addEventListener('pointerup', endSelection);
+        editorCanvas.addEventListener('pointercancel', endSelection);
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                return;
+            }
+            loadUploadedImage(file);
+        });
+
+        resetCanvas();
+        temperatureValue.textContent = temperatureRange.value;
+        colorToleranceValue.textContent = colorToleranceRange.value;
+        zoomValue.textContent = (Number(zoomRange.value) / 100).toFixed(2) + 'x';
+        updateControls();
+
+        window.addEventListener('beforeunload', () => {
+            stopSharing();
+        });
+    </script>
+</body>
+</html>

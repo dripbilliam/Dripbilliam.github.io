@@ -31,7 +31,12 @@ const server = http.createServer((req, res) => {
   // Parse URL and strip query/hash
   const rawUrl = (req.url || '').split('?')[0].split('#')[0];
   const requestPath = rawUrl === '/' ? '/index.html' : rawUrl;
-  const normalizedRequestPath = decodeURIComponent(requestPath);
+  // Friendly aliases for StoreAssist in local development.
+  const normalizedAliasPath = requestPath.replace(/^\/storeassist(?=\/|$)/i, '/StoreAssist');
+  const resolvedRequestPath = /^\/StoreAssist$/i.test(normalizedAliasPath)
+    ? '/StoreAssist/index.html'
+    : normalizedAliasPath;
+  const normalizedRequestPath = decodeURIComponent(resolvedRequestPath);
 
   const candidatePaths = [];
   ROOT_DIRS.forEach(rootDir => {

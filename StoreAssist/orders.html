@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Gnomes Shopkeeping - Special Orders</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>Special Orders</h1>
+      <p>Assign crafters, track completion, and manage fulfillment</p>
+    </header>
+
+    <nav class="top-nav" aria-label="StoreAssist Sections">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="spells.html">Spells</a>
+      <a class="nav-link" href="craft.html">Craft Queue</a>
+      <a class="nav-link" href="inventory.html">Inventory</a>
+      <a class="nav-link" href="placement.html">Pricing Planner</a>
+      <a class="nav-link active" href="orders.html">Special Orders</a>
+      <a class="nav-link" href="settings.html">Settings</a>
+    </nav>
+
+    <main>
+      <div class="panel-head">
+        <h2>Orders</h2>
+        <div class="toolbar"><button id="addOrderBtn">Create Special Order</button></div>
+      </div>
+
+      <div class="orders-layout">
+        <aside class="order-list-panel">
+          <h3>Order List</h3>
+          <div id="orderList" class="inventory-item-list"></div>
+        </aside>
+
+        <section class="order-detail-panel">
+          <div id="orderEmptyState" class="empty-state">Select an order to edit details and lines.</div>
+          <div id="orderDetail" class="inventory-detail" hidden>
+            <div class="calc-grid three-col">
+              <label>Order #<input id="orderNumberInput" type="text" /></label>
+              <label>Customer<input id="orderCustomerInput" type="text" /></label>
+              <label>Status
+                <select id="orderStatusInput">
+                  <option value="open">Open</option>
+                  <option value="assigned">Assigned</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="ready">Ready</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </label>
+              <label>Assigned To<input id="orderAssignedToInput" type="text" /></label>
+              <label>Location<select id="orderLocationInput"></select></label>
+              <label>Due Date<input id="orderDueDateInput" type="date" /></label>
+              <label>Deposit<input id="orderDepositInput" type="number" min="0" step="1" /></label>
+            </div>
+
+            <label>Notes<textarea id="orderNotesInput" rows="3"></textarea></label>
+
+            <div class="panel-head compact-head">
+              <h3>Lines</h3>
+              <div class="toolbar"><button id="addOrderLineBtn" class="secondary">Add Line</button></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Completed</th>
+                    <th>Cost</th>
+                    <th>Pricing</th>
+                    <th>Unit Price</th>
+                    <th>Line Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orderLineRows"></tbody>
+              </table>
+            </div>
+
+            <div class="summary-cards">
+              <article class="card">
+                <h3>Totals</h3>
+                <p><strong id="orderTotalValue">0</strong> total</p>
+                <p><strong id="orderOutstandingQty">0</strong> outstanding units</p>
+                <p><strong id="orderBalanceDue">0</strong> balance due</p>
+              </article>
+            </div>
+
+            <div class="toolbar"><button id="deleteOrderBtn" class="danger">Delete Order</button></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/orders-page.js"></script>
+</body>
+</html>

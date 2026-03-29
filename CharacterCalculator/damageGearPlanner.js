@@ -1091,7 +1091,8 @@
             lazyDrawerOpen: true,
             damageSubtab: 'planner',
             debugSubtab: 'summary',
-            debugPresetIndex: 0
+            debugPresetIndex: 0,
+            debugVerboseMaxDepth: 8
         },
         buffs: {},
         lazyProxy: createDefaultLazyProxyState(),
@@ -1121,6 +1122,7 @@
     let pendingGearRefresh = false;
     let softErrorSlotKeys = new Set();
     let lastCombatDebugSnapshot = null;
+    let lastSuperVerbosePayload = null;
     let lastApplyDetailsPulseKey = null;
 
     let rootEls = null;
@@ -2537,6 +2539,8 @@
             debugSubtabVerbosePanel: document.getElementById('debugSubtabVerbosePanel'),
             debugSubtabPresetsPanel: document.getElementById('debugSubtabPresetsPanel'),
             gearDebugVerboseOutput: document.getElementById('gearDebugVerboseOutput'),
+            debugVerboseMaxDepthInput: document.getElementById('debugVerboseMaxDepthInput'),
+            debugVerboseDepthStatus: document.getElementById('debugVerboseDepthStatus'),
             debugClassPresetSelect: document.getElementById('debugClassPresetSelect'),
             loadDebugClassPresetBtn: document.getElementById('loadDebugClassPresetBtn'),
             debugClassPresetDescription: document.getElementById('debugClassPresetDescription'),
@@ -2570,6 +2574,8 @@
             knowWhatImDoingToggle.addEventListener('change', () => {
                 renderEditor();
                 renderSummaries();
+                syncDebugVerboseDepthUi();
+                rerenderSuperVerboseFromCache();
             });
         }
 
@@ -2609,6 +2615,20 @@
             rootEls.debugSubtabPresetsBtn.addEventListener('click', () => switchDebugSubtab('presets'));
         }
 
+        if (rootEls.debugVerboseMaxDepthInput) {
+            rootEls.debugVerboseMaxDepthInput.addEventListener('change', () => {
+                const requested = Number(rootEls.debugVerboseMaxDepthInput.value);
+                state.ui.debugVerboseMaxDepth = Number.isFinite(requested) ? requested : 8;
+                syncDebugVerboseDepthUi();
+                rerenderSuperVerboseFromCache();
+            });
+            rootEls.debugVerboseMaxDepthInput.addEventListener('input', () => {
+                const requested = Number(rootEls.debugVerboseMaxDepthInput.value);
+                state.ui.debugVerboseMaxDepth = Number.isFinite(requested) ? requested : 8;
+                syncDebugVerboseDepthUi();
+            });
+        }
+
         if (rootEls.debugClassPresetSelect) {
             rootEls.debugClassPresetSelect.addEventListener('change', () => {
                 const nextIndex = Number(rootEls.debugClassPresetSelect.value);
@@ -2641,6 +2661,7 @@
 
         await loadDebugClassPresets();
         renderDebugClassPresetEditor();
+        syncDebugVerboseDepthUi();
 
         switchDebugSubtab(state.ui.debugSubtab || 'summary');
 
@@ -6892,7 +6913,44 @@
         }
     }
 
-    function normalizeDebugTreeValue(value, seen = new WeakSet()) {
+    function getRequestedDebugVerboseMaxDepth() {
+        const raw = Number(state && state.ui ? state.ui.debugVerboseMaxDepth : 8);
+        if (!Number.isFinite(raw)) return 8;
+        return Math.max(1, Math.floor(raw));
+    }
+
+    function getEffectiveDebugVerboseMaxDepth() {
+        const requested = getRequestedDebugVerboseMaxDepth();
+        if (isKnowWhatImDoingActive()) return requested;
+        return Math.min(15, requested);
+    }
+
+    function syncDebugVerboseDepthUi() {
+        if (!rootEls) return;
+
+        const requested = getRequestedDebugVerboseMaxDepth();
+        const effective = getEffectiveDebugVerboseMaxDepth();
+        const capped = effective !== requested;
+
+        state.ui.debugVerboseMaxDepth = requested;
+
+        if (rootEls.debugVerboseMaxDepthInput) {
+            rootEls.debugVerboseMaxDepthInput.value = String(requested);
+        }
+
+        if (rootEls.debugVerboseDepthStatus) {
+            rootEls.debugVerboseDepthStatus.textContent = capped
+                ? `Effective depth: ${effective} (cap 15 while \"I know what I'm doing\" is off)`
+                : `Effective depth: ${effective}`;
+        }
+    }
+
+    function rerenderSuperVerboseFromCache() {
+        if (!lastSuperVerbosePayload) return;
+        renderSuperVerboseDebugOutput(lastSuperVerbosePayload);
+    }
+
+    function normalizeDebugTreeValue(value, seen = new WeakSet(), depth = 0, maxDepth = 8) {
         if (value === null || value === undefined) return value;
 
         const valueType = typeof value;
@@ -6909,27 +6967,31 @@
         }
 
         if (value instanceof Map) {
+            if (depth >= maxDepth) return '[MaxDepthReached]';
             const mapOut = {};
             Array.from(value.entries()).forEach(([key, entryValue]) => {
-                mapOut[String(key)] = normalizeDebugTreeValue(entryValue, seen);
+                mapOut[String(key)] = normalizeDebugTreeValue(entryValue, seen, depth + 1, maxDepth);
             });
             return mapOut;
         }
 
         if (value instanceof Set) {
-            return Array.from(value.values()).map(entryValue => normalizeDebugTreeValue(entryValue, seen));
+            if (depth >= maxDepth) return '[MaxDepthReached]';
+            return Array.from(value.values()).map(entryValue => normalizeDebugTreeValue(entryValue, seen, depth + 1, maxDepth));
         }
 
         if (Array.isArray(value)) {
-            return value.map(entryValue => normalizeDebugTreeValue(entryValue, seen));
+            if (depth >= maxDepth) return '[MaxDepthReached]';
+            return value.map(entryValue => normalizeDebugTreeValue(entryValue, seen, depth + 1, maxDepth));
         }
 
         if (valueType === 'object') {
+            if (depth >= maxDepth) return '[MaxDepthReached]';
             if (seen.has(value)) return '[Circular]';
             seen.add(value);
             const out = {};
             Object.keys(value).forEach(key => {
-                out[key] = normalizeDebugTreeValue(value[key], seen);
+                out[key] = normalizeDebugTreeValue(value[key], seen, depth + 1, maxDepth);
             });
             return out;
         }
@@ -7002,7 +7064,9 @@
     function renderSuperVerboseDebugOutput(payload) {
         if (!rootEls || !rootEls.gearDebugVerboseOutput) return;
         rootEls.gearDebugVerboseOutput.innerHTML = '';
-        const normalized = normalizeDebugTreeValue(payload);
+        syncDebugVerboseDepthUi();
+        const maxDepth = getEffectiveDebugVerboseMaxDepth();
+        const normalized = normalizeDebugTreeValue(payload, new WeakSet(), 0, maxDepth);
         rootEls.gearDebugVerboseOutput.appendChild(createDebugJsonTreeNode('superVerbose', normalized));
     }
 
@@ -7183,6 +7247,7 @@
         }
 
         const superVerbosePayload = buildSuperVerboseDebugPayload(combined, liveCombatSnapshot);
+        lastSuperVerbosePayload = superVerbosePayload;
 
         if (rootEls && rootEls.gearDebugOutput) {
             rootEls.gearDebugOutput.textContent = JSON.stringify(combined, null, 2);

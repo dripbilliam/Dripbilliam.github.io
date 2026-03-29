@@ -1159,6 +1159,11 @@
                     </div>
                     <div id="debugSubtabVerbosePanel" class="gear-subtab-panel">
                         <div class="damage-sim-trace">
+                            <div class="gear-field-row">
+                                <label for="debugVerboseMaxDepthInput">Max tree depth</label>
+                                <input id="debugVerboseMaxDepthInput" type="number" min="1" step="1" value="8" style="width:92px;">
+                                <span id="debugVerboseDepthStatus" class="muted-note"></span>
+                            </div>
                             <div id="gearDebugVerboseOutput" class="debug-json-tree">Run Debug Snapshot to build super verbose output.</div>
                         </div>
                     </div>
