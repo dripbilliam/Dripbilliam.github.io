@@ -1,0 +1,29 @@
+= TemplateStyles Test Page =
+
+This page is for checking how [[Template:TestTemplate]] renders with different parameter values.
+
+== Basic ==
+* {{TestTemplate}}
+* {{TestTemplate|Custom label}}
+* {{TestTemplate|label=Named label}}
+
+== Tones ==
+* {{TestTemplate|tone=neutral|Neutral tone}}
+* {{TestTemplate|tone=success|Success tone}}
+* {{TestTemplate|tone=warning|Warning tone}}
+* {{TestTemplate|tone=danger|Danger tone}}
+
+== Size ==
+* {{TestTemplate|size=small|Small size}}
+* {{TestTemplate|size=normal|Normal size}}
+
+== Combined ==
+* {{TestTemplate|tone=success|size=small|Fast pass}}
+* {{TestTemplate|tone=warning|size=small|Needs review}}
+* {{TestTemplate|tone=danger|Critical issue}}
+
+== Fallback Behavior ==
+* Invalid tone should fall back to base badge style:
+** {{TestTemplate|tone=unknown|Unknown tone}}
+
+[[Category:Template testcases]]

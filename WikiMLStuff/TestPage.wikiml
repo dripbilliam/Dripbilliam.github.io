@@ -1,0 +1,15 @@
+= TemplateStyles End-to-End Test =
+
+This page transcludes a template that loads its own CSS subpage.
+
+== Live examples ==
+* {{TestTemplate}}
+* {{TestTemplate|Custom label from test page}}
+* {{TestTemplate|tone=success|Success state}}
+* {{TestTemplate|tone=warning|Warning state}}
+* {{TestTemplate|tone=danger|Danger state}}
+
+== What this verifies ==
+# The page can transclude the template.
+# The template loads <templatestyles src="TestTemplate/styles.css" />.
+# The CSS classes from the subpage style the output.

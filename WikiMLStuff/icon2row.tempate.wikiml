@@ -1,0 +1,9 @@
+<noinclude>
+parameters:
+* 1 = Icon file name (required)
+* 2 = Default display text
+* 3 = Icon size in pixels (default: 24)
+* 4 = MediaWiki image alignment (default: middle)
+* 5 = Extra wrapper span style
+* 6 = Extra image wrapper style
+</noinclude><includeonly><span style="white-space:nowrap !important;display:inline-flex;align-items:center;vertical-align:middle;{{{5|}}}"><span style="{{{6|}}}">[[File:{{{1|}}}|{{{3|24}}}x{{{3|24}}}px|link=|{{{4|middle}}}]]</span><span>{{{2|}}}</span></span></includeonly><noinclude></noinclude>

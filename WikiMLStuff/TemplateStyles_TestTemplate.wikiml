@@ -1,0 +1,12 @@
+<noinclude>
+TemplateStyles demo template.
+
+Parameters:
+* 1 or label = text shown in the badge
+* tone = neutral (default), success, warning, danger
+* size = normal (default), small
+
+Stylesheet:
+* [[Template:TestTemplate/styles.css]]
+</noinclude><includeonly><templatestyles src="TestTemplate/styles.css" />
+<span class="sb-test-badge sb-test-badge--{{#switch:{{lc:{{{tone|neutral}}}}}|success=success|warning=warning|danger=danger|#default=neutral}} sb-test-badge--{{#switch:{{lc:{{{size|normal}}}}}|small=small|#default=normal}}">{{{label|{{{1|TemplateStyles test}}}}}</span></includeonly><noinclude></noinclude>
