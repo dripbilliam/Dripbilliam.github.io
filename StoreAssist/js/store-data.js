@@ -1,4 +1,5 @@
 export const STORAGE_KEY = "storeAssistPosDataV3";
+export const PORTABLE_BACKUP_VERSION = 1;
 export const ITEM_TYPES = ["crafted-spell", "crafted", "found"];
 export const CRAFT_ITEM_TYPES = ["potion", "wand", "scroll"];
 export const PROFESSIONS = ["smithing", "herbalism", "alchemy", "carpentry", "tailoring", "artistry"];
@@ -151,6 +152,29 @@ export function loadState() {
 
 export function saveState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+export function createPortableBackup(state) {
+  return {
+    app: "StoreAssist",
+    backupVersion: PORTABLE_BACKUP_VERSION,
+    storageKey: STORAGE_KEY,
+    exportedAt: new Date().toISOString(),
+    state: ensureState(state)
+  };
+}
+
+export function parsePortableBackup(payload) {
+  if (!payload || typeof payload !== "object") {
+    throw new Error("Invalid backup payload.");
+  }
+
+  // Support both wrapped portable backups and legacy raw state JSON exports.
+  if (payload.app === "StoreAssist" && payload.state && typeof payload.state === "object") {
+    return ensureState(payload.state);
+  }
+
+  return ensureState(payload);
 }
 
 export function ensureState(state) {

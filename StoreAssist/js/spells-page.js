@@ -1,8 +1,10 @@
 import {
   allowedCraftTypesForLevel,
+  createPortableBackup,
   createInventoryFromCraft,
   deriveCasterLevelFromCraftCost,
   ensureState,
+  parsePortableBackup,
   getSpellCraftGoldPerPrep,
   getSpellInnateLevel,
   loadState,
@@ -107,7 +109,8 @@ function bindEvents() {
   });
 
   els.exportBtn.addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const backup = createPortableBackup(state);
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -121,7 +124,7 @@ function bindEvents() {
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      state = ensureState(parsed);
+      state = parsePortableBackup(parsed);
       persist();
       render();
     } catch {

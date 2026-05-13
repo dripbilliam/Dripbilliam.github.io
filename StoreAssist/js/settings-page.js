@@ -1,4 +1,4 @@
-import { deriveCraftedUnitCost, ensureState, findSpell, getSpellCraftYieldPerPrep, loadState, num, saveState, uid } from "./store-data.js";
+import { createPortableBackup, deriveCraftedUnitCost, ensureState, findSpell, getSpellCraftYieldPerPrep, loadState, num, parsePortableBackup, saveState, uid } from "./store-data.js";
 
 let state = ensureState(loadState());
 const ALL_CLASSES_VALUE = "__all";
@@ -19,7 +19,9 @@ const els = {
   deleteAllSpellsBtn: document.getElementById("deleteAllSpellsBtn"),
   migratePotionScrollStacksBtn: document.getElementById("migratePotionScrollStacksBtn"),
   migratePotionCostsBtn: document.getElementById("migratePotionCostsBtn"),
-  migrateScrollCostsBtn: document.getElementById("migrateScrollCostsBtn")
+  migrateScrollCostsBtn: document.getElementById("migrateScrollCostsBtn"),
+  exportFullBackupBtn: document.getElementById("exportFullBackupBtn"),
+  importFullBackupInput: document.getElementById("importFullBackupInput")
 };
 
 bindEvents();
@@ -262,6 +264,34 @@ function bindEvents() {
 
     persist();
     alert(`Migration complete. Updated ${updated} scroll item(s).`);
+  });
+
+  els.exportFullBackupBtn.addEventListener("click", () => {
+    const backup = createPortableBackup(state);
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `storeassist-full-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  els.importFullBackupInput.addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const parsed = JSON.parse(await file.text());
+      state = parsePortableBackup(parsed);
+      persist();
+      render();
+      alert("Full backup import complete.");
+    } catch {
+      alert("Import failed. Please provide a valid StoreAssist backup JSON file.");
+    } finally {
+      event.target.value = "";
+    }
   });
 }
 
