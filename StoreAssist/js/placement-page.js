@@ -139,6 +139,7 @@ function buildLocationRows(locationId) {
     const group = getItemGroup(item);
     const shouldCapWand = group === "wand" && state.settings.wandPriceCapEnabled === true && item?.wandPriceCapOverride !== true;
     const unitPrice = shouldCapWand ? Math.min(5000, baseUnitPrice) : baseUnitPrice;
+    const unitCost = Math.max(0, num(item?.unitCost));
 
     if (group === "found") {
       if (qoh <= 0) return;
@@ -151,6 +152,8 @@ function buildLocationRows(locationId) {
       locationId,
       itemName: itemLabel(state, item),
       qoh,
+      unitCost,
+      qohCostTotal: qoh * unitCost,
       unitPrice,
       qohTotal: qoh * unitPrice,
       group
@@ -173,6 +176,8 @@ function getItemGroup(item) {
 }
 
 function renderTypeBlock(title, rows) {
+  const showCostColumn = state?.settings?.showPricingCostColumn === true;
+
   if (!rows.length) {
     return `
       <div class="top-gap">
@@ -192,6 +197,8 @@ function renderTypeBlock(title, rows) {
               <th>Item</th>
               <th>QoH</th>
               <th>Price For QoH</th>
+              ${showCostColumn ? "<th>Cost For QoH</th>" : ""}
+              ${showCostColumn ? "<th>Unit Cost</th>" : ""}
               <th>Unit Price</th>
               <th>Done</th>
             </tr>
@@ -202,6 +209,8 @@ function renderTypeBlock(title, rows) {
                 <td>${escapeHtml(row.itemName)}</td>
                 <td>${formatInt(row.qoh)}</td>
                 <td>${formatMoney(row.qohTotal)}</td>
+                ${showCostColumn ? `<td>${formatMoney(row.qohCostTotal)}</td>` : ""}
+                ${showCostColumn ? `<td>${formatMoney(row.unitCost)}</td>` : ""}
                 <td>${formatMoney(row.unitPrice)}</td>
                 <td><button type="button" data-action="toggle-row-complete" data-key="${escapeHtml(getRowKey(row))}" class="secondary">${isRowComplete(row) ? "Done" : "Mark"}</button></td>
               </tr>

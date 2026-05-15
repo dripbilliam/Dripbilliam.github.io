@@ -11,6 +11,7 @@ const els = {
   coinsPerCraftingPointInput: document.getElementById("coinsPerCraftingPointInput"),
   updateDerivedCostingBtn: document.getElementById("updateDerivedCostingBtn"),
   parTrackingEnabledInput: document.getElementById("parTrackingEnabledInput"),
+  showPricingCostColumnInput: document.getElementById("showPricingCostColumnInput"),
   addLocationBtn: document.getElementById("addLocationBtn"),
   locationRows: document.getElementById("locationRows"),
   importSpellClassFilter: document.getElementById("importSpellClassFilter"),
@@ -109,6 +110,11 @@ function bindEvents() {
         });
       });
     }
+    persist();
+  });
+
+  els.showPricingCostColumnInput.addEventListener("change", () => {
+    state.settings.showPricingCostColumn = !!els.showPricingCostColumnInput.checked;
     persist();
   });
 
@@ -299,6 +305,7 @@ function render() {
   els.defaultMarkupInput.value = String(Math.max(0, num(state.settings.defaultMarkupPct)));
   els.coinsPerCraftingPointInput.value = String(Math.max(0, num(state.settings.coinsPerCraftingPoint)));
   els.parTrackingEnabledInput.checked = state.settings.enableParTracking !== false;
+  els.showPricingCostColumnInput.checked = state.settings.showPricingCostColumn === true;
   renderTaxes();
   renderLocations();
   renderImportClassFilter(collectKnownClasses(state.spells));

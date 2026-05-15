@@ -126,7 +126,8 @@ export function defaultState() {
       defaultMarkupPct: 100,
       coinsPerCraftingPoint: 0,
       enableParTracking: true,
-      wandPriceCapEnabled: false
+      wandPriceCapEnabled: false,
+      showPricingCostColumn: false
     },
     spells: [],
     manualJobs: [],
@@ -270,7 +271,8 @@ function normalizeSettings(settings, fallback) {
     defaultMarkupPct: Math.max(0, num(settings?.defaultMarkupPct ?? fallback?.defaultMarkupPct)),
     coinsPerCraftingPoint: Math.max(0, num(settings?.coinsPerCraftingPoint ?? fallback?.coinsPerCraftingPoint)),
     enableParTracking: settings?.enableParTracking !== false,
-    wandPriceCapEnabled: settings?.wandPriceCapEnabled === true
+    wandPriceCapEnabled: settings?.wandPriceCapEnabled === true,
+    showPricingCostColumn: settings?.showPricingCostColumn === true
   };
 }
 
