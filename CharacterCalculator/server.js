@@ -39,11 +39,26 @@ const server = http.createServer((req, res) => {
   const normalizedRequestPath = decodeURIComponent(resolvedRequestPath);
 
   const candidatePaths = [];
-  ROOT_DIRS.forEach(rootDir => {
-    const filePath = path.join(rootDir, normalizedRequestPath);
+
+  const addCandidatePath = (rootDir, relativePath) => {
+    const filePath = path.join(rootDir, relativePath);
     const realPath = path.resolve(filePath);
     if (realPath.startsWith(rootDir)) {
       candidatePaths.push({ rootDir, filePath, realPath });
+    }
+  };
+
+  const requestLooksLikeDirectory =
+    normalizedRequestPath.endsWith('/') || !path.extname(normalizedRequestPath);
+
+  ROOT_DIRS.forEach(rootDir => {
+    addCandidatePath(rootDir, normalizedRequestPath);
+
+    if (requestLooksLikeDirectory) {
+      const indexPath = normalizedRequestPath.endsWith('/')
+        ? `${normalizedRequestPath}index.html`
+        : `${normalizedRequestPath}/index.html`;
+      addCandidatePath(rootDir, indexPath);
     }
   });
 

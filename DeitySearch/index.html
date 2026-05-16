@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deity Domain Filter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #f2efe6;
+      --bg-1: #e4d4b2;
+      --ink: #1c1f2b;
+      --ink-soft: #4c5263;
+      --card: #fff8ea;
+      --accent: #0f766e;
+      --accent-2: #9a3412;
+      --line: #cdbb9a;
+      --ok: #166534;
+      --warn: #7c2d12;
+      --shadow: 0 12px 32px rgba(28, 31, 43, 0.13);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 90% -10%, rgba(15, 118, 110, 0.18), transparent 60%),
+        radial-gradient(900px 500px at -20% 20%, rgba(154, 52, 18, 0.15), transparent 60%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-0));
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      animation: fadeIn 320ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      letter-spacing: 0.02em;
+    }
+
+    .sub {
+      margin-top: 8px;
+      color: var(--ink-soft);
+      max-width: 80ch;
+      line-height: 1.4;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .panel, .results {
+      background: color-mix(in srgb, var(--card) 92%, white 8%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 14px;
+      position: sticky;
+      top: 12px;
+      max-height: calc(100vh - 24px);
+      overflow: auto;
+    }
+
+    .section {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .help {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.83rem;
+      font-family: "IBM Plex Mono", monospace;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    }
+
+    .chip[data-active="true"] {
+      background: color-mix(in srgb, var(--accent) 20%, white 80%);
+      border-color: var(--accent);
+      color: #0b3d3a;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.86rem;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 120ms ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .primary {
+      background: var(--accent);
+      color: #eafffc;
+    }
+
+    .ghost {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .results {
+      padding: 14px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #fff;
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+      animation: slideIn 220ms ease both;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h3 {
+      margin: 0 0 7px;
+      font-size: 1.02rem;
+    }
+
+    .muted {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      margin: 3px 0;
+      line-height: 1.35;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-left: 6px;
+      font-size: 0.72rem;
+      border: 1px solid var(--line);
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+
+    .empty {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      color: var(--ink-soft);
+      text-align: center;
+      background: #fff;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        position: static;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Deity Filter: Domains, Alignment, Aspect</h1>
+    <p class="sub">
+      Domain support is inferred as <strong>all domain powers minus each deity's banned domains</strong>. Stack filters however you want:
+      2 domains, 2 alignments, 1 aspect, shadow magic, race, and text search.
+    </p>
+
+    <div class="layout">
+      <aside class="panel">
+        <section class="section">
+          <label class="label" for="nameFilter">Name / Label / Portfolio Search</label>
+          <input id="nameFilter" type="text" placeholder="e.g. moon, war, drow, luck" />
+        </section>
+
+        <section class="section">
+          <span class="label">Required Domains</span>
+          <div class="help">All selected domains must be available for a deity.</div>
+          <div id="domainChips" class="chips"></div>
+        </section>
+
+        <section class="section">
+          <span class="label">Required Cleric Alignments</span>
+          <div class="help">All selected alignments must exist in the deity's ClericAlign list.</div>
+          <div id="clericAlignChips" class="chips"></div>
+        </section>
+
+        <section class="section">
+          <span class="label">Deity Alignment</span>
+          <div id="deityAlignChips" class="chips"></div>
+        </section>
+
+        <section class="section">
+          <span class="label">Required Aspects</span>
+          <div class="help">Matches against Aspect1 and Aspect2.</div>
+          <div id="aspectChips" class="chips"></div>
+        </section>
+
+        <section class="section">
+          <label class="label" for="raceFilter">Race</label>
+          <select id="raceFilter"></select>
+
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label class="label" for="shadowFilter" style="margin-bottom: 6px;">Shadow Magic</label>
+              <select id="shadowFilter">
+                <option value="any">Any</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="sortFilter" style="margin-bottom: 6px;">Sort</label>
+              <select id="sortFilter">
+                <option value="name">Name A-Z</option>
+                <option value="alignment">Alignment</option>
+                <option selected="All" value="race">Race</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="buttons">
+            <button class="primary" id="applyBtn" type="button">Apply Filters</button>
+            <button class="ghost" id="resetBtn" type="button">Reset</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="results">
+        <div class="meta" id="meta"></div>
+        <div id="resultsGrid" class="grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
