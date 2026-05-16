@@ -6,20 +6,20 @@
   <title>Deity Domain Filter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-0: #f2efe6;
-      --bg-1: #e4d4b2;
-      --ink: #1c1f2b;
-      --ink-soft: #4c5263;
-      --card: #fff8ea;
-      --accent: #0f766e;
-      --accent-2: #9a3412;
-      --line: #cdbb9a;
+      --bg-0: #f3efe2;
+      --bg-1: #d7c39a;
+      --ink: #1c1a20;
+      --ink-soft: #58515f;
+      --card: #fef8ec;
+      --accent: #1f7a73;
+      --accent-2: #b86a2f;
+      --line: #c6b08a;
       --ok: #166534;
       --warn: #7c2d12;
-      --shadow: 0 12px 32px rgba(28, 31, 43, 0.13);
+      --shadow: 0 14px 36px rgba(38, 22, 10, 0.15);
       --radius: 14px;
     }
 
@@ -30,10 +30,24 @@
       font-family: "Space Grotesk", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(1200px 500px at 90% -10%, rgba(15, 118, 110, 0.18), transparent 60%),
-        radial-gradient(900px 500px at -20% 20%, rgba(154, 52, 18, 0.15), transparent 60%),
+        radial-gradient(1200px 520px at 100% -20%, rgba(31, 122, 115, 0.24), transparent 60%),
+        radial-gradient(1000px 700px at -20% 25%, rgba(184, 106, 47, 0.2), transparent 62%),
+        radial-gradient(700px 320px at 50% 110%, rgba(80, 44, 8, 0.1), transparent 70%),
         linear-gradient(180deg, var(--bg-1), var(--bg-0));
       min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.2;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 34px 34px;
     }
 
     .page {
@@ -41,6 +55,8 @@
       margin: 0 auto;
       padding: 24px 16px 48px;
       animation: fadeIn 320ms ease-out;
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes fadeIn {
@@ -50,15 +66,20 @@
 
     h1 {
       margin: 0;
+      font-family: "Cinzel", serif;
       font-size: clamp(1.6rem, 3vw, 2.5rem);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #2d2017;
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.35);
     }
 
     .sub {
       margin-top: 8px;
       color: var(--ink-soft);
       max-width: 80ch;
-      line-height: 1.4;
+      line-height: 1.45;
+      font-size: 0.95rem;
     }
 
     .layout {
@@ -69,10 +90,13 @@
     }
 
     .panel, .results {
-      background: color-mix(in srgb, var(--card) 92%, white 8%);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.55)),
+        color-mix(in srgb, var(--card) 92%, white 8%);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(2px);
     }
 
     .panel {
@@ -86,7 +110,7 @@
     .section {
       margin-bottom: 14px;
       padding-bottom: 14px;
-      border-bottom: 1px dashed var(--line);
+      border-bottom: 1px dashed color-mix(in srgb, var(--line) 75%, #fff 25%);
     }
 
     .section:last-child {
@@ -96,10 +120,13 @@
     }
 
     .label {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       margin-bottom: 8px;
       display: block;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #3c2d22;
     }
 
     .help {
@@ -117,22 +144,23 @@
     .chip {
       cursor: pointer;
       border: 1px solid var(--line);
-      background: #fff;
+      background: linear-gradient(180deg, #fff, #fcf6ea);
       color: var(--ink);
       border-radius: 999px;
       padding: 6px 10px;
       font-size: 0.83rem;
       font-family: "IBM Plex Mono", monospace;
-      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
     }
 
     .chip:hover {
       transform: translateY(-1px);
       border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
 
     .chip[data-active="true"] {
-      background: color-mix(in srgb, var(--accent) 20%, white 80%);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, white 82%), color-mix(in srgb, var(--accent) 10%, white 90%));
       border-color: var(--accent);
       color: #0b3d3a;
     }
@@ -150,7 +178,7 @@
       padding: 8px 10px;
       font-family: "IBM Plex Mono", monospace;
       font-size: 0.86rem;
-      background: #fff;
+      background: linear-gradient(180deg, #fff, #fcf6ea);
       color: var(--ink);
     }
 
@@ -172,12 +200,13 @@
     button:hover { transform: translateY(-1px); }
 
     .primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), #155d58);
       color: #eafffc;
+      box-shadow: 0 7px 14px rgba(31, 122, 115, 0.22);
     }
 
     .ghost {
-      background: #fff;
+      background: linear-gradient(180deg, #fff, #f8f0df);
       border: 1px solid var(--line);
       color: var(--ink);
     }
@@ -200,7 +229,7 @@
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 4px 10px;
-      background: #fff;
+      background: linear-gradient(180deg, #fff, #f8efdc);
       font-family: "IBM Plex Mono", monospace;
       color: var(--ink);
     }
@@ -215,8 +244,34 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 10px;
-      background: #fff;
+      background:
+        linear-gradient(180deg, rgba(31, 122, 115, 0.08) 0%, rgba(31, 122, 115, 0) 26%),
+        linear-gradient(180deg, #fff, #fdf7ea);
       animation: slideIn 220ms ease both;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+      box-shadow: 0 10px 24px rgba(31, 122, 115, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     @keyframes slideIn {
@@ -227,6 +282,8 @@
     .card h3 {
       margin: 0 0 7px;
       font-size: 1.02rem;
+      font-family: "Cinzel", serif;
+      letter-spacing: 0.02em;
     }
 
     .muted {
@@ -242,8 +299,9 @@
       padding: 2px 8px;
       margin-left: 6px;
       font-size: 0.72rem;
-      border: 1px solid var(--line);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
       font-family: "IBM Plex Mono", monospace;
+      background: color-mix(in srgb, var(--accent) 12%, #fff 88%);
     }
 
     .ok { color: var(--ok); }
@@ -256,6 +314,120 @@
       color: var(--ink-soft);
       text-align: center;
       background: #fff;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(700px 500px at 20% -20%, rgba(31, 122, 115, 0.32), transparent 60%),
+        rgba(20, 24, 32, 0.62);
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      z-index: 30;
+    }
+
+    .modal-backdrop[hidden] {
+      display: none;
+    }
+
+    .modal {
+      width: min(900px, 100%);
+      max-height: calc(100vh - 28px);
+      overflow: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(31, 122, 115, 0.06), rgba(31, 122, 115, 0) 28%),
+        #fff8eb;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+      padding: 14px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.4rem;
+      font-family: "Cinzel", serif;
+      letter-spacing: 0.03em;
+    }
+
+    .close-btn {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #f5ead3);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-family: "IBM Plex Mono", monospace;
+      cursor: pointer;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .detail-item {
+      background: linear-gradient(180deg, #fff, #fbf3e1);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 0.88rem;
+    }
+
+    .detail-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .portfolio-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .portfolio-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fff, #faf1df);
+      padding: 8px;
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .portfolio-key {
+      display: block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     @media (max-width: 980px) {
@@ -272,10 +444,8 @@
 </head>
 <body>
   <main class="page">
-    <h1>Deity Filter: Domains, Alignment, Aspect</h1>
+    <h1>Deity Filter</h1>
     <p class="sub">
-      Domain support is inferred as <strong>all domain powers minus each deity's banned domains</strong>. Stack filters however you want:
-      2 domains, 2 alignments, 1 aspect, shadow magic, race, and text search.
     </p>
 
     <div class="layout">
@@ -293,7 +463,7 @@
 
         <section class="section">
           <span class="label">Required Cleric Alignments</span>
-          <div class="help">All selected alignments must exist in the deity's ClericAlign list.</div>
+          <div class="help">All selected alignments must allow a Cleric to follow the deity.</div>
           <div id="clericAlignChips" class="chips"></div>
         </section>
 
@@ -304,7 +474,7 @@
 
         <section class="section">
           <span class="label">Required Aspects</span>
-          <div class="help">Matches against Aspect1 and Aspect2.</div>
+          <div class="help">Matches against the deity's aspects.</div>
           <div id="aspectChips" class="chips"></div>
         </section>
 
@@ -326,7 +496,7 @@
               <select id="sortFilter">
                 <option value="name">Name A-Z</option>
                 <option value="alignment">Alignment</option>
-                <option selected="All" value="race">Race</option>
+                <option value="race">Race</option>
               </select>
             </div>
           </div>
@@ -346,6 +516,20 @@
       </section>
     </div>
   </main>
+
+  <div id="deityModalBackdrop" class="modal-backdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="deityModalTitle">
+      <header class="modal-head">
+        <div>
+          <h2 id="deityModalTitle" class="modal-title"></h2>
+          <p id="deityModalSub" class="muted"></p>
+        </div>
+        <button id="deityModalClose" class="close-btn" type="button" aria-label="Close deity details">Close</button>
+      </header>
+      <div id="deityModalDetails" class="detail-grid"></div>
+      <ul id="deityModalPortfolio" class="portfolio-list"></ul>
+    </section>
+  </div>
 
   <script src="./app.js"></script>
 </body>

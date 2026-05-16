@@ -7,6 +7,7 @@ const DOMAIN_POWERS = [
 
 const state = {
   allDeities: [],
+  deityByLabel: new Map(),
   selectedDomains: new Set(),
   selectedClericAlignments: new Set(),
   selectedDeityAlignments: new Set(),
@@ -25,11 +26,26 @@ const els = {
   applyBtn: document.getElementById("applyBtn"),
   resetBtn: document.getElementById("resetBtn"),
   meta: document.getElementById("meta"),
-  resultsGrid: document.getElementById("resultsGrid")
+  resultsGrid: document.getElementById("resultsGrid"),
+  deityModalBackdrop: document.getElementById("deityModalBackdrop"),
+  deityModalTitle: document.getElementById("deityModalTitle"),
+  deityModalSub: document.getElementById("deityModalSub"),
+  deityModalDetails: document.getElementById("deityModalDetails"),
+  deityModalPortfolio: document.getElementById("deityModalPortfolio"),
+  deityModalClose: document.getElementById("deityModalClose")
 };
 
 function normalize(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function titleCase(value) {
@@ -234,18 +250,118 @@ function cardHtml(deity) {
   const bannedDomains = deity.BannedDomains || [];
 
   return `
-    <article class="card">
-      <h3>${deity.Name}
-        <span class="pill">${deity.Alignment}</span>
+    <article class="card" data-label="${escapeHtml(deity.Label)}" tabindex="0" title="Open full deity details">
+      <h3>${escapeHtml(deity.Name)}
+        <span class="pill">${escapeHtml(deity.Alignment)}</span>
       </h3>
-      <p class="muted"><strong>Aspects:</strong> ${deity.Aspect1} | ${deity.Aspect2}</p>
-      <p class="muted"><strong>Race:</strong> ${deity.Race}</p>
-      <p class="muted"><strong>Cleric Align:</strong> ${deity.ClericAlignList.join(", ")}</p>
+      <p class="muted"><strong>Aspects:</strong> ${escapeHtml(deity.Aspect1)} | ${escapeHtml(deity.Aspect2)}</p>
+      <p class="muted"><strong>Race:</strong> ${escapeHtml(deity.Race)}</p>
+      <p class="muted"><strong>Cleric Align:</strong> ${escapeHtml(deity.ClericAlignList.join(", "))}</p>
       <p class="muted ${deity.ShadowMagic ? "ok" : "warn"}"><strong>Shadow Magic:</strong> ${deity.ShadowMagic ? "Yes" : "No"}</p>
-      <p class="muted"><strong>Banned Domains:</strong> ${bannedDomains.length ? bannedDomains.join(", ") : "None"}</p>
-      <p class="muted"><strong>Allowed Domains:</strong> ${allowedDomains.join(", ")}</p>
+      <p class="muted"><strong>Banned Domains:</strong> ${escapeHtml(bannedDomains.length ? bannedDomains.join(", ") : "None")}</p>
+      <p class="muted"><strong>Allowed Domains:</strong> ${escapeHtml(allowedDomains.join(", "))}</p>
     </article>
   `;
+}
+
+function detailRowHtml(label, value) {
+  return `
+    <div class="detail-item">
+      <div class="detail-label">${escapeHtml(label)}</div>
+      <div>${escapeHtml(value)}</div>
+    </div>
+  `;
+}
+
+function portfolioItemHtml(entry) {
+  const raw = String(entry || "").trim();
+  const splitIndex = raw.indexOf(":");
+  if (splitIndex > 0) {
+    const key = raw.slice(0, splitIndex).trim();
+    const value = raw.slice(splitIndex + 1).trim();
+    return `
+      <li class="portfolio-item">
+        <span class="portfolio-key">${escapeHtml(key)}</span>
+        <div>${escapeHtml(value)}</div>
+      </li>
+    `;
+  }
+
+  return `<li class="portfolio-item">${escapeHtml(raw)}</li>`;
+}
+
+function openDeityModal(deity) {
+  const allowedDomains = getAllowedDomains(deity);
+  const bannedDomains = deity.BannedDomains || [];
+
+  els.deityModalTitle.textContent = deity.Name || "Unknown Deity";
+  els.deityModalSub.textContent = `Label: ${deity.Label || "(none)"}`;
+  els.deityModalDetails.innerHTML = [
+    detailRowHtml("Alignment", deity.Alignment || "-"),
+    detailRowHtml("Cleric Alignments", deity.ClericAlignList.join(", ") || "-"),
+    detailRowHtml("Race", deity.Race || "-"),
+    detailRowHtml("Shadow Magic", deity.ShadowMagic ? "Yes" : "No"),
+    detailRowHtml("Aspect 1", deity.Aspect1 || "-"),
+    detailRowHtml("Aspect 2", deity.Aspect2 || "-"),
+    detailRowHtml("Banned Domains", bannedDomains.length ? bannedDomains.join(", ") : "None"),
+    detailRowHtml("Allowed Domains", allowedDomains.join(", "))
+  ].join("");
+
+  const portfolio = (deity.Portfolio || []).map(portfolioItemHtml).join("");
+  els.deityModalPortfolio.innerHTML = portfolio || "<li class=\"portfolio-item\">No portfolio details listed.</li>";
+
+  els.deityModalBackdrop.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeDeityModal() {
+  els.deityModalBackdrop.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function setupModalEvents() {
+  els.resultsGrid.addEventListener("click", (event) => {
+    const card = event.target.closest(".card[data-label]");
+    if (!card) {
+      return;
+    }
+
+    const deity = state.deityByLabel.get(card.dataset.label);
+    if (deity) {
+      openDeityModal(deity);
+    }
+  });
+
+  els.resultsGrid.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    const card = event.target.closest(".card[data-label]");
+    if (!card) {
+      return;
+    }
+
+    event.preventDefault();
+    const deity = state.deityByLabel.get(card.dataset.label);
+    if (deity) {
+      openDeityModal(deity);
+    }
+  });
+
+  els.deityModalClose.addEventListener("click", closeDeityModal);
+
+  els.deityModalBackdrop.addEventListener("click", (event) => {
+    if (event.target === els.deityModalBackdrop) {
+      closeDeityModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !els.deityModalBackdrop.hidden) {
+      closeDeityModal();
+    }
+  });
 }
 
 function render(results) {
@@ -322,10 +438,16 @@ async function load() {
     ClericAlignList: parseCsv(entry.ClericAlign)
   }));
 
+  state.deityByLabel = new Map(state.allDeities.map((deity) => [deity.Label, deity]));
+
   initFilters(state.allDeities);
+
+  // Keep default sort stable on first load.
+  els.sortFilter.value = "name";
 
   els.applyBtn.addEventListener("click", applyFilters);
   els.resetBtn.addEventListener("click", resetFilters);
+  setupModalEvents();
 
   // Auto-apply on control changes for fast iteration.
   [els.nameFilter, els.shadowFilter, els.raceFilter, els.sortFilter].forEach((el) => {

@@ -21,11 +21,19 @@ const els = {
 bindEvents();
 render();
 
+function persistLatest(mutator) {
+  const latest = ensureState(loadState());
+  mutator(latest);
+  state = ensureState(latest);
+  saveState(state);
+}
+
 function bindEvents() {
   if (els.wandCapToggle) {
     els.wandCapToggle.addEventListener("change", () => {
-      state.settings.wandPriceCapEnabled = !!els.wandCapToggle.checked;
-      saveState(state);
+      persistLatest((latest) => {
+        latest.settings.wandPriceCapEnabled = !!els.wandCapToggle.checked;
+      });
       render();
     });
   }
@@ -63,14 +71,14 @@ function bindEvents() {
       const key = button.dataset.key;
       if (!key) return;
 
-      state.placementCompletions = state.placementCompletions || {};
-      if (state.placementCompletions[key]) {
-        delete state.placementCompletions[key];
-      } else {
-        state.placementCompletions[key] = true;
-      }
-
-      saveState(state);
+      persistLatest((latest) => {
+        latest.placementCompletions = latest.placementCompletions || {};
+        if (latest.placementCompletions[key]) {
+          delete latest.placementCompletions[key];
+        } else {
+          latest.placementCompletions[key] = true;
+        }
+      });
       render();
     });
   }
@@ -359,14 +367,15 @@ function recordSale(locationId, itemId, qty) {
     return;
   }
 
-  const item = state.inventoryItems.find((entry) => entry.id === itemId);
-  if (!item) return;
+  persistLatest((latest) => {
+    const item = latest.inventoryItems.find((entry) => entry.id === itemId);
+    if (!item) return;
 
-  if (!item.stocks) item.stocks = {};
-  const current = Math.max(0, Math.floor(num(item.stocks[locationId])));
-  item.stocks[locationId] = Math.max(0, current - qty);
+    if (!item.stocks) item.stocks = {};
+    const current = Math.max(0, Math.floor(num(item.stocks[locationId])));
+    item.stocks[locationId] = Math.max(0, current - qty);
+  });
 
-  saveState(state);
   render();
 }
 

@@ -1,0 +1,92 @@
+== Classes By Skill ==
+{| class="wikitable sortable"
+! Skill
+! Classes
+|-
+| All
+| [[Specialist]]
+|-
+| Animal Empathy
+| [[Barbarian]], [[Bard]], [[Druid]], [[Ranger]], [[Shaman]], [[Shifter]]
+|-
+| Appraise
+| [[Assassin]], [[Bard]], [[Commoner]], [[Harper]], [[Rogue]]
+|-
+| Bluff
+| [[Assassin]], [[Bard]], [[Blackguard]], [[Commoner]], [[Elementalist]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Invisible Blade]], [[Liberator]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Sorcerer]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Zhentarim]]
+|-
+| Climb
+| [[Barbarian]], [[Bard]], [[Dragon Disciple]], [[Invisible Blade]], [[Liberator]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Swashbuckler]], [[Vigilante]]
+|-
+| Concentration
+| [[Arcane archer]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Divine Champion]], [[Dragon Disciple]], [[Druid]], [[Earthkin Defender]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Hemomancer]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Shaman]], [[Shifter]], [[Sorcerer]], [[Spellsword]], [[Vigilante]], [[Warlock]], [[Weapon master]], [[Wizard]], [[Zhentarim]]
+|-
+| Craft Mastery
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Druid]], [[Earthkin Defender]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shaman]], [[Shifter]], [[Sorcerer]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]], [[Wizard]], [[Zhentarim]]
+|-
+| Disable Trap
+| [[Assassin]], [[Harbinger]], [[Ranger]], [[Rogue]], [[Vigilante]]
+|-
+| Discipline
+| [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Divine Champion]], [[Dragon Disciple]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Ranger]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]]
+|-
+| Heal
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Druid]], [[Earthkin Defender]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shaman]], [[Shifter]], [[Sorcerer]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]], [[Wizard]], [[Zhentarim]]
+|-
+| Hide
+| [[Arcane archer]], [[Assassin]], [[Bard]], [[Harper]], [[Invisible Blade]], [[Monk]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Vigilante]], [[Warlock]], [[Zhentarim]]
+|-
+| Intimidate
+| [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Fighter]], [[Harbinger]], [[Harper]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Rogue]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]]
+|-
+| Leadership
+| [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Druid]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Knight]], [[Monk]], [[Paladin]], [[Rogue]], [[Shaman]], [[Sorcerer]], [[Spellsword]], [[Swashbuckler]], [[Warlock]], [[Zhentarim]]
+|-
+| Listen
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Harper]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Spellsword]], [[Vigilante]], [[Weapon master]]
+|-
+| Lore
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Druid]], [[Earthkin Defender]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shaman]], [[Shifter]], [[Sorcerer]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]], [[Wizard]], [[Zhentarim]]
+|-
+| Move Silently
+| [[Arcane archer]], [[Assassin]], [[Bard]], [[Harper]], [[Invisible Blade]], [[Monk]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Vigilante]], [[Warlock]], [[Zhentarim]]
+|-
+| Open Lock
+| [[Assassin]], [[Harper]], [[Rogue]], [[Vigilante]]
+|-
+| Parry
+| [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Divine Champion]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Harper]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Weapon master]]
+|-
+| Perform
+| [[Assassin]], [[Bard]], [[Commoner]], [[Harper]], [[Monk]], [[Rogue]], [[Shadowdancer]], [[Swashbuckler]], [[Warlock]], [[Weapon master]]
+|-
+| Ride
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Harper]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Weapon master]], [[Zhentarim]]
+|-
+| Sail
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Cleric]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Druid]], [[Earthkin Defender]], [[Elementalist]], [[Fighter]], [[Harbinger]], [[Harper]], [[Hemomancer]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Pale master]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shaman]], [[Sorcerer]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]], [[Wizard]], [[Zhentarim]]
+|-
+| Search
+| [[Assassin]], [[Bard]], [[Commoner]], [[Dragon Disciple]], [[Harbinger]], [[Harper]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Vigilante]]
+|-
+| Sleight Of Hand
+| [[Assassin]], [[Bard]], [[Harper]], [[Invisible Blade]], [[Rogue]], [[Shadowdancer]], [[Vigilante]]
+|-
+| Spellcraft
+| [[Bard]], [[Cleric]], [[Dragon Disciple]], [[Druid]], [[Elementalist]], [[Hemomancer]], [[Pale master]], [[Shaman]], [[Sorcerer]], [[Spellsword]], [[Warlock]], [[Wizard]], [[Zhentarim]]
+|-
+| Spot
+| [[Arcane archer]], [[Assassin]], [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Commoner]], [[Divine Champion]], [[Dragon Disciple]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Harper]], [[Invisible Blade]], [[Knight]], [[Liberator]], [[Monk]], [[Paladin]], [[Ranger]], [[Rogue]], [[Shadowdancer]], [[Shifter]], [[Spellsword]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Weapon master]]
+|-
+| Taunt
+| [[Barbarian]], [[Bard]], [[Blackguard]], [[Cavalier]], [[Commoner]], [[Divine Champion]], [[Earthkin Defender]], [[Fighter]], [[Harbinger]], [[Knight]], [[Liberator]], [[Paladin]], [[Rogue]], [[Swashbuckler]], [[Vigilante]], [[Weapon master]]
+|-
+| Tumble
+| [[Assassin]], [[Bard]], [[Harper]], [[Invisible Blade]], [[Monk]], [[Rogue]], [[Shadowdancer]], [[Swashbuckler]], [[Vigilante]], [[Warlock]], [[Zhentarim]]
+|-
+| Use Magic Device
+| [[Assassin]], [[Bard]], [[Harper]], [[Rogue]], [[Warlock]]
+|-
+| Use Traps
+| [[Assassin]], [[Harbinger]], [[Harper]], [[Liberator]], [[Ranger]], [[Rogue]], [[Vigilante]]
+|}
