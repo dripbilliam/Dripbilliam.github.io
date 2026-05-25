@@ -49,6 +49,7 @@ const els = {
   migratePotionScrollStacksBtn: document.getElementById("migratePotionScrollStacksBtn"),
   migratePotionCostsBtn: document.getElementById("migratePotionCostsBtn"),
   migrateScrollCostsBtn: document.getElementById("migrateScrollCostsBtn"),
+  migratePricesFromMarginBtn: document.getElementById("migratePricesFromMarginBtn"),
   exportItemFieldsBtn: document.getElementById("exportItemFieldsBtn"),
   importItemFieldsInput: document.getElementById("importItemFieldsInput"),
   exportItemFieldsCsvBtn: document.getElementById("exportItemFieldsCsvBtn"),
@@ -75,6 +76,10 @@ function deriveMarginFromPrice(unitCost, price) {
   const sale = Math.max(0, num(price));
   if (cost <= 0) return 0;
   return roundMoney(((sale - cost) / cost) * 100);
+}
+
+function derivePriceFromMargin(unitCost, marginPct) {
+  return roundMoney(num(unitCost) * (1 + (Math.max(0, num(marginPct)) / 100)));
 }
 
 function syncAllCraftedDerivedCosts() {
@@ -302,6 +307,49 @@ function bindEvents() {
 
     persist();
     alert(`Migration complete. Updated ${updated} scroll item(s).`);
+  });
+
+  els.migratePricesFromMarginBtn.addEventListener("click", () => {
+    if (!confirm("Rebuild all location prices from unit cost and margin values? Found items will be set to unit cost.")) return;
+
+    let updated = 0;
+
+    state.inventoryItems.forEach((item) => {
+      if (!item.locationConfig) item.locationConfig = {};
+
+      state.locations.forEach((location) => {
+        const locationId = location.id;
+
+        if (!item.locationConfig[locationId]) {
+          const marginPct = Math.max(0, num(state.settings.defaultMarkupPct));
+          item.locationConfig[locationId] = {
+            taxId: state.settings.defaultTaxId,
+            marginPct,
+            price: derivePriceFromMargin(item.unitCost, marginPct),
+            reorderPoint: 0,
+            parDisabled: !state.settings.enableParTracking
+          };
+        }
+
+        const config = item.locationConfig[locationId];
+        const prevPrice = roundMoney(config.price);
+
+        if (item.type === "found") {
+          config.marginPct = 0;
+          config.price = roundMoney(item.unitCost);
+        } else {
+          config.marginPct = roundMoney(config.marginPct);
+          config.price = derivePriceFromMargin(item.unitCost, config.marginPct);
+        }
+
+        if (roundMoney(config.price) !== prevPrice) {
+          updated += 1;
+        }
+      });
+    });
+
+    persist();
+    alert(`Migration complete. Rebuilt ${updated} location price entr${updated === 1 ? "y" : "ies"}.`);
   });
 
   els.exportItemFieldsBtn.addEventListener("click", () => {
@@ -742,6 +790,7 @@ function applyImportedItems(incomingItems) {
 
     const nextItem = JSON.parse(JSON.stringify(incoming));
     nextItem.id = item.id;
+    syncImportedPricingFields(item, nextItem);
 
     if (JSON.stringify(item) !== JSON.stringify(nextItem)) {
       updated += 1;
@@ -775,6 +824,58 @@ function applyImportedItems(incomingItems) {
 
   const skipped = Math.max(0, unknownIds.length - added);
   alert(`Item field import complete. Updated ${updated}, added ${added}, skipped ${skipped}.`);
+}
+
+function syncImportedPricingFields(existingItem, importedItem) {
+  if (!importedItem || typeof importedItem !== "object") return;
+  const nextUnitCost = roundMoney(importedItem.unitCost);
+  const prevUnitCost = roundMoney(existingItem?.unitCost);
+  const unitCostChanged = nextUnitCost !== prevUnitCost;
+
+  if (importedItem.type === "found") {
+    Object.keys(importedItem.locationConfig || {}).forEach((locationId) => {
+      const config = importedItem.locationConfig[locationId];
+      if (!config) return;
+      config.marginPct = 0;
+      config.price = nextUnitCost;
+    });
+    return;
+  }
+
+  const locationIds = new Set([
+    ...Object.keys(existingItem?.locationConfig || {}),
+    ...Object.keys(importedItem.locationConfig || {})
+  ]);
+
+  locationIds.forEach((locationId) => {
+    const prevConfig = existingItem?.locationConfig?.[locationId] || null;
+    const nextConfig = importedItem?.locationConfig?.[locationId] || null;
+    if (!nextConfig) return;
+
+    const prevMargin = roundMoney(prevConfig?.marginPct);
+    const prevPrice = roundMoney(prevConfig?.price);
+    const nextMargin = roundMoney(nextConfig.marginPct);
+    const nextPrice = roundMoney(nextConfig.price);
+
+    const marginChanged = !!prevConfig && nextMargin !== prevMargin;
+    const priceChanged = !!prevConfig && nextPrice !== prevPrice;
+
+    if (marginChanged && !priceChanged) {
+      nextConfig.price = derivePriceFromMargin(nextUnitCost, nextMargin);
+      return;
+    }
+
+    if (priceChanged && !marginChanged) {
+      nextConfig.marginPct = deriveMarginFromPrice(nextUnitCost, nextPrice);
+      return;
+    }
+
+    // Match item editor behavior: if cost changes while neither price/margin changed,
+    // keep price fixed and recompute displayed margin.
+    if (unitCostChanged && !marginChanged && !priceChanged) {
+      nextConfig.marginPct = deriveMarginFromPrice(nextUnitCost, nextPrice);
+    }
+  });
 }
 
 function buildItemCsvRows(currentState) {
