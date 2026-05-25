@@ -4,6 +4,34 @@ let state = ensureState(loadState());
 const ALL_CLASSES_VALUE = "__all";
 let importClassFilter = ALL_CLASSES_VALUE;
 
+const BASE_ITEM_COLUMNS = [
+  "id",
+  "name",
+  "type",
+  "spellId",
+  "spellCraftKind",
+  "vendorId",
+  "unitCost",
+  "stackable",
+  "stackCount",
+  "craftingPoints",
+  "craftDc",
+  "craftedOutputQty",
+  "profession",
+  "wandPriceCapOverride",
+  "disableDerivedCosting",
+  "notes"
+];
+
+const LOCATION_FIELD_SPECS = [
+  { key: "stock", source: "stocks", valueKey: null },
+  { key: "taxId", source: "locationConfig", valueKey: "taxId" },
+  { key: "marginPct", source: "locationConfig", valueKey: "marginPct" },
+  { key: "price", source: "locationConfig", valueKey: "price" },
+  { key: "reorderPoint", source: "locationConfig", valueKey: "reorderPoint" },
+  { key: "parDisabled", source: "locationConfig", valueKey: "parDisabled" }
+];
+
 const els = {
   addTaxBtn: document.getElementById("addTaxBtn"),
   taxRows: document.getElementById("taxRows"),
@@ -21,6 +49,10 @@ const els = {
   migratePotionScrollStacksBtn: document.getElementById("migratePotionScrollStacksBtn"),
   migratePotionCostsBtn: document.getElementById("migratePotionCostsBtn"),
   migrateScrollCostsBtn: document.getElementById("migrateScrollCostsBtn"),
+  exportItemFieldsBtn: document.getElementById("exportItemFieldsBtn"),
+  importItemFieldsInput: document.getElementById("importItemFieldsInput"),
+  exportItemFieldsCsvBtn: document.getElementById("exportItemFieldsCsvBtn"),
+  importItemFieldsCsvInput: document.getElementById("importItemFieldsCsvInput"),
   exportFullBackupBtn: document.getElementById("exportFullBackupBtn"),
   importFullBackupInput: document.getElementById("importFullBackupInput")
 };
@@ -270,6 +302,79 @@ function bindEvents() {
 
     persist();
     alert(`Migration complete. Updated ${updated} scroll item(s).`);
+  });
+
+  els.exportItemFieldsBtn.addEventListener("click", () => {
+    const payload = {
+      app: "StoreAssistItemFields",
+      backupVersion: 1,
+      exportedAt: new Date().toISOString(),
+      itemCount: state.inventoryItems.length,
+      // Keep a direct full-copy of inventory items so all fields are round-trippable.
+      items: state.inventoryItems.map((item) => JSON.parse(JSON.stringify(item)))
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `storeassist-item-fields-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  els.exportItemFieldsCsvBtn.addEventListener("click", () => {
+    const { columns, rows } = buildItemCsvRows(state);
+    const csv = toCsv(rows, columns);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `storeassist-item-fields-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  els.importItemFieldsInput.addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const parsed = JSON.parse(await file.text());
+      const incomingItems = extractIncomingItems(parsed);
+      applyImportedItems(incomingItems);
+    } catch {
+      alert("Import failed. Please provide a valid item fields JSON file.");
+    } finally {
+      event.target.value = "";
+    }
+  });
+
+  els.importItemFieldsCsvInput.addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const raw = await file.text();
+      const rows = parseCsv(raw);
+      if (!rows.length) {
+        alert("Import failed: CSV has no rows.");
+        return;
+      }
+
+      const { items: incomingItems, errors } = parseItemCsvRows(rows, state);
+
+      if (errors.length) {
+        alert(`Import failed: invalid CSV data at ${errors.slice(0, 10).join(", ")}.`);
+        return;
+      }
+
+      applyImportedItems(incomingItems);
+    } catch {
+      alert("Import failed. Please provide a valid item fields CSV file.");
+    } finally {
+      event.target.value = "";
+    }
   });
 
   els.exportFullBackupBtn.addEventListener("click", () => {
@@ -582,4 +687,393 @@ function normalizeSpellName(value) {
 
 function normalizeClassKey(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function extractIncomingItems(payload) {
+  if (Array.isArray(payload)) {
+    return payload.filter((entry) => entry && typeof entry === "object" && typeof entry.id === "string" && entry.id.trim());
+  }
+
+  if (payload && typeof payload === "object" && Array.isArray(payload.items)) {
+    return payload.items.filter((entry) => entry && typeof entry === "object" && typeof entry.id === "string" && entry.id.trim());
+  }
+
+  return [];
+}
+
+function findDuplicateItemIds(items) {
+  const seen = new Set();
+  const duplicates = new Set();
+
+  items.forEach((item) => {
+    const id = String(item.id || "").trim();
+    if (!id) return;
+    if (seen.has(id)) {
+      duplicates.add(id);
+      return;
+    }
+    seen.add(id);
+  });
+
+  return Array.from(duplicates);
+}
+
+function applyImportedItems(incomingItems) {
+  if (!incomingItems.length) {
+    alert("Import failed: no items found.");
+    return;
+  }
+
+  const duplicateIds = findDuplicateItemIds(incomingItems);
+  if (duplicateIds.length) {
+    alert(`Import failed: duplicate item id(s) detected in import payload: ${duplicateIds.slice(0, 10).join(", ")}`);
+    return;
+  }
+
+  const existingById = new Map(state.inventoryItems.map((item) => [item.id, item]));
+  const incomingById = new Map(incomingItems.map((item) => [String(item.id), item]));
+
+  let updated = 0;
+  const unknownIds = [];
+
+  state.inventoryItems = state.inventoryItems.map((item) => {
+    const incoming = incomingById.get(item.id);
+    if (!incoming) return item;
+
+    const nextItem = JSON.parse(JSON.stringify(incoming));
+    nextItem.id = item.id;
+
+    if (JSON.stringify(item) !== JSON.stringify(nextItem)) {
+      updated += 1;
+    }
+
+    return nextItem;
+  });
+
+  incomingById.forEach((incoming, id) => {
+    if (!existingById.has(id)) unknownIds.push(id);
+  });
+
+  let added = 0;
+  if (unknownIds.length) {
+    const addUnknown = confirm(
+      `${unknownIds.length} imported item id(s) were not found in current data. Add them as new items using their imported UUIDs?`
+    );
+
+    if (addUnknown) {
+      unknownIds.forEach((id) => {
+        const incoming = incomingById.get(id);
+        if (!incoming) return;
+        state.inventoryItems.push(JSON.parse(JSON.stringify(incoming)));
+        added += 1;
+      });
+    }
+  }
+
+  persist();
+  render();
+
+  const skipped = Math.max(0, unknownIds.length - added);
+  alert(`Item field import complete. Updated ${updated}, added ${added}, skipped ${skipped}.`);
+}
+
+function buildItemCsvRows(currentState) {
+  const locationIds = currentState.locations.map((location) => location.id);
+  const maxComponentCount = currentState.inventoryItems.reduce((maxCount, item) => {
+    const count = Array.isArray(item?.components) ? item.components.length : 0;
+    return Math.max(maxCount, count);
+  }, 0);
+
+  const componentColumns = [];
+  for (let i = 1; i <= maxComponentCount; i += 1) {
+    componentColumns.push(`componentItemId__${i}`);
+    componentColumns.push(`componentQty__${i}`);
+  }
+
+  const locationColumns = locationIds.flatMap((locationId) => (
+    LOCATION_FIELD_SPECS.map((field) => `${field.key}__${locationId}`)
+  ));
+
+  const columns = [
+    ...BASE_ITEM_COLUMNS,
+    ...locationColumns,
+    ...componentColumns
+  ];
+
+  const rows = currentState.inventoryItems.map((item) => {
+    const row = {
+      id: String(item?.id || ""),
+      name: String(item?.name || ""),
+      type: String(item?.type || ""),
+      spellId: String(item?.spellId || ""),
+      spellCraftKind: String(item?.spellCraftKind || ""),
+      vendorId: String(item?.vendorId || ""),
+      unitCost: safeNumberString(item?.unitCost),
+      stackable: boolToCsv(item?.stackable),
+      stackCount: safeIntegerString(item?.stackCount),
+      craftingPoints: safeIntegerString(item?.craftingPoints),
+      craftDc: safeIntegerString(item?.craftDc),
+      craftedOutputQty: safeIntegerString(item?.craftedOutputQty),
+      profession: String(item?.profession || ""),
+      wandPriceCapOverride: boolToCsv(item?.wandPriceCapOverride),
+      disableDerivedCosting: boolToCsv(item?.disableDerivedCosting),
+      notes: String(item?.notes || "")
+    };
+
+    locationIds.forEach((locationId) => {
+      const config = item?.locationConfig?.[locationId] || {};
+      const stock = item?.stocks?.[locationId];
+
+      row[`stock__${locationId}`] = safeIntegerString(stock);
+      row[`taxId__${locationId}`] = String(config?.taxId || "");
+      row[`marginPct__${locationId}`] = safeNumberString(config?.marginPct);
+      row[`price__${locationId}`] = safeNumberString(config?.price);
+      row[`reorderPoint__${locationId}`] = safeIntegerString(config?.reorderPoint);
+      row[`parDisabled__${locationId}`] = boolToCsv(config?.parDisabled);
+    });
+
+    const components = Array.isArray(item?.components) ? item.components : [];
+    for (let i = 1; i <= maxComponentCount; i += 1) {
+      const component = components[i - 1] || null;
+      row[`componentItemId__${i}`] = String(component?.itemId || "");
+      row[`componentQty__${i}`] = component ? safeIntegerString(component.qty) : "";
+    }
+
+    return row;
+  });
+
+  return { columns, rows };
+}
+
+function parseItemCsvRows(rows, currentState) {
+  const errors = [];
+  const items = [];
+  const componentIndices = collectComponentIndices(rows);
+
+  rows.forEach((row, index) => {
+    const rowNumber = index + 2;
+    const id = String(row.id || "").trim();
+    if (!id) {
+      errors.push(`row ${rowNumber} (missing id)`);
+      return;
+    }
+
+    const parsed = {
+      id,
+      name: String(row.name || "").trim(),
+      type: String(row.type || "").trim(),
+      spellId: String(row.spellId || "").trim(),
+      spellCraftKind: String(row.spellCraftKind || "").trim(),
+      vendorId: String(row.vendorId || "").trim(),
+      unitCost: parseRequiredNumber(row.unitCost, `row ${rowNumber} (unitCost)`, errors),
+      stackable: parseBooleanCell(row.stackable, false),
+      stackCount: parseRequiredInteger(row.stackCount, `row ${rowNumber} (stackCount)`, errors),
+      craftingPoints: parseRequiredInteger(row.craftingPoints, `row ${rowNumber} (craftingPoints)`, errors),
+      craftDc: parseRequiredInteger(row.craftDc, `row ${rowNumber} (craftDc)`, errors),
+      craftedOutputQty: parseRequiredInteger(row.craftedOutputQty, `row ${rowNumber} (craftedOutputQty)`, errors),
+      profession: String(row.profession || "").trim(),
+      wandPriceCapOverride: parseBooleanCell(row.wandPriceCapOverride, false),
+      disableDerivedCosting: parseBooleanCell(row.disableDerivedCosting, false),
+      notes: String(row.notes || ""),
+      stocks: {},
+      locationConfig: {},
+      components: []
+    };
+
+    currentState.locations.forEach((location) => {
+      const locationId = location.id;
+      const stock = parseRequiredInteger(
+        row[`stock__${locationId}`],
+        `row ${rowNumber} (stock__${locationId})`,
+        errors
+      );
+      const taxId = String(row[`taxId__${locationId}`] || "").trim();
+      const marginPct = parseRequiredNumber(
+        row[`marginPct__${locationId}`],
+        `row ${rowNumber} (marginPct__${locationId})`,
+        errors
+      );
+      const price = parseRequiredNumber(
+        row[`price__${locationId}`],
+        `row ${rowNumber} (price__${locationId})`,
+        errors
+      );
+      const reorderPoint = parseRequiredInteger(
+        row[`reorderPoint__${locationId}`],
+        `row ${rowNumber} (reorderPoint__${locationId})`,
+        errors
+      );
+      const parDisabled = parseBooleanCell(row[`parDisabled__${locationId}`], false);
+
+      parsed.stocks[locationId] = stock;
+      parsed.locationConfig[locationId] = {
+        taxId,
+        marginPct,
+        price,
+        reorderPoint,
+        parDisabled
+      };
+    });
+
+    componentIndices.forEach((componentIndex) => {
+      const itemId = String(row[`componentItemId__${componentIndex}`] || "").trim();
+      const qtyCell = String(row[`componentQty__${componentIndex}`] || "").trim();
+      if (!itemId && !qtyCell) return;
+      if (!itemId) {
+        errors.push(`row ${rowNumber} (componentItemId__${componentIndex})`);
+        return;
+      }
+      const qty = parseRequiredInteger(
+        qtyCell,
+        `row ${rowNumber} (componentQty__${componentIndex})`,
+        errors
+      );
+      parsed.components.push({ id: uid(), itemId, qty });
+    });
+
+    items.push(parsed);
+  });
+
+  return { items, errors };
+}
+
+function collectComponentIndices(rows) {
+  const indices = new Set();
+
+  rows.forEach((row) => {
+    Object.keys(row).forEach((key) => {
+      const itemMatch = /^componentItemId__(\d+)$/.exec(key);
+      if (itemMatch) indices.add(Number(itemMatch[1]));
+
+      const qtyMatch = /^componentQty__(\d+)$/.exec(key);
+      if (qtyMatch) indices.add(Number(qtyMatch[1]));
+    });
+  });
+
+  return Array.from(indices).sort((a, b) => a - b);
+}
+
+function parseRequiredInteger(value, context, errors) {
+  const raw = String(value ?? "").trim();
+  if (!raw) {
+    errors.push(`${context} missing`);
+    return 0;
+  }
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed)) {
+    errors.push(`${context} invalid`);
+    return 0;
+  }
+  return Math.max(0, Math.floor(parsed));
+}
+
+function parseRequiredNumber(value, context, errors) {
+  const raw = String(value ?? "").trim();
+  if (!raw) {
+    errors.push(`${context} missing`);
+    return 0;
+  }
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed)) {
+    errors.push(`${context} invalid`);
+    return 0;
+  }
+  return Math.max(0, parsed);
+}
+
+function parseBooleanCell(value, fallback) {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (!normalized) return !!fallback;
+  if (["true", "1", "yes", "y"].includes(normalized)) return true;
+  if (["false", "0", "no", "n"].includes(normalized)) return false;
+  return !!fallback;
+}
+
+function boolToCsv(value) {
+  return value ? "true" : "false";
+}
+
+function safeIntegerString(value) {
+  if (!Number.isFinite(Number(value))) return "0";
+  return String(Math.max(0, Math.floor(Number(value))));
+}
+
+function safeNumberString(value) {
+  if (!Number.isFinite(Number(value))) return "0";
+  return String(Math.max(0, Number(value)));
+}
+
+function toCsv(rows, columns) {
+  const header = columns.map(escapeCsvCell).join(",");
+  const body = rows.map((row) => columns.map((column) => escapeCsvCell(row[column])).join(",")).join("\n");
+  return `${header}\n${body}`;
+}
+
+function escapeCsvCell(value) {
+  const cell = String(value ?? "");
+  if (!/[",\n\r]/.test(cell)) return cell;
+  return `"${cell.replaceAll('"', '""')}"`;
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let current = "";
+  let row = [];
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"') {
+      if (insideQuotes && next === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        insideQuotes = !insideQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !insideQuotes) {
+      row.push(current);
+      current = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !insideQuotes) {
+      if (char === "\r" && next === "\n") i += 1;
+      row.push(current);
+      current = "";
+
+      if (row.some((cell) => cell.length > 0)) {
+        rows.push(row);
+      }
+      row = [];
+      continue;
+    }
+
+    current += char;
+  }
+
+  row.push(current);
+  if (row.some((cell) => cell.length > 0)) {
+    rows.push(row);
+  }
+
+  if (!rows.length) return [];
+
+  const headers = rows[0].map((header) => String(header || "").trim());
+  const records = [];
+
+  for (let i = 1; i < rows.length; i += 1) {
+    const values = rows[i];
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = values[index] ?? "";
+    });
+    records.push(record);
+  }
+
+  return records;
 }

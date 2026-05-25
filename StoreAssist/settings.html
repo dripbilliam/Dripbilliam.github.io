@@ -141,6 +141,25 @@
 
       <section class="card top-gap">
         <div class="panel-head">
+          <h2>Item Field Import/Export</h2>
+        </div>
+        <p class="hint">Export/import all inventory item fields by item UUID (<code>id</code>). CSV uses one column per attribute (including per-location fields).</p>
+        <div class="toolbar">
+          <button id="exportItemFieldsBtn" class="secondary" type="button">Export Item Fields</button>
+          <label class="file-pick">Import Item Fields
+            <input id="importItemFieldsInput" type="file" accept="application/json" />
+          </label>
+        </div>
+        <div class="toolbar top-gap">
+          <button id="exportItemFieldsCsvBtn" class="secondary" type="button">Export Item Fields CSV</button>
+          <label class="file-pick">Import Item Fields CSV
+            <input id="importItemFieldsCsvInput" type="file" accept=".csv,text/csv" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card top-gap">
+        <div class="panel-head">
           <h2>Full Backup</h2>
         </div>
         <p class="hint">Export or import all StoreAssist data for sharing between instances.</p>
