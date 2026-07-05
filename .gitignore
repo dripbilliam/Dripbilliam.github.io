@@ -13,6 +13,7 @@ desktop.ini
 *.swp
 *.swo
 *~
+Map
 
 # Logs
 *.log
@@ -28,3 +29,4 @@ package-lock.json
 # Temporary files
 *.tmp
 *.temp
+*.xlsx

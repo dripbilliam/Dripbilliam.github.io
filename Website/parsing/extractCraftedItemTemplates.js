@@ -1,17 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.join(__dirname, '..');
+const REPO_ROOT = path.join(__dirname, '..', '..');
+const WEBSITE_ROOT = path.join(__dirname, '..');
 const XML_PATHS = [
-  path.join(ROOT, 'docs', 'ArelithCraftedArmourAndWeapons.xml'),
-  path.join(ROOT, 'docs', 'ArelithCraftedArmours.xml'),
-  path.join(ROOT, 'docs', 'ArelithCraftedStaffAdditions.xml')
+  path.join(REPO_ROOT, 'docs', 'ArelithCraftedArmourAndWeapons.xml'),
+  path.join(REPO_ROOT, 'docs', 'ArelithCraftedArmours.xml'),
+  path.join(REPO_ROOT, 'docs', 'ArelithCraftedStaffAdditions.xml')
 ];
-const CLASS_DATA_PATH = path.join(ROOT, 'CharacterCalculator', 'classData.json');
-const OUTPUT_DIR = path.join(ROOT, 'Parsed');
+const CLASS_DATA_PATH = path.join(REPO_ROOT, 'CharacterCalculator', 'classData.json');
+const OUTPUT_DIR = path.join(WEBSITE_ROOT, 'Parsed');
 const OUTPUT_TEMPLATES = path.join(OUTPUT_DIR, 'craftedItemTemplates.json');
 const OUTPUT_AMBIGUOUS = path.join(OUTPUT_DIR, 'craftedItemAmbiguous.json');
-const OUTPUT_TEMPLATES_WEB = path.join(ROOT, 'CharacterCalculator', 'craftedItemTemplates.json');
+const OUTPUT_TEMPLATES_WEB = path.join(REPO_ROOT, 'CharacterCalculator', 'craftedItemTemplates.json');
 
 const DAMAGE_TYPE_MAP = {
   slash: 'Acid',

@@ -5,8 +5,8 @@ console.log('========================================');
 console.log('  Arelith Spell Tools - Full Rebuild');
 console.log('========================================\n');
 
-const { combineSpellFeatData, buildStandaloneHTML } = require('./parsing/parseSpellsAndFeats.js');
-const { parseBardSongTablesFromXml, writeParsedOutput } = require('./parsing/parseBardSongTables.js');
+const { combineSpellFeatData, buildStandaloneHTML } = require('./Website/parsing/parseSpellsAndFeats.js');
+const { parseBardSongTablesFromXml, writeParsedOutput } = require('./Website/parsing/parseBardSongTables.js');
 const { generateCombatDataJSON } = require('./SpellSearch/parseCombatData.js');
 const { parseEnhancedSpellData } = require('./SpellSearch/parseSpellsEnhanced.js');
 const { buildStandaloneSpellSearch } = require('./SpellSearch/buildStandalone.js');
@@ -36,10 +36,10 @@ async function rebuild() {
         console.log('  ✓ Full Rebuild Complete!');
         console.log('========================================');
         console.log('\nGenerated files:');
-        console.log('  - Parsed/combinedSpellFeatData.json');
-        console.log('  - Parsed/bardSongTables.json');
-        console.log('  - Parsed/notFound.json');
-        console.log('  - SequenceBuilder/sequenceBuilder_standalone.html');
+        console.log('  - Website/Parsed/combinedSpellFeatData.json');
+        console.log('  - Website/Parsed/bardSongTables.json');
+        console.log('  - Website/Parsed/notFound.json');
+        console.log('  - Website/sequenceBuilder_standalone.html');
         console.log('  - SpellSearch/combatData.json');
         console.log('  - SpellSearch/enhancedSpellData.json');
         console.log('  - SpellSearch/spellSearch_standalone.html');

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const INPUT_XML = path.join(__dirname, '..', 'docs', 'ArelithBard.xml');
+const INPUT_XML = path.join(__dirname, '..', '..', 'docs', 'ArelithBard.xml');
 const OUTPUT_JSON = path.join(__dirname, '..', 'Parsed', 'bardSongTables.json');
 
 function decodeEntities(value) {

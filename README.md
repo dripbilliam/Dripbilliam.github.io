@@ -15,7 +15,7 @@ This repository is licensed under **AGPL-3.0-or-later**.
 Enable repo-tracked hooks once per clone:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/enable-git-hooks.ps1
+powershell -ExecutionPolicy Bypass -File Website/scripts/enable-git-hooks.ps1
 ```
 
 This makes Git run `python -m reuse lint` before each commit.
@@ -43,21 +43,21 @@ Run parsing steps separately (optional):
 
 ### Step 1: Parse Sequence Builder Data
 ```bash
-node parsing/parseSpellsAndFeats.js
+node Website/parsing/parseSpellsAndFeats.js
 ```
 Reads: `docs/ArelithClassData.xml`, `docs/ArelithSpellsandFeats.xml`
-Outputs: `Parsed/combinedSpellFeatData.json`, `Parsed/notFound.json`
+Outputs: `Website/Parsed/combinedSpellFeatData.json`, `Website/Parsed/notFound.json`
 
 ### Step 1b: Parse Bard Song Tables
 ```bash
-node parsing/parseBardSongTables.js
+node Website/parsing/parseBardSongTables.js
 ```
 Reads: `docs/ArelithBard.xml`
-Outputs: `Parsed/bardSongTables.json`
+Outputs: `Website/Parsed/bardSongTables.json`
 
 Query example (song/effect/level, with Song of the Heart applied):
 ```bash
-node parsing/parseBardSongTables.js --query --table bard --song "Bardic Rhythm" --effect "AB" --level 24 --with-soth
+node Website/parsing/parseBardSongTables.js --query --table bard --song "Bardic Rhythm" --effect "AB" --level 24 --with-soth
 ```
 
 ### Step 2: Parse Combat Data
@@ -77,9 +77,9 @@ Outputs: `SpellSearch/enhancedSpellData.json` (356 spells)
 ### Step 4: Build Standalone HTML Files
 ```bash
 node SpellSearch/buildStandalone.js
-node parsing/buildStandalone.js
+node Website/parsing/buildStandalone.js
 ```
-Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standalone.html` (redirect route to Astrolabe)
+Outputs: `spellSearch_standalone.html`, `Website/sequenceBuilder_standalone.html` (redirect route to Astrolabe)
 
 ---
 
@@ -88,9 +88,19 @@ Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standal
 ```
 .
 ├── index.html                          # Landing page with tool navigation
-├── SequenceBuilder/
+├── Website/
 │   ├── sequenceBuilder_standalone.html # Legacy Spell Queue route (redirects to Astrolabe)
 │   └── sequenceBuilder.html            # Spell Queue Builder source (now redirects to Astrolabe)
+│   ├── Parsed/
+│   │   ├── combinedSpellFeatData.json  # Generated: 367 combined entries
+│   │   └── notFound.json               # Generated: 479 items not in XML
+│   ├── parsing/
+│   │   ├── parseSpellsAndFeats.js      # Sequence Builder parser
+│   │   ├── parseBardSongTables.js      # Bard table parser
+│   │   ├── groupNotFound.js            # Helper to organize missing items
+│   │   └── buildStandalone.js          # Builder for Sequence Builder
+│   └── scripts/
+│       └── enable-git-hooks.ps1        # Helper to install repo hooks
 ├── rebuild.js                          # Master build script (run this!)
 ├── _config.yml                         # Jekyll config for GitHub Pages
 ├── .nojekyll                           # Tells GitHub Pages to skip Jekyll
@@ -109,16 +119,6 @@ Outputs: `spellSearch_standalone.html`, `SequenceBuilder/sequenceBuilder_standal
 │   ├── buildStandalone.js              # HTML builder
 │   ├── enhancedSpellData.json          # Generated: 356 spells with metadata
 │   └── combatData.json                 # Generated: 133 combat entries
-│
-├── Parsed/
-│   ├── combinedSpellFeatData.json      # Generated: 367 combined entries
-│   └── notFound.json                   # Generated: 479 items not in XML
-│
-├── parsing/
-│   ├── parseSpellsAndFeats.js          # Sequence Builder parser
-│   ├── buildStandalone.js              # Sequence Builder HTML builder
-│   ├── groupNotFound.js                # Helper to organize missing items
-│   └── buildStandalone.js              # Builder for Sequence Builder
 │
 ├── SETUP_GUIDE.md                      # This file
 ├── GITHUB_PAGES.md                     # GitHub Pages deployment guide
@@ -210,7 +210,7 @@ node rebuild.js
 **Required files to push:**
 - `index.html`, `_config.yml`, `.nojekyll`
 - `SpellSearch/spellSearch_standalone.html` + `enhancedSpellData.json`
-- `Parsed/combinedSpellFeatData.json`
+- `Website/Parsed/combinedSpellFeatData.json`
 
 **Access:**
 - https://yourusername.github.io/repository-name/

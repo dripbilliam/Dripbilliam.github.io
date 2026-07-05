@@ -2,10 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 8000;
+const PORT = Number(process.env.PORT) || 8000;
 const ROOT_DIRS = [
-  path.resolve(__dirname),
-  path.resolve(__dirname, '..')
+  path.resolve(__dirname)
 ];
 
 const mimeTypes = {
@@ -13,7 +12,14 @@ const mimeTypes = {
   '.json': 'application/json',
   '.js': 'text/javascript',
   '.css': 'text/css',
-  '.txt': 'text/plain'
+  '.txt': 'text/plain',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon'
 };
 
 const server = http.createServer((req, res) => {
@@ -41,7 +47,8 @@ const server = http.createServer((req, res) => {
   const candidatePaths = [];
 
   const addCandidatePath = (rootDir, relativePath) => {
-    const filePath = path.join(rootDir, relativePath);
+    const safeRelativePath = String(relativePath || '').replace(/^[/\\]+/, '');
+    const filePath = path.join(rootDir, safeRelativePath);
     const realPath = path.resolve(filePath);
     if (realPath.startsWith(rootDir)) {
       candidatePaths.push({ rootDir, filePath, realPath });

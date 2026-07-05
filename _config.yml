@@ -11,8 +11,9 @@ layout: null
 # Exclude files from Jekyll processing
 exclude:
   - node_modules/
-  - parsing/
-  - Parsed/
+  - Website/parsing/
+  - Website/Parsed/
+  - Website/scripts/
   - docs/
   - "*.js"
   - "*.json"
@@ -23,10 +24,10 @@ exclude:
 # Include specific files
 include:
   - index.html
-  - SequenceBuilder/sequenceBuilder_standalone.html
+  - Website/sequenceBuilder_standalone.html
   - SpellSearch/spellSearch_standalone.html
   - SpellSearch/enhancedSpellData.json
-  - Parsed/combinedSpellFeatData.json
+  - Website/Parsed/combinedSpellFeatData.json
 
 # Disable Jekyll's default processing
 markdown: kramdown

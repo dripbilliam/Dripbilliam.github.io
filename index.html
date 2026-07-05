@@ -144,6 +144,36 @@
             transform: scale(1.05);
         }
 
+        .tool-card.hidden-tool {
+            display: none;
+        }
+
+        .tool-card.hidden-tool.unlocked {
+            display: block;
+        }
+
+        .secret-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #90cdf4;
+            border: 1px solid #4a5568;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.9em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .secret-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         footer {
             margin-top: 60px;
             padding-top: 30px;
@@ -272,6 +302,20 @@
                 <span class="cta-button">Open Deity Search →</span>
             </a>
 
+            <a href="Map/index.html" class="tool-card hidden-tool" id="secretUtilityCard" aria-hidden="true">
+                <span class="tool-icon">&nbsp;</span>
+                <h2 class="tool-title">Field Notes</h2>
+                <p class="tool-description">
+                    Access a private utility workspace for route planning and local notes.
+                </p>
+                <ul class="tool-features">
+                    <li>Save annotations locally in your browser</li>
+                    <li>Use drawing, labels, and quick markers</li>
+                    <li>Built for personal navigation workflows</li>
+                </ul>
+                <span class="cta-button">Open Field Notes →</span>
+            </a>
+
             <a href="https://dripbilliam.github.io/ArelithPortraitUploader/" class="tool-card" target="_blank" rel="noopener noreferrer">
                 <span class="tool-icon">&nbsp;</span>
                 <h2 class="tool-title">Portrait Uploader</h2>
@@ -290,7 +334,7 @@
         <h2 class="section-title">Moved to Astrolabe</h2>
 
         <div class="tools-grid">
-            <a href="SequenceBuilder/sequenceBuilder_standalone.html" class="tool-card" id="sequencerCard">
+            <a href="Website/sequenceBuilder_standalone.html" class="tool-card" id="sequencerCard">
                 <span class="tool-icon">&nbsp;</span>
                 <h2 class="tool-title">Spell Sequencer</h2>
                 <p class="tool-description" id="sequencerDescription">
@@ -319,10 +363,13 @@
             <p>Made for the Arelith community • Data sourced from Arelith Wiki</p>
         </footer>
     </div>
+    <div class="secret-toast" id="secretToast" role="status" aria-live="polite">Hidden utility unlocked.</div>
     <script>
+        const SECRET_UNLOCK_STORAGE_KEY = 'arelith-secret-map-unlocked';
+
         const INDEX_CONFIG = {
             useAstrolabeSequencer: true,
-            localSequencerPath: 'SequenceBuilder/sequenceBuilder_standalone.html',
+            localSequencerPath: 'Website/sequenceBuilder_standalone.html',
             astrolabeSequencerUrl: 'https://astrolabe.nwnarelith.com/sequencer'
         };
 
@@ -352,6 +399,56 @@
             description.textContent = 'Build optimized spell action queues for combat and buff sequences.';
             features.innerHTML = '<li>Create and manage spell sequences</li>';
             cta.textContent = 'Open Local Sequencer →';
+        })();
+
+        (function setupHiddenUtilityUnlock() {
+            const secretCard = document.getElementById('secretUtilityCard');
+            const toast = document.getElementById('secretToast');
+            if (!secretCard || !toast) {
+                return;
+            }
+
+            const secretSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let progress = 0;
+            let unlocked = false;
+
+            const showToast = () => {
+                toast.classList.add('show');
+                window.setTimeout(() => toast.classList.remove('show'), 1800);
+            };
+
+            const unlock = () => {
+                if (unlocked) {
+                    return;
+                }
+                unlocked = true;
+                window.sessionStorage.setItem(SECRET_UNLOCK_STORAGE_KEY, '1');
+                secretCard.classList.add('unlocked');
+                secretCard.setAttribute('aria-hidden', 'false');
+                showToast();
+            };
+
+            if (window.sessionStorage.getItem(SECRET_UNLOCK_STORAGE_KEY) === '1') {
+                unlocked = true;
+                secretCard.classList.add('unlocked');
+                secretCard.setAttribute('aria-hidden', 'false');
+            }
+
+            window.addEventListener('keydown', (event) => {
+                const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+                const expected = secretSequence[progress];
+
+                if (key === expected) {
+                    progress += 1;
+                    if (progress === secretSequence.length) {
+                        unlock();
+                        progress = 0;
+                    }
+                    return;
+                }
+
+                progress = key === secretSequence[0] ? 1 : 0;
+            });
         })();
     </script>
 </body>
