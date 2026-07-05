@@ -3,10 +3,10 @@ set -e
 
 echo "[pre-commit] Running REUSE compliance check..."
 
-if command -v python >/dev/null 2>&1; then
-  python -m reuse lint
-elif command -v py >/dev/null 2>&1; then
+if command -v py >/dev/null 2>&1; then
   py -3 -m reuse lint
+elif command -v python >/dev/null 2>&1; then
+  python -m reuse lint
 else
   echo "Python is required to run REUSE checks. Install Python + 'reuse' package."
   exit 1
