@@ -270,25 +270,8 @@ textarea:focus {
   padding: 8px;
 }
 
-.share-box {
-  border: 1px solid var(--line);
-  background: #343434;
-  border-radius: 3px;
-  padding: 8px;
-}
-
-.share-box h4 {
-  margin: 0;
-  font-size: 0.86rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.share-box input[readonly] {
+.visibility-share-row {
   margin-top: 6px;
-  color: #d7e9f2;
-  border-color: #5a6a72;
-  background: #2d3438;
 }
 
 .gift-stat {

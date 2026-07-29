@@ -131,6 +131,7 @@
     tagsInput: document.getElementById("tagsInput"),
     raceEclValue: document.getElementById("raceEclValue"),
     isPublicInput: document.getElementById("isPublicInput"),
+    isShareEnabledInput: document.getElementById("isShareEnabledInput"),
     majorGiftSlotsValue: document.getElementById("majorGiftSlotsValue"),
     minorGiftSlotsValue: document.getElementById("minorGiftSlotsValue"),
     raceFeatRaceName: document.getElementById("raceFeatRaceName"),
@@ -138,10 +139,6 @@
     majorGiftOptions: document.getElementById("majorGiftOptions"),
     minorGiftOptions: document.getElementById("minorGiftOptions"),
     alignmentInput: document.getElementById("alignmentInput"),
-    shareStateText: document.getElementById("shareStateText"),
-    shareLinkInput: document.getElementById("shareLinkInput"),
-    enableShareBtn: document.getElementById("enableShareBtn"),
-    disableShareBtn: document.getElementById("disableShareBtn"),
     copyShareLinkBtn: document.getElementById("copyShareLinkBtn")
   };
 
@@ -711,19 +708,15 @@
 
   function updateSharePanel(sheet) {
     if (!selectedSheetId || !sheet) {
-      els.shareStateText.textContent = "Save sheet first";
-      els.shareLinkInput.value = "";
-      els.enableShareBtn.disabled = true;
-      els.disableShareBtn.disabled = true;
+      els.isShareEnabledInput.checked = false;
+      els.isShareEnabledInput.disabled = true;
       els.copyShareLinkBtn.disabled = true;
       return;
     }
 
     const enabled = Boolean(sheet.share_enabled && sheet.share_token);
-    els.shareStateText.textContent = enabled ? "Enabled" : "Disabled";
-    els.shareLinkInput.value = enabled ? getShareUrl(sheet.share_token) : "";
-    els.enableShareBtn.disabled = enabled;
-    els.disableShareBtn.disabled = !enabled;
+    els.isShareEnabledInput.disabled = false;
+    els.isShareEnabledInput.checked = enabled;
     els.copyShareLinkBtn.disabled = !enabled;
   }
 
@@ -765,9 +758,8 @@
       await navigator.clipboard.writeText(url);
       setStatus("Share link copied.", "success");
     } catch (_error) {
-      els.shareLinkInput.focus();
-      els.shareLinkInput.select();
-      setStatus("Clipboard unavailable. Link selected for manual copy.", "error");
+      window.prompt("Copy this share link:", url);
+      setStatus("Clipboard unavailable. Share link shown for manual copy.", "error");
     }
   }
 
@@ -1292,6 +1284,7 @@
       input.value = "";
     });
     els.isPublicInput.checked = false;
+    els.isShareEnabledInput.checked = false;
 
     selectedMajorGifts = [];
     selectedMinorGifts = [];
@@ -1312,6 +1305,7 @@
     els.tagsInput.value = sanitizeTags(sheet.tags || "");
     els.alignmentInput.value = sheet.alignment || "";
     els.isPublicInput.checked = Boolean(sheet.is_public);
+    els.isShareEnabledInput.checked = Boolean(sheet.share_enabled);
 
     const metaRow = getMetaRow(sheet.level_data || []);
     selectedMajorGifts = Array.isArray(metaRow && metaRow.meta && metaRow.meta.selectedMajorGifts)
@@ -1560,8 +1554,9 @@
     els.generateRandomSheetBtn.addEventListener("click", generateRandomTestSheet);
     els.saveSheetBtn.addEventListener("click", saveSheet);
     els.deleteSheetBtn.addEventListener("click", deleteSelectedSheet);
-    els.enableShareBtn.addEventListener("click", () => setShareEnabledForSelected(true));
-    els.disableShareBtn.addEventListener("click", () => setShareEnabledForSelected(false));
+    els.isShareEnabledInput.addEventListener("change", () => {
+      setShareEnabledForSelected(Boolean(els.isShareEnabledInput.checked));
+    });
     els.copyShareLinkBtn.addEventListener("click", copyShareLinkForSelected);
 
     els.raceInput.addEventListener("change", () => {
