@@ -11,6 +11,8 @@ create table if not exists public.character_sheets (
   tags text not null default '',
   alignment text not null default '',
   is_public boolean not null default false,
+  share_enabled boolean not null default false,
+  share_token text,
   level_data jsonb not null default '[]'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -53,6 +55,19 @@ alter column level_data set default '[]'::jsonb;
 alter table public.character_sheets
 add column if not exists is_public boolean not null default false;
 
+alter table public.character_sheets
+add column if not exists share_enabled boolean not null default false;
+
+alter table public.character_sheets
+add column if not exists share_token text;
+
+alter table public.character_sheets
+alter column share_enabled set default false;
+
+create unique index if not exists idx_character_sheets_share_token_unique
+on public.character_sheets (share_token)
+where share_token is not null;
+
 create index if not exists idx_character_sheets_is_public_updated
 on public.character_sheets (is_public, updated_at desc);
 
@@ -64,6 +79,36 @@ begin
   new.updated_at = now();
   return new;
 end;
+$$;
+
+create or replace function public.get_shared_sheet(p_token text)
+returns table (
+  id uuid,
+  character_name text,
+  race text,
+  tags text,
+  alignment text,
+  level_data jsonb,
+  updated_at timestamptz,
+  is_public boolean
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select
+    s.id,
+    s.character_name,
+    s.race,
+    s.tags,
+    s.alignment,
+    s.level_data,
+    s.updated_at,
+    s.is_public
+  from public.character_sheets s
+  where s.share_enabled = true
+    and s.share_token = nullif(btrim(p_token), '')
+  limit 1;
 $$;
 
 drop trigger if exists trg_character_sheets_updated_at on public.character_sheets;
@@ -103,3 +148,4 @@ using (auth.uid() = user_id);
 grant usage on schema public to anon, authenticated;
 grant select on table public.character_sheets to anon;
 grant select, insert, update, delete on table public.character_sheets to authenticated;
+grant execute on function public.get_shared_sheet(text) to anon, authenticated;

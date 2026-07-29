@@ -3,6 +3,8 @@
   const RACE_FEAT_LOCAL_SOURCE = "./data/raceFeatsMeta.json";
 
   const els = {
+    searchPanel: document.getElementById("searchPanel"),
+    resultsPanel: document.getElementById("resultsPanel"),
     nameFilterInput: document.getElementById("nameFilterInput"),
     raceFilterInput: document.getElementById("raceFilterInput"),
     classFilterInput: document.getElementById("classFilterInput"),
@@ -26,6 +28,11 @@
   let supabase = null;
   let allPublicSheets = [];
   let raceFeatMeta = new Map();
+
+  function getShareTokenFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return String(params.get("t") || "").trim();
+  }
 
   function normalize(value) {
     return String(value || "").toLowerCase().trim();
@@ -453,6 +460,32 @@
     setStatus(`Loaded ${allPublicSheets.length} public sheets.`, "success");
   }
 
+  async function loadSharedSheetByToken(token) {
+    setStatus("Loading shared sheet...", "info");
+    const { data, error } = await supabase.rpc("get_shared_sheet", { p_token: token });
+
+    if (error) {
+      setStatus(`Failed to load shared sheet: ${error.message}`, "error");
+      return;
+    }
+
+    const row = Array.isArray(data) ? data[0] : data;
+    if (!row) {
+      setStatus("Shared sheet not found or link disabled.", "error");
+      return;
+    }
+
+    const sheet = {
+      ...row,
+      tags: sanitizeTags(row.tags || ""),
+      search: extractSearchData(row.level_data)
+    };
+
+    sheet.search.tagBlob = normalize(sheet.tags || "");
+    renderReadonlySheet(sheet);
+    setStatus("Loaded shared read-only sheet.", "success");
+  }
+
   function wireEvents() {
     els.applyFiltersBtn.addEventListener("click", applyFilters);
     els.closeReadonlyBtn.addEventListener("click", () => {
@@ -498,6 +531,19 @@
       return;
     }
     await loadRaceFeatMeta();
+
+    const shareToken = getShareTokenFromUrl();
+    if (shareToken) {
+      if (els.searchPanel) {
+        els.searchPanel.classList.add("hidden");
+      }
+      if (els.resultsPanel) {
+        els.resultsPanel.classList.add("hidden");
+      }
+      await loadSharedSheetByToken(shareToken);
+      return;
+    }
+
     await loadPublicSheets();
   }
 

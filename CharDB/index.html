@@ -76,6 +76,19 @@
                     <span class="muted-text small">Public (discoverable in search)</span>
                   </span>
                 </label>
+                <div class="share-box wide">
+                  <div class="row between wrap">
+                    <h4>Unlisted Share Link</h4>
+                    <span id="shareStateText" class="muted-text small">Disabled</span>
+                  </div>
+                  <p class="muted-text small">Read-only link. Not shown in public search.</p>
+                  <div class="row wrap">
+                    <button id="enableShareBtn" class="btn ghost" type="button" disabled>Enable</button>
+                    <button id="disableShareBtn" class="btn ghost" type="button" disabled>Disable</button>
+                    <button id="copyShareLinkBtn" class="btn ghost" type="button" disabled>Copy Link</button>
+                  </div>
+                  <input id="shareLinkInput" type="text" readonly placeholder="Save sheet, then enable sharing to generate link">
+                </div>
                 <div class="gift-stats-box">
                   <span class="gift-stat">ECL: <strong id="raceEclValue">0</strong></span>
                   <span class="gift-stat">Major Gifts: <strong id="majorGiftSlotsValue">0</strong></span>

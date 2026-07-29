@@ -137,7 +137,12 @@
     raceFeatList: document.getElementById("raceFeatList"),
     majorGiftOptions: document.getElementById("majorGiftOptions"),
     minorGiftOptions: document.getElementById("minorGiftOptions"),
-    alignmentInput: document.getElementById("alignmentInput")
+    alignmentInput: document.getElementById("alignmentInput"),
+    shareStateText: document.getElementById("shareStateText"),
+    shareLinkInput: document.getElementById("shareLinkInput"),
+    enableShareBtn: document.getElementById("enableShareBtn"),
+    disableShareBtn: document.getElementById("disableShareBtn"),
+    copyShareLinkBtn: document.getElementById("copyShareLinkBtn")
   };
 
   let supabase = null;
@@ -678,6 +683,94 @@
     }
   }
 
+  function randomShareToken() {
+    const bytes = new Uint8Array(24);
+    if (window.crypto && window.crypto.getRandomValues) {
+      window.crypto.getRandomValues(bytes);
+      return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    return `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
+  }
+
+  function getSharePageUrl() {
+    const basePath = window.location.pathname.replace(/[^/]+$/, "");
+    return `${window.location.origin}${basePath}public-search.html`;
+  }
+
+  function getShareUrl(token) {
+    if (!token) {
+      return "";
+    }
+    return `${getSharePageUrl()}?t=${encodeURIComponent(token)}`;
+  }
+
+  function getSelectedSheetRecord() {
+    return sheets.find((sheet) => sheet.id === selectedSheetId) || null;
+  }
+
+  function updateSharePanel(sheet) {
+    if (!selectedSheetId || !sheet) {
+      els.shareStateText.textContent = "Save sheet first";
+      els.shareLinkInput.value = "";
+      els.enableShareBtn.disabled = true;
+      els.disableShareBtn.disabled = true;
+      els.copyShareLinkBtn.disabled = true;
+      return;
+    }
+
+    const enabled = Boolean(sheet.share_enabled && sheet.share_token);
+    els.shareStateText.textContent = enabled ? "Enabled" : "Disabled";
+    els.shareLinkInput.value = enabled ? getShareUrl(sheet.share_token) : "";
+    els.enableShareBtn.disabled = enabled;
+    els.disableShareBtn.disabled = !enabled;
+    els.copyShareLinkBtn.disabled = !enabled;
+  }
+
+  async function setShareEnabledForSelected(enabled) {
+    if (!supabase || !activeUser || !selectedSheetId) {
+      setStatus("Save the sheet before managing share links.", "error");
+      return;
+    }
+
+    const existing = getSelectedSheetRecord();
+    const token = enabled ? (existing && existing.share_token ? existing.share_token : randomShareToken()) : null;
+
+    const { error } = await supabase
+      .from("character_sheets")
+      .update({
+        share_enabled: Boolean(enabled),
+        share_token: token
+      })
+      .eq("id", selectedSheetId);
+
+    if (error) {
+      setStatus(`Share update failed: ${error.message}`, "error");
+      return;
+    }
+
+    setStatus(enabled ? "Unlisted read-only link enabled." : "Unlisted read-only link disabled.", "success");
+    await loadSheets();
+  }
+
+  async function copyShareLinkForSelected() {
+    const sheet = getSelectedSheetRecord();
+    const url = sheet && sheet.share_enabled ? getShareUrl(sheet.share_token) : "";
+    if (!url) {
+      setStatus("Enable unlisted sharing first.", "error");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setStatus("Share link copied.", "success");
+    } catch (_error) {
+      els.shareLinkInput.focus();
+      els.shareLinkInput.select();
+      setStatus("Clipboard unavailable. Link selected for manual copy.", "error");
+    }
+  }
+
   function getRaceRule(raceName) {
     return RACE_RULES_BY_NAME.get(raceName) || { ecl: 0, major: 0, minor: 0 };
   }
@@ -1203,6 +1296,7 @@
     selectedMajorGifts = [];
     selectedMinorGifts = [];
     applyRaceGiftState();
+    updateSharePanel(null);
 
     writeLevelDataToForm([]);
     renderSheetList();
@@ -1228,6 +1322,7 @@
       : [];
     writeLevelDataToForm(sheet.level_data || []);
     applyRaceGiftState();
+    updateSharePanel(sheet);
     renderSheetList();
   }
 
@@ -1275,6 +1370,7 @@
       if (sheet.race) subtitleBits.push(sheet.race);
       if (sheet.tags) subtitleBits.push(sheet.tags);
       subtitleBits.push(sheet.is_public ? "Public" : "Private");
+      if (sheet.share_enabled) subtitleBits.push("Unlisted Link");
 
       item.innerHTML = `
         <strong>${sheet.character_name || "Untitled"}</strong>
@@ -1304,6 +1400,10 @@
 
     sheets = data || [];
     renderSheetList();
+
+    if (selectedSheetId) {
+      updateSharePanel(getSelectedSheetRecord());
+    }
 
     if (selectedSheetId) {
       const existing = sheets.find((s) => s.id === selectedSheetId);
@@ -1460,6 +1560,9 @@
     els.generateRandomSheetBtn.addEventListener("click", generateRandomTestSheet);
     els.saveSheetBtn.addEventListener("click", saveSheet);
     els.deleteSheetBtn.addEventListener("click", deleteSelectedSheet);
+    els.enableShareBtn.addEventListener("click", () => setShareEnabledForSelected(true));
+    els.disableShareBtn.addEventListener("click", () => setShareEnabledForSelected(false));
+    els.copyShareLinkBtn.addEventListener("click", copyShareLinkForSelected);
 
     els.raceInput.addEventListener("change", () => {
       applyRaceGiftState();

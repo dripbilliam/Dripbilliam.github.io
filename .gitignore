@@ -15,6 +15,7 @@ desktop.ini
 *~
 Map
 *.ps1
+.md
 
 # Logs
 *.log
@@ -22,6 +23,7 @@ npm-debug.log*
 
 # Source files and build scripts (not needed for GitHub Pages)
 GITHUB_PAGES.md
+readme.md
 XMLEnhancer/*
 package.json
 package-lock.json
