@@ -112,6 +112,13 @@
     "Lucky",
     "Weapon Proficiency (Primitive)"
   ],
+
+  "goblin": [
+  "Weapon Proficiency (Primitive)",
+"Darkvision",
+"Use Poison"
+  ],
+
   "gloaming": [
     "Small Stature",
     "Minor Sunlight Sensitivity",
