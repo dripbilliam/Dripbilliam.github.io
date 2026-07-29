@@ -15,7 +15,7 @@
       <div>
         <p class="eyebrow">Arelith Tooling</p>
         <h1>CharDB Public Search</h1>
-        <p class="subtitle">Search public character sheets by race, classes, and feats.</p>
+        <p class="subtitle">Search public character sheets by name, race, classes, feats, and tags.</p>
       </div>
       <div class="status-wrap">
         <a class="btn ghost" href="./index.html">Back To CharDB</a>
@@ -25,6 +25,9 @@
     <main class="layout">
       <section class="panel search-panel">
         <div class="search-filters-grid">
+          <label>Sheet Name
+            <input id="nameFilterInput" type="text" maxlength="120" placeholder="Example: Drip's Fighter">
+          </label>
           <label>Race Contains
             <input id="raceFilterInput" type="text" maxlength="100" placeholder="Example: Drow">
           </label>

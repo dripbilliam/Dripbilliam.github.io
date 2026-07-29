@@ -1,5 +1,6 @@
 (function () {
   const els = {
+    nameFilterInput: document.getElementById("nameFilterInput"),
     raceFilterInput: document.getElementById("raceFilterInput"),
     classFilterInput: document.getElementById("classFilterInput"),
     featFilterInput: document.getElementById("featFilterInput"),
@@ -256,12 +257,18 @@
   }
 
   function applyFilters() {
+    const nameQuery = normalize(els.nameFilterInput.value);
     const raceQuery = normalize(els.raceFilterInput.value);
     const classTokens = splitTokens(els.classFilterInput.value);
     const featTokens = splitTokens(els.featFilterInput.value);
     const tagTokens = splitTokens(els.tagFilterInput.value);
 
     const filtered = allPublicSheets.filter((sheet) => {
+      const nameOk = !nameQuery || normalize(sheet.character_name).includes(nameQuery);
+      if (!nameOk) {
+        return false;
+      }
+
       const raceOk = !raceQuery || normalize(sheet.race).includes(raceQuery);
       if (!raceOk) {
         return false;
@@ -357,6 +364,7 @@
       els.readonlyPanel.classList.add("hidden");
     });
     els.clearFiltersBtn.addEventListener("click", () => {
+      els.nameFilterInput.value = "";
       els.raceFilterInput.value = "";
       els.classFilterInput.value = "";
       els.featFilterInput.value = "";
