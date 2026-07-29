@@ -658,8 +658,24 @@
     return {
       url: (staticCfg.url || "").trim(),
       anonKey: (staticCfg.anonKey || "").trim(),
-      persistSession: staticCfg.persistSession !== false
+      persistSession: staticCfg.persistSession !== false,
+      oauthRedirectUrl: (staticCfg.oauthRedirectUrl || "").trim()
     };
+  }
+
+  function getOAuthRedirectUrl() {
+    const cfg = getRuntimeConfig();
+    const fallback = `${window.location.origin}${window.location.pathname}`;
+    if (!cfg.oauthRedirectUrl) {
+      return fallback;
+    }
+
+    try {
+      const url = new URL(cfg.oauthRedirectUrl);
+      return `${url.origin}${url.pathname}`;
+    } catch (_err) {
+      return fallback;
+    }
   }
 
   function getRaceRule(raceName) {
@@ -1409,7 +1425,7 @@
     els.signInDiscordBtn.addEventListener("click", async () => {
       if (!supabase) return;
 
-      const redirectTo = `${window.location.origin}${window.location.pathname}`;
+      const redirectTo = getOAuthRedirectUrl();
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "discord",
         options: {
