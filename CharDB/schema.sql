@@ -8,6 +8,7 @@ create table if not exists public.character_sheets (
   user_id uuid not null references auth.users(id) on delete cascade,
   character_name text not null,
   race text not null default '',
+  tags text not null default '',
   alignment text not null default '',
   is_public boolean not null default false,
   level_data jsonb not null default '[]'::jsonb,
@@ -20,6 +21,9 @@ add column if not exists character_name text;
 
 alter table public.character_sheets
 add column if not exists race text not null default '';
+
+alter table public.character_sheets
+add column if not exists tags text not null default '';
 
 alter table public.character_sheets
 add column if not exists alignment text not null default '';
@@ -36,6 +40,9 @@ alter column character_name set not null;
 
 alter table public.character_sheets
 alter column race set default '';
+
+alter table public.character_sheets
+alter column tags set default '';
 
 alter table public.character_sheets
 alter column alignment set default '';

@@ -1,0 +1,6248 @@
+[
+  {
+    "id": "0",
+    "name": "Acid Fog",
+    "originalName": "Acid Fog",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]"
+  },
+  {
+    "id": "1",
+    "name": "Aid",
+    "originalName": "Aid",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Mind-Affecting",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Mind-Affecting]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "2",
+    "name": "Animate Dead",
+    "originalName": "Animate Dead",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Evil",
+    "tags": [
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "3",
+    "name": "Barkskin",
+    "originalName": "Barkskin",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "4",
+    "name": "Bestow Curse",
+    "originalName": "Bestow Curse",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Fear Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "5",
+    "name": "Blade Barrier",
+    "originalName": "Blade Barrier",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Slashing"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Slashing Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Slashing Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "6",
+    "name": "Bless",
+    "originalName": "Bless",
+    "school": "Enchantment",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Mind-Affecting",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Mind-Affecting]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "7",
+    "name": "Bless Weapon",
+    "originalName": "Bless Weapon",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Divine",
+      "Fire",
+      "Magical",
+      "Positive"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Divine Damage",
+      "Fire Damage",
+      "Magical Damage",
+      "Positive Energy",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Divine Damage]]\n[[Category:Fire Damage]]\n[[Category:Magical Damage]]\n[[Category:Positive Energy]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "8",
+    "name": "Blindness and Deafness",
+    "originalName": "Blindness/Deafness",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Enchantment School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "9",
+    "name": "Bulls Strength",
+    "originalName": "Bull's Strength",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "10",
+    "name": "Burning Hands",
+    "originalName": "Burning Hands",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "11",
+    "name": "Call Lightning",
+    "originalName": "Call Lightning",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "14",
+    "name": "Chain Lightning",
+    "originalName": "Chain Lightning",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "15",
+    "name": "Charm Monster",
+    "originalName": "Charm Monster",
+    "school": "Enchantment",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "16",
+    "name": "Charm Person",
+    "originalName": "Charm Person",
+    "school": "Enchantment",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "17",
+    "name": "Charm Person or Animal",
+    "originalName": "Charm Person or Animal",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "18",
+    "name": "Circle of Death",
+    "originalName": "Circle of Death",
+    "school": "Necromancy",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "19",
+    "name": "Circle of Doom",
+    "originalName": "Circle of Doom",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "20",
+    "name": "Clairaudience and Clairvoyance",
+    "originalName": "Clairaudience/Clairvoyance",
+    "school": "Divination",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Piercing"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School",
+      "Piercing Damage"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Piercing Damage]]"
+  },
+  {
+    "id": "21",
+    "name": "Clarity",
+    "originalName": "Clarity",
+    "school": "Abjuration",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Abjuration School",
+      "Negative Energy",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Negative Energy]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "23",
+    "name": "Cloudkill",
+    "originalName": "Cloudkill",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "24",
+    "name": "Color Spray",
+    "originalName": "Color Spray",
+    "school": "Illusion",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Will Save",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "25",
+    "name": "Cone of Cold",
+    "originalName": "Cone of Cold",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "26",
+    "name": "Confusion",
+    "originalName": "Confusion",
+    "school": "Enchantment",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "27",
+    "name": "Contagion",
+    "originalName": "Contagion",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Fire Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Fire Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "28",
+    "name": "Control Undead",
+    "originalName": "Control Undead",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "29",
+    "name": "Create Greater Undead",
+    "originalName": "Create Greater Undead",
+    "school": "Necromancy",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "Evil",
+    "tags": [
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "30",
+    "name": "Create Undead",
+    "originalName": "Create Undead",
+    "school": "Necromancy",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "Evil",
+    "tags": [
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "31",
+    "name": "Cure Critical Wounds",
+    "originalName": "Cure Critical Wounds",
+    "school": "Conjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "32",
+    "name": "Cure Light Wounds",
+    "originalName": "Cure Light Wounds",
+    "school": "Conjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "33",
+    "name": "Cure Minor Wounds",
+    "originalName": "Cure Minor Wounds",
+    "school": "Conjuration",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Positive"
+    ],
+    "descriptors": "Positive",
+    "tags": [
+      "Positive"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Positive Energy",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Positive Energy]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "34",
+    "name": "Cure Moderate Wounds",
+    "originalName": "Cure Moderate Wounds",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "35",
+    "name": "Cure Serious Wounds",
+    "originalName": "Cure Serious Wounds",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "36",
+    "name": "Darkness",
+    "originalName": "Darkness",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Darkness",
+    "tags": [
+      "Darkness"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "37",
+    "name": "Daze",
+    "originalName": "Daze",
+    "school": "Enchantment",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "38",
+    "name": "Death Ward",
+    "originalName": "Death Ward",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "39",
+    "name": "Delayed Blast Fireball",
+    "originalName": "Delayed Blast Fireball",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Fire",
+      "Magical"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Magical Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Magical Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "40",
+    "name": "Dismissal",
+    "originalName": "Dismissal",
+    "school": "Abjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Will Save",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Will Save]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "41",
+    "name": "Dispel Magic",
+    "originalName": "Dispel Magic",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "42",
+    "name": "Divine Power",
+    "originalName": "Divine Power",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "43",
+    "name": "Dominate Animal",
+    "originalName": "Dominate Animal",
+    "school": "Enchantment",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "44",
+    "name": "Dominate Monster",
+    "originalName": "Dominate Monster",
+    "school": "Enchantment",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "45",
+    "name": "Dominate Person",
+    "originalName": "Dominate Person",
+    "school": "Enchantment",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "46",
+    "name": "Doom",
+    "originalName": "Doom",
+    "school": "Necromancy",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Magical Damage",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Magical Damage]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "47",
+    "name": "Flame Shield",
+    "originalName": "Flame Shield",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Cold",
+      "Fire"
+    ],
+    "descriptors": "Cold, Fire",
+    "tags": [
+      "Cold",
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "48",
+    "name": "Elemental Swarm",
+    "originalName": "Elemental Swarm",
+    "school": "Conjuration",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Air, Earth, Fire, Ooze, Water",
+    "tags": [
+      "Air",
+      "Earth",
+      "Fire",
+      "Ooze",
+      "Water"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "49",
+    "name": "Bears Endurance",
+    "originalName": "Bear's Endurance",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "50",
+    "name": "Endure Elements",
+    "originalName": "Endure Elements",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "51",
+    "name": "Energy Drain",
+    "originalName": "Energy Drain",
+    "school": "Necromancy",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Permanent Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Permanent Effect]]"
+  },
+  {
+    "id": "52",
+    "name": "Enervation",
+    "originalName": "Enervation",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "53",
+    "name": "Entangle",
+    "originalName": "Entangle",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "54",
+    "name": "Fear",
+    "originalName": "Fear",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Fear",
+    "tags": [
+      "Fear"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "55",
+    "name": "Feeblemind",
+    "originalName": "Feeblemind",
+    "school": "Divination",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Divination School",
+      "Will Save",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "56",
+    "name": "Finger of Death",
+    "originalName": "Finger of Death",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "57",
+    "name": "Fire Storm",
+    "originalName": "Fire Storm",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Divine",
+      "Fire"
+    ],
+    "descriptors": "Fire, Divine",
+    "tags": [
+      "Fire",
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "58",
+    "name": "Fireball",
+    "originalName": "Fireball",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "59",
+    "name": "Flame Arrow",
+    "originalName": "Flame Arrow",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "60",
+    "name": "Flame Lash",
+    "originalName": "Flame Lash",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "61",
+    "name": "Flame Strike",
+    "originalName": "Flame Strike",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Divine",
+      "Fire"
+    ],
+    "descriptors": "Fire, Divine",
+    "tags": [
+      "Fire",
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "62",
+    "name": "Freedom of Movement",
+    "originalName": "Freedom of Movement",
+    "school": "Abjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Paralysis"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Paralysis]]"
+  },
+  {
+    "id": "63",
+    "name": "Gate",
+    "originalName": "Gate",
+    "school": "Conjuration",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "65",
+    "name": "Globe of Invulnerability",
+    "originalName": "Globe of Invulnerability",
+    "school": "Abjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "66",
+    "name": "Grease",
+    "originalName": "Grease",
+    "school": "Conjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "67",
+    "name": "Greater Dispelling",
+    "originalName": "Greater Dispelling",
+    "school": "Abjuration",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "68",
+    "name": "Greater Magic Weapon",
+    "originalName": "Greater Magic Weapon",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "69",
+    "name": "Greater Planar Binding",
+    "originalName": "Greater Planar Binding",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Will Save",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Will Save]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "70",
+    "name": "Greater Restoration",
+    "originalName": "Greater Restoration",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Permanent Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Permanent Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "71",
+    "name": "Shadow Evocation",
+    "originalName": "Shadow Evocation",
+    "school": "Illusion",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Electricity",
+      "Fire",
+      "Negative"
+    ],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Electric Damage",
+      "Fire Damage",
+      "Negative Energy",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Electric Damage]]\n[[Category:Fire Damage]]\n[[Category:Negative Energy]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "72",
+    "name": "Greater Spell Breach",
+    "originalName": "Greater Spell Breach",
+    "school": "Abjuration",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "73",
+    "name": "Greater Spell Mantle",
+    "originalName": "Greater Spell Mantle",
+    "school": "Abjuration",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "74",
+    "name": "Greater Stoneskin",
+    "originalName": "Greater Stoneskin",
+    "school": "Abjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "75",
+    "name": "Gust of Wind",
+    "originalName": "Gust of Wind",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "76",
+    "name": "Hammer of the Gods",
+    "originalName": "Hammer of the Gods",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "Divine",
+    "tags": [
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "77",
+    "name": "Harm",
+    "originalName": "Harm",
+    "school": "Necromancy",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]"
+  },
+  {
+    "id": "78",
+    "name": "Haste",
+    "originalName": "Haste",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "79",
+    "name": "Heal",
+    "originalName": "Heal",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "80",
+    "name": "Healing Circle",
+    "originalName": "Healing Circle",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "81",
+    "name": "Hold Animal",
+    "originalName": "Hold Animal",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Enchantment School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "82",
+    "name": "Hold Monster",
+    "originalName": "Hold Monster",
+    "school": "Enchantment",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Enchantment School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "83",
+    "name": "Hold Person",
+    "originalName": "Hold Person",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Enchantment School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "85",
+    "name": "Holy Sword",
+    "originalName": "Holy Sword",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "86",
+    "name": "Identify",
+    "originalName": "Identify",
+    "school": "Divination",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "87",
+    "name": "Implosion",
+    "originalName": "Implosion",
+    "school": "Evocation",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "88",
+    "name": "Improved Invisibility",
+    "originalName": "Improved Invisibility",
+    "school": "Illusion",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Fire Damage",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Fire Damage]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "89",
+    "name": "Incendiary Cloud",
+    "originalName": "Incendiary Cloud",
+    "school": "Evocation",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "90",
+    "name": "Invisibility",
+    "originalName": "Invisibility",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "91",
+    "name": "Invisibility Purge",
+    "originalName": "Invisibility Purge",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "92",
+    "name": "Invisibility Sphere",
+    "originalName": "Invisibility Sphere",
+    "school": "Illusion",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "93",
+    "name": "Knock",
+    "originalName": "Knock",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "94",
+    "name": "Lesser Dispel",
+    "originalName": "Lesser Dispel",
+    "school": "Abjuration",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "95",
+    "name": "Lesser Mind Blank",
+    "originalName": "Lesser Mind Blank",
+    "school": "Abjuration",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Negative Energy",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Negative Energy]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "96",
+    "name": "Lesser Planar Binding",
+    "originalName": "Lesser Planar Binding",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Will Save",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Will Save]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "97",
+    "name": "Lesser Restoration",
+    "originalName": "Lesser Restoration",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Magical Damage",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Magical Damage]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "98",
+    "name": "Lesser Spell Breach",
+    "originalName": "Lesser Spell Breach",
+    "school": "Abjuration",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "99",
+    "name": "Lesser Spell Mantle",
+    "originalName": "Lesser Spell Mantle",
+    "school": "Abjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "100",
+    "name": "Light",
+    "originalName": "Light",
+    "school": "Evocation",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "101",
+    "name": "Lightning Bolt",
+    "originalName": "Lightning Bolt",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Electricity",
+      "Fire"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "102",
+    "name": "Mage Armor",
+    "originalName": "Mage Armor",
+    "school": "Conjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Force",
+    "tags": [
+      "Force"
+    ],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "107",
+    "name": "Magic Missile",
+    "originalName": "Magic Missile",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "108",
+    "name": "Magic Vestment",
+    "originalName": "Magic Vestment",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Armor Enchantment",
+    "tags": [
+      "Armor Enchantment"
+    ],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "109",
+    "name": "Magic Weapon",
+    "originalName": "Magic Weapon",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "110",
+    "name": "Mass Blindness and Deafness",
+    "originalName": "Mass Blindness/Deafness",
+    "school": "Illusion",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "111",
+    "name": "Mass Charm",
+    "originalName": "Mass Charm",
+    "school": "Enchantment",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "113",
+    "name": "Mass Haste",
+    "originalName": "Mass Haste",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "114",
+    "name": "Mass Heal",
+    "originalName": "Mass Heal",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "115",
+    "name": "Melfs Acid Arrow",
+    "originalName": "Melf's Acid Arrow",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]"
+  },
+  {
+    "id": "116",
+    "name": "Meteor Swarm",
+    "originalName": "Meteor Swarm",
+    "school": "Evocation",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "117",
+    "name": "Mind Blank",
+    "originalName": "Mind Blank",
+    "school": "Abjuration",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Negative Energy",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Negative Energy]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "118",
+    "name": "Mind Fog",
+    "originalName": "Mind Fog",
+    "school": "Enchantment",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "119",
+    "name": "Minor Globe of Invulnerability",
+    "originalName": "Minor Globe of Invulnerability",
+    "school": "Abjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "120",
+    "name": "Ghostly Visage",
+    "originalName": "Ghostly Visage",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]"
+  },
+  {
+    "id": "121",
+    "name": "Ethereal Visage",
+    "originalName": "Ethereal Visage",
+    "school": "Illusion",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]"
+  },
+  {
+    "id": "122",
+    "name": "Mordenkainens Disjunction",
+    "originalName": "Mordenkainen's Disjunction",
+    "school": "Abjuration",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "123",
+    "name": "Mordenkainens Sword",
+    "originalName": "Mordenkainen's Sword",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "124",
+    "name": "Natures Balance",
+    "originalName": "Nature's Balance",
+    "school": "Transmutation",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "125",
+    "name": "Negative Energy Protection",
+    "originalName": "Negative Energy Protection",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Negative Energy"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Negative Energy]]"
+  },
+  {
+    "id": "126",
+    "name": "Neutralize Poison",
+    "originalName": "Neutralize Poison",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "127",
+    "name": "Phantasmal Killer",
+    "originalName": "Phantasmal Killer",
+    "school": "Illusion",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "Fear, Mind-affecting",
+    "tags": [
+      "Fear",
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Fortitude Save",
+      "Will Save",
+      "Fear Effect",
+      "Mind-Affecting",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Fortitude Save]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]\n[[Category:Mind-Affecting]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "128",
+    "name": "Planar Binding",
+    "originalName": "Planar Binding",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Will Save",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Will Save]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "129",
+    "name": "Poison",
+    "originalName": "Poison",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Poison",
+    "tags": [
+      "Poison"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Fortitude Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Fortitude Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "130",
+    "name": "Polymorph Self",
+    "originalName": "Polymorph Self",
+    "school": "Transmutation",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "131",
+    "name": "Power Word Kill",
+    "originalName": "Power Word, Kill",
+    "school": "Divination",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Divination School",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "132",
+    "name": "Power Word Stun",
+    "originalName": "Power Word, Stun",
+    "school": "Divination",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Divination School",
+      "Will Save",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "133",
+    "name": "Prayer",
+    "originalName": "Prayer",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "134",
+    "name": "Premonition",
+    "originalName": "Premonition",
+    "school": "Divination",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "135",
+    "name": "Prismatic Spray",
+    "originalName": "Prismatic Spray",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Acid",
+      "Fire"
+    ],
+    "descriptors": "Special",
+    "tags": [
+      "Special"
+    ],
+    "categories": [
+      "Evocation School",
+      "Acid Damage",
+      "Fire Damage",
+      "Mind-Affecting",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Acid Damage]]\n[[Category:Fire Damage]]\n[[Category:Mind-Affecting]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "137",
+    "name": "Protection from Elements",
+    "originalName": "Protection from Elements",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "141",
+    "name": "Protection from Spells",
+    "originalName": "Protection from Spells",
+    "school": "Abjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "142",
+    "name": "Raise Dead",
+    "originalName": "Raise Dead",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "143",
+    "name": "Ray of Enfeeblement",
+    "originalName": "Ray of Enfeeblement",
+    "school": "Necromancy",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "144",
+    "name": "Ray of Frost",
+    "originalName": "Ray of Frost",
+    "school": "Evocation",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]"
+  },
+  {
+    "id": "145",
+    "name": "Remove Blindness and Deafness",
+    "originalName": "Remove Blindness/Deafness",
+    "school": "Divination",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "146",
+    "name": "Remove Curse",
+    "originalName": "Remove Curse",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "147",
+    "name": "Remove Disease",
+    "originalName": "Remove Disease",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "148",
+    "name": "Remove Fear",
+    "originalName": "Remove Fear",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "149",
+    "name": "Remove Paralysis",
+    "originalName": "Remove Paralysis",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Paralysis"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Paralysis]]"
+  },
+  {
+    "id": "150",
+    "name": "Resist Elements",
+    "originalName": "Resist Elements",
+    "school": "Abjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "151",
+    "name": "Resistance",
+    "originalName": "Resistance",
+    "school": "Abjuration",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "152",
+    "name": "Restoration",
+    "originalName": "Restoration",
+    "school": "Conjuration",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Magical Damage",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Magical Damage]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "153",
+    "name": "Resurrection",
+    "originalName": "Resurrection",
+    "school": "Conjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "154",
+    "name": "Sanctuary",
+    "originalName": "Sanctuary",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "155",
+    "name": "Scare",
+    "originalName": "Scare",
+    "school": "Necromancy",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Fear",
+    "tags": [
+      "Fear"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "156",
+    "name": "Searing Light",
+    "originalName": "Searing Light",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "157",
+    "name": "See Invisibility",
+    "originalName": "See Invisibility",
+    "school": "Divination",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "158",
+    "name": "Greater Shadow Conjuration",
+    "originalName": "Greater Shadow Conjuration",
+    "school": "Illusion",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]"
+  },
+  {
+    "id": "159",
+    "name": "Shadow Conjuration",
+    "originalName": "Shadow Conjuration",
+    "school": "Illusion",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Acid Damage"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Acid Damage]]"
+  },
+  {
+    "id": "160",
+    "name": "Shadow Shield",
+    "originalName": "Shadow Shield",
+    "school": "Illusion",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Negative Energy",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Negative Energy]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "161",
+    "name": "Shapechange",
+    "originalName": "Shapechange",
+    "school": "Transmutation",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Fire Damage",
+      "Fear Effect",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Fire Damage]]\n[[Category:Fear Effect]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "163",
+    "name": "Silence",
+    "originalName": "Silence",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "164",
+    "name": "Slay Living",
+    "originalName": "Slay Living",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Death, Negative",
+    "tags": [
+      "Death",
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "165",
+    "name": "Sleep",
+    "originalName": "Sleep",
+    "school": "Enchantment",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "166",
+    "name": "Slow",
+    "originalName": "Slow",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "167",
+    "name": "Sound Burst",
+    "originalName": "Sound Burst",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Evocation School",
+      "Sonic Damage",
+      "Will Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Sonic Damage]]\n[[Category:Will Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "168",
+    "name": "Spell Resistance",
+    "originalName": "Spell Resistance",
+    "school": "Abjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "169",
+    "name": "Spell Mantle",
+    "originalName": "Spell Mantle",
+    "school": "Abjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "171",
+    "name": "Stinking Cloud",
+    "originalName": "Stinking Cloud",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Poison",
+    "tags": [
+      "Poison"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "172",
+    "name": "Stoneskin",
+    "originalName": "Stoneskin",
+    "school": "Abjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "173",
+    "name": "Storm of Vengeance",
+    "originalName": "Storm of Vengeance",
+    "school": "Conjuration",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Acid",
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage",
+      "Electric Damage",
+      "Reflex Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "174",
+    "name": "Summon Creature I",
+    "originalName": "Summon Creature I",
+    "school": "Conjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "175",
+    "name": "Summon Creature II",
+    "originalName": "Summon Creature II",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "176",
+    "name": "Summon Creature III",
+    "originalName": "Summon Creature III",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "177",
+    "name": "Summon Creature IV",
+    "originalName": "Summon Creature IV",
+    "school": "Conjuration",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "178",
+    "name": "Summon Creature IX",
+    "originalName": "Summon Creature IX",
+    "school": "Conjuration",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "179",
+    "name": "Summon Creature V",
+    "originalName": "Summon Creature V",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "180",
+    "name": "Summon Creature VI",
+    "originalName": "Summon Creature VI",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "181",
+    "name": "Summon Creature VII",
+    "originalName": "Summon Creature VII",
+    "school": "Conjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "182",
+    "name": "Summon Creature VIII",
+    "originalName": "Summon Creature VIII",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "183",
+    "name": "Sunbeam",
+    "originalName": "Sunbeam",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "Divine",
+    "tags": [
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Reflex Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Reflex Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "184",
+    "name": "Tensers Transformation",
+    "originalName": "Tenser's Transformation",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Divine Damage",
+      "Polymorph"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Divine Damage]]\n[[Category:Polymorph]]"
+  },
+  {
+    "id": "185",
+    "name": "Time Stop",
+    "originalName": "Time Stop",
+    "school": "Transmutation",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "186",
+    "name": "True Seeing",
+    "originalName": "True Seeing",
+    "school": "Divination",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Piercing"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School",
+      "Piercing Damage",
+      "Polymorph",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Piercing Damage]]\n[[Category:Polymorph]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "188",
+    "name": "Vampiric Touch",
+    "originalName": "Vampiric Touch",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]"
+  },
+  {
+    "id": "189",
+    "name": "Virtue",
+    "originalName": "Virtue",
+    "school": "Transmutation",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "190",
+    "name": "Wail of the Banshee",
+    "originalName": "Wail of the Banshee",
+    "school": "Necromancy",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Sonic Damage",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Sonic Damage]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "191",
+    "name": "Wall of Fire",
+    "originalName": "Wall of Fire",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "192",
+    "name": "Web",
+    "originalName": "Web",
+    "school": "Conjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "193",
+    "name": "Weird",
+    "originalName": "Weird",
+    "school": "Illusion",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "Fear, Mind-affecting",
+    "tags": [
+      "Fear",
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Fortitude Save",
+      "Will Save",
+      "Fear Effect",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Fortitude Save]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "194",
+    "name": "Word of Faith",
+    "originalName": "Word of Faith",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Death Effect",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Death Effect]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "321",
+    "name": "Protection from Alignment",
+    "originalName": "Protection from Alignment",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "322",
+    "name": "Magic Circle against Alignment",
+    "originalName": "Magic Circle Against Alignment",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "323",
+    "name": "Aura versus Alignment",
+    "originalName": "Aura Versus Alignment",
+    "school": "Abjuration",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Divine",
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Divine Damage",
+      "Negative Energy",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Divine Damage]]\n[[Category:Negative Energy]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "355",
+    "name": "Owls Wisdom",
+    "originalName": "Owl's Wisdom",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "356",
+    "name": "Foxs Cunning",
+    "originalName": "Fox's Cunning",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "360",
+    "name": "Greater Bulls Strength",
+    "originalName": "Greater Bull's Strength",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "363",
+    "name": "Awaken",
+    "originalName": "Awaken",
+    "school": "Transmutation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "364",
+    "name": "Creeping Doom",
+    "originalName": "Creeping Doom",
+    "school": "Conjuration",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Piercing"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Piercing Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Piercing Damage]]"
+  },
+  {
+    "id": "365",
+    "name": "Ultravision",
+    "originalName": "Ultravision",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "366",
+    "name": "Destruction",
+    "originalName": "Destruction",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Entropy"
+    ],
+    "descriptors": "Destruction",
+    "tags": [
+      "Destruction"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Entropy Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Entropy Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "368",
+    "name": "Ice Storm",
+    "originalName": "Ice Storm",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Bludgeoning",
+      "Cold"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Bludgeoning Damage",
+      "Cold Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Bludgeoning Damage]]\n[[Category:Cold Damage]]"
+  },
+  {
+    "id": "369",
+    "name": "Energy Buffer",
+    "originalName": "Energy Buffer",
+    "school": "Abjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "370",
+    "name": "Negative Energy Burst",
+    "originalName": "Negative Energy Burst",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Will Save",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Will Save]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "371",
+    "name": "Negative Energy Ray",
+    "originalName": "Negative Energy Ray",
+    "school": "Necromancy",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Will Save",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Will Save]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "372",
+    "name": "Aura of Vitality",
+    "originalName": "Aura of Vitality",
+    "school": "Transmutation",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "373",
+    "name": "War Cry",
+    "originalName": "War Cry",
+    "school": "Enchantment",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "Fear",
+    "tags": [
+      "Fear"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "374",
+    "name": "Regenerate",
+    "originalName": "Regenerate",
+    "school": "Conjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "375",
+    "name": "Evards Black Tentacles",
+    "originalName": "Evard's Black Tentacles",
+    "school": "Conjuration",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Bludgeoning"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Bludgeoning Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Bludgeoning Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "376",
+    "name": "Legend Lore",
+    "originalName": "Legend Lore",
+    "school": "Divination",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "377",
+    "name": "Find Traps",
+    "originalName": "Find Traps",
+    "school": "Divination",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "385",
+    "name": "Rogues Cunning",
+    "originalName": "Rogue's Cunning",
+    "school": "Conjuration",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "| Components        = Verbal, Somatic",
+    "tags": [
+      "| Components = Verbal",
+      "Somatic"
+    ],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "414",
+    "name": "Divine Favor",
+    "originalName": "Divine Favor",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Evocation School",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "415",
+    "name": "True Strike",
+    "originalName": "True Strike",
+    "school": "Divination",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "416",
+    "name": "Flare",
+    "originalName": "Flare",
+    "school": "Evocation",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "417",
+    "name": "Shield",
+    "originalName": "Shield",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "418",
+    "name": "Entropic Shield",
+    "originalName": "Entropic Shield",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "419",
+    "name": "Continual Flame",
+    "originalName": "Continual Flame",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Magical Damage",
+      "Permanent Effect"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Magical Damage]]\n[[Category:Permanent Effect]]"
+  },
+  {
+    "id": "420",
+    "name": "One With The Land",
+    "originalName": "One With the Land",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "421",
+    "name": "Camouflage",
+    "originalName": "Camouflage",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "422",
+    "name": "Blood Frenzy",
+    "originalName": "Blood Frenzy",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "423",
+    "name": "Bombardment",
+    "originalName": "Bombardment",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Bludgeoning"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Bludgeoning Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Bludgeoning Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "424",
+    "name": "Acid Splash",
+    "originalName": "Acid Splash",
+    "school": "Conjuration",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]"
+  },
+  {
+    "id": "426",
+    "name": "Earthquake",
+    "originalName": "Earthquake",
+    "school": "Evocation",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "427",
+    "name": "Sunburst",
+    "originalName": "Sunburst",
+    "school": "Evocation",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Magical",
+      "Positive"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Magical Damage",
+      "Positive Energy",
+      "Reflex Save",
+      "Undead",
+      "Permanent Effect"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Magical Damage]]\n[[Category:Positive Energy]]\n[[Category:Reflex Save]]\n[[Category:Undead]]\n[[Category:Permanent Effect]]"
+  },
+  {
+    "id": "430",
+    "name": "Banishment",
+    "originalName": "Banishment",
+    "school": "Abjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Will Save",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Will Save]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "431",
+    "name": "Inflict Minor Wounds",
+    "originalName": "Inflict Minor Wounds",
+    "school": "Necromancy",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "432",
+    "name": "Inflict Light Wounds",
+    "originalName": "Inflict Light Wounds",
+    "school": "Necromancy",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "433",
+    "name": "Inflict Moderate Wounds",
+    "originalName": "Inflict Moderate Wounds",
+    "school": "Necromancy",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "434",
+    "name": "Inflict Serious Wounds",
+    "originalName": "Inflict Serious Wounds",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "435",
+    "name": "Inflict Critical Wounds",
+    "originalName": "Inflict Critical Wounds",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "437",
+    "name": "Drown",
+    "originalName": "Drown",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Bludgeoning"
+    ],
+    "descriptors": "Transmutation",
+    "tags": [
+      "Transmutation"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Bludgeoning Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Bludgeoning Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "438",
+    "name": "Owls Insight",
+    "originalName": "Owl's Insight",
+    "school": "Transmutation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "439",
+    "name": "Electric Jolt",
+    "originalName": "Electric Jolt",
+    "school": "Evocation",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]"
+  },
+  {
+    "id": "440",
+    "name": "Firebrand",
+    "originalName": "Firebrand",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "441",
+    "name": "Wounding Whispers",
+    "originalName": "Wounding Whispers",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Abjuration School",
+      "Sonic Damage"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Sonic Damage]]"
+  },
+  {
+    "id": "442",
+    "name": "Amplify",
+    "originalName": "Amplify",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "443",
+    "name": "Greater Sanctuary",
+    "originalName": "Greater Sanctuary",
+    "school": "Transmutation",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "444",
+    "name": "Undeaths Eternal Foe",
+    "originalName": "Undeath's Eternal Foe",
+    "school": "Abjuration",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Negative Energy",
+      "Undead",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Negative Energy]]\n[[Category:Undead]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "445",
+    "name": "Dirge",
+    "originalName": "Dirge",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Entropy",
+      "Sonic"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Entropy Damage",
+      "Sonic Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Entropy Damage]]\n[[Category:Sonic Damage]]"
+  },
+  {
+    "id": "446",
+    "name": "Inferno",
+    "originalName": "Inferno",
+    "school": "Transmutation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "447",
+    "name": "Isaacs Lesser Missile Storm",
+    "originalName": "Isaac's Lesser Missile Storm",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "448",
+    "name": "Isaacs Greater Missile Storm",
+    "originalName": "Isaac's Greater Missile Storm",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "449",
+    "name": "Bane",
+    "originalName": "Bane",
+    "school": "Enchantment",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "450",
+    "name": "Shield of Faith",
+    "originalName": "Shield of Faith",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "451",
+    "name": "Planar Ally",
+    "originalName": "Planar Ally",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Summoning"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Summoning]]"
+  },
+  {
+    "id": "452",
+    "name": "Magic Fang",
+    "originalName": "Magic Fang",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "453",
+    "name": "Greater Magic Fang",
+    "originalName": "Greater Magic Fang",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "454",
+    "name": "Spike Growth",
+    "originalName": "Spike Growth",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "455",
+    "name": "Mass Camouflage",
+    "originalName": "Mass Camouflage",
+    "school": "Transmutation",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "456",
+    "name": "Expeditious Retreat",
+    "originalName": "Expeditious Retreat",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "457",
+    "name": "Tashas Hideous Laughter",
+    "originalName": "Tasha's Hideous Laughter",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "458",
+    "name": "Displacement",
+    "originalName": "Displacement",
+    "school": "Illusion",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "459",
+    "name": "Bigbys Interposing Hand",
+    "originalName": "Bigby's Interposing Hand",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "460",
+    "name": "Bigbys Forceful Hand",
+    "originalName": "Bigby's Forceful Hand",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "461",
+    "name": "Bigbys Grasping Hand",
+    "originalName": "Bigby's Grasping Hand",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "462",
+    "name": "Bigbys Clenched Fist",
+    "originalName": "Bigby's Clenched Fist",
+    "school": "Evocation",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Fortitude Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fortitude Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "463",
+    "name": "Bigbys Crushing Hand",
+    "originalName": "Bigby's Crushing Hand",
+    "school": "Evocation",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "481",
+    "name": "Cats Grace",
+    "originalName": "Cat's Grace",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "485",
+    "name": "Flesh to stone",
+    "originalName": "Flesh to Stone",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "486",
+    "name": "Stone to flesh",
+    "originalName": "Stone to Flesh",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "512",
+    "name": "Crumble",
+    "originalName": "Crumble",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Entropy",
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Entropy Damage",
+      "Sonic Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Entropy Damage]]\n[[Category:Sonic Damage]]"
+  },
+  {
+    "id": "513",
+    "name": "Infestation of Maggots",
+    "originalName": "Infestation of Maggots",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Disease",
+    "tags": [
+      "Disease"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "514",
+    "name": "Healing Sting",
+    "originalName": "Healing Sting",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Healing"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Healing]]"
+  },
+  {
+    "id": "515",
+    "name": "Great Thunderclap",
+    "originalName": "Great Thunderclap",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Evocation School",
+      "Sonic Damage",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Sonic Damage]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "516",
+    "name": "Ball Lightning",
+    "originalName": "Ball Lightning",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "517",
+    "name": "Battletide",
+    "originalName": "Battletide",
+    "school": "Transmutation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Negative Energy",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Negative Energy]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "518",
+    "name": "Combust",
+    "originalName": "Combust",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "519",
+    "name": "Death Armor",
+    "originalName": "Death Armor",
+    "school": "Necromancy",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "Magical Armor",
+    "tags": [
+      "Magical Armor"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "520",
+    "name": "Gedlees Electric Loop",
+    "originalName": "Gedlee's Electric Loop",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity, Mind-affecting",
+    "tags": [
+      "Electricity",
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Reflex Save",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "521",
+    "name": "Horizikauls Boom",
+    "originalName": "Horizikaul's Boom",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Sonic, Mind-affecting",
+    "tags": [
+      "Sonic",
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Evocation School",
+      "Sonic Damage",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Sonic Damage]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "522",
+    "name": "Ironguts",
+    "originalName": "Ironguts",
+    "school": "Abjuration",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Poison Resistance",
+    "tags": [
+      "Poison Resistance"
+    ],
+    "categories": [
+      "Abjuration School"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]"
+  },
+  {
+    "id": "523",
+    "name": "Mestils Acid Breath",
+    "originalName": "Mestil's Acid Breath",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "524",
+    "name": "Mestils Acid Sheath",
+    "originalName": "Mestil's Acid Sheath",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]"
+  },
+  {
+    "id": "525",
+    "name": "Monstrous Regeneration",
+    "originalName": "Monstrous Regeneration",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Regeneration",
+    "tags": [
+      "Regeneration"
+    ],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "526",
+    "name": "Scintillating Sphere",
+    "originalName": "Scintillating Sphere",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Electricity",
+    "tags": [
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "527",
+    "name": "Stone Bones",
+    "originalName": "Stone Bones",
+    "school": "Transmutation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "Magical Armor",
+    "tags": [
+      "Magical Armor"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Magical Damage",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Magical Damage]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "528",
+    "name": "Undeath to Death",
+    "originalName": "Undeath to Death",
+    "school": "Necromancy",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "529",
+    "name": "Vine Mine",
+    "originalName": "Vine Mine",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Nature",
+    "tags": [
+      "Nature"
+    ],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "533",
+    "name": "Black Blade of Disaster",
+    "originalName": "Black Blade of Disaster",
+    "school": "Conjuration",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Permanent Effect"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Permanent Effect]]"
+  },
+  {
+    "id": "534",
+    "name": "Shelgarns Persistent Blade",
+    "originalName": "Shelgarn's Persistent Blade",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Summoned Item",
+    "tags": [
+      "Summoned Item"
+    ],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "535",
+    "name": "Blade Thirst",
+    "originalName": "Blade Thirst",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Slashing"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Slashing Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Slashing Damage]]"
+  },
+  {
+    "id": "536",
+    "name": "Deafening Clang",
+    "originalName": "Deafening Clang",
+    "school": "Transmutation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Sonic Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Sonic Damage]]"
+  },
+  {
+    "id": "539",
+    "name": "Keen Edge",
+    "originalName": "Keen Edge",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "541",
+    "name": "Blackstaff",
+    "originalName": "Blackstaff",
+    "school": "Transmutation",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Negative Energy"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Negative Energy]]"
+  },
+  {
+    "id": "542",
+    "name": "Elemental Weapon",
+    "originalName": "Elemental Weapon",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "543",
+    "name": "Ice Dagger",
+    "originalName": "Ice Dagger",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "547",
+    "name": "Stonehold",
+    "originalName": "Stonehold",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "548",
+    "name": "Darkfire",
+    "originalName": "Darkfire",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Weapon Enchantment",
+    "tags": [
+      "Weapon Enchantment"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "549",
+    "name": "Glyph of Warding",
+    "originalName": "Glyph of Warding",
+    "school": "Abjuration",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Magical",
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Abjuration School",
+      "Magical Damage",
+      "Sonic Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Magical Damage]]\n[[Category:Sonic Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "566",
+    "name": "Evil Blight",
+    "originalName": "Evil Blight",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "N/A",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Permanent Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Permanent Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "569",
+    "name": "Cloud of Bewilderment",
+    "originalName": "Cloud of Bewilderment",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Gas",
+    "tags": [
+      "Gas"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fortitude Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fortitude Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "762",
+    "name": "Hell Inferno",
+    "originalName": "Hell Inferno",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1562",
+    "name": "Chaos Shield",
+    "originalName": "Chaos Shield",
+    "school": "Abjuration",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Permanent Effect"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Permanent Effect]]"
+  },
+  {
+    "id": "1563",
+    "name": "Improved Chaos Shield",
+    "originalName": "Improved Chaos Shield",
+    "school": "Abjuration",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Cold",
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Abjuration School",
+      "Cold Damage",
+      "Fire Damage",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Abjuration School]]\n[[Category:Cold Damage]]\n[[Category:Fire Damage]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "1564",
+    "name": "Disintegrate",
+    "originalName": "Disintegrate",
+    "school": "Transmutation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Entropy"
+    ],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Entropy Damage",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Entropy Damage]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "1565",
+    "name": "Halt Undead",
+    "originalName": "Halt Undead",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1566",
+    "name": "Blasphemy",
+    "originalName": "Blasphemy",
+    "school": "Evocation",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "1567",
+    "name": "Crushing Despair",
+    "originalName": "Crushing Despair",
+    "school": "Enchantment",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "1568",
+    "name": "Good Hope",
+    "originalName": "Good Hope",
+    "school": "Enchantment",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Enchantment School"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]"
+  },
+  {
+    "id": "1569",
+    "name": "Faerie Fire",
+    "originalName": "Faerie Fire",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Magical Damage",
+      "Invisibility"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Magical Damage]]\n[[Category:Invisibility]]"
+  },
+  {
+    "id": "1570",
+    "name": "Maze",
+    "originalName": "Maze",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1571",
+    "name": "Wall of Ice",
+    "originalName": "Wall of Ice",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]"
+  },
+  {
+    "id": "1572",
+    "name": "Scorching Ray",
+    "originalName": "Scorching Ray",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "1573",
+    "name": "Chromatic Orb",
+    "originalName": "Chromatic Orb",
+    "school": "Evocation",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "1575",
+    "name": "Avascular Mass",
+    "originalName": "Avascular Mass",
+    "school": "Necromancy",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "1577",
+    "name": "Scintillating Pattern",
+    "originalName": "Scintillating Pattern",
+    "school": "Illusion",
+    "innateLevel": "8",
+    "damageTypes": [],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Mind-Affecting",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Mind-Affecting]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "1579",
+    "name": "Nightmare",
+    "originalName": "Nightmare",
+    "school": "Illusion",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Mind-Affecting, Evil",
+    "tags": [
+      "Mind Affecting",
+      "Evil"
+    ],
+    "categories": [
+      "Illusion School",
+      "Will Save",
+      "Mind-Affecting",
+      "Permanent Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Permanent Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "1581",
+    "name": "Bigbys Disrupting Hand",
+    "originalName": "Bigby's Disrupting Hand",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "1582",
+    "name": "Sound Lance",
+    "originalName": "Sound Lance",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Sonic"
+    ],
+    "descriptors": "Sonic",
+    "tags": [
+      "Sonic"
+    ],
+    "categories": [
+      "Evocation School",
+      "Sonic Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Sonic Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "1583",
+    "name": "Finger of Agony",
+    "originalName": "Finger of Agony",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Magical Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Magical Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "1584",
+    "name": "Freeze",
+    "originalName": "Freeze",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Cold Damage",
+      "Fortitude Save",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Cold Damage]]\n[[Category:Fortitude Save]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1585",
+    "name": "Iceberg",
+    "originalName": "Iceberg",
+    "school": "Evocation",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1592",
+    "name": "Detect Poison",
+    "originalName": "Detect Poison",
+    "school": "Divination",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "| Components        = Verbal, Somatic",
+    "tags": [
+      "| Components = Verbal",
+      "Somatic"
+    ],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "1593",
+    "name": "Daltims fiery Tentacles",
+    "originalName": "Daltim's Fiery Tentacles",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School",
+      "Fire Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Fire Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "1594",
+    "name": "Kyristans malevolent Tentacles",
+    "originalName": "Kyristan's Malevolent Tentacles",
+    "school": "Necromancy",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Entropy Damage",
+      "Negative Energy",
+      "Fortitude Save",
+      "Paralysis"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Paralysis]]"
+  },
+  {
+    "id": "1595",
+    "name": "Darkbolt",
+    "originalName": "Darkbolt",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Darkness, Mind Affecting",
+    "tags": [
+      "Darkness",
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Evocation School",
+      "Will Save",
+      "Mind-Affecting",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1597",
+    "name": "Mass Hold Monster",
+    "originalName": "Mass Hold Monster",
+    "school": "Enchantment",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "Mind-Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "1609",
+    "name": "Shadow Plague",
+    "originalName": "Shadow Plague",
+    "school": "Conjuration",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Darkness",
+    "tags": [
+      "Darkness"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Cold Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Cold Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1632",
+    "name": "Lightning Shield",
+    "originalName": "Lightning Shield",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Lightning",
+    "tags": [
+      "Lightning"
+    ],
+    "categories": [
+      "Evocation School"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]"
+  },
+  {
+    "id": "1633",
+    "name": "Frost Shield",
+    "originalName": "Frost Shield",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Cold",
+      "Fire"
+    ],
+    "descriptors": "Cold, Fire",
+    "tags": [
+      "Cold",
+      "Fire"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "1636",
+    "name": "Water Breathing",
+    "originalName": "Water Breathing",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "1683",
+    "name": "Dark Undertow",
+    "originalName": "Dark Undertow",
+    "school": "Conjuration",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "| Components        = Verbal, Somatic",
+    "tags": [
+      "| Components = Verbal",
+      "Somatic"
+    ],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "1730",
+    "name": "Sacred Flame",
+    "originalName": "Sacred Flame",
+    "school": "Evocation",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Negative",
+      "Positive"
+    ],
+    "descriptors": "Positive",
+    "tags": [
+      "Positive"
+    ],
+    "categories": [
+      "Evocation School",
+      "Negative Energy",
+      "Positive Energy"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Negative Energy]]\n[[Category:Positive Energy]]"
+  },
+  {
+    "id": "1731",
+    "name": "Frostbite",
+    "originalName": "Frostbite",
+    "school": "Evocation",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "1732",
+    "name": "Frost Nova",
+    "originalName": "Frost Nova",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Cold"
+    ],
+    "descriptors": "Cold",
+    "tags": [
+      "Cold"
+    ],
+    "categories": [
+      "Evocation School",
+      "Cold Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Cold Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1733",
+    "name": "Command",
+    "originalName": "Command",
+    "school": "Enchantment",
+    "innateLevel": "1",
+    "damageTypes": [],
+    "descriptors": "Mind-affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "1742",
+    "name": "Sustenance",
+    "originalName": "Sustenance",
+    "school": "Conjuration",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "1743",
+    "name": "Vitriolic Sphere",
+    "originalName": "Vitriolic Sphere",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Acid"
+    ],
+    "descriptors": "Acid",
+    "tags": [
+      "Acid"
+    ],
+    "categories": [
+      "Conjuration School",
+      "Acid Damage",
+      "Reflex Save"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]\n[[Category:Acid Damage]]\n[[Category:Reflex Save]]"
+  },
+  {
+    "id": "1744",
+    "name": "Sunfire",
+    "originalName": "Sunfire",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Divine",
+      "Fire"
+    ],
+    "descriptors": "Divine",
+    "tags": [
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Fire Damage",
+      "Reflex Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Fire Damage]]\n[[Category:Reflex Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1745",
+    "name": "Moonbeam",
+    "originalName": "Moonbeam",
+    "school": "Evocation",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "Divine",
+    "tags": [
+      "Divine"
+    ],
+    "categories": [
+      "Evocation School",
+      "Divine Damage",
+      "Will Save",
+      "Undead",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Divine Damage]]\n[[Category:Will Save]]\n[[Category:Undead]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "1833",
+    "name": "MASSACRE",
+    "originalName": "Massacre",
+    "school": "Evocation, Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "Blood Arcana, Evil, Fear, Death",
+    "tags": [
+      "Blood Arcana",
+      "Evil",
+      "Fear",
+      "Death"
+    ],
+    "categories": [
+      "Entropy Damage",
+      "Negative Energy",
+      "Fortitude Save",
+      "Will Save",
+      "Fear Effect",
+      "Death Effect",
+      "Mind-Affecting",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]\n[[Category:Death Effect]]\n[[Category:Mind-Affecting]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1834",
+    "name": "SOUL SHRIEK",
+    "originalName": "Soul Shriek",
+    "school": "Evocation, Necromancy",
+    "innateLevel": "9",
+    "damageTypes": [
+      "Entropy"
+    ],
+    "descriptors": "Blood Arcana, Evil, Fear",
+    "tags": [
+      "Blood Arcana",
+      "Evil",
+      "Fear"
+    ],
+    "categories": [
+      "Entropy Damage",
+      "Fortitude Save",
+      "Will Save",
+      "Fear Effect"
+    ],
+    "wikiMarkup": "[[Category:Entropy Damage]]\n[[Category:Fortitude Save]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]"
+  },
+  {
+    "id": "1835",
+    "name": "ELEMENTAL HAMMER",
+    "originalName": "Elemental Hammer",
+    "school": "Evocation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "| Components        = Verbal, Somatic",
+    "tags": [
+      "| Components = Verbal",
+      "Somatic"
+    ],
+    "categories": [
+      "Evocation School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1836",
+    "name": "ELEMENTAL ANNIHILATION",
+    "originalName": "Elemental Annihilation",
+    "school": "Evocation",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Evocation School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1850",
+    "name": "BLUR",
+    "originalName": "Blur",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Illusion School",
+      "Magical Damage"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Magical Damage]]"
+  },
+  {
+    "id": "1851",
+    "name": "Spider Skin",
+    "originalName": "Spider Skin",
+    "school": "Transmutation",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Transmutation School"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]"
+  },
+  {
+    "id": "1852",
+    "name": "FALSE LIFE",
+    "originalName": "False Life",
+    "school": "Necromancy",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "1853",
+    "name": "BALEFUL POLYMORPH",
+    "originalName": "Baleful Polymorph",
+    "school": "Transmutation",
+    "innateLevel": "5",
+    "damageTypes": [],
+    "descriptors": "Chaos",
+    "tags": [
+      "Chaos"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Will Save",
+      "Curse",
+      "Polymorph"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Will Save]]\n[[Category:Curse]]\n[[Category:Polymorph]]"
+  },
+  {
+    "id": "1854",
+    "name": "DEHYDRATE",
+    "originalName": "Dehydrate",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "1855",
+    "name": "BLADES OF FIRE",
+    "originalName": "Blades of Fire",
+    "school": "Transmutation",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Fire"
+    ],
+    "descriptors": "Fire",
+    "tags": [
+      "Fire"
+    ],
+    "categories": [
+      "Transmutation School",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Transmutation School]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "1856",
+    "name": "LIFE TRANSFERENCE",
+    "originalName": "Life Transference",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Magical",
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Magical Damage",
+      "Negative Energy",
+      "Healing"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Magical Damage]]\n[[Category:Negative Energy]]\n[[Category:Healing]]"
+  },
+  {
+    "id": "1858",
+    "name": "BLACKFIRE",
+    "originalName": "Blackfire",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [
+      "Entropy",
+      "Fire"
+    ],
+    "descriptors": "Fire, Evil",
+    "tags": [
+      "Fire",
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Entropy Damage",
+      "Fire Damage"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Entropy Damage]]\n[[Category:Fire Damage]]"
+  },
+  {
+    "id": "1859",
+    "name": "Sustain",
+    "originalName": "Sustain",
+    "school": "Necromancy",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "Healing",
+    "tags": [
+      "Healing"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Healing"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Healing]]"
+  },
+  {
+    "id": "1860",
+    "name": "Vicious Mockery",
+    "originalName": "Vicious Mockery",
+    "school": "Enchantment",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "Mind",
+    "tags": [
+      "Mind"
+    ],
+    "categories": [
+      "Enchantment School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1861",
+    "name": "FRIGID DARKNESS",
+    "originalName": "Frigid Darkness",
+    "school": "Necromancy",
+    "innateLevel": "2",
+    "damageTypes": [
+      "Cold",
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "Negative, Cold",
+    "tags": [
+      "Negative",
+      "Cold"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Cold Damage",
+      "Entropy Damage",
+      "Negative Energy",
+      "Fortitude Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Cold Damage]]\n[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]"
+  },
+  {
+    "id": "1862",
+    "name": "Serene Visage",
+    "originalName": "Serene Visage",
+    "school": "Illusion",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Illusion",
+    "tags": [
+      "Illusion"
+    ],
+    "categories": [
+      "Illusion School"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]"
+  },
+  {
+    "id": "1863",
+    "name": "Withering Ray",
+    "originalName": "Withering Ray",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "Death, Negative",
+    "tags": [
+      "Death",
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Entropy Damage",
+      "Negative Energy",
+      "Fortitude Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "1864",
+    "name": "Strangulate",
+    "originalName": "Strangulate",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [],
+    "descriptors": "Evil",
+    "tags": [
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Reflex Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Reflex Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1865",
+    "name": "Spinal Tap",
+    "originalName": "Spinal Tap",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Entropy Damage",
+      "Negative Energy",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1867",
+    "name": "Power Word Bleed",
+    "originalName": "Power Word, Bleed",
+    "school": "Divination",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School",
+      "Fortitude Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Fortitude Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1868",
+    "name": "Stop Heart",
+    "originalName": "Stop Heart",
+    "school": "Necromancy",
+    "innateLevel": "8",
+    "damageTypes": [
+      "Magical"
+    ],
+    "descriptors": "Death",
+    "tags": [
+      "Death"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Magical Damage",
+      "Fortitude Save",
+      "Death Effect",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Magical Damage]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1869",
+    "name": "CHILL TOUCH",
+    "originalName": "Chill Touch",
+    "school": "Necromancy",
+    "innateLevel": "0",
+    "damageTypes": [
+      "Cold",
+      "Entropy",
+      "Negative"
+    ],
+    "descriptors": "Negative, Evil",
+    "tags": [
+      "Negative",
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Cold Damage",
+      "Entropy Damage",
+      "Negative Energy",
+      "Will Save",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Cold Damage]]\n[[Category:Entropy Damage]]\n[[Category:Negative Energy]]\n[[Category:Will Save]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1870",
+    "name": "Vengeful Mount",
+    "originalName": "Vengeful Mount",
+    "school": "Enchantment",
+    "innateLevel": "2",
+    "damageTypes": [],
+    "descriptors": "Mind",
+    "tags": [
+      "Mind"
+    ],
+    "categories": [
+      "Enchantment School"
+    ],
+    "wikiMarkup": "[[Category:Enchantment School]]"
+  },
+  {
+    "id": "1872",
+    "name": "Power Word Blind",
+    "originalName": "Power Word, Blind",
+    "school": "Divination",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School",
+      "Will Save"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]\n[[Category:Will Save]]"
+  },
+  {
+    "id": "1873",
+    "name": "GREATER MAGE ARMOR",
+    "originalName": "Greater Mage Armor",
+    "school": "Conjuration",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Conjuration School"
+    ],
+    "wikiMarkup": "[[Category:Conjuration School]]"
+  },
+  {
+    "id": "1874",
+    "name": "NEGATIVE ENERGY FLOOD",
+    "originalName": "Negative Energy Flood",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Negative"
+    ],
+    "descriptors": "Negative",
+    "tags": [
+      "Negative"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Fortitude Save",
+      "Healing",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Fortitude Save]]\n[[Category:Healing]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1875",
+    "name": "Wraith Stride",
+    "originalName": "Wraith Stride",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Necromancy School",
+      "Undead"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Undead]]"
+  },
+  {
+    "id": "1878",
+    "name": "EAGLE SIGHT",
+    "originalName": "Eagle Sight",
+    "school": "Divination",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "None",
+    "tags": [],
+    "categories": [
+      "Divination School"
+    ],
+    "wikiMarkup": "[[Category:Divination School]]"
+  },
+  {
+    "id": "1879",
+    "name": "Solipsism",
+    "originalName": "Solipsism",
+    "school": "Illusion",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "Mind Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "1880",
+    "name": "PHANTOM WOUND",
+    "originalName": "Phantom Wound",
+    "school": "Illusion",
+    "innateLevel": "6",
+    "damageTypes": [],
+    "descriptors": "Mind Affecting",
+    "tags": [
+      "Mind Affecting"
+    ],
+    "categories": [
+      "Illusion School",
+      "Will Save",
+      "Mind-Affecting"
+    ],
+    "wikiMarkup": "[[Category:Illusion School]]\n[[Category:Will Save]]\n[[Category:Mind-Affecting]]"
+  },
+  {
+    "id": "1907",
+    "name": "Vermilion Stars",
+    "originalName": "Vermilion Stars",
+    "school": "Evocation",
+    "innateLevel": "6",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Blood Arcana, Death, Electricity",
+    "tags": [
+      "Blood Arcana",
+      "Death",
+      "Electricity"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Fortitude Save",
+      "Reflex Save",
+      "Death Effect"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Fortitude Save]]\n[[Category:Reflex Save]]\n[[Category:Death Effect]]"
+  },
+  {
+    "id": "1908",
+    "name": "CRIMSON LIGHTNING",
+    "originalName": "Crimson Lightning",
+    "school": "Evocation",
+    "innateLevel": "4",
+    "damageTypes": [
+      "Electricity"
+    ],
+    "descriptors": "Blood Arcana, Electricity, Curse",
+    "tags": [
+      "Blood Arcana",
+      "Electricity",
+      "Curse"
+    ],
+    "categories": [
+      "Evocation School",
+      "Electric Damage",
+      "Fortitude Save",
+      "Reflex Save",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Evocation School]]\n[[Category:Electric Damage]]\n[[Category:Fortitude Save]]\n[[Category:Reflex Save]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "1921",
+    "name": "BESTOW WOUND",
+    "originalName": "Bestow Wound",
+    "school": "Necromancy",
+    "innateLevel": "0",
+    "damageTypes": [],
+    "descriptors": "Blood Arcana",
+    "tags": [
+      "Blood Arcana"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Healing"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Healing]]"
+  },
+  {
+    "id": "1922",
+    "name": "HEMORRHAGE",
+    "originalName": "Hemorrhage",
+    "school": "Necromancy",
+    "innateLevel": "3",
+    "damageTypes": [
+      "Negative",
+      "Piercing",
+      "Slashing"
+    ],
+    "descriptors": "Blood Arcana",
+    "tags": [
+      "Blood Arcana"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Negative Energy",
+      "Piercing Damage",
+      "Slashing Damage",
+      "Fortitude Save",
+      "Death Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Negative Energy]]\n[[Category:Piercing Damage]]\n[[Category:Slashing Damage]]\n[[Category:Fortitude Save]]\n[[Category:Death Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "1923",
+    "name": "SOUL SCOUR",
+    "originalName": "Soul Scour",
+    "school": "Necromancy",
+    "innateLevel": "5",
+    "damageTypes": [
+      "Divine"
+    ],
+    "descriptors": "Blood Arcana",
+    "tags": [
+      "Blood Arcana"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Divine Damage",
+      "Will Save",
+      "Stun"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Divine Damage]]\n[[Category:Will Save]]\n[[Category:Stun]]"
+  },
+  {
+    "id": "1924",
+    "name": "GRIM TERROR",
+    "originalName": "Grim Terror",
+    "school": "Necromancy",
+    "innateLevel": "7",
+    "damageTypes": [],
+    "descriptors": "Blood Arcana",
+    "tags": [
+      "Blood Arcana"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Will Save",
+      "Fear Effect",
+      "Death Effect",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Will Save]]\n[[Category:Fear Effect]]\n[[Category:Death Effect]]\n[[Category:Curse]]"
+  },
+  {
+    "id": "1926",
+    "name": "Predator",
+    "originalName": "Predator",
+    "school": "Necromancy",
+    "innateLevel": "4",
+    "damageTypes": [],
+    "descriptors": "Blood Arcana",
+    "tags": [
+      "Blood Arcana"
+    ],
+    "categories": [
+      "Necromancy School"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]"
+  },
+  {
+    "id": "1928",
+    "name": "CURSE STORM",
+    "originalName": "Curse Storm",
+    "school": "Necromancy",
+    "innateLevel": "9",
+    "damageTypes": [],
+    "descriptors": "Evil",
+    "tags": [
+      "Evil"
+    ],
+    "categories": [
+      "Necromancy School",
+      "Mind-Affecting",
+      "Fear Effect",
+      "Death Effect",
+      "Healing",
+      "Curse"
+    ],
+    "wikiMarkup": "[[Category:Necromancy School]]\n[[Category:Mind-Affecting]]\n[[Category:Fear Effect]]\n[[Category:Death Effect]]\n[[Category:Healing]]\n[[Category:Curse]]"
+  }
+]

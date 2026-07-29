@@ -1,0 +1,1613 @@
+== Acid Fog (ID: 0) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+
+== Aid (ID: 1) ==
+[[Category:Enchantment School]]
+[[Category:Mind-Affecting]]
+[[Category:Fear Effect]]
+
+== Animate Dead (ID: 2) ==
+[[Category:Necromancy School]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Barkskin (ID: 3) ==
+[[Category:Transmutation School]]
+
+== Bestow Curse (ID: 4) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+[[Category:Curse]]
+
+== Blade Barrier (ID: 5) ==
+[[Category:Evocation School]]
+[[Category:Slashing Damage]]
+[[Category:Reflex Save]]
+
+== Bless (ID: 6) ==
+[[Category:Enchantment School]]
+[[Category:Mind-Affecting]]
+[[Category:Fear Effect]]
+
+== Bless Weapon (ID: 7) ==
+[[Category:Transmutation School]]
+[[Category:Divine Damage]]
+[[Category:Fire Damage]]
+[[Category:Magical Damage]]
+[[Category:Positive Energy]]
+[[Category:Undead]]
+
+== Blindness and Deafness (ID: 8) ==
+[[Category:Enchantment School]]
+[[Category:Fortitude Save]]
+
+== Bulls Strength (ID: 9) ==
+[[Category:Transmutation School]]
+
+== Burning Hands (ID: 10) ==
+[[Category:Transmutation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Call Lightning (ID: 11) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+
+== Chain Lightning (ID: 14) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+
+== Charm Monster (ID: 15) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Charm Person (ID: 16) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Charm Person or Animal (ID: 17) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Circle of Death (ID: 18) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Circle of Doom (ID: 19) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Clairaudience and Clairvoyance (ID: 20) ==
+[[Category:Divination School]]
+[[Category:Piercing Damage]]
+
+== Clarity (ID: 21) ==
+[[Category:Abjuration School]]
+[[Category:Negative Energy]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Cloudkill (ID: 23) ==
+[[Category:Conjuration School]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Color Spray (ID: 24) ==
+[[Category:Illusion School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Cone of Cold (ID: 25) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Reflex Save]]
+
+== Confusion (ID: 26) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Contagion (ID: 27) ==
+[[Category:Necromancy School]]
+[[Category:Fire Damage]]
+[[Category:Fortitude Save]]
+
+== Control Undead (ID: 28) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Undead]]
+
+== Create Greater Undead (ID: 29) ==
+[[Category:Necromancy School]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Create Undead (ID: 30) ==
+[[Category:Necromancy School]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Cure Critical Wounds (ID: 31) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Cure Light Wounds (ID: 32) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Cure Minor Wounds (ID: 33) ==
+[[Category:Conjuration School]]
+[[Category:Positive Energy]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Cure Moderate Wounds (ID: 34) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Cure Serious Wounds (ID: 35) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Darkness (ID: 36) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+
+== Daze (ID: 37) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Death Ward (ID: 38) ==
+[[Category:Necromancy School]]
+[[Category:Death Effect]]
+
+== Delayed Blast Fireball (ID: 39) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Magical Damage]]
+[[Category:Reflex Save]]
+
+== Dismissal (ID: 40) ==
+[[Category:Abjuration School]]
+[[Category:Will Save]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Dispel Magic (ID: 41) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Divine Power (ID: 42) ==
+[[Category:Evocation School]]
+
+== Dominate Animal (ID: 43) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Dominate Monster (ID: 44) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Dominate Person (ID: 45) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Doom (ID: 46) ==
+[[Category:Necromancy School]]
+[[Category:Magical Damage]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Flame Shield (ID: 47) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Fire Damage]]
+
+== Elemental Swarm (ID: 48) ==
+[[Category:Conjuration School]]
+[[Category:Fire Damage]]
+
+== Bears Endurance (ID: 49) ==
+[[Category:Transmutation School]]
+
+== Endure Elements (ID: 50) ==
+[[Category:Abjuration School]]
+
+== Energy Drain (ID: 51) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Permanent Effect]]
+
+== Enervation (ID: 52) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+
+== Entangle (ID: 53) ==
+[[Category:Transmutation School]]
+[[Category:Reflex Save]]
+
+== Fear (ID: 54) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+
+== Feeblemind (ID: 55) ==
+[[Category:Divination School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Finger of Death (ID: 56) ==
+[[Category:Necromancy School]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Fire Storm (ID: 57) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Fireball (ID: 58) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Flame Arrow (ID: 59) ==
+[[Category:Conjuration School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Flame Lash (ID: 60) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Flame Strike (ID: 61) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Freedom of Movement (ID: 62) ==
+[[Category:Abjuration School]]
+[[Category:Paralysis]]
+
+== Gate (ID: 63) ==
+[[Category:Conjuration School]]
+[[Category:Summoning]]
+
+== Globe of Invulnerability (ID: 65) ==
+[[Category:Abjuration School]]
+
+== Grease (ID: 66) ==
+[[Category:Conjuration School]]
+[[Category:Reflex Save]]
+
+== Greater Dispelling (ID: 67) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Greater Magic Weapon (ID: 68) ==
+[[Category:Transmutation School]]
+
+== Greater Planar Binding (ID: 69) ==
+[[Category:Conjuration School]]
+[[Category:Will Save]]
+[[Category:Summoning]]
+
+== Greater Restoration (ID: 70) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Permanent Effect]]
+[[Category:Curse]]
+
+== Shadow Evocation (ID: 71) ==
+[[Category:Illusion School]]
+[[Category:Electric Damage]]
+[[Category:Fire Damage]]
+[[Category:Negative Energy]]
+[[Category:Mind-Affecting]]
+
+== Greater Spell Breach (ID: 72) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Greater Spell Mantle (ID: 73) ==
+[[Category:Abjuration School]]
+
+== Greater Stoneskin (ID: 74) ==
+[[Category:Abjuration School]]
+
+== Gust of Wind (ID: 75) ==
+[[Category:Evocation School]]
+[[Category:Fortitude Save]]
+
+== Hammer of the Gods (ID: 76) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Will Save]]
+
+== Harm (ID: 77) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+
+== Haste (ID: 78) ==
+[[Category:Transmutation School]]
+
+== Heal (ID: 79) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Healing Circle (ID: 80) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Hold Animal (ID: 81) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+
+== Hold Monster (ID: 82) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+
+== Hold Person (ID: 83) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+
+== Holy Sword (ID: 85) ==
+[[Category:Evocation School]]
+
+== Identify (ID: 86) ==
+[[Category:Divination School]]
+
+== Implosion (ID: 87) ==
+[[Category:Evocation School]]
+[[Category:Fortitude Save]]
+
+== Improved Invisibility (ID: 88) ==
+[[Category:Illusion School]]
+[[Category:Fire Damage]]
+[[Category:Invisibility]]
+
+== Incendiary Cloud (ID: 89) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Invisibility (ID: 90) ==
+[[Category:Illusion School]]
+[[Category:Invisibility]]
+
+== Invisibility Purge (ID: 91) ==
+[[Category:Evocation School]]
+[[Category:Invisibility]]
+
+== Invisibility Sphere (ID: 92) ==
+[[Category:Illusion School]]
+[[Category:Invisibility]]
+
+== Knock (ID: 93) ==
+[[Category:Transmutation School]]
+
+== Lesser Dispel (ID: 94) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Lesser Mind Blank (ID: 95) ==
+[[Category:Abjuration School]]
+[[Category:Negative Energy]]
+[[Category:Mind-Affecting]]
+
+== Lesser Planar Binding (ID: 96) ==
+[[Category:Conjuration School]]
+[[Category:Will Save]]
+[[Category:Summoning]]
+
+== Lesser Restoration (ID: 97) ==
+[[Category:Conjuration School]]
+[[Category:Magical Damage]]
+[[Category:Curse]]
+
+== Lesser Spell Breach (ID: 98) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Lesser Spell Mantle (ID: 99) ==
+[[Category:Abjuration School]]
+
+== Light (ID: 100) ==
+[[Category:Evocation School]]
+
+== Lightning Bolt (ID: 101) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Mage Armor (ID: 102) ==
+[[Category:Conjuration School]]
+
+== Magic Missile (ID: 107) ==
+[[Category:Evocation School]]
+[[Category:Magical Damage]]
+
+== Magic Vestment (ID: 108) ==
+[[Category:Transmutation School]]
+
+== Magic Weapon (ID: 109) ==
+[[Category:Transmutation School]]
+
+== Mass Blindness and Deafness (ID: 110) ==
+[[Category:Illusion School]]
+[[Category:Fortitude Save]]
+
+== Mass Charm (ID: 111) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Mass Haste (ID: 113) ==
+[[Category:Transmutation School]]
+
+== Mass Heal (ID: 114) ==
+[[Category:Conjuration School]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Melfs Acid Arrow (ID: 115) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+
+== Meteor Swarm (ID: 116) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Mind Blank (ID: 117) ==
+[[Category:Abjuration School]]
+[[Category:Negative Energy]]
+[[Category:Mind-Affecting]]
+
+== Mind Fog (ID: 118) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Minor Globe of Invulnerability (ID: 119) ==
+[[Category:Abjuration School]]
+
+== Ghostly Visage (ID: 120) ==
+[[Category:Illusion School]]
+
+== Ethereal Visage (ID: 121) ==
+[[Category:Illusion School]]
+
+== Mordenkainens Disjunction (ID: 122) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Mordenkainens Sword (ID: 123) ==
+[[Category:Evocation School]]
+
+== Natures Balance (ID: 124) ==
+[[Category:Transmutation School]]
+[[Category:Will Save]]
+
+== Negative Energy Protection (ID: 125) ==
+[[Category:Abjuration School]]
+[[Category:Negative Energy]]
+
+== Neutralize Poison (ID: 126) ==
+[[Category:Conjuration School]]
+
+== Phantasmal Killer (ID: 127) ==
+[[Category:Illusion School]]
+[[Category:Fortitude Save]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+[[Category:Mind-Affecting]]
+[[Category:Death Effect]]
+
+== Planar Binding (ID: 128) ==
+[[Category:Conjuration School]]
+[[Category:Will Save]]
+[[Category:Summoning]]
+
+== Poison (ID: 129) ==
+[[Category:Necromancy School]]
+[[Category:Fortitude Save]]
+[[Category:Stun]]
+
+== Polymorph Self (ID: 130) ==
+[[Category:Transmutation School]]
+
+== Power Word Kill (ID: 131) ==
+[[Category:Divination School]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Power Word Stun (ID: 132) ==
+[[Category:Divination School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Prayer (ID: 133) ==
+[[Category:Conjuration School]]
+
+== Premonition (ID: 134) ==
+[[Category:Divination School]]
+
+== Prismatic Spray (ID: 135) ==
+[[Category:Evocation School]]
+[[Category:Acid Damage]]
+[[Category:Fire Damage]]
+[[Category:Mind-Affecting]]
+[[Category:Death Effect]]
+
+== Protection from Elements (ID: 137) ==
+[[Category:Abjuration School]]
+
+== Protection from Spells (ID: 141) ==
+[[Category:Abjuration School]]
+
+== Raise Dead (ID: 142) ==
+[[Category:Conjuration School]]
+
+== Ray of Enfeeblement (ID: 143) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+
+== Ray of Frost (ID: 144) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+
+== Remove Blindness and Deafness (ID: 145) ==
+[[Category:Divination School]]
+
+== Remove Curse (ID: 146) ==
+[[Category:Abjuration School]]
+[[Category:Curse]]
+
+== Remove Disease (ID: 147) ==
+[[Category:Conjuration School]]
+
+== Remove Fear (ID: 148) ==
+[[Category:Abjuration School]]
+[[Category:Fear Effect]]
+
+== Remove Paralysis (ID: 149) ==
+[[Category:Conjuration School]]
+[[Category:Paralysis]]
+
+== Resist Elements (ID: 150) ==
+[[Category:Abjuration School]]
+
+== Resistance (ID: 151) ==
+[[Category:Abjuration School]]
+
+== Restoration (ID: 152) ==
+[[Category:Conjuration School]]
+[[Category:Magical Damage]]
+[[Category:Curse]]
+
+== Resurrection (ID: 153) ==
+[[Category:Conjuration School]]
+
+== Sanctuary (ID: 154) ==
+[[Category:Abjuration School]]
+[[Category:Will Save]]
+
+== Scare (ID: 155) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+
+== Searing Light (ID: 156) ==
+[[Category:Evocation School]]
+[[Category:Undead]]
+
+== See Invisibility (ID: 157) ==
+[[Category:Divination School]]
+
+== Greater Shadow Conjuration (ID: 158) ==
+[[Category:Illusion School]]
+
+== Shadow Conjuration (ID: 159) ==
+[[Category:Illusion School]]
+[[Category:Acid Damage]]
+
+== Shadow Shield (ID: 160) ==
+[[Category:Illusion School]]
+[[Category:Negative Energy]]
+[[Category:Death Effect]]
+
+== Shapechange (ID: 161) ==
+[[Category:Transmutation School]]
+[[Category:Fire Damage]]
+[[Category:Fear Effect]]
+[[Category:Death Effect]]
+
+== Silence (ID: 163) ==
+[[Category:Illusion School]]
+[[Category:Will Save]]
+
+== Slay Living (ID: 164) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Sleep (ID: 165) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Slow (ID: 166) ==
+[[Category:Transmutation School]]
+[[Category:Will Save]]
+
+== Sound Burst (ID: 167) ==
+[[Category:Evocation School]]
+[[Category:Sonic Damage]]
+[[Category:Will Save]]
+[[Category:Stun]]
+
+== Spell Resistance (ID: 168) ==
+[[Category:Abjuration School]]
+
+== Spell Mantle (ID: 169) ==
+[[Category:Abjuration School]]
+
+== Stinking Cloud (ID: 171) ==
+[[Category:Conjuration School]]
+[[Category:Fortitude Save]]
+
+== Stoneskin (ID: 172) ==
+[[Category:Abjuration School]]
+
+== Storm of Vengeance (ID: 173) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+[[Category:Stun]]
+
+== Summon Creature I (ID: 174) ==
+[[Category:Conjuration School]]
+
+== Summon Creature II (ID: 175) ==
+[[Category:Conjuration School]]
+
+== Summon Creature III (ID: 176) ==
+[[Category:Conjuration School]]
+
+== Summon Creature IV (ID: 177) ==
+[[Category:Conjuration School]]
+
+== Summon Creature IX (ID: 178) ==
+[[Category:Conjuration School]]
+[[Category:Summoning]]
+
+== Summon Creature V (ID: 179) ==
+[[Category:Conjuration School]]
+
+== Summon Creature VI (ID: 180) ==
+[[Category:Conjuration School]]
+
+== Summon Creature VII (ID: 181) ==
+[[Category:Conjuration School]]
+[[Category:Summoning]]
+
+== Summon Creature VIII (ID: 182) ==
+[[Category:Conjuration School]]
+[[Category:Summoning]]
+
+== Sunbeam (ID: 183) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Reflex Save]]
+[[Category:Undead]]
+
+== Tensers Transformation (ID: 184) ==
+[[Category:Transmutation School]]
+[[Category:Divine Damage]]
+[[Category:Polymorph]]
+
+== Time Stop (ID: 185) ==
+[[Category:Transmutation School]]
+
+== True Seeing (ID: 186) ==
+[[Category:Divination School]]
+[[Category:Piercing Damage]]
+[[Category:Polymorph]]
+[[Category:Invisibility]]
+
+== Vampiric Touch (ID: 188) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+
+== Virtue (ID: 189) ==
+[[Category:Transmutation School]]
+
+== Wail of the Banshee (ID: 190) ==
+[[Category:Necromancy School]]
+[[Category:Sonic Damage]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Wall of Fire (ID: 191) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Undead]]
+
+== Web (ID: 192) ==
+[[Category:Conjuration School]]
+[[Category:Reflex Save]]
+
+== Weird (ID: 193) ==
+[[Category:Illusion School]]
+[[Category:Fortitude Save]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+[[Category:Mind-Affecting]]
+
+== Word of Faith (ID: 194) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Death Effect]]
+[[Category:Stun]]
+
+== Protection from Alignment (ID: 321) ==
+[[Category:Abjuration School]]
+[[Category:Summoning]]
+
+== Magic Circle against Alignment (ID: 322) ==
+[[Category:Abjuration School]]
+[[Category:Summoning]]
+
+== Aura versus Alignment (ID: 323) ==
+[[Category:Abjuration School]]
+[[Category:Divine Damage]]
+[[Category:Negative Energy]]
+[[Category:Summoning]]
+
+== Owls Wisdom (ID: 355) ==
+[[Category:Transmutation School]]
+
+== Foxs Cunning (ID: 356) ==
+[[Category:Transmutation School]]
+
+== Greater Bulls Strength (ID: 360) ==
+[[Category:Transmutation School]]
+
+== Awaken (ID: 363) ==
+[[Category:Transmutation School]]
+[[Category:Magical Damage]]
+
+== Creeping Doom (ID: 364) ==
+[[Category:Conjuration School]]
+[[Category:Piercing Damage]]
+
+== Ultravision (ID: 365) ==
+[[Category:Transmutation School]]
+[[Category:Magical Damage]]
+
+== Destruction (ID: 366) ==
+[[Category:Necromancy School]]
+[[Category:Entropy Damage]]
+[[Category:Fortitude Save]]
+
+== Ice Storm (ID: 368) ==
+[[Category:Evocation School]]
+[[Category:Bludgeoning Damage]]
+[[Category:Cold Damage]]
+
+== Energy Buffer (ID: 369) ==
+[[Category:Abjuration School]]
+
+== Negative Energy Burst (ID: 370) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Will Save]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Negative Energy Ray (ID: 371) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Will Save]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Aura of Vitality (ID: 372) ==
+[[Category:Transmutation School]]
+[[Category:Mind-Affecting]]
+
+== War Cry (ID: 373) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+
+== Regenerate (ID: 374) ==
+[[Category:Conjuration School]]
+
+== Evards Black Tentacles (ID: 375) ==
+[[Category:Conjuration School]]
+[[Category:Bludgeoning Damage]]
+[[Category:Fortitude Save]]
+
+== Legend Lore (ID: 376) ==
+[[Category:Divination School]]
+
+== Find Traps (ID: 377) ==
+[[Category:Divination School]]
+
+== Rogues Cunning (ID: 385) ==
+[[Category:Conjuration School]]
+
+== Divine Favor (ID: 414) ==
+[[Category:Evocation School]]
+[[Category:Mind-Affecting]]
+
+== True Strike (ID: 415) ==
+[[Category:Divination School]]
+[[Category:Magical Damage]]
+
+== Flare (ID: 416) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+
+== Shield (ID: 417) ==
+[[Category:Abjuration School]]
+
+== Entropic Shield (ID: 418) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+
+== Continual Flame (ID: 419) ==
+[[Category:Illusion School]]
+[[Category:Magical Damage]]
+[[Category:Permanent Effect]]
+
+== One With The Land (ID: 420) ==
+[[Category:Transmutation School]]
+
+== Camouflage (ID: 421) ==
+[[Category:Transmutation School]]
+
+== Blood Frenzy (ID: 422) ==
+[[Category:Transmutation School]]
+
+== Bombardment (ID: 423) ==
+[[Category:Conjuration School]]
+[[Category:Bludgeoning Damage]]
+[[Category:Reflex Save]]
+
+== Acid Splash (ID: 424) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+
+== Earthquake (ID: 426) ==
+[[Category:Evocation School]]
+[[Category:Reflex Save]]
+
+== Sunburst (ID: 427) ==
+[[Category:Evocation School]]
+[[Category:Magical Damage]]
+[[Category:Positive Energy]]
+[[Category:Reflex Save]]
+[[Category:Undead]]
+[[Category:Permanent Effect]]
+
+== Banishment (ID: 430) ==
+[[Category:Abjuration School]]
+[[Category:Will Save]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Inflict Minor Wounds (ID: 431) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Undead]]
+
+== Inflict Light Wounds (ID: 432) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Inflict Moderate Wounds (ID: 433) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Inflict Serious Wounds (ID: 434) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Inflict Critical Wounds (ID: 435) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Drown (ID: 437) ==
+[[Category:Transmutation School]]
+[[Category:Bludgeoning Damage]]
+[[Category:Fortitude Save]]
+
+== Owls Insight (ID: 438) ==
+[[Category:Transmutation School]]
+
+== Electric Jolt (ID: 439) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+
+== Firebrand (ID: 440) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Wounding Whispers (ID: 441) ==
+[[Category:Abjuration School]]
+[[Category:Sonic Damage]]
+
+== Amplify (ID: 442) ==
+[[Category:Transmutation School]]
+
+== Greater Sanctuary (ID: 443) ==
+[[Category:Transmutation School]]
+[[Category:Summoning]]
+
+== Undeaths Eternal Foe (ID: 444) ==
+[[Category:Abjuration School]]
+[[Category:Negative Energy]]
+[[Category:Undead]]
+[[Category:Summoning]]
+
+== Dirge (ID: 445) ==
+[[Category:Evocation School]]
+[[Category:Entropy Damage]]
+[[Category:Sonic Damage]]
+
+== Inferno (ID: 446) ==
+[[Category:Transmutation School]]
+[[Category:Fire Damage]]
+
+== Isaacs Lesser Missile Storm (ID: 447) ==
+[[Category:Evocation School]]
+
+== Isaacs Greater Missile Storm (ID: 448) ==
+[[Category:Evocation School]]
+
+== Bane (ID: 449) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Fear Effect]]
+
+== Shield of Faith (ID: 450) ==
+[[Category:Abjuration School]]
+
+== Planar Ally (ID: 451) ==
+[[Category:Conjuration School]]
+[[Category:Summoning]]
+
+== Magic Fang (ID: 452) ==
+[[Category:Transmutation School]]
+
+== Greater Magic Fang (ID: 453) ==
+[[Category:Transmutation School]]
+
+== Spike Growth (ID: 454) ==
+[[Category:Transmutation School]]
+[[Category:Reflex Save]]
+
+== Mass Camouflage (ID: 455) ==
+[[Category:Transmutation School]]
+
+== Expeditious Retreat (ID: 456) ==
+[[Category:Transmutation School]]
+
+== Tashas Hideous Laughter (ID: 457) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Displacement (ID: 458) ==
+[[Category:Illusion School]]
+[[Category:Fire Damage]]
+
+== Bigbys Interposing Hand (ID: 459) ==
+[[Category:Evocation School]]
+[[Category:Reflex Save]]
+
+== Bigbys Forceful Hand (ID: 460) ==
+[[Category:Evocation School]]
+[[Category:Reflex Save]]
+
+== Bigbys Grasping Hand (ID: 461) ==
+[[Category:Evocation School]]
+[[Category:Reflex Save]]
+
+== Bigbys Clenched Fist (ID: 462) ==
+[[Category:Evocation School]]
+[[Category:Fortitude Save]]
+[[Category:Stun]]
+
+== Bigbys Crushing Hand (ID: 463) ==
+[[Category:Evocation School]]
+[[Category:Reflex Save]]
+
+== Cats Grace (ID: 481) ==
+[[Category:Transmutation School]]
+
+== Flesh to stone (ID: 485) ==
+[[Category:Transmutation School]]
+[[Category:Fortitude Save]]
+
+== Stone to flesh (ID: 486) ==
+[[Category:Transmutation School]]
+
+== Crumble (ID: 512) ==
+[[Category:Transmutation School]]
+[[Category:Entropy Damage]]
+[[Category:Sonic Damage]]
+
+== Infestation of Maggots (ID: 513) ==
+[[Category:Necromancy School]]
+[[Category:Fortitude Save]]
+
+== Healing Sting (ID: 514) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Healing]]
+
+== Great Thunderclap (ID: 515) ==
+[[Category:Evocation School]]
+[[Category:Sonic Damage]]
+[[Category:Stun]]
+
+== Ball Lightning (ID: 516) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+
+== Battletide (ID: 517) ==
+[[Category:Transmutation School]]
+[[Category:Negative Energy]]
+[[Category:Will Save]]
+
+== Combust (ID: 518) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Death Armor (ID: 519) ==
+[[Category:Necromancy School]]
+[[Category:Magical Damage]]
+
+== Gedlees Electric Loop (ID: 520) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Horizikauls Boom (ID: 521) ==
+[[Category:Evocation School]]
+[[Category:Sonic Damage]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Ironguts (ID: 522) ==
+[[Category:Abjuration School]]
+
+== Mestils Acid Breath (ID: 523) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+[[Category:Reflex Save]]
+
+== Mestils Acid Sheath (ID: 524) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+
+== Monstrous Regeneration (ID: 525) ==
+[[Category:Conjuration School]]
+
+== Scintillating Sphere (ID: 526) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Reflex Save]]
+
+== Stone Bones (ID: 527) ==
+[[Category:Transmutation School]]
+[[Category:Magical Damage]]
+[[Category:Undead]]
+
+== Undeath to Death (ID: 528) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Undead]]
+
+== Vine Mine (ID: 529) ==
+[[Category:Conjuration School]]
+
+== Black Blade of Disaster (ID: 533) ==
+[[Category:Conjuration School]]
+[[Category:Permanent Effect]]
+
+== Shelgarns Persistent Blade (ID: 534) ==
+[[Category:Evocation School]]
+
+== Blade Thirst (ID: 535) ==
+[[Category:Transmutation School]]
+[[Category:Slashing Damage]]
+
+== Deafening Clang (ID: 536) ==
+[[Category:Transmutation School]]
+[[Category:Sonic Damage]]
+
+== Keen Edge (ID: 539) ==
+[[Category:Transmutation School]]
+
+== Blackstaff (ID: 541) ==
+[[Category:Transmutation School]]
+[[Category:Negative Energy]]
+
+== Elemental Weapon (ID: 542) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+
+== Ice Dagger (ID: 543) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Reflex Save]]
+
+== Stonehold (ID: 547) ==
+[[Category:Conjuration School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Darkfire (ID: 548) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+
+== Glyph of Warding (ID: 549) ==
+[[Category:Abjuration School]]
+[[Category:Magical Damage]]
+[[Category:Sonic Damage]]
+[[Category:Reflex Save]]
+
+== Evil Blight (ID: 566) ==
+[[Category:Necromancy School]]
+[[Category:Permanent Effect]]
+[[Category:Curse]]
+
+== Cloud of Bewilderment (ID: 569) ==
+[[Category:Evocation School]]
+[[Category:Fortitude Save]]
+[[Category:Stun]]
+
+== Hell Inferno (ID: 762) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+
+== Chaos Shield (ID: 1562) ==
+[[Category:Abjuration School]]
+[[Category:Permanent Effect]]
+
+== Improved Chaos Shield (ID: 1563) ==
+[[Category:Abjuration School]]
+[[Category:Cold Damage]]
+[[Category:Fire Damage]]
+[[Category:Stun]]
+
+== Disintegrate (ID: 1564) ==
+[[Category:Transmutation School]]
+[[Category:Entropy Damage]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Halt Undead (ID: 1565) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Undead]]
+
+== Blasphemy (ID: 1566) ==
+[[Category:Evocation School]]
+
+== Crushing Despair (ID: 1567) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Good Hope (ID: 1568) ==
+[[Category:Enchantment School]]
+
+== Faerie Fire (ID: 1569) ==
+[[Category:Evocation School]]
+[[Category:Magical Damage]]
+[[Category:Invisibility]]
+
+== Maze (ID: 1570) ==
+[[Category:Conjuration School]]
+[[Category:Will Save]]
+
+== Wall of Ice (ID: 1571) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+
+== Scorching Ray (ID: 1572) ==
+[[Category:Evocation School]]
+[[Category:Fire Damage]]
+
+== Chromatic Orb (ID: 1573) ==
+[[Category:Evocation School]]
+
+== Avascular Mass (ID: 1575) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Scintillating Pattern (ID: 1577) ==
+[[Category:Illusion School]]
+[[Category:Mind-Affecting]]
+[[Category:Stun]]
+
+== Nightmare (ID: 1579) ==
+[[Category:Illusion School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Permanent Effect]]
+[[Category:Curse]]
+
+== Bigbys Disrupting Hand (ID: 1581) ==
+[[Category:Evocation School]]
+
+== Sound Lance (ID: 1582) ==
+[[Category:Evocation School]]
+[[Category:Sonic Damage]]
+[[Category:Fortitude Save]]
+
+== Finger of Agony (ID: 1583) ==
+[[Category:Necromancy School]]
+[[Category:Magical Damage]]
+[[Category:Fortitude Save]]
+
+== Freeze (ID: 1584) ==
+[[Category:Conjuration School]]
+[[Category:Cold Damage]]
+[[Category:Fortitude Save]]
+[[Category:Reflex Save]]
+
+== Iceberg (ID: 1585) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Reflex Save]]
+
+== Detect Poison (ID: 1592) ==
+[[Category:Divination School]]
+
+== Daltims fiery Tentacles (ID: 1593) ==
+[[Category:Conjuration School]]
+[[Category:Fire Damage]]
+[[Category:Fortitude Save]]
+
+== Kyristans malevolent Tentacles (ID: 1594) ==
+[[Category:Necromancy School]]
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Paralysis]]
+
+== Darkbolt (ID: 1595) ==
+[[Category:Evocation School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+[[Category:Undead]]
+
+== Mass Hold Monster (ID: 1597) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Shadow Plague (ID: 1609) ==
+[[Category:Conjuration School]]
+[[Category:Cold Damage]]
+[[Category:Reflex Save]]
+
+== Lightning Shield (ID: 1632) ==
+[[Category:Evocation School]]
+
+== Frost Shield (ID: 1633) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Fire Damage]]
+
+== Water Breathing (ID: 1636) ==
+[[Category:Transmutation School]]
+
+== Dark Undertow (ID: 1683) ==
+[[Category:Conjuration School]]
+
+== Sacred Flame (ID: 1730) ==
+[[Category:Evocation School]]
+[[Category:Negative Energy]]
+[[Category:Positive Energy]]
+
+== Frostbite (ID: 1731) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Fortitude Save]]
+
+== Frost Nova (ID: 1732) ==
+[[Category:Evocation School]]
+[[Category:Cold Damage]]
+[[Category:Reflex Save]]
+
+== Command (ID: 1733) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Sustenance (ID: 1742) ==
+[[Category:Conjuration School]]
+
+== Vitriolic Sphere (ID: 1743) ==
+[[Category:Conjuration School]]
+[[Category:Acid Damage]]
+[[Category:Reflex Save]]
+
+== Sunfire (ID: 1744) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Fire Damage]]
+[[Category:Reflex Save]]
+[[Category:Undead]]
+
+== Moonbeam (ID: 1745) ==
+[[Category:Evocation School]]
+[[Category:Divine Damage]]
+[[Category:Will Save]]
+[[Category:Undead]]
+[[Category:Stun]]
+
+== MASSACRE (ID: 1833) ==
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+[[Category:Death Effect]]
+[[Category:Mind-Affecting]]
+[[Category:Undead]]
+
+== SOUL SHRIEK (ID: 1834) ==
+[[Category:Entropy Damage]]
+[[Category:Fortitude Save]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+
+== ELEMENTAL HAMMER (ID: 1835) ==
+[[Category:Evocation School]]
+[[Category:Will Save]]
+
+== ELEMENTAL ANNIHILATION (ID: 1836) ==
+[[Category:Evocation School]]
+[[Category:Will Save]]
+
+== BLUR (ID: 1850) ==
+[[Category:Illusion School]]
+[[Category:Magical Damage]]
+
+== Spider Skin (ID: 1851) ==
+[[Category:Transmutation School]]
+
+== FALSE LIFE (ID: 1852) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Death Effect]]
+
+== BALEFUL POLYMORPH (ID: 1853) ==
+[[Category:Transmutation School]]
+[[Category:Will Save]]
+[[Category:Curse]]
+[[Category:Polymorph]]
+
+== DEHYDRATE (ID: 1854) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Curse]]
+
+== BLADES OF FIRE (ID: 1855) ==
+[[Category:Transmutation School]]
+[[Category:Fire Damage]]
+
+== LIFE TRANSFERENCE (ID: 1856) ==
+[[Category:Necromancy School]]
+[[Category:Magical Damage]]
+[[Category:Negative Energy]]
+[[Category:Healing]]
+
+== BLACKFIRE (ID: 1858) ==
+[[Category:Necromancy School]]
+[[Category:Entropy Damage]]
+[[Category:Fire Damage]]
+
+== Sustain (ID: 1859) ==
+[[Category:Necromancy School]]
+[[Category:Healing]]
+
+== Vicious Mockery (ID: 1860) ==
+[[Category:Enchantment School]]
+[[Category:Will Save]]
+
+== FRIGID DARKNESS (ID: 1861) ==
+[[Category:Necromancy School]]
+[[Category:Cold Damage]]
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+
+== Serene Visage (ID: 1862) ==
+[[Category:Illusion School]]
+
+== Withering Ray (ID: 1863) ==
+[[Category:Necromancy School]]
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+
+== Strangulate (ID: 1864) ==
+[[Category:Necromancy School]]
+[[Category:Reflex Save]]
+[[Category:Undead]]
+
+== Spinal Tap (ID: 1865) ==
+[[Category:Necromancy School]]
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Will Save]]
+
+== Power Word Bleed (ID: 1867) ==
+[[Category:Divination School]]
+[[Category:Fortitude Save]]
+[[Category:Undead]]
+
+== Stop Heart (ID: 1868) ==
+[[Category:Necromancy School]]
+[[Category:Magical Damage]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+[[Category:Undead]]
+
+== CHILL TOUCH (ID: 1869) ==
+[[Category:Necromancy School]]
+[[Category:Cold Damage]]
+[[Category:Entropy Damage]]
+[[Category:Negative Energy]]
+[[Category:Will Save]]
+[[Category:Undead]]
+
+== Vengeful Mount (ID: 1870) ==
+[[Category:Enchantment School]]
+
+== Power Word Blind (ID: 1872) ==
+[[Category:Divination School]]
+[[Category:Will Save]]
+
+== GREATER MAGE ARMOR (ID: 1873) ==
+[[Category:Conjuration School]]
+
+== NEGATIVE ENERGY FLOOD (ID: 1874) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Fortitude Save]]
+[[Category:Healing]]
+[[Category:Undead]]
+
+== Wraith Stride (ID: 1875) ==
+[[Category:Necromancy School]]
+[[Category:Undead]]
+
+== EAGLE SIGHT (ID: 1878) ==
+[[Category:Divination School]]
+
+== Solipsism (ID: 1879) ==
+[[Category:Illusion School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== PHANTOM WOUND (ID: 1880) ==
+[[Category:Illusion School]]
+[[Category:Will Save]]
+[[Category:Mind-Affecting]]
+
+== Vermilion Stars (ID: 1907) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Fortitude Save]]
+[[Category:Reflex Save]]
+[[Category:Death Effect]]
+
+== CRIMSON LIGHTNING (ID: 1908) ==
+[[Category:Evocation School]]
+[[Category:Electric Damage]]
+[[Category:Fortitude Save]]
+[[Category:Reflex Save]]
+[[Category:Curse]]
+
+== BESTOW WOUND (ID: 1921) ==
+[[Category:Necromancy School]]
+[[Category:Healing]]
+
+== HEMORRHAGE (ID: 1922) ==
+[[Category:Necromancy School]]
+[[Category:Negative Energy]]
+[[Category:Piercing Damage]]
+[[Category:Slashing Damage]]
+[[Category:Fortitude Save]]
+[[Category:Death Effect]]
+[[Category:Curse]]
+
+== SOUL SCOUR (ID: 1923) ==
+[[Category:Necromancy School]]
+[[Category:Divine Damage]]
+[[Category:Will Save]]
+[[Category:Stun]]
+
+== GRIM TERROR (ID: 1924) ==
+[[Category:Necromancy School]]
+[[Category:Will Save]]
+[[Category:Fear Effect]]
+[[Category:Death Effect]]
+[[Category:Curse]]
+
+== Predator (ID: 1926) ==
+[[Category:Necromancy School]]
+
+== CURSE STORM (ID: 1928) ==
+[[Category:Necromancy School]]
+[[Category:Mind-Affecting]]
+[[Category:Fear Effect]]
+[[Category:Death Effect]]
+[[Category:Healing]]
+[[Category:Curse]]

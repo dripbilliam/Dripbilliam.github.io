@@ -1,0 +1,357 @@
+ID,Name,School,Damage Types,Descriptors,Tags,Wiki Categories
+0,"Acid Fog",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage
+1,"Aid",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Mind-Affecting; Fear Effect
+2,"Animate Dead",Necromancy,,Evil,Evil,Necromancy School; Undead; Summoning
+3,"Barkskin",Transmutation,,None,,Transmutation School
+4,"Bestow Curse",Necromancy,,None,,Necromancy School; Will Save; Fear Effect; Curse
+5,"Blade Barrier",Evocation,Slashing,None,,Evocation School; Slashing Damage; Reflex Save
+6,"Bless",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Mind-Affecting; Fear Effect
+7,"Bless Weapon",Transmutation,Divine; Fire; Magical; Positive,Weapon Enchantment,Weapon Enchantment,Transmutation School; Divine Damage; Fire Damage; Magical Damage; Positive Energy; Undead
+8,"Blindness and Deafness",Enchantment,,None,,Enchantment School; Fortitude Save
+9,"Bulls Strength",Transmutation,,None,,Transmutation School
+10,"Burning Hands",Transmutation,Fire,Fire,Fire,Transmutation School; Fire Damage; Reflex Save
+11,"Call Lightning",Evocation,Electricity,Electricity,Electricity,Evocation School; Electric Damage; Reflex Save
+14,"Chain Lightning",Evocation,Electricity,Electricity,Electricity,Evocation School; Electric Damage; Reflex Save
+15,"Charm Monster",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+16,"Charm Person",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+17,"Charm Person or Animal",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+18,"Circle of Death",Necromancy,Negative,Death,Death,Necromancy School; Negative Energy; Fortitude Save; Death Effect
+19,"Circle of Doom",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save; Healing; Undead
+20,"Clairaudience and Clairvoyance",Divination,Piercing,None,,Divination School; Piercing Damage
+21,"Clarity",Abjuration,Negative,Mind-affecting,Mind Affecting,Abjuration School; Negative Energy; Mind-Affecting; Stun
+23,"Cloudkill",Conjuration,,Death,Death,Conjuration School; Fortitude Save; Death Effect
+24,"Color Spray",Illusion,,Mind-affecting,Mind Affecting,Illusion School; Will Save; Mind-Affecting; Stun
+25,"Cone of Cold",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage; Reflex Save
+26,"Confusion",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+27,"Contagion",Necromancy,Fire,None,,Necromancy School; Fire Damage; Fortitude Save
+28,"Control Undead",Necromancy,,None,,Necromancy School; Will Save; Undead
+29,"Create Greater Undead",Necromancy,,Evil,Evil,Necromancy School; Undead; Summoning
+30,"Create Undead",Necromancy,,Evil,Evil,Necromancy School; Undead; Summoning
+31,"Cure Critical Wounds",Conjuration,,None,,Conjuration School; Healing; Undead
+32,"Cure Light Wounds",Conjuration,,None,,Conjuration School; Healing; Undead
+33,"Cure Minor Wounds",Conjuration,Positive,Positive,Positive,Conjuration School; Positive Energy; Healing; Undead
+34,"Cure Moderate Wounds",Conjuration,,None,,Conjuration School; Healing; Undead
+35,"Cure Serious Wounds",Conjuration,,None,,Conjuration School; Healing; Undead
+36,"Darkness",Evocation,Fire,Darkness,Darkness,Evocation School; Fire Damage
+37,"Daze",Enchantment,,Mind-Affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+38,"Death Ward",Necromancy,,None,,Necromancy School; Death Effect
+39,"Delayed Blast Fireball",Evocation,Fire; Magical,Fire,Fire,Evocation School; Fire Damage; Magical Damage; Reflex Save
+40,"Dismissal",Abjuration,,None,,Abjuration School; Will Save; Undead; Summoning
+41,"Dispel Magic",Abjuration,Magical,None,,Abjuration School; Magical Damage
+42,"Divine Power",Evocation,,None,,Evocation School
+43,"Dominate Animal",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+44,"Dominate Monster",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+45,"Dominate Person",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+46,"Doom",Necromancy,Magical,Mind-affecting,Mind Affecting,Necromancy School; Magical Damage; Will Save; Mind-Affecting
+47,"Flame Shield",Evocation,Cold; Fire,Cold, Fire,Cold; Fire,Evocation School; Cold Damage; Fire Damage
+48,"Elemental Swarm",Conjuration,Fire,Air, Earth, Fire, Ooze, Water,Air; Earth; Fire; Ooze; Water,Conjuration School; Fire Damage
+49,"Bears Endurance",Transmutation,,None,,Transmutation School
+50,"Endure Elements",Abjuration,,None,,Abjuration School
+51,"Energy Drain",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save; Permanent Effect
+52,"Enervation",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save
+53,"Entangle",Transmutation,,None,,Transmutation School; Reflex Save
+54,"Fear",Necromancy,,Fear,Fear,Necromancy School; Will Save; Fear Effect
+55,"Feeblemind",Divination,,Mind-affecting,Mind Affecting,Divination School; Will Save; Mind-Affecting; Stun
+56,"Finger of Death",Necromancy,,Death,Death,Necromancy School; Fortitude Save; Death Effect
+57,"Fire Storm",Evocation,Divine; Fire,Fire, Divine,Fire; Divine,Evocation School; Divine Damage; Fire Damage; Reflex Save
+58,"Fireball",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+59,"Flame Arrow",Conjuration,Fire,Fire,Fire,Conjuration School; Fire Damage; Reflex Save
+60,"Flame Lash",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+61,"Flame Strike",Evocation,Divine; Fire,Fire, Divine,Fire; Divine,Evocation School; Divine Damage; Fire Damage; Reflex Save
+62,"Freedom of Movement",Abjuration,,None,,Abjuration School; Paralysis
+63,"Gate",Conjuration,,None,,Conjuration School; Summoning
+65,"Globe of Invulnerability",Abjuration,,None,,Abjuration School
+66,"Grease",Conjuration,,None,,Conjuration School; Reflex Save
+67,"Greater Dispelling",Abjuration,Magical,None,,Abjuration School; Magical Damage
+68,"Greater Magic Weapon",Transmutation,,Weapon Enchantment,Weapon Enchantment,Transmutation School
+69,"Greater Planar Binding",Conjuration,,None,,Conjuration School; Will Save; Summoning
+70,"Greater Restoration",Necromancy,Negative,None,,Necromancy School; Negative Energy; Permanent Effect; Curse
+71,"Shadow Evocation",Illusion,Electricity; Fire; Negative,Mind-Affecting,Mind Affecting,Illusion School; Electric Damage; Fire Damage; Negative Energy; Mind-Affecting
+72,"Greater Spell Breach",Abjuration,Magical,None,,Abjuration School; Magical Damage
+73,"Greater Spell Mantle",Abjuration,,None,,Abjuration School
+74,"Greater Stoneskin",Abjuration,,None,,Abjuration School
+75,"Gust of Wind",Evocation,,None,,Evocation School; Fortitude Save
+76,"Hammer of the Gods",Evocation,Divine,Divine,Divine,Evocation School; Divine Damage; Will Save
+77,"Harm",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy
+78,"Haste",Transmutation,,None,,Transmutation School
+79,"Heal",Conjuration,,None,,Conjuration School; Healing; Undead
+80,"Healing Circle",Conjuration,,None,,Conjuration School; Healing; Undead
+81,"Hold Animal",Enchantment,,None,,Enchantment School; Will Save
+82,"Hold Monster",Enchantment,,None,,Enchantment School; Will Save
+83,"Hold Person",Enchantment,,None,,Enchantment School; Will Save
+85,"Holy Sword",Evocation,,Weapon Enchantment,Weapon Enchantment,Evocation School
+86,"Identify",Divination,,None,,Divination School
+87,"Implosion",Evocation,,None,,Evocation School; Fortitude Save
+88,"Improved Invisibility",Illusion,Fire,None,,Illusion School; Fire Damage; Invisibility
+89,"Incendiary Cloud",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+90,"Invisibility",Illusion,,None,,Illusion School; Invisibility
+91,"Invisibility Purge",Evocation,,None,,Evocation School; Invisibility
+92,"Invisibility Sphere",Illusion,,None,,Illusion School; Invisibility
+93,"Knock",Transmutation,,None,,Transmutation School
+94,"Lesser Dispel",Abjuration,Magical,None,,Abjuration School; Magical Damage
+95,"Lesser Mind Blank",Abjuration,Negative,None,,Abjuration School; Negative Energy; Mind-Affecting
+96,"Lesser Planar Binding",Conjuration,,None,,Conjuration School; Will Save; Summoning
+97,"Lesser Restoration",Conjuration,Magical,None,,Conjuration School; Magical Damage; Curse
+98,"Lesser Spell Breach",Abjuration,Magical,None,,Abjuration School; Magical Damage
+99,"Lesser Spell Mantle",Abjuration,,None,,Abjuration School
+100,"Light",Evocation,,None,,Evocation School
+101,"Lightning Bolt",Evocation,Electricity; Fire,Electricity,Electricity,Evocation School; Electric Damage; Fire Damage; Reflex Save
+102,"Mage Armor",Conjuration,,Force,Force,Conjuration School
+107,"Magic Missile",Evocation,Magical,None,,Evocation School; Magical Damage
+108,"Magic Vestment",Transmutation,,Armor Enchantment,Armor Enchantment,Transmutation School
+109,"Magic Weapon",Transmutation,,None,,Transmutation School
+110,"Mass Blindness and Deafness",Illusion,,None,,Illusion School; Fortitude Save
+111,"Mass Charm",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+113,"Mass Haste",Transmutation,,None,,Transmutation School
+114,"Mass Heal",Conjuration,,None,,Conjuration School; Healing; Undead
+115,"Melfs Acid Arrow",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage
+116,"Meteor Swarm",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+117,"Mind Blank",Abjuration,Negative,None,,Abjuration School; Negative Energy; Mind-Affecting
+118,"Mind Fog",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+119,"Minor Globe of Invulnerability",Abjuration,,None,,Abjuration School
+120,"Ghostly Visage",Illusion,,None,,Illusion School
+121,"Ethereal Visage",Illusion,,None,,Illusion School
+122,"Mordenkainens Disjunction",Abjuration,Magical,None,,Abjuration School; Magical Damage
+123,"Mordenkainens Sword",Evocation,,None,,Evocation School
+124,"Natures Balance",Transmutation,,None,,Transmutation School; Will Save
+125,"Negative Energy Protection",Abjuration,Negative,None,,Abjuration School; Negative Energy
+126,"Neutralize Poison",Conjuration,,None,,Conjuration School
+127,"Phantasmal Killer",Illusion,,Fear, Mind-affecting,Fear; Mind Affecting,Illusion School; Fortitude Save; Will Save; Fear Effect; Mind-Affecting; Death Effect
+128,"Planar Binding",Conjuration,,None,,Conjuration School; Will Save; Summoning
+129,"Poison",Necromancy,,Poison,Poison,Necromancy School; Fortitude Save; Stun
+130,"Polymorph Self",Transmutation,,None,,Transmutation School
+131,"Power Word Kill",Divination,,Death,Death,Divination School; Fortitude Save; Death Effect
+132,"Power Word Stun",Divination,,Mind-affecting,Mind Affecting,Divination School; Will Save; Mind-Affecting; Stun
+133,"Prayer",Conjuration,,None,,Conjuration School
+134,"Premonition",Divination,,None,,Divination School
+135,"Prismatic Spray",Evocation,Acid; Fire,Special,Special,Evocation School; Acid Damage; Fire Damage; Mind-Affecting; Death Effect
+137,"Protection from Elements",Abjuration,,None,,Abjuration School
+141,"Protection from Spells",Abjuration,,None,,Abjuration School
+142,"Raise Dead",Conjuration,,None,,Conjuration School
+143,"Ray of Enfeeblement",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save
+144,"Ray of Frost",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage
+145,"Remove Blindness and Deafness",Divination,,None,,Divination School
+146,"Remove Curse",Abjuration,,None,,Abjuration School; Curse
+147,"Remove Disease",Conjuration,,None,,Conjuration School
+148,"Remove Fear",Abjuration,,None,,Abjuration School; Fear Effect
+149,"Remove Paralysis",Conjuration,,None,,Conjuration School; Paralysis
+150,"Resist Elements",Abjuration,,None,,Abjuration School
+151,"Resistance",Abjuration,,None,,Abjuration School
+152,"Restoration",Conjuration,Magical,None,,Conjuration School; Magical Damage; Curse
+153,"Resurrection",Conjuration,,None,,Conjuration School
+154,"Sanctuary",Abjuration,,None,,Abjuration School; Will Save
+155,"Scare",Necromancy,,Fear,Fear,Necromancy School; Will Save; Fear Effect
+156,"Searing Light",Evocation,,None,,Evocation School; Undead
+157,"See Invisibility",Divination,,None,,Divination School
+158,"Greater Shadow Conjuration",Illusion,,None,,Illusion School
+159,"Shadow Conjuration",Illusion,Acid,None,,Illusion School; Acid Damage
+160,"Shadow Shield",Illusion,Negative,None,,Illusion School; Negative Energy; Death Effect
+161,"Shapechange",Transmutation,Fire,None,,Transmutation School; Fire Damage; Fear Effect; Death Effect
+163,"Silence",Illusion,,None,,Illusion School; Will Save
+164,"Slay Living",Necromancy,Negative,Death, Negative,Death; Negative,Necromancy School; Negative Energy; Fortitude Save; Death Effect
+165,"Sleep",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+166,"Slow",Transmutation,,None,,Transmutation School; Will Save
+167,"Sound Burst",Evocation,Sonic,Sonic,Sonic,Evocation School; Sonic Damage; Will Save; Stun
+168,"Spell Resistance",Abjuration,,None,,Abjuration School
+169,"Spell Mantle",Abjuration,,None,,Abjuration School
+171,"Stinking Cloud",Conjuration,,Poison,Poison,Conjuration School; Fortitude Save
+172,"Stoneskin",Abjuration,,None,,Abjuration School
+173,"Storm of Vengeance",Conjuration,Acid; Electricity,Electricity,Electricity,Conjuration School; Acid Damage; Electric Damage; Reflex Save; Stun
+174,"Summon Creature I",Conjuration,,None,,Conjuration School
+175,"Summon Creature II",Conjuration,,None,,Conjuration School
+176,"Summon Creature III",Conjuration,,None,,Conjuration School
+177,"Summon Creature IV",Conjuration,,None,,Conjuration School
+178,"Summon Creature IX",Conjuration,,None,,Conjuration School; Summoning
+179,"Summon Creature V",Conjuration,,None,,Conjuration School
+180,"Summon Creature VI",Conjuration,,None,,Conjuration School
+181,"Summon Creature VII",Conjuration,,None,,Conjuration School; Summoning
+182,"Summon Creature VIII",Conjuration,,None,,Conjuration School; Summoning
+183,"Sunbeam",Evocation,Divine,Divine,Divine,Evocation School; Divine Damage; Reflex Save; Undead
+184,"Tensers Transformation",Transmutation,Divine,None,,Transmutation School; Divine Damage; Polymorph
+185,"Time Stop",Transmutation,,None,,Transmutation School
+186,"True Seeing",Divination,Piercing,None,,Divination School; Piercing Damage; Polymorph; Invisibility
+188,"Vampiric Touch",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy
+189,"Virtue",Transmutation,,None,,Transmutation School
+190,"Wail of the Banshee",Necromancy,Sonic,Death,Death,Necromancy School; Sonic Damage; Fortitude Save; Death Effect
+191,"Wall of Fire",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Undead
+192,"Web",Conjuration,,None,,Conjuration School; Reflex Save
+193,"Weird",Illusion,,Fear, Mind-affecting,Fear; Mind Affecting,Illusion School; Fortitude Save; Will Save; Fear Effect; Mind-Affecting
+194,"Word of Faith",Evocation,Divine,None,,Evocation School; Divine Damage; Death Effect; Stun
+321,"Protection from Alignment",Abjuration,,None,,Abjuration School; Summoning
+322,"Magic Circle against Alignment",Abjuration,,None,,Abjuration School; Summoning
+323,"Aura versus Alignment",Abjuration,Divine; Negative,None,,Abjuration School; Divine Damage; Negative Energy; Summoning
+355,"Owls Wisdom",Transmutation,,None,,Transmutation School
+356,"Foxs Cunning",Transmutation,,None,,Transmutation School
+360,"Greater Bulls Strength",Transmutation,,None,,Transmutation School
+363,"Awaken",Transmutation,Magical,None,,Transmutation School; Magical Damage
+364,"Creeping Doom",Conjuration,Piercing,None,,Conjuration School; Piercing Damage
+365,"Ultravision",Transmutation,Magical,None,,Transmutation School; Magical Damage
+366,"Destruction",Necromancy,Entropy,Destruction,Destruction,Necromancy School; Entropy Damage; Fortitude Save
+368,"Ice Storm",Evocation,Bludgeoning; Cold,None,,Evocation School; Bludgeoning Damage; Cold Damage
+369,"Energy Buffer",Abjuration,,None,,Abjuration School
+370,"Negative Energy Burst",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Will Save; Healing; Undead
+371,"Negative Energy Ray",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Will Save; Healing; Undead
+372,"Aura of Vitality",Transmutation,,Mind-affecting,Mind Affecting,Transmutation School; Mind-Affecting
+373,"War Cry",Enchantment,,Fear,Fear,Enchantment School; Will Save; Fear Effect
+374,"Regenerate",Conjuration,,None,,Conjuration School
+375,"Evards Black Tentacles",Conjuration,Bludgeoning,None,,Conjuration School; Bludgeoning Damage; Fortitude Save
+376,"Legend Lore",Divination,,None,,Divination School
+377,"Find Traps",Divination,,None,,Divination School
+385,"Rogues Cunning",Conjuration,,| Components        = Verbal, Somatic,| Components = Verbal; Somatic,Conjuration School
+414,"Divine Favor",Evocation,,Mind-affecting,Mind Affecting,Evocation School; Mind-Affecting
+415,"True Strike",Divination,Magical,None,,Divination School; Magical Damage
+416,"Flare",Evocation,Fire,None,,Evocation School; Fire Damage
+417,"Shield",Abjuration,,None,,Abjuration School
+418,"Entropic Shield",Abjuration,Magical,None,,Abjuration School; Magical Damage
+419,"Continual Flame",Illusion,Magical,None,,Illusion School; Magical Damage; Permanent Effect
+420,"One With The Land",Transmutation,,None,,Transmutation School
+421,"Camouflage",Transmutation,,None,,Transmutation School
+422,"Blood Frenzy",Transmutation,,None,,Transmutation School
+423,"Bombardment",Conjuration,Bludgeoning,None,,Conjuration School; Bludgeoning Damage; Reflex Save
+424,"Acid Splash",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage
+426,"Earthquake",Evocation,,None,,Evocation School; Reflex Save
+427,"Sunburst",Evocation,Magical; Positive,None,,Evocation School; Magical Damage; Positive Energy; Reflex Save; Undead; Permanent Effect
+430,"Banishment",Abjuration,,None,,Abjuration School; Will Save; Undead; Summoning
+431,"Inflict Minor Wounds",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Undead
+432,"Inflict Light Wounds",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Healing; Undead
+433,"Inflict Moderate Wounds",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Healing; Undead
+434,"Inflict Serious Wounds",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Healing; Undead
+435,"Inflict Critical Wounds",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Healing; Undead
+437,"Drown",Transmutation,Bludgeoning,Transmutation,Transmutation,Transmutation School; Bludgeoning Damage; Fortitude Save
+438,"Owls Insight",Transmutation,,None,,Transmutation School
+439,"Electric Jolt",Evocation,Electricity,Electricity,Electricity,Evocation School; Electric Damage
+440,"Firebrand",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+441,"Wounding Whispers",Abjuration,Sonic,Sonic,Sonic,Abjuration School; Sonic Damage
+442,"Amplify",Transmutation,,None,,Transmutation School
+443,"Greater Sanctuary",Transmutation,,None,,Transmutation School; Summoning
+444,"Undeaths Eternal Foe",Abjuration,Negative,None,,Abjuration School; Negative Energy; Undead; Summoning
+445,"Dirge",Evocation,Entropy; Sonic,None,,Evocation School; Entropy Damage; Sonic Damage
+446,"Inferno",Transmutation,Fire,Fire,Fire,Transmutation School; Fire Damage
+447,"Isaacs Lesser Missile Storm",Evocation,,None,,Evocation School
+448,"Isaacs Greater Missile Storm",Evocation,,None,,Evocation School
+449,"Bane",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting; Fear Effect
+450,"Shield of Faith",Abjuration,,None,,Abjuration School
+451,"Planar Ally",Conjuration,,None,,Conjuration School; Summoning
+452,"Magic Fang",Transmutation,,None,,Transmutation School
+453,"Greater Magic Fang",Transmutation,,None,,Transmutation School
+454,"Spike Growth",Transmutation,,None,,Transmutation School; Reflex Save
+455,"Mass Camouflage",Transmutation,,None,,Transmutation School
+456,"Expeditious Retreat",Transmutation,,None,,Transmutation School
+457,"Tashas Hideous Laughter",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+458,"Displacement",Illusion,Fire,None,,Illusion School; Fire Damage
+459,"Bigbys Interposing Hand",Evocation,,None,,Evocation School; Reflex Save
+460,"Bigbys Forceful Hand",Evocation,,None,,Evocation School; Reflex Save
+461,"Bigbys Grasping Hand",Evocation,,None,,Evocation School; Reflex Save
+462,"Bigbys Clenched Fist",Evocation,,None,,Evocation School; Fortitude Save; Stun
+463,"Bigbys Crushing Hand",Evocation,,None,,Evocation School; Reflex Save
+481,"Cats Grace",Transmutation,,None,,Transmutation School
+485,"Flesh to stone",Transmutation,,Weapon Enchantment,Weapon Enchantment,Transmutation School; Fortitude Save
+486,"Stone to flesh",Transmutation,,None,,Transmutation School
+512,"Crumble",Transmutation,Entropy; Sonic,Sonic,Sonic,Transmutation School; Entropy Damage; Sonic Damage
+513,"Infestation of Maggots",Necromancy,,Disease,Disease,Necromancy School; Fortitude Save
+514,"Healing Sting",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save; Healing
+515,"Great Thunderclap",Evocation,Sonic,Sonic,Sonic,Evocation School; Sonic Damage; Stun
+516,"Ball Lightning",Evocation,Electricity,Electricity,Electricity,Evocation School; Electric Damage; Reflex Save
+517,"Battletide",Transmutation,Negative,Negative,Negative,Transmutation School; Negative Energy; Will Save
+518,"Combust",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+519,"Death Armor",Necromancy,Magical,Magical Armor,Magical Armor,Necromancy School; Magical Damage
+520,"Gedlees Electric Loop",Evocation,Electricity,Electricity, Mind-affecting,Electricity; Mind Affecting,Evocation School; Electric Damage; Reflex Save; Mind-Affecting; Stun
+521,"Horizikauls Boom",Evocation,Sonic,Sonic, Mind-affecting,Sonic; Mind Affecting,Evocation School; Sonic Damage; Will Save; Mind-Affecting
+522,"Ironguts",Abjuration,,Poison Resistance,Poison Resistance,Abjuration School
+523,"Mestils Acid Breath",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage; Reflex Save
+524,"Mestils Acid Sheath",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage
+525,"Monstrous Regeneration",Conjuration,,Regeneration,Regeneration,Conjuration School
+526,"Scintillating Sphere",Evocation,Electricity,Electricity,Electricity,Evocation School; Electric Damage; Reflex Save
+527,"Stone Bones",Transmutation,Magical,Magical Armor,Magical Armor,Transmutation School; Magical Damage; Undead
+528,"Undeath to Death",Necromancy,,None,,Necromancy School; Will Save; Undead
+529,"Vine Mine",Conjuration,,Nature,Nature,Conjuration School
+533,"Black Blade of Disaster",Conjuration,,None,,Conjuration School; Permanent Effect
+534,"Shelgarns Persistent Blade",Evocation,,Summoned Item,Summoned Item,Evocation School
+535,"Blade Thirst",Transmutation,Slashing,Weapon Enchantment,Weapon Enchantment,Transmutation School; Slashing Damage
+536,"Deafening Clang",Transmutation,Sonic,Weapon Enchantment,Weapon Enchantment,Transmutation School; Sonic Damage
+539,"Keen Edge",Transmutation,,Weapon Enchantment,Weapon Enchantment,Transmutation School
+541,"Blackstaff",Transmutation,Negative,Weapon Enchantment,Weapon Enchantment,Transmutation School; Negative Energy
+542,"Elemental Weapon",Evocation,Fire,Weapon Enchantment,Weapon Enchantment,Evocation School; Fire Damage
+543,"Ice Dagger",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage; Reflex Save
+547,"Stonehold",Conjuration,,Mind-affecting,Mind Affecting,Conjuration School; Will Save; Mind-Affecting
+548,"Darkfire",Evocation,Fire,Weapon Enchantment,Weapon Enchantment,Evocation School; Fire Damage
+549,"Glyph of Warding",Abjuration,Magical; Sonic,Sonic,Sonic,Abjuration School; Magical Damage; Sonic Damage; Reflex Save
+566,"Evil Blight",Necromancy,,N/A,,Necromancy School; Permanent Effect; Curse
+569,"Cloud of Bewilderment",Evocation,,Gas,Gas,Evocation School; Fortitude Save; Stun
+762,"Hell Inferno",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage; Reflex Save
+1562,"Chaos Shield",Abjuration,,None,,Abjuration School; Permanent Effect
+1563,"Improved Chaos Shield",Abjuration,Cold; Fire,None,,Abjuration School; Cold Damage; Fire Damage; Stun
+1564,"Disintegrate",Transmutation,Entropy,Death,Death,Transmutation School; Entropy Damage; Fortitude Save; Death Effect
+1565,"Halt Undead",Necromancy,,None,,Necromancy School; Will Save; Undead
+1566,"Blasphemy",Evocation,,None,,Evocation School
+1567,"Crushing Despair",Enchantment,,Mind-Affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+1568,"Good Hope",Enchantment,,None,,Enchantment School
+1569,"Faerie Fire",Evocation,Magical,None,,Evocation School; Magical Damage; Invisibility
+1570,"Maze",Conjuration,,None,,Conjuration School; Will Save
+1571,"Wall of Ice",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage
+1572,"Scorching Ray",Evocation,Fire,Fire,Fire,Evocation School; Fire Damage
+1573,"Chromatic Orb",Evocation,,None,,Evocation School
+1575,"Avascular Mass",Necromancy,Negative,Mind-Affecting,Mind Affecting,Necromancy School; Negative Energy; Fortitude Save; Mind-Affecting; Stun
+1577,"Scintillating Pattern",Illusion,,Mind-Affecting,Mind Affecting,Illusion School; Mind-Affecting; Stun
+1579,"Nightmare",Illusion,,Mind-Affecting, Evil,Mind Affecting; Evil,Illusion School; Will Save; Mind-Affecting; Permanent Effect; Curse
+1581,"Bigbys Disrupting Hand",Evocation,,None,,Evocation School
+1582,"Sound Lance",Evocation,Sonic,Sonic,Sonic,Evocation School; Sonic Damage; Fortitude Save
+1583,"Finger of Agony",Necromancy,Magical,None,,Necromancy School; Magical Damage; Fortitude Save
+1584,"Freeze",Conjuration,Cold,Cold,Cold,Conjuration School; Cold Damage; Fortitude Save; Reflex Save
+1585,"Iceberg",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage; Reflex Save
+1592,"Detect Poison",Divination,,| Components        = Verbal, Somatic,| Components = Verbal; Somatic,Divination School
+1593,"Daltims fiery Tentacles",Conjuration,Fire,None,,Conjuration School; Fire Damage; Fortitude Save
+1594,"Kyristans malevolent Tentacles",Necromancy,Entropy; Negative,None,,Necromancy School; Entropy Damage; Negative Energy; Fortitude Save; Paralysis
+1595,"Darkbolt",Evocation,,Darkness, Mind Affecting,Darkness; Mind Affecting,Evocation School; Will Save; Mind-Affecting; Undead
+1597,"Mass Hold Monster",Enchantment,,Mind-Affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+1609,"Shadow Plague",Conjuration,Cold,Darkness,Darkness,Conjuration School; Cold Damage; Reflex Save
+1632,"Lightning Shield",Evocation,,Lightning,Lightning,Evocation School
+1633,"Frost Shield",Evocation,Cold; Fire,Cold, Fire,Cold; Fire,Evocation School; Cold Damage; Fire Damage
+1636,"Water Breathing",Transmutation,,None,,Transmutation School
+1683,"Dark Undertow",Conjuration,,| Components        = Verbal, Somatic,| Components = Verbal; Somatic,Conjuration School
+1730,"Sacred Flame",Evocation,Negative; Positive,Positive,Positive,Evocation School; Negative Energy; Positive Energy
+1731,"Frostbite",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage; Fortitude Save
+1732,"Frost Nova",Evocation,Cold,Cold,Cold,Evocation School; Cold Damage; Reflex Save
+1733,"Command",Enchantment,,Mind-affecting,Mind Affecting,Enchantment School; Will Save; Mind-Affecting
+1742,"Sustenance",Conjuration,,None,,Conjuration School
+1743,"Vitriolic Sphere",Conjuration,Acid,Acid,Acid,Conjuration School; Acid Damage; Reflex Save
+1744,"Sunfire",Evocation,Divine; Fire,Divine,Divine,Evocation School; Divine Damage; Fire Damage; Reflex Save; Undead
+1745,"Moonbeam",Evocation,Divine,Divine,Divine,Evocation School; Divine Damage; Will Save; Undead; Stun
+1833,"MASSACRE",Evocation, Necromancy,Entropy; Negative,Blood Arcana, Evil, Fear, Death,Blood Arcana; Evil; Fear; Death,Entropy Damage; Negative Energy; Fortitude Save; Will Save; Fear Effect; Death Effect; Mind-Affecting; Undead
+1834,"SOUL SHRIEK",Evocation, Necromancy,Entropy,Blood Arcana, Evil, Fear,Blood Arcana; Evil; Fear,Entropy Damage; Fortitude Save; Will Save; Fear Effect
+1835,"ELEMENTAL HAMMER",Evocation,,| Components        = Verbal, Somatic,| Components = Verbal; Somatic,Evocation School; Will Save
+1836,"ELEMENTAL ANNIHILATION",Evocation,,None,,Evocation School; Will Save
+1850,"BLUR",Illusion,Magical,None,,Illusion School; Magical Damage
+1851,"Spider Skin",Transmutation,,None,,Transmutation School
+1852,"FALSE LIFE",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Death Effect
+1853,"BALEFUL POLYMORPH",Transmutation,,Chaos,Chaos,Transmutation School; Will Save; Curse; Polymorph
+1854,"DEHYDRATE",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save; Curse
+1855,"BLADES OF FIRE",Transmutation,Fire,Fire,Fire,Transmutation School; Fire Damage
+1856,"LIFE TRANSFERENCE",Necromancy,Magical; Negative,Negative,Negative,Necromancy School; Magical Damage; Negative Energy; Healing
+1858,"BLACKFIRE",Necromancy,Entropy; Fire,Fire, Evil,Fire; Evil,Necromancy School; Entropy Damage; Fire Damage
+1859,"Sustain",Necromancy,,Healing,Healing,Necromancy School; Healing
+1860,"Vicious Mockery",Enchantment,,Mind,Mind,Enchantment School; Will Save
+1861,"FRIGID DARKNESS",Necromancy,Cold; Entropy; Negative,Negative, Cold,Negative; Cold,Necromancy School; Cold Damage; Entropy Damage; Negative Energy; Fortitude Save
+1862,"Serene Visage",Illusion,,Illusion,Illusion,Illusion School
+1863,"Withering Ray",Necromancy,Entropy; Negative,Death, Negative,Death; Negative,Necromancy School; Entropy Damage; Negative Energy; Fortitude Save; Death Effect
+1864,"Strangulate",Necromancy,,Evil,Evil,Necromancy School; Reflex Save; Undead
+1865,"Spinal Tap",Necromancy,Entropy; Negative,Negative,Negative,Necromancy School; Entropy Damage; Negative Energy; Will Save
+1867,"Power Word Bleed",Divination,,None,,Divination School; Fortitude Save; Undead
+1868,"Stop Heart",Necromancy,Magical,Death,Death,Necromancy School; Magical Damage; Fortitude Save; Death Effect; Undead
+1869,"CHILL TOUCH",Necromancy,Cold; Entropy; Negative,Negative, Evil,Negative; Evil,Necromancy School; Cold Damage; Entropy Damage; Negative Energy; Will Save; Undead
+1870,"Vengeful Mount",Enchantment,,Mind,Mind,Enchantment School
+1872,"Power Word Blind",Divination,,None,,Divination School; Will Save
+1873,"GREATER MAGE ARMOR",Conjuration,,None,,Conjuration School
+1874,"NEGATIVE ENERGY FLOOD",Necromancy,Negative,Negative,Negative,Necromancy School; Negative Energy; Fortitude Save; Healing; Undead
+1875,"Wraith Stride",Necromancy,,None,,Necromancy School; Undead
+1878,"EAGLE SIGHT",Divination,,None,,Divination School
+1879,"Solipsism",Illusion,,Mind Affecting,Mind Affecting,Illusion School; Will Save; Mind-Affecting
+1880,"PHANTOM WOUND",Illusion,,Mind Affecting,Mind Affecting,Illusion School; Will Save; Mind-Affecting
+1907,"Vermilion Stars",Evocation,Electricity,Blood Arcana, Death, Electricity,Blood Arcana; Death; Electricity,Evocation School; Electric Damage; Fortitude Save; Reflex Save; Death Effect
+1908,"CRIMSON LIGHTNING",Evocation,Electricity,Blood Arcana, Electricity, Curse,Blood Arcana; Electricity; Curse,Evocation School; Electric Damage; Fortitude Save; Reflex Save; Curse
+1921,"BESTOW WOUND",Necromancy,,Blood Arcana,Blood Arcana,Necromancy School; Healing
+1922,"HEMORRHAGE",Necromancy,Negative; Piercing; Slashing,Blood Arcana,Blood Arcana,Necromancy School; Negative Energy; Piercing Damage; Slashing Damage; Fortitude Save; Death Effect; Curse
+1923,"SOUL SCOUR",Necromancy,Divine,Blood Arcana,Blood Arcana,Necromancy School; Divine Damage; Will Save; Stun
+1924,"GRIM TERROR",Necromancy,,Blood Arcana,Blood Arcana,Necromancy School; Will Save; Fear Effect; Death Effect; Curse
+1926,"Predator",Necromancy,,Blood Arcana,Blood Arcana,Necromancy School
+1928,"CURSE STORM",Necromancy,,Evil,Evil,Necromancy School; Mind-Affecting; Fear Effect; Death Effect; Healing; Curse

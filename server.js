@@ -35,7 +35,10 @@ const server = http.createServer((req, res) => {
   }
 
   // Parse URL and strip query/hash
-  const rawUrl = (req.url || '').split('?')[0].split('#')[0];
+  const fullUrl = req.url || '';
+  const queryIndex = fullUrl.indexOf('?');
+  const queryPart = queryIndex >= 0 ? fullUrl.slice(queryIndex) : '';
+  const rawUrl = fullUrl.split('?')[0].split('#')[0];
   const requestPath = rawUrl === '/' ? '/index.html' : rawUrl;
   // Friendly aliases for StoreAssist in local development.
   const normalizedAliasPath = requestPath.replace(/^\/storeassist(?=\/|$)/i, '/StoreAssist');
@@ -57,6 +60,14 @@ const server = http.createServer((req, res) => {
 
   const requestLooksLikeDirectory =
     normalizedRequestPath.endsWith('/') || !path.extname(normalizedRequestPath);
+
+  // Ensure directory URLs end with a trailing slash so relative asset paths resolve correctly.
+  if (requestLooksLikeDirectory && !normalizedRequestPath.endsWith('/')) {
+    const location = `${resolvedRequestPath}/${queryPart}`;
+    res.writeHead(301, { Location: location });
+    res.end();
+    return;
+  }
 
   ROOT_DIRS.forEach(rootDir => {
     addCandidatePath(rootDir, normalizedRequestPath);

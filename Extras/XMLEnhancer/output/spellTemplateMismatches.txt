@@ -1,0 +1,19 @@
+=== Category:Spells but no SpellBookPage template ===
+Total: 14
+- Dragon Knight
+- Elemental Avatar
+- Elemental Meteor
+- Epic Mage Armor
+- Greater Ruin
+- Hellball
+- Mummy Dust
+- Planar Conduit
+- Vampiric Feast
+- Category:Cleric Domain Spells
+- Category:Epic Spells
+- Category:Innate Spells
+- Category:Spell Schools
+- Category:Weapon Enchantment
+
+=== SpellBookPage template but not in Category:Spells ===
+Total: 0

@@ -128,6 +128,7 @@
     skillRows: document.getElementById("skillRows"),
     characterNameInput: document.getElementById("characterNameInput"),
     raceInput: document.getElementById("raceInput"),
+    tagsInput: document.getElementById("tagsInput"),
     raceEclValue: document.getElementById("raceEclValue"),
     isPublicInput: document.getElementById("isPublicInput"),
     majorGiftSlotsValue: document.getElementById("majorGiftSlotsValue"),
@@ -422,6 +423,25 @@
     return `${pickRandom(starts)}${pickRandom(middles)} ${pickRandom(ends)} ${tag}`;
   }
 
+  function sanitizeTags(value) {
+    const tags = String(value || "")
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+
+    const seen = new Set();
+    const deduped = tags.filter((tag) => {
+      const key = tag.toLowerCase();
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+
+    return deduped.join(", ");
+  }
+
   function chooseRandomClassPlan() {
     const classes = [...CANON_CLASSES];
     const primary = pickRandom(classes) || "Fighter";
@@ -444,6 +464,13 @@
 
   function chooseRandomAlignment() {
     return pickRandom(["LG", "NG", "CG", "LN", "TN", "CN", "LE", "NE", "CE"]) || "TN";
+  }
+
+  function chooseRandomTags() {
+    const pool = ["PvE", "PvP", "Tank", "Healer", "Support", "Stealth", "Crafting", "Solo", "Party", "Underdark", "Surface", "Roleplay"];
+    const picks = randomInt(1, 4);
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    return sanitizeTags(shuffled.slice(0, picks).join(", "));
   }
 
   function setRandomGiftsForRace(raceName) {
@@ -543,7 +570,9 @@
     clearSheetForm();
     els.characterNameInput.value = randomCharacterName();
     els.raceInput.value = pickRandom(ALL_RACES) || "Human";
+    els.tagsInput.value = chooseRandomTags();
     els.alignmentInput.value = chooseRandomAlignment();
+    els.isPublicInput.checked = true;
 
     setRandomGiftsForRace(els.raceInput.value);
     populateRandomLevelAndSkillData();
@@ -1148,6 +1177,7 @@
     [
       els.characterNameInput,
       els.raceInput,
+      els.tagsInput,
       els.alignmentInput
     ].forEach((input) => {
       input.value = "";
@@ -1169,6 +1199,7 @@
 
     els.characterNameInput.value = sheet.character_name || "";
     els.raceInput.value = sheet.race || "";
+    els.tagsInput.value = sanitizeTags(sheet.tags || "");
     els.alignmentInput.value = sheet.alignment || "";
     els.isPublicInput.checked = Boolean(sheet.is_public);
 
@@ -1191,6 +1222,7 @@
     return {
       character_name: (els.characterNameInput.value || "").trim(),
       race: (els.raceInput.value || "").trim(),
+      tags: sanitizeTags(els.tagsInput.value || ""),
       alignment: (els.alignmentInput.value || "").trim(),
       is_public: Boolean(els.isPublicInput.checked),
       level_data: levelData
@@ -1225,6 +1257,7 @@
 
       const subtitleBits = [];
       if (sheet.race) subtitleBits.push(sheet.race);
+      if (sheet.tags) subtitleBits.push(sheet.tags);
       subtitleBits.push(sheet.is_public ? "Public" : "Private");
 
       item.innerHTML = `

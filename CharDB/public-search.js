@@ -3,6 +3,7 @@
     raceFilterInput: document.getElementById("raceFilterInput"),
     classFilterInput: document.getElementById("classFilterInput"),
     featFilterInput: document.getElementById("featFilterInput"),
+    tagFilterInput: document.getElementById("tagFilterInput"),
     applyFiltersBtn: document.getElementById("applyFiltersBtn"),
     clearFiltersBtn: document.getElementById("clearFiltersBtn"),
     resultsHeading: document.getElementById("resultsHeading"),
@@ -31,6 +32,14 @@
       .map((item) => item.trim())
       .filter(Boolean)
       .map((item) => item.toLowerCase());
+  }
+
+  function sanitizeTags(value) {
+    return String(value || "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .join(", ");
   }
 
   function setStatus(message, kind) {
@@ -134,6 +143,7 @@
     els.readonlyMeta.innerHTML = "";
     const metaRows = [
       ["Race", sheet.race || "-"],
+      ["Tags", sheet.tags || "-"],
       ["Alignment", sheet.alignment || "-"],
       ["Updated", formatDate(sheet.updated_at) || "-"]
     ];
@@ -229,6 +239,7 @@
     card.innerHTML = `
       <h3>${sheet.character_name || "Untitled"}</h3>
       <p class="public-meta">Race: ${sheet.race || "-"}</p>
+      <p class="public-meta">Tags: ${sheet.tags || "-"}</p>
       <p class="public-meta">Alignment: ${sheet.alignment || "-"}</p>
       <p class="public-meta">Classes: ${classSummary}</p>
       <p class="public-meta">Updated: ${formatDate(sheet.updated_at)}</p>
@@ -248,6 +259,7 @@
     const raceQuery = normalize(els.raceFilterInput.value);
     const classTokens = splitTokens(els.classFilterInput.value);
     const featTokens = splitTokens(els.featFilterInput.value);
+    const tagTokens = splitTokens(els.tagFilterInput.value);
 
     const filtered = allPublicSheets.filter((sheet) => {
       const raceOk = !raceQuery || normalize(sheet.race).includes(raceQuery);
@@ -261,7 +273,12 @@
       }
 
       const featsOk = featTokens.every((token) => sheet.search.featBlob.includes(token));
-      return featsOk;
+      if (!featsOk) {
+        return false;
+      }
+
+      const tagsOk = tagTokens.every((token) => sheet.search.tagBlob.includes(token));
+      return tagsOk;
     });
 
     renderResults(filtered);
@@ -286,12 +303,34 @@
   }
 
   async function loadPublicSheets() {
-    const { data, error } = await supabase
+    let data = null;
+    let error = null;
+
+    const primaryQuery = await supabase
       .from("character_sheets")
-      .select("id, character_name, race, alignment, level_data, updated_at, is_public")
+      .select("id, character_name, race, tags, alignment, level_data, updated_at, is_public")
       .eq("is_public", true)
       .order("updated_at", { ascending: false })
       .limit(500);
+
+    data = primaryQuery.data;
+    error = primaryQuery.error;
+
+    const missingTagsColumn = error && /column\s+character_sheets\.tags\s+does not exist/i.test(String(error.message || ""));
+    if (missingTagsColumn) {
+      const fallbackQuery = await supabase
+        .from("character_sheets")
+        .select("id, character_name, race, alignment, level_data, updated_at, is_public")
+        .eq("is_public", true)
+        .order("updated_at", { ascending: false })
+        .limit(500);
+
+      data = (fallbackQuery.data || []).map((sheet) => ({ ...sheet, tags: "" }));
+      error = fallbackQuery.error;
+      if (!error) {
+        setStatus("Loaded without tags. Run CharDB schema migration to enable tag search.", "warning");
+      }
+    }
 
     if (error) {
       setStatus(`Failed to load public sheets: ${error.message}`, "error");
@@ -300,8 +339,13 @@
 
     allPublicSheets = (data || []).map((sheet) => ({
       ...sheet,
+      tags: sanitizeTags(sheet.tags || ""),
       search: extractSearchData(sheet.level_data)
     }));
+
+    allPublicSheets.forEach((sheet) => {
+      sheet.search.tagBlob = normalize(sheet.tags || "");
+    });
 
     renderResults(allPublicSheets);
     setStatus(`Loaded ${allPublicSheets.length} public sheets.`, "success");
@@ -316,6 +360,7 @@
       els.raceFilterInput.value = "";
       els.classFilterInput.value = "";
       els.featFilterInput.value = "";
+      els.tagFilterInput.value = "";
       renderResults(allPublicSheets);
     });
   }
