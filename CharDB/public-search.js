@@ -1,4 +1,7 @@
 (function () {
+  const META_LEVEL = 0;
+  const RACE_FEAT_LOCAL_SOURCE = "./data/raceFeatsMeta.json";
+
   const els = {
     nameFilterInput: document.getElementById("nameFilterInput"),
     raceFilterInput: document.getElementById("raceFilterInput"),
@@ -22,6 +25,7 @@
 
   let supabase = null;
   let allPublicSheets = [];
+  let raceFeatMeta = new Map();
 
   function normalize(value) {
     return String(value || "").toLowerCase().trim();
@@ -41,6 +45,30 @@
       .map((item) => item.trim())
       .filter(Boolean)
       .join(", ");
+  }
+
+  function normalizeRaceName(value) {
+    return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  function dedupeStrings(values) {
+    const seen = new Set();
+    return values.filter((value) => {
+      const text = String(value || "").trim();
+      const key = normalizeRaceName(text);
+      if (!key || seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function formatList(value) {
+    if (!Array.isArray(value) || !value.length) {
+      return "-";
+    }
+    return value.join(", ");
   }
 
   function setStatus(message, kind) {
@@ -102,6 +130,60 @@
     return node;
   }
 
+  function getMetaRow(levelData) {
+    return (Array.isArray(levelData) ? levelData : []).find((row) => Number(row && row.level) === META_LEVEL && row.meta);
+  }
+
+  function applyRaceFeatMetaFromObject(source) {
+    const map = new Map();
+    Object.entries(source || {}).forEach(([key, value]) => {
+      const feats = Array.isArray(value)
+        ? dedupeStrings(value.map((item) => String(item || "").trim()).filter(Boolean))
+        : [];
+
+      if (!feats.length) {
+        return;
+      }
+
+      map.set(normalizeRaceName(key), feats);
+    });
+
+    raceFeatMeta = map;
+  }
+
+  function getRaceFeatsForSelection(raceName) {
+    const normalized = normalizeRaceName(raceName);
+    if (!normalized) {
+      return [];
+    }
+
+    if (raceFeatMeta.has(normalized)) {
+      return raceFeatMeta.get(normalized);
+    }
+
+    for (const [key, feats] of raceFeatMeta.entries()) {
+      if (key.startsWith(normalized) || normalized.startsWith(key)) {
+        return feats;
+      }
+    }
+
+    return [];
+  }
+
+  async function loadRaceFeatMeta() {
+    try {
+      const localResponse = await fetch(RACE_FEAT_LOCAL_SOURCE, { cache: "no-store" });
+      if (!localResponse.ok) {
+        throw new Error(`HTTP ${localResponse.status}`);
+      }
+      const localData = await localResponse.json();
+      applyRaceFeatMetaFromObject(localData);
+    } catch (error) {
+      raceFeatMeta = new Map();
+      console.warn(`Public search race feat data unavailable: ${error.message}`);
+    }
+  }
+
   function getLevelRows(levelData) {
     return (Array.isArray(levelData) ? levelData : [])
       .filter((row) => row && Number(row.level) > 0)
@@ -141,11 +223,24 @@
     const title = `${sheet.character_name || "Untitled"} (Read-Only)`;
     els.readonlyTitle.textContent = title;
 
+    const metaRow = getMetaRow(sheet.level_data || []);
+    const meta = (metaRow && metaRow.meta) || {};
+    const majorGifts = Array.isArray(meta.selectedMajorGifts) ? meta.selectedMajorGifts : [];
+    const minorGifts = Array.isArray(meta.selectedMinorGifts) ? meta.selectedMinorGifts : [];
+    const raceRule = meta.raceRule && typeof meta.raceRule === "object" ? meta.raceRule : null;
+    const racialFeats = getRaceFeatsForSelection(sheet.race || "");
+
     els.readonlyMeta.innerHTML = "";
     const metaRows = [
       ["Race", sheet.race || "-"],
       ["Tags", sheet.tags || "-"],
       ["Alignment", sheet.alignment || "-"],
+      ["Race ECL", raceRule ? String(raceRule.ecl ?? "-") : "-"],
+      ["Major Gift Slots", raceRule ? String(raceRule.major ?? "-") : "-"],
+      ["Minor Gift Slots", raceRule ? String(raceRule.minor ?? "-") : "-"],
+      ["Major Gifts", formatList(majorGifts)],
+      ["Minor Gifts", formatList(minorGifts)],
+      ["Racial Feats", formatList(racialFeats)],
       ["Updated", formatDate(sheet.updated_at) || "-"]
     ];
 
@@ -402,6 +497,7 @@
     if (!bootSupabaseClient()) {
       return;
     }
+    await loadRaceFeatMeta();
     await loadPublicSheets();
   }
 
