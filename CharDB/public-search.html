@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CharDB | Public Sheets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Arelith Tooling</p>
+        <h1>CharDB Public Search</h1>
+        <p class="subtitle">Search public character sheets by race, classes, and feats.</p>
+      </div>
+      <div class="status-wrap">
+        <a class="btn ghost" href="./index.html">Back To CharDB</a>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel search-panel">
+        <div class="search-filters-grid">
+          <label>Race Contains
+            <input id="raceFilterInput" type="text" maxlength="100" placeholder="Example: Drow">
+          </label>
+          <label>Required Classes
+            <input id="classFilterInput" type="text" maxlength="300" placeholder="Comma-separated, e.g. Fighter, Weapon Master">
+          </label>
+          <label>Required Feats
+            <input id="featFilterInput" type="text" maxlength="500" placeholder="Comma-separated, e.g. Dodge, Power Attack">
+          </label>
+        </div>
+        <div class="row wrap">
+          <button id="applyFiltersBtn" class="btn" type="button">Apply Filters</button>
+          <button id="clearFiltersBtn" class="btn ghost" type="button">Clear</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="row between wrap">
+          <h2 id="resultsHeading">Public Sheets</h2>
+          <span id="resultsCount" class="badge muted">0 results</span>
+        </div>
+        <div id="publicSheetsResults" class="public-sheet-grid"></div>
+      </section>
+
+      <section id="readonlyPanel" class="panel hidden">
+        <div class="row between wrap">
+          <h2 id="readonlyTitle">Read Only Sheet</h2>
+          <button id="closeReadonlyBtn" class="btn ghost" type="button">Close</button>
+        </div>
+        <div id="readonlyMeta" class="readonly-meta-grid"></div>
+
+        <h3>Level Progression</h3>
+        <div class="table-wrap">
+          <table class="spreadsheet-table readonly-table">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Class</th>
+                <th>BAB</th>
+                <th>HP</th>
+                <th>STR</th>
+                <th>DEX</th>
+                <th>CON</th>
+                <th>WIS</th>
+                <th>INT</th>
+                <th>CHA</th>
+                <th>Feat</th>
+                <th>Bonus Feat</th>
+                <th>Granted Feat</th>
+              </tr>
+            </thead>
+            <tbody id="readonlyLevelBody"></tbody>
+          </table>
+        </div>
+
+        <h3>Skills By Level</h3>
+        <div class="table-wrap">
+          <table class="spreadsheet-table readonly-table readonly-skill-table">
+            <thead>
+              <tr id="readonlySkillsHeadRow">
+                <th>Level</th>
+              </tr>
+            </thead>
+            <tbody id="readonlySkillsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <p id="publicStatusMessage" class="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./supabase.config.js"></script>
+  <script src="./public-search.js"></script>
+</body>
+</html>

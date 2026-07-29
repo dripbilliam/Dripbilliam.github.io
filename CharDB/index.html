@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CharDB | Character Sheets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Arelith Tooling</p>
+        <h1>CharDB</h1>
+      </div>
+      <div class="status-wrap">
+        <a class="btn ghost" href="./public-search.html">Public Search</a>
+        <span id="authStateBadge" class="badge muted">Signed out</span>
+        <button id="signOutBtn" class="btn ghost" type="button" disabled>Sign out</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel" id="authPanel">
+        <h2>Account</h2>
+        <p class="muted-text">Sign in with Discord to manage your own sheets. No email form required in this app.</p>
+        <div class="row wrap">
+          <button id="signInDiscordBtn" class="btn" type="button">Sign in with Discord</button>
+          <a class="btn ghost" href="./public-search.html">Browse Public Sheets</a>
+        </div>
+        <p class="muted-text small">You will be redirected to Discord and returned here when complete.</p>
+      </section>
+
+      <section class="panel app hidden" id="appPanel">
+        <div class="app-grid">
+          <aside class="sheet-list">
+            <div class="row between">
+              <h2>Your Sheets</h2>
+              <div class="row wrap">
+                <button id="newSheetBtn" class="btn" type="button">New</button>
+                <button id="generateRandomSheetBtn" class="btn ghost hidden" type="button">Generate Test</button>
+              </div>
+            </div>
+            <div id="sheetItems" class="items"></div>
+          </aside>
+
+          <section class="sheet-editor">
+            <div class="row between wrap">
+              <h2 id="editorHeading">New Character Sheet</h2>
+              <div class="row wrap">
+                <button id="saveSheetBtn" class="btn" type="button">Save</button>
+                <button id="deleteSheetBtn" class="btn danger" type="button" disabled>Delete</button>
+              </div>
+            </div>
+
+            <form id="sheetForm">
+              <div class="sheet-meta-grid">
+                <label>Character Name
+                  <input id="characterNameInput" type="text" required maxlength="100" placeholder="Example: Kethra Dawnshield">
+                </label>
+                <label>Race
+                  <select id="raceInput"></select>
+                </label>
+                <label>Alignment
+                  <input id="alignmentInput" type="text" maxlength="40" placeholder="Example: NG">
+                </label>
+                <label class="visibility-toggle">Sheet Visibility
+                  <span class="row wrap">
+                    <input id="isPublicInput" type="checkbox">
+                    <span class="muted-text small">Public (discoverable in search)</span>
+                  </span>
+                </label>
+                <div class="gift-stats-box">
+                  <span class="gift-stat">ECL: <strong id="raceEclValue">0</strong></span>
+                  <span class="gift-stat">Major Gifts: <strong id="majorGiftSlotsValue">0</strong></span>
+                  <span class="gift-stat">Minor Gifts: <strong id="minorGiftSlotsValue">0</strong></span>
+                </div>
+                <div class="gift-selectors wide">
+                  <div class="gift-group">
+                    <h4>Major Gifts</h4>
+                    <div id="majorGiftOptions" class="gift-options"></div>
+                  </div>
+                  <div class="gift-group">
+                    <h4>Minor Gifts</h4>
+                    <div id="minorGiftOptions" class="gift-options"></div>
+                  </div>
+                </div>
+                <div class="race-feats-box full">
+                  <div class="row between wrap">
+                    <h4>Racial Feats</h4>
+                    <span id="raceFeatRaceName" class="muted-text small">No race selected</span>
+                  </div>
+                  <ul id="raceFeatList" class="race-feat-list">
+                    <li class="muted-text">Select a race to see extracted racial feats.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3>Level Progression (1-30)</h3>
+              <p class="muted-text small">No build validation is enforced in this tool.</p>
+              <div class="table-wrap spreadsheet-wrap">
+                <table class="spreadsheet-table">
+                  <thead>
+                    <tr>
+                      <th>Level</th>
+                      <th>Class Taken</th>
+                      <th>BAB</th>
+                      <th>HP</th>
+                      <th>STR</th>
+                      <th>DEX</th>
+                      <th>CON</th>
+                      <th>WIS</th>
+                      <th>INT</th>
+                      <th>CHA</th>
+                      <th>Feat</th>
+                      <th>Bonus Feat</th>
+                      <th>Granted Feat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="levelRows"></tbody>
+                </table>
+              </div>
+
+              <h3>Skills Progression (1-30)</h3>
+              <p class="muted-text small">Skill rank changes can only be entered on levels where the selected class can increase that skill. Values carry downward automatically.</p>
+              <div class="table-wrap spreadsheet-wrap skills-wrap">
+                <table class="spreadsheet-table skills-table">
+                  <thead>
+                    <tr>
+                      <th>Level</th>
+                      <th>Animal Empathy</th>
+                      <th>Appraise</th>
+                      <th>Bluff</th>
+                      <th>Climb</th>
+                      <th>Concentration</th>
+                      <th>Craft Mastery</th>
+                      <th>Disable Trap</th>
+                      <th>Discipline</th>
+                      <th>Heal</th>
+                      <th>Hide</th>
+                      <th>Intimidate</th>
+                      <th>Leadership</th>
+                      <th>Linguistics</th>
+                      <th>Listen</th>
+                      <th>Lore</th>
+                      <th>Move Silently</th>
+                      <th>Open Lock</th>
+                      <th>Parry</th>
+                      <th>Perform</th>
+                      <th>Ride</th>
+                      <th>Sail</th>
+                      <th>Search</th>
+                      <th>Sleight Of Hand</th>
+                      <th>Spellcraft</th>
+                      <th>Spot</th>
+                      <th>Taunt</th>
+                      <th>Tumble</th>
+                      <th>Use Magic Device</th>
+                      <th>Use Traps</th>
+                    </tr>
+                  </thead>
+                  <tbody id="skillRows"></tbody>
+                </table>
+              </div>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <p id="statusMessage" class="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./supabase.config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

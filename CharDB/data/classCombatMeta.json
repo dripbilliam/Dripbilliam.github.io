@@ -1,0 +1,237 @@
+{
+  "arcanearcher": {
+    "className": "Arcane Archer",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "assassin": {
+    "className": "Assassin",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "barbarian": {
+    "className": "Barbarian",
+    "hitDie": 12,
+    "babRate": 0.75
+  },
+  "bard": {
+    "className": "Bard",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "blackguard": {
+    "className": "Blackguard",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "cavalier": {
+    "className": "Cavalier",
+    "hitDie": 12,
+    "babRate": 0.75
+  },
+  "cleric": {
+    "className": "Cleric",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "commoner": {
+    "className": "Commoner",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "dirgesinger": {
+    "className": "Dirgesinger",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "divinechampion": {
+    "className": "Divine Champion",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "dragondisciple": {
+    "className": "Dragon Disciple",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "druid": {
+    "className": "Druid",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "earthkindefender": {
+    "className": "Earthkin Defender",
+    "hitDie": 12,
+    "babRate": 0.75
+  },
+  "elementalist": {
+    "className": "Elementalist",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "favoredsoul": {
+    "className": "Favored Soul",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "fighter": {
+    "className": "Fighter",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "harbinger": {
+    "className": "Harbinger",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "harperscout": {
+    "className": "Harper Scout",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "harpermage": {
+    "className": "Harper Mage",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "harperpriest": {
+    "className": "Harper Priest",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "harperparagon": {
+    "className": "Harper Paragon",
+    "hitDie": 10,
+    "babRate": 1
+  },
+  "masterharper": {
+    "className": "Master Harper",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "hemomancer": {
+    "className": "Hemomancer",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "invisibleblade": {
+    "className": "Invisible Blade",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "knight": {
+    "className": "Knight",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "liberator": {
+    "className": "Liberator",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "loremaster": {
+    "className": "Loremaster",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "monk": {
+    "className": "Monk",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "paladin": {
+    "className": "Paladin",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "palemaster": {
+    "className": "Pale Master",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "ranger": {
+    "className": "Ranger",
+    "hitDie": 10,
+    "babRate": 0.75
+  },
+  "rogue": {
+    "className": "Rogue",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "shadowdancer": {
+    "className": "Shadowdancer",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "shaman": {
+    "className": "Shaman",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "shifter": {
+    "className": "Shifter",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "sorcerer": {
+    "className": "Sorcerer",
+    "hitDie": 4,
+    "babRate": 0.5
+  },
+  "specialist": {
+    "className": "Specialist",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "spellsword": {
+    "className": "Spellsword",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "swashbuckler": {
+    "className": "Swashbuckler",
+    "hitDie": 10,
+    "babRate": 1
+  },
+  "vigilante": {
+    "className": "Vigilante",
+    "hitDie": 10,
+    "babRate": 1
+  },
+  "warlock": {
+    "className": "Warlock",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "weaponmaster": {
+    "className": "Weapon master",
+    "hitDie": 10,
+    "babRate": 1
+  },
+  "wizard": {
+    "className": "Wizard",
+    "hitDie": 4,
+    "babRate": 0.5
+  },
+  "zhentarimnaugadar": {
+    "className": "Zhentarim Naug-adar",
+    "hitDie": 6,
+    "babRate": 0.75
+  },
+  "zhentarimfearspeaker": {
+    "className": "Zhentarim Fear Speaker",
+    "hitDie": 8,
+    "babRate": 0.75
+  },
+  "zhentarimenforcer": {
+    "className": "Zhentarim Enforcer",
+    "hitDie": 10,
+    "babRate": 1
+  },
+  "zhentarimoperative": {
+    "className": "Zhentarim Operative",
+    "hitDie": 6,
+    "babRate": 0.75
+  }
+}

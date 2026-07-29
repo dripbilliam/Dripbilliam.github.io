@@ -1,0 +1,261 @@
+{
+  "aquaticelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Darkvision",
+    "Weapon Proficiency (Aquatic Elf)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)",
+    "Amphibious Character",
+    "Weapon Focus (Polearm)"
+  ],
+  "arcticdwarf": [
+    "Small Stature",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Battle training vs. giants",
+    "Weapon Proficiency (Primitive)"
+  ],
+  "avariel": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Weapon Proficiency (Elf)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)",
+    "Winged Character"
+  ],
+  "cloudhalfgiant": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision"
+  ],
+  "deepimaskari": [
+    "Medium Stature",
+    "Quick To Master",
+    "Skilled",
+    "Low-Light Vision",
+    "Spell Clutch"
+  ],
+  "derro": [
+    "Small Stature",
+    "Sunlight Sensitivity",
+    "Stonecunning",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Use Poison"
+  ],
+  "duergar": [
+    "Medium Stature",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Weapon Proficiency (Dwarven Waraxe)",
+    "Venom Immunity"
+  ],
+  "durzagon": [
+    "Medium Stature",
+    "Stonecunning",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Battle training vs. orcs",
+    "Battle training vs. goblinoids",
+    "Battle training vs. giants",
+    "Weapon Proficiency (Dwarven Waraxe)",
+    "Venom Immunity"
+  ],
+  "fey": [
+    "Small Stature",
+    "Good Aim",
+    "Winged Character"
+  ],
+  "firbolg": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision",
+    "Track",
+    "Deflect Arrows",
+    "Firbolg Fast Healing"
+  ],
+  "firehalfgiant": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision"
+  ],
+  "forestgnome": [
+    "Small Stature",
+    "Hardiness vs. Illusions",
+    "Low-Light Vision",
+    "Spell Focus: Illusion",
+    "Weapon Proficiency (Hookhammer)",
+    "Weapon Proficiency (Primitive)",
+    "Track"
+  ],
+  "frosthalfgiant": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision"
+  ],
+  "ghostwisehalfling": [
+    "Small Stature",
+    "Fearless",
+    "Good Aim",
+    "Lucky",
+    "Weapon Proficiency (Primitive)"
+  ],
+  "gloaming": [
+    "Small Stature",
+    "Minor Sunlight Sensitivity",
+    "Shadow Affinity",
+    "Immunity to Sleep",
+    "Hardiness vs. Illusions",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Spell Focus: Illusion",
+    "Winged Character"
+  ],
+  "golddwarf": [
+    "Medium Stature",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Weapon Proficiency (Dwarven Waraxe)"
+  ],
+  "halfelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Hardiness vs. Enchantments",
+    "Low-Light Vision",
+    "Dodge",
+    "Race (Surface Elf)"
+  ],
+  "halforc": [
+    "Medium Stature",
+    "Darkvision",
+    "Ambidexterity"
+  ],
+  "human": [
+    "Medium Stature",
+    "Quick To Master",
+    "Skilled"
+  ],
+  "kenku": [
+    "Medium Stature",
+    "Low-Light Vision",
+    "Stealthy",
+    "Use Poison",
+    "Hollow Bones"
+  ],
+  "lightfoothalfling": [
+    "Small Stature",
+    "Fearless",
+    "Good Aim",
+    "Lucky"
+  ],
+  "moonelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Weapon Proficiency (Elf)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)"
+  ],
+  "rockgnome": [
+    "Small Stature",
+    "Hardiness vs. Illusions",
+    "Low-Light Vision",
+    "Spell Focus: Illusion",
+    "Weapon Proficiency (Hookhammer)"
+  ],
+  "shadovar": [
+    "Shadow Weave Magic",
+    "Medium Stature",
+    "Quick To Master",
+    "Skilled"
+  ],
+  "shielddwarf": [
+    "Medium Stature",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Weapon Proficiency (Dwarven Waraxe)"
+  ],
+  "stonehalfgiant": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision"
+  ],
+  "stormhalfgiant": [
+    "Large Stature",
+    "Quick To Master",
+    "Skilled",
+    "Darkvision",
+    "Amphibious Character"
+  ],
+  "stronghearthalfling": [
+    "Small Stature",
+    "Fearless",
+    "Good Aim",
+    "Alertness",
+    "Strong Soul"
+  ],
+  "sunelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Weapon Proficiency (Elf)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)"
+  ],
+  "svirfneblin": [
+    "Small Stature",
+    "Hardiness vs. Illusions",
+    "Darkvision",
+    "Spell Focus: Illusion",
+    "Weapon Proficiency (Hookhammer)"
+  ],
+  "wilddwarf": [
+    "Small Stature",
+    "Darkvision",
+    "Hardiness vs. Poisons",
+    "Hardines vs. Spells",
+    "Use Poison",
+    "Weapon Proficiency (Primitive)",
+    "Track"
+  ],
+  "wildelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Weapon Proficiency (Primitive)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)",
+    "Toughness",
+    "Trackless Step",
+    "Track"
+  ],
+  "woodelf": [
+    "Medium Stature",
+    "Immunity to Sleep",
+    "Keen Senses",
+    "Low-Light Vision",
+    "Weapon Proficiency (Elf)",
+    "Hardiness vs. Enchantments",
+    "Race (Surface Elf)",
+    "Track",
+    "Weapon Focus (Missile)"
+  ]
+}
