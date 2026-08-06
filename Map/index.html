@@ -10,21 +10,39 @@
   <link rel="stylesheet" href="map-tool.css" />
   <script>
     (async function gateMapAccess() {
+      const ACCESS_CONTROL_URL = 'https://raw.githubusercontent.com/dripbilliam/Dripbilliam.github.io/refs/heads/main/access-control.json';
+      const ACCESS_CONTROL_SHA256 = 'c8c52a05e0e4bbffc38b75d28fac49ab45f0b6399af83edd8ea1a7029e9829f1';
+
       const setDenied = () => {
         document.documentElement.innerHTML = '<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>403 Forbidden</title><style>body{font-family:system-ui,sans-serif;background:#111;color:#eee;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}main{max-width:560px;padding:24px;text-align:center}a{color:#9ecbff}</style></head><body><main><h1>403 Forbidden</h1><p>This page is restricted by IP allowlist.</p><p><a href="../index.html">Return home</a></p></main></body></html>';
+      };
+
+      const sha256Hex = async (text) => {
+        const bytes = new TextEncoder().encode(text);
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        return Array.from(new Uint8Array(digest))
+          .map(value => value.toString(16).padStart(2, '0'))
+          .join('');
       };
 
       const isLocalHost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
       let allowlist = [];
 
       try {
-        const configResponse = await fetch('../access-control.json', { cache: 'no-store' });
+        const configResponse = await fetch(ACCESS_CONTROL_URL, { cache: 'no-store' });
         if (!configResponse.ok) {
           setDenied();
           return;
         }
 
-        const config = await configResponse.json();
+        const configText = await configResponse.text();
+        const actualHash = await sha256Hex(configText);
+        if (actualHash !== ACCESS_CONTROL_SHA256) {
+          setDenied();
+          return;
+        }
+
+        const config = JSON.parse(configText);
         if (Array.isArray(config?.ipAllowlist)) {
           allowlist = config.ipAllowlist.map(ip => String(ip).trim()).filter(Boolean);
         }

@@ -1,6 +1,16 @@
 #!/bin/sh
 set -e
 
+echo "[pre-commit] Syncing access-control checksum..."
+
+if command -v node >/dev/null 2>&1; then
+  node update-access-control-hash.js
+  git add Map/index.html
+else
+  echo "Node.js is required to update map access-control checksum."
+  exit 1
+fi
+
 echo "[pre-commit] Running REUSE compliance check..."
 
 if command -v py >/dev/null 2>&1; then
