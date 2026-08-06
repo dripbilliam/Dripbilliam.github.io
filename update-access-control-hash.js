@@ -9,6 +9,8 @@ const ACCESS_CONTROL_PATH = path.resolve(__dirname, 'access-control.json');
 const MAP_INDEX_PATH = path.resolve(__dirname, 'Map', 'index.html');
 const HASH_REGEX = /(const ACCESS_CONTROL_SHA256 = ')([0-9a-f]{64})(';)/;
 
+const normalizeForHash = (text) => text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
 const readRequiredFile = (filePath) => {
   if (!fs.existsSync(filePath)) {
     throw new Error(`Missing required file: ${filePath}`);
@@ -18,7 +20,10 @@ const readRequiredFile = (filePath) => {
 
 const accessControlRaw = readRequiredFile(ACCESS_CONTROL_PATH);
 const mapIndexRaw = readRequiredFile(MAP_INDEX_PATH);
-const computedHash = crypto.createHash('sha256').update(accessControlRaw, 'utf8').digest('hex');
+const computedHash = crypto
+  .createHash('sha256')
+  .update(normalizeForHash(accessControlRaw), 'utf8')
+  .digest('hex');
 
 if (!HASH_REGEX.test(mapIndexRaw)) {
   throw new Error('Could not find ACCESS_CONTROL_SHA256 constant in Map/index.html');
