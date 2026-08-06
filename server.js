@@ -7,6 +7,59 @@ const ROOT_DIRS = [
   path.resolve(__dirname)
 ];
 
+const MAP_ALLOWED_IPS = new Set(
+  (process.env.MAP_IP_ALLOWLIST || '24.79.236.17,127.0.0.1,::1')
+    .split(',')
+    .map(ip => ip.trim())
+    .filter(Boolean)
+);
+
+const normalizeClientIp = (value) => {
+  if (!value) {
+    return '';
+  }
+
+  let ip = String(value).trim();
+
+  if (ip.startsWith('[') && ip.includes(']')) {
+    ip = ip.slice(1, ip.indexOf(']'));
+  }
+
+  if (ip.includes(':') && ip.includes('.') && ip.lastIndexOf(':') > ip.lastIndexOf('.')) {
+    ip = ip.slice(0, ip.lastIndexOf(':'));
+  }
+
+  if (ip.startsWith('::ffff:')) {
+    ip = ip.slice('::ffff:'.length);
+  }
+
+  return ip;
+};
+
+const getClientIps = (req) => {
+  const ips = [];
+  const forwardedFor = req.headers['x-forwarded-for'];
+
+  if (forwardedFor) {
+    String(forwardedFor)
+      .split(',')
+      .map(value => normalizeClientIp(value))
+      .filter(Boolean)
+      .forEach(value => ips.push(value));
+  }
+
+  const remoteAddress = normalizeClientIp(req.socket?.remoteAddress || req.connection?.remoteAddress || '');
+  if (remoteAddress) {
+    ips.push(remoteAddress);
+  }
+
+  return ips;
+};
+
+const isMapRequest = (requestPath) => /^\/map(?:\/|$)/i.test(requestPath);
+
+const isAllowedMapIp = (req) => getClientIps(req).some(ip => MAP_ALLOWED_IPS.has(ip));
+
 const mimeTypes = {
   '.html': 'text/html',
   '.json': 'application/json',
@@ -40,6 +93,13 @@ const server = http.createServer((req, res) => {
   const queryPart = queryIndex >= 0 ? fullUrl.slice(queryIndex) : '';
   const rawUrl = fullUrl.split('?')[0].split('#')[0];
   const requestPath = rawUrl === '/' ? '/index.html' : rawUrl;
+
+  if (isMapRequest(requestPath) && !isAllowedMapIp(req)) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('403 Forbidden');
+    return;
+  }
+
   // Friendly aliases for StoreAssist in local development.
   const normalizedAliasPath = requestPath.replace(/^\/storeassist(?=\/|$)/i, '/StoreAssist');
   const resolvedRequestPath = /^\/StoreAssist$/i.test(normalizedAliasPath)
