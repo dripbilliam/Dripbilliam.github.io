@@ -7,11 +7,38 @@ const ROOT_DIRS = [
   path.resolve(__dirname)
 ];
 
+const ACCESS_CONTROL_CONFIG_PATH = path.resolve(__dirname, 'access-control.json');
+
+const loadAccessControlConfig = () => {
+  try {
+    return require(ACCESS_CONTROL_CONFIG_PATH) || {};
+  } catch (err) {
+    console.warn(`[access-control] Failed to load ${ACCESS_CONTROL_CONFIG_PATH}: ${err.message}`);
+    return {};
+  }
+};
+
+const loadMapAllowedIps = () => {
+  const envAllowlist = process.env.IP_ALLOWLIST || process.env.MAP_IP_ALLOWLIST;
+  if (envAllowlist) {
+    return envAllowlist
+      .split(',')
+      .map(ip => ip.trim())
+      .filter(Boolean);
+  }
+
+  const accessControlConfig = loadAccessControlConfig();
+  if (Array.isArray(accessControlConfig?.ipAllowlist)) {
+    return accessControlConfig.ipAllowlist
+      .map(ip => String(ip).trim())
+      .filter(Boolean);
+  }
+
+  return ['24.79.236.17', '127.0.0.1', '::1'];
+};
+
 const MAP_ALLOWED_IPS = new Set(
-  (process.env.MAP_IP_ALLOWLIST || '24.79.236.17,127.0.0.1,::1')
-    .split(',')
-    .map(ip => ip.trim())
-    .filter(Boolean)
+  loadMapAllowedIps()
 );
 
 const normalizeClientIp = (value) => {

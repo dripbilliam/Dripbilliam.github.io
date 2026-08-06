@@ -8,8 +8,74 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="map-tool.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
-  <script defer src="map-tool.js"></script>
+  <script>
+    (async function gateMapAccess() {
+      const setDenied = () => {
+        document.documentElement.innerHTML = '<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>403 Forbidden</title><style>body{font-family:system-ui,sans-serif;background:#111;color:#eee;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}main{max-width:560px;padding:24px;text-align:center}a{color:#9ecbff}</style></head><body><main><h1>403 Forbidden</h1><p>This page is restricted by IP allowlist.</p><p><a href="../index.html">Return home</a></p></main></body></html>';
+      };
+
+      const isLocalHost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+      let allowlist = [];
+
+      try {
+        const configResponse = await fetch('../access-control.json', { cache: 'no-store' });
+        if (!configResponse.ok) {
+          setDenied();
+          return;
+        }
+
+        const config = await configResponse.json();
+        if (Array.isArray(config?.ipAllowlist)) {
+          allowlist = config.ipAllowlist.map(ip => String(ip).trim()).filter(Boolean);
+        }
+      } catch (err) {
+        setDenied();
+        return;
+      }
+
+      if (allowlist.length === 0) {
+        setDenied();
+        return;
+      }
+
+      if (isLocalHost) {
+        const localAllowed = allowlist.includes('127.0.0.1') || allowlist.includes('::1') || allowlist.includes('localhost');
+        if (!localAllowed) {
+          setDenied();
+          return;
+        }
+      } else {
+        try {
+          const ipResponse = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+          if (!ipResponse.ok) {
+            setDenied();
+            return;
+          }
+
+          const ipData = await ipResponse.json();
+          const clientIp = String(ipData?.ip || '').trim();
+          if (!clientIp || !allowlist.includes(clientIp)) {
+            setDenied();
+            return;
+          }
+        } catch (err) {
+          setDenied();
+          return;
+        }
+      }
+
+      const fabricScript = document.createElement('script');
+      fabricScript.src = 'https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js';
+      fabricScript.defer = true;
+
+      const mapScript = document.createElement('script');
+      mapScript.src = 'map-tool.js';
+      mapScript.defer = true;
+
+      document.head.appendChild(fabricScript);
+      document.head.appendChild(mapScript);
+    })();
+  </script>
 </head>
 <body>
   <div class="tool-shell">
