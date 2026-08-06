@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arelith Map Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="map-tool.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+  <script defer src="map-tool.js"></script>
+</head>
+<body>
+  <div class="tool-shell">
+    <button id="sidebarToggle" class="sidebar-toggle" type="button" aria-label="Toggle map tools">Tools</button>
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <main class="canvas-wrap">
+      <canvas id="mapCanvas" aria-label="Map annotation canvas"></canvas>
+      <aside id="mapSidebar" class="side-panel" aria-label="Map tools sidebar">
+        <header class="tool-header">
+          <h1>Arelith Map Workshop</h1>
+          <p>Mark routes, place labels, and keep map notes saved in your browser.</p>
+          <button id="sidebarClose" class="sidebar-close" type="button" aria-label="Close map tools">Close</button>
+        </header>
+
+        <section class="toolbar" aria-label="Map controls">
+          <label class="control">
+            <span>Map</span>
+            <select id="mapSelect" aria-label="Select map"></select>
+          </label>
+
+          <label class="control">
+            <span>Mode</span>
+            <select id="modeSelect" aria-label="Tool mode">
+              <option value="select">Select</option>
+              <option value="edit">Edit</option>
+              <option value="pan" selected>Pan</option>
+            </select>
+          </label>
+
+          <label class="control">
+            <span>Color</span>
+            <input id="colorInput" type="color" value="#ff7a18" aria-label="Annotation color" />
+          </label>
+
+          <label class="control">
+            <span>Brush</span>
+            <input id="brushInput" type="range" min="1" max="24" value="4" aria-label="Brush size" />
+          </label>
+
+          <div class="button-group">
+            <button id="addMarkerBtn" type="button">Add Marker</button>
+            <button id="duplicateBtn" type="button">Duplicate</button>
+            <button id="deleteBtn" type="button">Delete</button>
+          </div>
+
+          <div class="button-group">
+            <button id="zoomInBtn" type="button">Zoom +</button>
+            <button id="zoomOutBtn" type="button">Zoom -</button>
+            <button id="fitBtn" type="button">Fit</button>
+            <button id="undoBtn" type="button">Undo</button>
+            <button id="redoBtn" type="button">Redo</button>
+          </div>
+
+          <div class="button-group">
+            <button id="clearBtn" type="button" class="danger">Clear Map Notes</button>
+          </div>
+        </section>
+
+        <section class="hints" aria-label="Quick tips">
+          <h2>Quick Tips</h2>
+          <ul>
+            <li>Use Edit mode for easier marker picking and double-click editing.</li>
+            <li>Use Select mode to move markers only.</li>
+            <li>Use Pan mode then drag to move around while zoomed in.</li>
+            <li>Your notes are saved per map in local browser storage.</li>
+          </ul>
+        </section>
+
+        <section class="resource-palette" aria-label="Marker search panel">
+          <h2>Marker Search</h2>
+          <label class="control">
+            <span>Search</span>
+            <input id="markerSearchInput" type="search" placeholder="Search title or description..." aria-label="Search markers" />
+          </label>
+
+          <div id="markerSearchResults" class="marker-search-results" aria-live="polite"></div>
+          <p id="markerSearchHint" class="palette-hint">Markers with title or description appear here.</p>
+        </section>
+
+        <footer class="tool-footer">
+          <p id="statusText" role="status" aria-live="polite">Ready.</p>
+        </footer>
+      </aside>
+    </main>
+
+  </div>
+
+  <div id="markerModal" class="marker-modal" aria-hidden="true">
+    <div class="marker-modal-card" role="dialog" aria-modal="true" aria-labelledby="markerModalHeading">
+      <h2 id="markerModalHeading">Marker Details</h2>
+
+      <form id="markerModalForm" class="marker-modal-form">
+        <label class="control" for="markerModalTitle">
+          <span>Name</span>
+          <input id="markerModalTitle" type="text" maxlength="80" placeholder="Marker name" autocomplete="off" />
+        </label>
+
+        <label class="control" for="markerModalDescription">
+          <span>Description</span>
+          <textarea id="markerModalDescription" rows="3" maxlength="240" placeholder="Marker notes"></textarea>
+        </label>
+
+        <div class="control">
+          <span>Icon</span>
+          <div id="markerIconChoices" class="marker-icon-choices" aria-label="Marker icon choices"></div>
+        </div>
+
+        <div class="marker-modal-actions">
+          <button id="markerModalCancel" type="button">Cancel</button>
+          <button type="submit">Place Marker</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
