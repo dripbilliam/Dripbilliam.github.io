@@ -26,6 +26,7 @@ readme.md
 XMLEnhancer/*
 package.json
 package-lock.json
+harvester.js
 
 
 # Temporary files

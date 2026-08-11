@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arelith Crafting Compendium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./crafting-compendium.css">
+</head>
+<body>
+  <div class="hotkey-hint">Alt+Y advanced</div>
+
+  <main class="shell">
+    <section class="compendium-card">
+      <header class="top-row">
+        <a href="#" id="homeLink" class="crumb-link">Compendium</a>
+        <div class="top-actions">
+          <button id="settingsBtn" type="button" class="icon-btn" title="Settings">Settings</button>
+          <button id="viewQueueBtn" type="button" class="icon-btn" title="View Queue">View Queue</button>
+          <button id="reloadDataBtn" type="button" class="icon-btn" title="Reload">Reload</button>
+          <button id="clearQueueBtn" type="button" class="icon-btn" title="Clear Queue">Clear Queue</button>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <div class="status" id="loadStatus">Loading data...</div>
+      <div class="status-meta" id="loadMeta"></div>
+
+      <h1 id="pageTitle" class="page-title">Crafting Compendium</h1>
+      <p id="pageLead" class="page-lead"></p>
+
+      <input id="searchInput" type="search" class="search-box" placeholder="Search by Name or ID">
+
+      <div id="queueSummary" class="queue-summary"></div>
+
+      <section id="contentArea" class="content-area"></section>
+    </section>
+  </main>
+
+  <dialog id="recipeChoiceDialog" class="choice-dialog">
+    <form method="dialog" class="choice-content">
+      <h3>Select Recipe Variant</h3>
+      <p id="recipeChoiceHint"></p>
+      <div id="recipeChoiceOptions" class="choice-options"></div>
+      <div class="choice-actions">
+        <button value="cancel" type="submit">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog" class="choice-dialog settings-dialog">
+    <form method="dialog" class="choice-content settings-content">
+      <h3>Settings</h3>
+
+      <label class="toggle-label" for="advancedModeToggle">
+        <input id="advancedModeToggle" type="checkbox">
+        Advanced Mode (Alt+Y)
+      </label>
+
+      <div class="adv-grid advanced-settings-grid hide-when-advanced-off">
+        <label>
+          Data Base URL
+          <input id="remoteBaseInput" type="url" placeholder="https://yourusername.github.io/repository/CraftingIndex/">
+        </label>
+        <label>
+          Details Filename
+          <input id="fallbackDetailsName" type="text" value="recipe-details.json">
+        </label>
+        <label>
+          Upload Details JSON
+          <input id="detailsFileInput" type="file" accept="application/json,.json">
+        </label>
+      </div>
+
+      <div class="adv-grid req-filter-grid">
+        <label>
+          Class Filter
+          <input id="classFilterInput" type="search" placeholder="Bard">
+        </label>
+        <label>
+          Race Filter
+          <input id="raceFilterInput" type="search" placeholder="Aquatic Elf">
+        </label>
+        <label>
+          Feat Filter
+          <input id="featFilterInput" type="search" placeholder="Use Poison">
+        </label>
+      </div>
+
+      <div class="choice-actions">
+        <button value="cancel" type="submit">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./crafting-compendium.js"></script>
+</body>
+</html>
