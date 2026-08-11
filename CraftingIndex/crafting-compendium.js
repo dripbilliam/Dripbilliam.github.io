@@ -705,6 +705,73 @@
   }
 
   function renderHome() {
+    const q = normalizeName(els.searchInput.value);
+
+    if (q) {
+      const recipeRows = state.data.recipes.filter((recipe) => {
+        if (!requirementFiltersPass(recipe)) {
+          return false;
+        }
+        return normalizeName(recipe.name).includes(q) || String(recipe.id).includes(q);
+      });
+
+      const ingredientRows = state.data.ingredients.filter((name) => normalizeName(name).includes(q));
+      const skillRows = state.data.skills.filter((skill) => {
+        const sid = toInt(skill && skill.id, 0);
+        const sname = String((skill && skill.name) || '');
+        return normalizeName(sname).includes(q) || String(sid).includes(q);
+      });
+
+      setPage('Search Results', [
+        { label: 'Compendium', view: { type: 'home' } },
+        { label: `Search: ${q}` },
+      ], 'Search by Name or ID', true);
+      els.homeLink.textContent = 'Compendium';
+
+      const skillsHtml = skillRows.length
+        ? `
+          <h3 class="section-title">Skills (${skillRows.length})</h3>
+          <ul class="list-links">
+            ${skillRows.map((skill) => `<li><a href="#" class="list-link" data-action="open-skill" data-skill-id="${toInt(skill.id, 0)}">${escapeHtml(skill.name)} (${toInt(skill.id, 0)})</a></li>`).join('')}
+          </ul>
+        `
+        : '';
+
+      const recipesHtml = recipeRows.length
+        ? `
+          <h3 class="section-title">Recipes (${recipeRows.length})</h3>
+          <ul class="list-links">
+            ${recipeRows.map((recipe) => `<li><a href="#" class="list-link" data-action="open-recipe" data-recipe-id="${recipe.id}">${escapeHtml(recipe.name)} (ID: ${recipe.id})</a></li>`).join('')}
+          </ul>
+        `
+        : '';
+
+      const ingredientsHtml = ingredientRows.length
+        ? `
+          <h3 class="section-title">Ingredients (${ingredientRows.length})</h3>
+          <ul class="list-links">
+            ${ingredientRows.map((name) => `
+              <li class="row">
+                <span class="row-link">${escapeHtml(name)}</span>
+                <span class="item-actions">
+                  <a href="#" class="action-link" data-action="search-io" data-direction="input" data-item-name="${escapeHtml(name)}">IN</a>
+                  <a href="#" class="action-link" data-action="search-io" data-direction="output" data-item-name="${escapeHtml(name)}">OUT</a>
+                </span>
+              </li>
+            `).join('')}
+          </ul>
+        `
+        : '';
+
+      if (!skillsHtml && !recipesHtml && !ingredientsHtml) {
+        els.contentArea.innerHTML = '<p>No matches found.</p>';
+        return;
+      }
+
+      els.contentArea.innerHTML = `${skillsHtml}${recipesHtml}${ingredientsHtml}`;
+      return;
+    }
+
     const skills = [...state.data.skills]
       .filter((s) => Number.isFinite(Number(s.id)))
       .sort((a, b) => Number(a.id) - Number(b.id));
