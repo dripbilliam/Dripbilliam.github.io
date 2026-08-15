@@ -1190,6 +1190,7 @@
     if (action === 'search-io') {
       const direction = target.getAttribute('data-direction') === 'output' ? 'output' : 'input';
       const itemName = target.getAttribute('data-item-name') || '';
+      els.searchInput.value = '';
       state.view = { type: 'filter-io', direction, itemName };
       render();
       return;
