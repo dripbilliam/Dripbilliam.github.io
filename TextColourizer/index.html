@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NWN Text Colourizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="../index.html">Arelith Utilities</a>
+    <div class="header-copy">
+      <p class="eyebrow">Neverwinter Nights text tool</p>
+      <h1>Text Colourizer</h1>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="editor-pane" aria-labelledby="editorHeading">
+      <div class="pane-heading">
+        <div>
+          <h2 id="editorHeading">NWN text</h2>
+          <p>Paste text, select a portion, then apply the current colour.</p>
+        </div>
+        <span id="characterCount" class="character-count">0 characters</span>
+      </div>
+
+      <div class="toolbar" aria-label="Text colour tools">
+        <button id="paletteButton" class="colour-button" type="button" aria-haspopup="dialog">
+          <span id="activeSwatch" class="active-swatch" aria-hidden="true"></span>
+          <span>Choose colour</span>
+          <strong id="activeHex">#D6A84B</strong>
+        </button>
+        <button id="applyButton" class="primary-button" type="button">Apply to selection</button>
+        <button id="copyButton" class="secondary-button" type="button">Copy NWN text</button>
+        <button id="stripButton" class="quiet-button" type="button">Strip colour tags</button>
+      </div>
+
+      <label class="sr-only" for="textEditor">Text containing NWN colour tags</label>
+      <textarea id="textEditor" spellcheck="true" placeholder="Paste or type text here, then select the words you want to colour."></textarea>
+      <div class="editor-footer">
+        <p id="statusMessage" class="status" role="status" aria-live="polite">Select some text to begin.</p>
+        <!--<code id="tokenPreview" class="token-preview"></code>-->
+      </div>
+    </section>
+
+    <section class="preview-pane" aria-labelledby="previewHeading">
+      <div class="pane-heading">
+        <div>
+          <p class="eyebrow">Rendered result</p>
+          <h2 id="previewHeading">Game preview</h2>
+        </div>
+        <span class="preview-key">Default text</span>
+      </div>
+      <div id="renderedPreview" class="rendered-preview" aria-live="polite">
+        <span class="preview-placeholder">Your coloured text will appear here.</span>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="paletteDialog" class="palette-dialog">
+    <form method="dialog" class="palette-sheet">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">NWN RGB token</p>
+          <h2>Choose a colour</h2>
+        </div>
+        <button class="close-button" type="submit" value="cancel" aria-label="Close colour palette">&times;</button>
+      </div>
+
+      <div class="spectrum-field">
+        <span id="spectrumLabel">Full spectrum</span>
+        <div class="spectrum-wrap">
+          <canvas id="colourSpectrum" width="900" height="280" tabindex="0" role="slider" aria-labelledby="spectrumLabel" aria-valuetext="#D6A84B"></canvas>
+          <span id="spectrumMarker" class="spectrum-marker" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="picker-row">
+        <label class="hex-field" for="hexInput">
+          <span>Hex value</span>
+          <input id="hexInput" type="text" value="#D6A84B" maxlength="7" autocomplete="off" spellcheck="false">
+        </label>
+      </div>
+
+      <div class="token-detail">
+        <span id="dialogSwatch" class="dialog-swatch" aria-hidden="true"></span>
+        <div>
+          <span>Literal token</span>
+          <code id="literalToken"></code>
+        </div>
+        <div>
+          <span style="display:none;">Byte-safe preview</span>
+          <code style="display:none;" id="escapedToken"></code>
+        </div>
+      </div>
+
+      <div class="swatch-section">
+        <div class="swatch-heading">
+          <h3>Saved colours</h3>
+          <button id="saveSwatchButton" class="quiet-button" type="button">Save current</button>
+        </div>
+        <div id="savedSwatches" class="swatch-grid"></div>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="secondary-button" type="submit" value="cancel">Cancel</button>
+        <button id="useColourButton" class="primary-button" type="button">Use this colour</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
