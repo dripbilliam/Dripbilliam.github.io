@@ -1245,7 +1245,12 @@
       render();
     });
 
-    els.searchInput.addEventListener('input', render);
+    els.searchInput.addEventListener('input', () => {
+      if (state.view && state.view.type === 'recipe') {
+        state.view = { type: 'home' };
+      }
+      render();
+    });
     els.advancedModeToggle.addEventListener('change', () => {
       state.advancedOn = !!els.advancedModeToggle.checked;
       applyAdvancedUi();
