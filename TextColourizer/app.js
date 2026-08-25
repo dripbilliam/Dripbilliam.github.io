@@ -47,6 +47,50 @@ function hexToRgb(hex) {
   };
 }
 
+function isControlByte(value) {
+  return value <= 0x1F || (value >= 0x7F && value <= 0x9F);
+}
+
+function nearestSafeByte(value) {
+  if (value <= 0x1F) {
+    return 0x20;
+  }
+  if (value >= 0x7F && value <= 0x9F) {
+    return value - 0x7E <= 0xA0 - value ? 0x7E : 0xA0;
+  }
+  return value;
+}
+
+function safeHex(hex) {
+  const { red, green, blue } = hexToRgb(hex);
+  return rgbToHex(nearestSafeByte(red), nearestSafeByte(green), nearestSafeByte(blue));
+}
+
+function sanitizeColourTokens(source) {
+  let sanitized = "";
+  let adjusted = false;
+
+  for (let index = 0; index < source.length - 5; index += 1) {
+    if (source.startsWith("<c", index) && source[index + 5] === ">") {
+      const channels = [
+        source.charCodeAt(index + 2),
+        source.charCodeAt(index + 3),
+        source.charCodeAt(index + 4)
+      ];
+      if (channels.every((value) => value <= 0xFF) && channels.some(isControlByte)) {
+        sanitized += source.slice(0, index);
+        const safeChannels = channels.map(nearestSafeByte);
+        sanitized += `<c${String.fromCharCode(...safeChannels)}>`;
+        source = source.slice(index + 6);
+        index = -1;
+        adjusted = true;
+      }
+    }
+  }
+
+  return { text: sanitized + source, adjusted };
+}
+
 function colourToken(hex) {
   const { red, green, blue } = hexToRgb(hex);
   return `<c${String.fromCharCode(red)}${String.fromCharCode(green)}${String.fromCharCode(blue)}>`;
@@ -150,7 +194,7 @@ function loadSavedColours() {
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     if (Array.isArray(stored)) {
-      return stored.map(normalizeHex).filter(Boolean).slice(0, 24);
+      return stored.map(normalizeHex).filter(Boolean).map(safeHex).slice(0, 24);
     }
   } catch (error) {
     console.warn("Unable to load saved colours", error);
@@ -169,14 +213,18 @@ function updateActiveColour() {
 }
 
 function updateDraftColour(hex, moveMarker = true) {
-  state.draftColour = hex;
-  elements.hexInput.value = hex;
-  elements.dialogSwatch.style.backgroundColor = hex;
-  elements.literalToken.textContent = colourToken(hex);
-  elements.escapedToken.textContent = escapedColourToken(hex);
-  elements.spectrum.setAttribute("aria-valuetext", hex);
+  const adjustedHex = safeHex(hex);
+  state.draftColour = adjustedHex;
+  elements.hexInput.value = adjustedHex;
+  elements.hexInput.setCustomValidity("");
+  elements.dialogSwatch.style.backgroundColor = adjustedHex;
+  elements.literalToken.textContent = colourToken(adjustedHex);
+  elements.escapedToken.textContent = escapedColourToken(adjustedHex);
+  elements.saveSwatchButton.disabled = false;
+  elements.useColourButton.disabled = false;
+  elements.spectrum.setAttribute("aria-valuetext", adjustedHex);
   if (moveMarker) {
-    positionSpectrumForHex(hex);
+    positionSpectrumForHex(adjustedHex);
   }
   renderSavedSwatches();
 }
@@ -305,14 +353,30 @@ async function copyText() {
     return;
   }
 
+  const sanitized = sanitizeColourTokens(elements.editor.value);
+  if (sanitized.adjusted) {
+    elements.editor.value = sanitized.text;
+    renderPreview();
+  }
+
+  const selectionStart = elements.editor.selectionStart;
+  const selectionEnd = elements.editor.selectionEnd;
+  elements.editor.focus();
+  elements.editor.select();
+
+  const copied = document.execCommand("copy");
+  elements.editor.setSelectionRange(selectionStart, selectionEnd);
+
+  if (copied) {
+    setStatus(sanitized.adjusted ? "NWN text copied; control-byte colours were adjusted." : "NWN text copied with literal colour tokens.", "success");
+    return;
+  }
+
   try {
     await navigator.clipboard.writeText(elements.editor.value);
-    setStatus("NWN text copied with literal colour tokens.", "success");
+    setStatus(sanitized.adjusted ? "NWN text copied; control-byte colours were adjusted." : "NWN text copied with literal colour tokens.", "success");
   } catch (error) {
-    elements.editor.focus();
-    elements.editor.select();
-    const copied = document.execCommand("copy");
-    setStatus(copied ? "NWN text copied with literal colour tokens." : "Clipboard unavailable; copy the selected text manually.", copied ? "success" : "error");
+    setStatus("Clipboard unavailable; copy the text manually.", "error");
   }
 }
 
@@ -382,9 +446,10 @@ elements.hexInput.addEventListener("input", () => {
   const hex = normalizeHex(elements.hexInput.value);
   if (hex) {
     updateDraftColour(hex);
-    elements.hexInput.setCustomValidity("");
   } else {
     elements.hexInput.setCustomValidity("Enter a six-digit hex colour such as #D6A84B.");
+    elements.saveSwatchButton.disabled = true;
+    elements.useColourButton.disabled = true;
   }
 });
 
