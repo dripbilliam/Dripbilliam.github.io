@@ -11,6 +11,7 @@ const state = {
 
 const elements = {
   editor: document.getElementById("textEditor"),
+  pageTitle: document.getElementById("pageTitle"),
   characterCount: document.getElementById("characterCount"),
   status: document.getElementById("statusMessage"),
   preview: document.getElementById("renderedPreview"),
@@ -105,6 +106,46 @@ function escapedColourToken(hex) {
 function rgbToHex(red, green, blue) {
   const channel = (value) => value.toString(16).toUpperCase().padStart(2, "0");
   return `#${channel(red)}${channel(green)}${channel(blue)}`;
+}
+
+function randomSafeColour(previousColour = null) {
+  const safeByte = () => {
+    const value = Math.floor(Math.random() * 191);
+    return value < 95 ? value + 0x20 : value + 0x41;
+  };
+
+  let colour;
+  do {
+    colour = rgbToHex(safeByte(), safeByte(), safeByte());
+  } while (colour === previousColour);
+  return colour;
+}
+
+function rainbowBombText() {
+  const plainText = elements.editor.value
+    .replace(/<c[\s\S]{3}>/g, "")
+    .replaceAll("</c>", "");
+
+  if (!plainText) {
+    setStatus("The rainbow bomb needs some text first.", "error");
+    return;
+  }
+
+  let previousColour = null;
+  elements.editor.value = Array.from(plainText, (character) => {
+    if (/\s/u.test(character)) {
+      return character;
+    }
+
+    const colour = randomSafeColour(previousColour);
+    previousColour = colour;
+    return `${colourToken(colour)}${character}</c>`;
+  }).join("");
+
+  elements.editor.setSelectionRange(0, 0);
+  rememberSelection();
+  renderPreview();
+  setStatus("Rainbow bomb deployed. Every character chose chaos.", "success");
 }
 
 function drawSpectrum() {
@@ -403,6 +444,11 @@ elements.editor.addEventListener("input", () => {
 elements.editor.addEventListener("select", rememberSelection);
 elements.editor.addEventListener("keyup", rememberSelection);
 elements.editor.addEventListener("click", rememberSelection);
+elements.pageTitle.addEventListener("click", (event) => {
+  if (event.detail === 5) {
+    rainbowBombText();
+  }
+});
 elements.paletteButton.addEventListener("click", openPalette);
 elements.applyButton.addEventListener("click", applyColourToSelection);
 elements.copyButton.addEventListener("click", copyText);
