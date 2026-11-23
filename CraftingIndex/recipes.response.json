@@ -401,25 +401,6 @@
         ]
     },
     {
-        "id": 1957,
-        "skill": 5,
-        "category": 121,
-        "name": "Alchemistic Catalyst (Lesser) (Bulk) ",
-        "value": 10000,
-        "cp": 80,
-        "dc": 19,
-        "races": null,
-        "classes": null,
-        "inputs": [
-            "Blood of a Magic Creature",
-            "Glass Bottle",
-            "Ingot (Copper)"
-        ],
-        "outputs": [
-            "Alchemistic Catalyst (Lesser)"
-        ]
-    },
-    {
         "id": 562,
         "skill": 5,
         "category": 121,
@@ -2228,7 +2209,7 @@
     {
         "id": 1988,
         "skill": 5,
-        "category": 247,
+        "category": 260,
         "name": "Bead of Gravity",
         "value": 10000,
         "cp": 40,
@@ -2575,6 +2556,27 @@
         ],
         "outputs": [
             "Black Scepter"
+        ]
+    },
+    {
+        "id": 2388,
+        "skill": 4,
+        "category": 22,
+        "name": "Blade of the Wind Mistress",
+        "value": 88780,
+        "cp": 600,
+        "dc": 50,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Bead of Gravity",
+            "Gust of Wind",
+            "Ingot (Adamantine)",
+            "Ingot (Mithral)",
+            "Ingot (Silver)"
+        ],
+        "outputs": [
+            "Blade of the Wind Mistress"
         ]
     },
     {
@@ -3292,6 +3294,63 @@
         ]
     },
     {
+        "id": 2418,
+        "skill": 5,
+        "category": 121,
+        "name": "Bulk Alchemistic Catalyst (Greater)",
+        "value": 100000,
+        "cp": 800,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Blood of a Magic Creature",
+            "Glass Bottle",
+            "Ingot (Gold)"
+        ],
+        "outputs": [
+            "Alchemistic Catalyst (Greater)"
+        ]
+    },
+    {
+        "id": 1957,
+        "skill": 5,
+        "category": 121,
+        "name": "Bulk Alchemistic Catalyst (Lesser)",
+        "value": 10000,
+        "cp": 80,
+        "dc": 19,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Blood of a Magic Creature",
+            "Glass Bottle",
+            "Ingot (Copper)"
+        ],
+        "outputs": [
+            "Alchemistic Catalyst (Lesser)"
+        ]
+    },
+    {
+        "id": 2417,
+        "skill": 5,
+        "category": 121,
+        "name": "Bulk Alchemistic Catalyst (Standard)",
+        "value": 50000,
+        "cp": 400,
+        "dc": 22,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Blood of a Magic Creature",
+            "Glass Bottle",
+            "Ingot (Silver)"
+        ],
+        "outputs": [
+            "Alchemistic Catalyst (Standard)"
+        ]
+    },
+    {
         "id": 1098,
         "skill": 3,
         "category": 77,
@@ -3397,6 +3456,23 @@
         ],
         "outputs": [
             "Bottle of Kaeth"
+        ]
+    },
+    {
+        "id": 1958,
+        "skill": 3,
+        "category": 121,
+        "name": "Bulk Casting Mold",
+        "value": 100,
+        "cp": 10,
+        "dc": 2,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Clay"
+        ],
+        "outputs": [
+            "Casting Mold"
         ]
     },
     {
@@ -3806,6 +3882,42 @@
         ]
     },
     {
+        "id": 1613,
+        "skill": 3,
+        "category": 121,
+        "name": "Bulk Glass Bottle",
+        "value": 1100,
+        "cp": 100,
+        "dc": 2,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Coal",
+            "Glass"
+        ],
+        "outputs": [
+            "Glass Bottle"
+        ]
+    },
+    {
+        "id": 1614,
+        "skill": 3,
+        "category": 121,
+        "name": "Bulk Glass Vial",
+        "value": 1600,
+        "cp": 100,
+        "dc": 2,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Coal",
+            "Glass"
+        ],
+        "outputs": [
+            "Glass Vial"
+        ]
+    },
+    {
         "id": 2340,
         "skill": 5,
         "category": 260,
@@ -4148,6 +4260,23 @@
         ],
         "outputs": [
             "Ingot (Zinc)"
+        ]
+    },
+    {
+        "id": 2252,
+        "skill": 2,
+        "category": 120,
+        "name": "Bulk Kaeth Beans",
+        "value": 500,
+        "cp": 20,
+        "dc": 2,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Kaeth Cherries"
+        ],
+        "outputs": [
+            "Kaeth Beans"
         ]
     },
     {
@@ -5597,23 +5726,6 @@
         "name": "Casting Mold",
         "value": 10,
         "cp": 1,
-        "dc": 2,
-        "races": null,
-        "classes": null,
-        "inputs": [
-            "Clay"
-        ],
-        "outputs": [
-            "Casting Mold"
-        ]
-    },
-    {
-        "id": 1958,
-        "skill": 3,
-        "category": 121,
-        "name": "Casting Mold (Bulk) ",
-        "value": 100,
-        "cp": 10,
         "dc": 2,
         "races": null,
         "classes": null,
@@ -7921,6 +8033,246 @@
         ]
     },
     {
+        "id": 2441,
+        "skill": 2,
+        "category": 259,
+        "name": "Consecrated Algae (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Emerald",
+            "Kelp",
+            "Uvarovite",
+            "Water"
+        ],
+        "outputs": [
+            "Consecrated Algae (Greater)"
+        ]
+    },
+    {
+        "id": 2442,
+        "skill": 2,
+        "category": 259,
+        "name": "Consecrated Algae (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Emerald",
+            "Garnet",
+            "Kelp",
+            "Water"
+        ],
+        "outputs": [
+            "Consecrated Algae (Lesser)"
+        ]
+    },
+    {
+        "id": 2428,
+        "skill": 1,
+        "category": 259,
+        "name": "Consecrated Driftwood (Greater)",
+        "value": 5003,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Diamond",
+            "Hardwood",
+            "Jade",
+            "Softwood"
+        ],
+        "outputs": [
+            "Consecrated Driftwood (Greater)"
+        ]
+    },
+    {
+        "id": 2427,
+        "skill": 1,
+        "category": 259,
+        "name": "Consecrated Driftwood (Lesser)",
+        "value": 503,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Diamond",
+            "Greenstone",
+            "Hardwood",
+            "Softwood"
+        ],
+        "outputs": [
+            "Consecrated Driftwood (Lesser)"
+        ]
+    },
+    {
+        "id": 2436,
+        "skill": 4,
+        "category": 259,
+        "name": "Consecrated Hook (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Coal",
+            "Ingot (Steel)",
+            "Moonstone",
+            "Ruby"
+        ],
+        "outputs": [
+            "Consecrated Hook (Greater)"
+        ]
+    },
+    {
+        "id": 2435,
+        "skill": 4,
+        "category": 259,
+        "name": "Consecrated Hook (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Coal",
+            "Ingot (Iron)",
+            "Onyx",
+            "Ruby"
+        ],
+        "outputs": [
+            "Consecrated Hook (Lesser)"
+        ]
+    },
+    {
+        "id": 2438,
+        "skill": 6,
+        "category": 259,
+        "name": "Consecrated Net (Greater)",
+        "value": 5003,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Lasso",
+            "Net",
+            "Rainbow Agate",
+            "Sapphire"
+        ],
+        "outputs": [
+            "Consecrated Net (Greater)"
+        ]
+    },
+    {
+        "id": 2437,
+        "skill": 6,
+        "category": 259,
+        "name": "Consecrated Net (Lesser)",
+        "value": 503,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Fire Agate",
+            "Lasso",
+            "Net",
+            "Sapphire"
+        ],
+        "outputs": [
+            "Consecrated Net (Lesser)"
+        ]
+    },
+    {
+        "id": 2446,
+        "skill": 5,
+        "category": 259,
+        "name": "Consecrated Seawater (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Azurite",
+            "Salt",
+            "Sapphire",
+            "Water"
+        ],
+        "outputs": [
+            "Consecrated Seawater (Greater)"
+        ]
+    },
+    {
+        "id": 2445,
+        "skill": 5,
+        "category": 259,
+        "name": "Consecrated Seawater (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Malachite",
+            "Salt",
+            "Sapphire",
+            "Water"
+        ],
+        "outputs": [
+            "Consecrated Seawater (Lesser)"
+        ]
+    },
+    {
+        "id": 2447,
+        "skill": 3,
+        "category": 259,
+        "name": "Consecrated Shell (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Bluestone",
+            "Phenalope",
+            "Ruby",
+            "Tough Shell"
+        ],
+        "outputs": [
+            "Consecrated Shell (Greater)"
+        ]
+    },
+    {
+        "id": 2448,
+        "skill": 3,
+        "category": 259,
+        "name": "Consecrated Shell (Lesser) ",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Fire Agate",
+            "Fluorspar",
+            "Ruby",
+            "Tough Shell"
+        ],
+        "outputs": [
+            "Consecrated Shell (Lesser) "
+        ]
+    },
+    {
         "id": 2245,
         "skill": 3,
         "category": 274,
@@ -8048,6 +8400,26 @@
         ],
         "outputs": [
             "Cream Slice"
+        ]
+    },
+    {
+        "id": 2400,
+        "skill": 2,
+        "category": 120,
+        "name": "Create Spice Mix",
+        "value": 250,
+        "cp": 8,
+        "dc": 12,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Berries",
+            "Fruit",
+            "Garlic",
+            "Mintspear Leaf"
+        ],
+        "outputs": [
+            "Spices"
         ]
     },
     {
@@ -8502,7 +8874,7 @@
     {
         "id": 1652,
         "skill": 1,
-        "category": 238,
+        "category": 278,
         "name": "Dire Maca (Driftwood)",
         "value": 69424,
         "cp": 29,
@@ -8521,7 +8893,7 @@
     {
         "id": 1654,
         "skill": 1,
-        "category": 238,
+        "category": 278,
         "name": "Dire Maca (Ironwood)",
         "value": 224290,
         "cp": 134,
@@ -8541,7 +8913,7 @@
     {
         "id": 1658,
         "skill": 1,
-        "category": 238,
+        "category": 278,
         "name": "Dire Maca (Pertrified Yew)",
         "value": 456874,
         "cp": 398,
@@ -8561,7 +8933,7 @@
     {
         "id": 1656,
         "skill": 1,
-        "category": 238,
+        "category": 278,
         "name": "Dire Maca (Solid Oak)",
         "value": 128500,
         "cp": 49,
@@ -11689,6 +12061,46 @@
         ]
     },
     {
+        "id": 2421,
+        "skill": 1,
+        "category": 279,
+        "name": "Fiddle",
+        "value": 500,
+        "cp": 100,
+        "dc": 15,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Animal Sinew",
+            "Hardwood",
+            "Softwood"
+        ],
+        "outputs": [
+            "Fiddle"
+        ]
+    },
+    {
+        "id": 2425,
+        "skill": 1,
+        "category": 279,
+        "name": "Fiddle (Masterwork)",
+        "value": 6000,
+        "cp": 450,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardening Finish",
+            "Ingot (Silver)",
+            "Mithral Dust",
+            "Rare Hardwood",
+            "Softwood (Ancient Yew)"
+        ],
+        "outputs": [
+            "Fiddle (Masterwork)"
+        ]
+    },
+    {
         "id": 993,
         "skill": 3,
         "category": 17,
@@ -13969,6 +14381,24 @@
         ]
     },
     {
+        "id": 2403,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Dark Stone Shrine",
+        "value": 50,
+        "cp": 12,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Wax"
+        ],
+        "outputs": [
+            "Fixture: Dark Stone Shrine"
+        ]
+    },
+    {
         "id": 1263,
         "skill": 1,
         "category": 115,
@@ -14004,6 +14434,26 @@
         ],
         "outputs": [
             "Fixture: Display Case"
+        ]
+    },
+    {
+        "id": 2401,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Dragon Shrine",
+        "value": 50,
+        "cp": 16,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Coal",
+            "Garnet",
+            "Ingot (Iron)",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Dragon Shrine"
         ]
     },
     {
@@ -14318,6 +14768,23 @@
         ],
         "outputs": [
             "Fixture: Fancy Serving Table"
+        ]
+    },
+    {
+        "id": 2409,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Fear Totem",
+        "value": 50,
+        "cp": 9,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood"
+        ],
+        "outputs": [
+            "Fixture: Fear Totem"
         ]
     },
     {
@@ -14656,6 +15123,60 @@
         ]
     },
     {
+        "id": 2411,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Gargoyle (Mausoleum - Large)",
+        "value": 10000,
+        "cp": 80,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Ingot (Greensteel)",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Gargoyle (Mausoleum - Large)"
+        ]
+    },
+    {
+        "id": 2412,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Gargoyle (Mausoleum - Small)",
+        "value": 8000,
+        "cp": 40,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Ingot (Greensteel)",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Gargoyle (Mausoleum - Small)"
+        ]
+    },
+    {
+        "id": 2410,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Gargoyle (White)",
+        "value": 10000,
+        "cp": 80,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Ingot (Silver)"
+        ],
+        "outputs": [
+            "Fixture: Gargoyle (White)"
+        ]
+    },
+    {
         "id": 2256,
         "skill": 2,
         "category": 115,
@@ -14783,6 +15304,24 @@
         ]
     },
     {
+        "id": 2404,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Grey Stone Shrine",
+        "value": 50,
+        "cp": 12,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Marble",
+            "Wax"
+        ],
+        "outputs": [
+            "Fixture: Grey Stone Shrine"
+        ]
+    },
+    {
         "id": 1262,
         "skill": 1,
         "category": 115,
@@ -14798,6 +15337,46 @@
         ],
         "outputs": [
             "Fixture: Guillotine"
+        ]
+    },
+    {
+        "id": 2396,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Hanging Skeleton",
+        "value": 500,
+        "cp": 15,
+        "dc": 8,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Hardwood",
+            "Skull",
+            "Thighbone"
+        ],
+        "outputs": [
+            "Fixture: Hanging Skeleton"
+        ]
+    },
+    {
+        "id": 2397,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Hangman's Scaffold",
+        "value": 800,
+        "cp": 15,
+        "dc": 10,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Ingot (Iron)",
+            "Ingot (Steel)",
+            "Softwood"
+        ],
+        "outputs": [
+            "Fixture: Hangman's Scaffold"
         ]
     },
     {
@@ -14913,6 +15492,23 @@
         ]
     },
     {
+        "id": 2408,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Horror Totem",
+        "value": 50,
+        "cp": 9,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood"
+        ],
+        "outputs": [
+            "Fixture: Horror Totem"
+        ]
+    },
+    {
         "id": 2040,
         "skill": 1,
         "category": 115,
@@ -14939,8 +15535,8 @@
         "category": 115,
         "name": "Fixture: Impaled Monster Head",
         "value": 1200,
-        "cp": 9,
-        "dc": 20,
+        "cp": 2,
+        "dc": 1,
         "races": null,
         "classes": null,
         "inputs": [
@@ -15004,6 +15600,24 @@
         ],
         "outputs": [
             "Fixture: Keg (Small)"
+        ]
+    },
+    {
+        "id": 2405,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Large Horn Totem",
+        "value": 50,
+        "cp": 22,
+        "dc": 16,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Wax"
+        ],
+        "outputs": [
+            "Fixture: Large Horn Totem"
         ]
     },
     {
@@ -15687,6 +16301,193 @@
         ]
     },
     {
+        "id": 2370,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Black Hands)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Granite"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Black Hands)"
+        ]
+    },
+    {
+        "id": 2369,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Black Stone)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Granite",
+            "Ruby"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Black Stone)"
+        ]
+    },
+    {
+        "id": 2368,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Pedestal (Book)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Hardwood"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Book)"
+        ]
+    },
+    {
+        "id": 2372,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Brown Hands)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Granite",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Brown Hands)"
+        ]
+    },
+    {
+        "id": 2371,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Brown Stone)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Emerald",
+            "Granite",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Brown Stone)"
+        ]
+    },
+    {
+        "id": 2374,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Grey Hands)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Grey Hands)"
+        ]
+    },
+    {
+        "id": 2373,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Pedestal (Grey Stone)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Marble",
+            "Sapphire"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Grey Stone)"
+        ]
+    },
+    {
+        "id": 2367,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Pedestal (Short Book)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Hardwood"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Short Book)"
+        ]
+    },
+    {
+        "id": 2366,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Pedestal (Short Writing)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Hardwood",
+            "Quill Pen"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Short Writing)"
+        ]
+    },
+    {
+        "id": 2365,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Pedestal (Writing)",
+        "value": 250,
+        "cp": 8,
+        "dc": 11,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Hardwood",
+            "Quill Pen"
+        ],
+        "outputs": [
+            "Fixture: Pedestal (Writing)"
+        ]
+    },
+    {
         "id": 202,
         "skill": 3,
         "category": 115,
@@ -15998,6 +16799,25 @@
         ]
     },
     {
+        "id": 2402,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Sacrifice Bowl",
+        "value": 50,
+        "cp": 8,
+        "dc": 14,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Coal",
+            "Granite",
+            "Ingot (Iron)"
+        ],
+        "outputs": [
+            "Fixture: Sacrifice Bowl"
+        ]
+    },
+    {
         "id": 2254,
         "skill": 2,
         "category": 115,
@@ -16183,13 +17003,47 @@
         ]
     },
     {
+        "id": 2395,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Skull Pile (Large)",
+        "value": 500,
+        "cp": 1,
+        "dc": 1,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Skull"
+        ],
+        "outputs": [
+            "Fixture: Skull Pile (Large)"
+        ]
+    },
+    {
+        "id": 2394,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Skull Pile (Small)",
+        "value": 500,
+        "cp": 1,
+        "dc": 1,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Skull"
+        ],
+        "outputs": [
+            "Fixture: Skull Pile (Small)"
+        ]
+    },
+    {
         "id": 782,
         "skill": 1,
         "category": 115,
         "name": "Fixture: Skull Pole",
         "value": 1200,
         "cp": 9,
-        "dc": 20,
+        "dc": 5,
         "races": null,
         "classes": null,
         "inputs": [
@@ -16198,6 +17052,42 @@
         ],
         "outputs": [
             "Fixture: Skull Pole"
+        ]
+    },
+    {
+        "id": 2393,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Skull Pole (Small)",
+        "value": 1200,
+        "cp": 9,
+        "dc": 5,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Skull",
+            "Softwood"
+        ],
+        "outputs": [
+            "Fixture: Skull Pole (Small)"
+        ]
+    },
+    {
+        "id": 2406,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Small Horn Totem",
+        "value": 50,
+        "cp": 11,
+        "dc": 16,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Wax"
+        ],
+        "outputs": [
+            "Fixture: Small Horn Totem"
         ]
     },
     {
@@ -16365,6 +17255,44 @@
         ]
     },
     {
+        "id": 2414,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Statue (Dwarf - Large)",
+        "value": 15000,
+        "cp": 160,
+        "dc": 28,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Ingot (Gold)",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Statue (Dwarf - Large)"
+        ]
+    },
+    {
+        "id": 2413,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Statue (Dwarf - Ruby)",
+        "value": 12500,
+        "cp": 100,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Marble",
+            "Ruby"
+        ],
+        "outputs": [
+            "Fixture: Statue (Dwarf - Ruby)"
+        ]
+    },
+    {
         "id": 1341,
         "skill": 3,
         "category": 115,
@@ -16456,6 +17384,24 @@
         ]
     },
     {
+        "id": 2415,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Statue (Minotaur)",
+        "value": 12500,
+        "cp": 80,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Granite",
+            "Ingot (Gold)"
+        ],
+        "outputs": [
+            "Fixture: Statue (Minotaur)"
+        ]
+    },
+    {
         "id": 1232,
         "skill": 3,
         "category": 115,
@@ -16541,6 +17487,25 @@
         ],
         "outputs": [
             "Fixture: Statue (Tall)"
+        ]
+    },
+    {
+        "id": 2416,
+        "skill": 3,
+        "category": 115,
+        "name": "Fixture: Statue (Wall Snake)",
+        "value": 8000,
+        "cp": 80,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Emerald",
+            "Granite",
+            "Marble"
+        ],
+        "outputs": [
+            "Fixture: Statue (Wall Snake)"
         ]
     },
     {
@@ -17432,6 +18397,24 @@
         ],
         "outputs": [
             "Fixture: Wooden Coffin (Open)"
+        ]
+    },
+    {
+        "id": 2407,
+        "skill": 1,
+        "category": 115,
+        "name": "Fixture: Wooden Shrine",
+        "value": 50,
+        "cp": 12,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Wax"
+        ],
+        "outputs": [
+            "Fixture: Wooden Shrine"
         ]
     },
     {
@@ -18642,24 +19625,6 @@
         ]
     },
     {
-        "id": 1613,
-        "skill": 3,
-        "category": 121,
-        "name": "Glass Bottle (Bulk)",
-        "value": 1100,
-        "cp": 100,
-        "dc": 2,
-        "races": null,
-        "classes": null,
-        "inputs": [
-            "Coal",
-            "Glass"
-        ],
-        "outputs": [
-            "Glass Bottle"
-        ]
-    },
-    {
         "id": 2296,
         "skill": 3,
         "category": 273,
@@ -18750,24 +19715,6 @@
         ]
     },
     {
-        "id": 1614,
-        "skill": 3,
-        "category": 121,
-        "name": "Glass Vial (Bulk)",
-        "value": 1600,
-        "cp": 100,
-        "dc": 2,
-        "races": null,
-        "classes": null,
-        "inputs": [
-            "Coal",
-            "Glass"
-        ],
-        "outputs": [
-            "Glass Vial"
-        ]
-    },
-    {
         "id": 37,
         "skill": 1,
         "category": 45,
@@ -18842,6 +19789,26 @@
         ],
         "outputs": [
             "Gloves of the Singer"
+        ]
+    },
+    {
+        "id": 2390,
+        "skill": 3,
+        "category": 260,
+        "name": "Gluttonous Light Gem",
+        "value": 2000,
+        "cp": 40,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Darkness",
+            "Ichor",
+            "Printing Ink",
+            "Quartz Crystal"
+        ],
+        "outputs": [
+            "Gluttonous Light Gem"
         ]
     },
     {
@@ -19126,6 +20093,41 @@
         ]
     },
     {
+        "id": 2419,
+        "skill": 3,
+        "category": 131,
+        "name": "Golem Parts (Clay)",
+        "value": 5000,
+        "cp": 40,
+        "dc": 20,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Clay"
+        ],
+        "outputs": [
+            "Golem Parts (Clay)"
+        ]
+    },
+    {
+        "id": 2420,
+        "skill": 5,
+        "category": 131,
+        "name": "Golem Parts (Flesh)",
+        "value": 6000,
+        "cp": 60,
+        "dc": 24,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Humanoid Corpse"
+        ],
+        "outputs": [
+            "Golem Parts (Flesh)"
+        ]
+    },
+    {
         "id": 523,
         "skill": 4,
         "category": 131,
@@ -19393,8 +20395,8 @@
         "races": null,
         "classes": null,
         "inputs": [
+            "Consecrated Driftwood (Greater)",
             "Evard's Black Tentacles",
-            "Greater Seagod Offering",
             "Shark Tooth",
             "Softwood (Ancient Yew)"
         ],
@@ -19667,7 +20669,7 @@
     {
         "id": 957,
         "skill": 3,
-        "category": 109,
+        "category": 277,
         "name": "Greater Bejeweled Rune",
         "value": 25003,
         "cp": 200,
@@ -19685,7 +20687,7 @@
     {
         "id": 960,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Greater Blade Rune",
         "value": 25003,
         "cp": 200,
@@ -19724,7 +20726,7 @@
     {
         "id": 963,
         "skill": 1,
-        "category": 109,
+        "category": 277,
         "name": "Greater Etched Rune",
         "value": 25003,
         "cp": 200,
@@ -19742,7 +20744,7 @@
     {
         "id": 966,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Greater Forged Rune",
         "value": 25003,
         "cp": 200,
@@ -19796,49 +20798,9 @@
         ]
     },
     {
-        "id": 2199,
-        "skill": 3,
-        "category": 259,
-        "name": "Greater Sacred Offering",
-        "value": 5003,
-        "cp": 400,
-        "dc": 30,
-        "races": null,
-        "classes": {},
-        "inputs": [
-            "Emerald",
-            "Holy Water",
-            "Moonstone",
-            "Sunstone"
-        ],
-        "outputs": [
-            "Greater Sacred Offering"
-        ]
-    },
-    {
-        "id": 2200,
-        "skill": 3,
-        "category": 259,
-        "name": "Greater Seagod Offering",
-        "value": 5003,
-        "cp": 400,
-        "dc": 30,
-        "races": null,
-        "classes": {},
-        "inputs": [
-            "Azurite",
-            "Bluestone",
-            "Kelp",
-            "Pearl"
-        ],
-        "outputs": [
-            "Greater Seagod Offering"
-        ]
-    },
-    {
         "id": 969,
         "skill": 6,
-        "category": 109,
+        "category": 277,
         "name": "Greater Woven Rune",
         "value": 25003,
         "cp": 200,
@@ -19999,8 +20961,8 @@
         "classes": null,
         "inputs": [
             "Coal",
-            "Ingot (Steel)",
-            "Rock Chunk (Arjale)"
+            "Ingot (Greensteel)",
+            "Ingot (Steel)"
         ],
         "outputs": [
             "Greensteel Bracer"
@@ -20876,6 +21838,46 @@
         ]
     },
     {
+        "id": 2423,
+        "skill": 1,
+        "category": 279,
+        "name": "Harp",
+        "value": 500,
+        "cp": 100,
+        "dc": 15,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Animal Sinew",
+            "Hardwood",
+            "Softwood"
+        ],
+        "outputs": [
+            "Harp"
+        ]
+    },
+    {
+        "id": 2426,
+        "skill": 1,
+        "category": 279,
+        "name": "Harp (Masterwork)",
+        "value": 6000,
+        "cp": 450,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardening Finish",
+            "Ingot (Silver)",
+            "Mithral Dust",
+            "Rare Hardwood",
+            "Softwood (Ancient Yew)"
+        ],
+        "outputs": [
+            "Harp (Masterwork)"
+        ]
+    },
+    {
         "id": 832,
         "skill": 3,
         "category": 117,
@@ -21037,6 +22039,27 @@
         ],
         "outputs": [
             "Healing Draught"
+        ]
+    },
+    {
+        "id": 2386,
+        "skill": 1,
+        "category": 278,
+        "name": "Hearteater's Cleaver",
+        "value": 270580,
+        "cp": 600,
+        "dc": 50,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Ashwood Stabilizer",
+            "Ichor",
+            "Rare Hardwood",
+            "Shaped Obsidian (Superior)",
+            "Stop Heart"
+        ],
+        "outputs": [
+            "Hearteater's Cleaver"
         ]
     },
     {
@@ -22946,23 +23969,6 @@
         ]
     },
     {
-        "id": 2252,
-        "skill": 2,
-        "category": 120,
-        "name": "Kaeth Beans (Bulk)",
-        "value": 500,
-        "cp": 20,
-        "dc": 2,
-        "races": null,
-        "classes": null,
-        "inputs": [
-            "Kaeth Cherries"
-        ],
-        "outputs": [
-            "Kaeth Beans"
-        ]
-    },
-    {
         "id": 220,
         "skill": 4,
         "category": 40,
@@ -24127,7 +25133,7 @@
     {
         "id": 956,
         "skill": 3,
-        "category": 109,
+        "category": 277,
         "name": "Lesser Bejeweled Rune",
         "value": 15003,
         "cp": 120,
@@ -24144,7 +25150,7 @@
     {
         "id": 959,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Lesser Blade Rune",
         "value": 15003,
         "cp": 120,
@@ -24161,7 +25167,7 @@
     {
         "id": 962,
         "skill": 1,
-        "category": 109,
+        "category": 277,
         "name": "Lesser Etched Rune",
         "value": 15003,
         "cp": 120,
@@ -24178,7 +25184,7 @@
     {
         "id": 965,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Lesser Forged Rune",
         "value": 15003,
         "cp": 120,
@@ -24228,46 +25234,6 @@
         ],
         "outputs": [
             "Lesser Ranger's Studded Leather"
-        ]
-    },
-    {
-        "id": 1781,
-        "skill": 3,
-        "category": 259,
-        "name": "Lesser Sacred Offering",
-        "value": 503,
-        "cp": 400,
-        "dc": 10,
-        "races": null,
-        "classes": {},
-        "inputs": [
-            "Diamond",
-            "Emerald",
-            "Holy Water",
-            "Sapphire"
-        ],
-        "outputs": [
-            "Lesser Sacred Offering"
-        ]
-    },
-    {
-        "id": 1780,
-        "skill": 3,
-        "category": 259,
-        "name": "Lesser Seagod Offering",
-        "value": 503,
-        "cp": 400,
-        "dc": 10,
-        "races": null,
-        "classes": {},
-        "inputs": [
-            "Emerald",
-            "Kelp",
-            "Pearl",
-            "Sapphire"
-        ],
-        "outputs": [
-            "Lesser Seagod Offering"
         ]
     },
     {
@@ -24331,7 +25297,7 @@
     {
         "id": 968,
         "skill": 6,
-        "category": 109,
+        "category": 277,
         "name": "Lesser Woven Rune",
         "value": 15003,
         "cp": 120,
@@ -24885,6 +25851,46 @@
         ],
         "outputs": [
             "Longsword (Steel)"
+        ]
+    },
+    {
+        "id": 2422,
+        "skill": 1,
+        "category": 279,
+        "name": "Lute",
+        "value": 500,
+        "cp": 100,
+        "dc": 15,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Animal Sinew",
+            "Hardwood",
+            "Softwood"
+        ],
+        "outputs": [
+            "Lute"
+        ]
+    },
+    {
+        "id": 2424,
+        "skill": 1,
+        "category": 279,
+        "name": "Lute (Masterwork)",
+        "value": 6000,
+        "cp": 450,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardening Finish",
+            "Ingot (Silver)",
+            "Mithral Dust",
+            "Rare Hardwood",
+            "Softwood (Ancient Yew)"
+        ],
+        "outputs": [
+            "Lute (Masterwork)"
         ]
     },
     {
@@ -27538,7 +28544,7 @@
     {
         "id": 958,
         "skill": 3,
-        "category": 109,
+        "category": 277,
         "name": "Masterwork Bejeweled Rune",
         "value": 32503,
         "cp": 260,
@@ -27556,7 +28562,7 @@
     {
         "id": 961,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Masterwork Blade Rune",
         "value": 32503,
         "cp": 260,
@@ -27574,7 +28580,7 @@
     {
         "id": 964,
         "skill": 1,
-        "category": 109,
+        "category": 277,
         "name": "Masterwork Etched Rune",
         "value": 32503,
         "cp": 260,
@@ -27592,7 +28598,7 @@
     {
         "id": 967,
         "skill": 4,
-        "category": 109,
+        "category": 277,
         "name": "Masterwork Forged Rune",
         "value": 32503,
         "cp": 260,
@@ -27610,7 +28616,7 @@
     {
         "id": 970,
         "skill": 6,
-        "category": 109,
+        "category": 277,
         "name": "Masterwork Woven Rune",
         "value": 32503,
         "cp": 260,
@@ -29032,7 +30038,7 @@
     {
         "id": 1989,
         "skill": 5,
-        "category": 247,
+        "category": 260,
         "name": "Orb of Gravity",
         "value": 20000,
         "cp": 60,
@@ -29710,6 +30716,27 @@
         ],
         "outputs": [
             "Platebreakers Lance (Small)"
+        ]
+    },
+    {
+        "id": 2387,
+        "skill": 1,
+        "category": 238,
+        "name": "Plumed King's Feather",
+        "value": 205634,
+        "cp": 600,
+        "dc": 50,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Ashwood Stabilizer",
+            "Eagle Feather",
+            "Eagle's Splendor",
+            "Shaped Obsidian (Superior)",
+            "Softwood (Ancient Yew)"
+        ],
+        "outputs": [
+            "Plumed King's Feather"
         ]
     },
     {
@@ -31305,6 +32332,196 @@
         ]
     },
     {
+        "id": 2375,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Bottle of Blueleaf Extract",
+        "value": 30011,
+        "cp": 260,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Euklian Clay",
+            "Vial of Blueleaf Extract"
+        ],
+        "outputs": [
+            "Bottle of Blueleaf Extract"
+        ]
+    },
+    {
+        "id": 2377,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Bottle of Djinn Uther",
+        "value": 30001,
+        "cp": 260,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Euklian Clay",
+            "Flask of Djinn Uther"
+        ],
+        "outputs": [
+            "Bottle of Djinn Uther"
+        ]
+    },
+    {
+        "id": 2384,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Chardalyn Stone",
+        "value": 20001,
+        "cp": 200,
+        "dc": 35,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Euklian Clay",
+            "Flawed Chardalyn Stone"
+        ],
+        "outputs": [
+            "Chardalyn Stone"
+        ]
+    },
+    {
+        "id": 2383,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Chunk of Zardazik",
+        "value": 20001,
+        "cp": 200,
+        "dc": 35,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Euklian Clay",
+            "Impure Shard of Zardazik"
+        ],
+        "outputs": [
+            "Chunk of Zardazik"
+        ]
+    },
+    {
+        "id": 2381,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Flask of Djinn Uther",
+        "value": 20001,
+        "cp": 200,
+        "dc": 35,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Euklian Clay",
+            "Sample of Djinn Uther"
+        ],
+        "outputs": [
+            "Flask of Djinn Uther"
+        ]
+    },
+    {
+        "id": 2382,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Fragments of Theurglass",
+        "value": 20041,
+        "cp": 200,
+        "dc": 35,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Euklian Clay",
+            "Rough Fragments of Theurglass"
+        ],
+        "outputs": [
+            "Fragments of Theurglass"
+        ]
+    },
+    {
+        "id": 2376,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Intact Theurglass",
+        "value": 30011,
+        "cp": 260,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Euklian Clay",
+            "Fragments of Theurglass"
+        ],
+        "outputs": [
+            "Intact Theurglass"
+        ]
+    },
+    {
+        "id": 2379,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Perfect Chardalyn Stone",
+        "value": 30001,
+        "cp": 260,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Chardalyn Stone",
+            "Euklian Clay"
+        ],
+        "outputs": [
+            "Perfect Chardalyn Stone"
+        ]
+    },
+    {
+        "id": 2378,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Pure Chunk of Zardazik",
+        "value": 30001,
+        "cp": 260,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Greater)",
+            "Chunk of Zardazik",
+            "Euklian Clay"
+        ],
+        "outputs": [
+            "Pure Chunk of Zardazik"
+        ]
+    },
+    {
+        "id": 2380,
+        "skill": 5,
+        "category": 277,
+        "name": "Reform Vial of Blueleaf Extract",
+        "value": 20041,
+        "cp": 200,
+        "dc": 35,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Euklian Clay",
+            "Sample of Blueleaf Extract"
+        ],
+        "outputs": [
+            "Vial of Blueleaf Extract"
+        ]
+    },
+    {
         "id": 1678,
         "skill": 1,
         "category": 240,
@@ -32062,7 +33279,7 @@
     {
         "id": 1993,
         "skill": 5,
-        "category": 247,
+        "category": 260,
         "name": "Saboteur's Kit",
         "value": 7516,
         "cp": 60,
@@ -32099,6 +33316,267 @@
         ],
         "outputs": [
             "Saboteur's Kit"
+        ]
+    },
+    {
+        "id": 2443,
+        "skill": 2,
+        "category": 259,
+        "name": "Sacred Balsam (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Emerald",
+            "Flask of Oil",
+            "Fossil Amber",
+            "Spirit"
+        ],
+        "outputs": [
+            "Sacred Balsam (Greater)"
+        ]
+    },
+    {
+        "id": 2444,
+        "skill": 2,
+        "category": 259,
+        "name": "Sacred Balsam (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Amber",
+            "Emerald",
+            "Small Seed Balm",
+            "Spirit"
+        ],
+        "outputs": [
+            "Sacred Balsam (Lesser)"
+        ]
+    },
+    {
+        "id": 2429,
+        "skill": 1,
+        "category": 259,
+        "name": "Sacred Carving (Greater)",
+        "value": 5003,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Diamond",
+            "Rose Quartz",
+            "Softwood",
+            "Softwood (Ancient Yew)"
+        ],
+        "outputs": [
+            "Sacred Carving (Greater)"
+        ]
+    },
+    {
+        "id": 2430,
+        "skill": 1,
+        "category": 259,
+        "name": "Sacred Carving (Lesser)",
+        "value": 503,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Diamond",
+            "Hardwood",
+            "Quartz Crystal",
+            "Softwood"
+        ],
+        "outputs": [
+            "Sacred Carving (Lesser)"
+        ]
+    },
+    {
+        "id": 2385,
+        "skill": 6,
+        "category": 135,
+        "name": "Sacred Drakescale",
+        "value": 232712,
+        "cp": 350,
+        "dc": 40,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Dragon Oil",
+            "Dragonhide",
+            "Ingot (Adamantine)",
+            "Mithral Dust",
+            "Ruby"
+        ],
+        "outputs": [
+            "Sacred Drakescale"
+        ]
+    },
+    {
+        "id": 2449,
+        "skill": 5,
+        "category": 259,
+        "name": "Sacred Elixir (Greater)",
+        "value": 5003,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Alchemistic Catalyst (Standard)",
+            "Rogue Stone",
+            "Sapphire",
+            "Wine"
+        ],
+        "outputs": [
+            "Sacred Elixir (Greater)"
+        ]
+    },
+    {
+        "id": 2450,
+        "skill": 5,
+        "category": 259,
+        "name": "Sacred Elixir (Lesser)",
+        "value": 503,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Alchemistic Catalyst (Lesser)",
+            "Fire Opal",
+            "Sapphire",
+            "Wine"
+        ],
+        "outputs": [
+            "Sacred Elixir (Lesser)"
+        ]
+    },
+    {
+        "id": 2451,
+        "skill": 3,
+        "category": 259,
+        "name": "Sacred Icon (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Amaratha",
+            "Clay",
+            "Marble",
+            "Ruby"
+        ],
+        "outputs": [
+            "Sacred Icon (Greater)"
+        ]
+    },
+    {
+        "id": 2452,
+        "skill": 3,
+        "category": 259,
+        "name": "Sacred Icon (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Alexandrite",
+            "Clay",
+            "Granite",
+            "Ruby"
+        ],
+        "outputs": [
+            "Sacred Icon (Lesser)"
+        ]
+    },
+    {
+        "id": 2434,
+        "skill": 4,
+        "category": 259,
+        "name": "Sacred Metalwork (Greater)",
+        "value": 5003,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Coal",
+            "Ingot (Gold)",
+            "Orange Topaz",
+            "Ruby"
+        ],
+        "outputs": [
+            "Sacred Metalwork (Greater)"
+        ]
+    },
+    {
+        "id": 2433,
+        "skill": 4,
+        "category": 259,
+        "name": "Sacred Metalwork (Lesser)",
+        "value": 503,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Coal",
+            "Ingot (Steel)",
+            "Ruby",
+            "Topaz"
+        ],
+        "outputs": [
+            "Sacred Metalwork (Lesser)"
+        ]
+    },
+    {
+        "id": 2439,
+        "skill": 6,
+        "category": 259,
+        "name": "Sacred Reliquary (Greater)",
+        "value": 5004,
+        "cp": 400,
+        "dc": 30,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Bolt of Silk",
+            "Leather (Small)",
+            "Rosenstone",
+            "Sapphire"
+        ],
+        "outputs": [
+            "Sacred Reliquary (Greater)"
+        ]
+    },
+    {
+        "id": 2440,
+        "skill": 6,
+        "category": 259,
+        "name": "Sacred Reliquary (Lesser)",
+        "value": 504,
+        "cp": 200,
+        "dc": 10,
+        "races": null,
+        "classes": {},
+        "inputs": [
+            "Aventurine",
+            "Bolt of Cloth",
+            "Leather (Small)",
+            "Sapphire"
+        ],
+        "outputs": [
+            "Sacred Reliquary (Lesser)"
         ]
     },
     {
@@ -32517,7 +33995,7 @@
     {
         "id": 1659,
         "skill": 1,
-        "category": 238,
+        "category": 278,
         "name": "Scalebeast Render",
         "value": 145450,
         "cp": 671,
@@ -35374,7 +36852,7 @@
     {
         "id": 1992,
         "skill": 5,
-        "category": 247,
+        "category": 260,
         "name": "Sphere of Gravity",
         "value": 30000,
         "cp": 80,
@@ -35637,6 +37115,27 @@
         ],
         "outputs": [
             "Steelbreaker Sledge"
+        ]
+    },
+    {
+        "id": 2389,
+        "skill": 4,
+        "category": 28,
+        "name": "Storm God's Drum Hammer",
+        "value": 239524,
+        "cp": 600,
+        "dc": 50,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Azurite",
+            "Great Thunderclap",
+            "Ingot (Adamantine)",
+            "Ingot (Steel)",
+            "Rare Hardwood"
+        ],
+        "outputs": [
+            "Storm God's Drum Hammer"
         ]
     },
     {
@@ -37861,6 +39360,42 @@
         ]
     },
     {
+        "id": 2391,
+        "skill": 1,
+        "category": 116,
+        "name": "Workstation: Alchemy (Mortar and Pestle)",
+        "value": 1500,
+        "cp": 12,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Ingot (Iron)"
+        ],
+        "outputs": [
+            "Workstation: Alchemy (Mortar and Pestle)"
+        ]
+    },
+    {
+        "id": 2392,
+        "skill": 1,
+        "category": 116,
+        "name": "Workstation: Alchemy (Tome)",
+        "value": 1500,
+        "cp": 12,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Book",
+            "Hardwood"
+        ],
+        "outputs": [
+            "Workstation: Alchemy (Tome)"
+        ]
+    },
+    {
         "id": 21,
         "skill": 1,
         "category": 116,
@@ -37929,6 +39464,42 @@
         ],
         "outputs": [
             "Workstation: Cooking (Cookpot)"
+        ]
+    },
+    {
+        "id": 2399,
+        "skill": 4,
+        "category": 116,
+        "name": "Workstation: Cooking (Large Iron Cauldron)",
+        "value": 2000,
+        "cp": 30,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Hardwood",
+            "Ingot (Iron)"
+        ],
+        "outputs": [
+            "Workstation: Cooking (Large Iron Cauldron)"
+        ]
+    },
+    {
+        "id": 2398,
+        "skill": 4,
+        "category": 116,
+        "name": "Workstation: Cooking (Large Steel Cauldron)",
+        "value": 2000,
+        "cp": 30,
+        "dc": 21,
+        "races": null,
+        "classes": null,
+        "inputs": [
+            "Ingot (Steel)",
+            "Softwood"
+        ],
+        "outputs": [
+            "Workstation: Cooking (Large Steel Cauldron)"
         ]
     },
     {
